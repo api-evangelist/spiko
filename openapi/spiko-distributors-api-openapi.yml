@@ -1,0 +1,563 @@
+openapi: 3.1.0
+info:
+  title: Spiko Distributor Account transactions Distributors API
+  version: v0
+  description: The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.
+servers:
+- url: https://distributor-api.spiko.io
+  description: Production Server
+- url: https://distributor-api.preprod.spiko.io
+  description: Pre-production Server
+security: []
+tags:
+- name: Distributors
+paths:
+  /v0/distributors/me:
+    get:
+      tags:
+      - Distributors
+      operationId: distributors.getDefaultDistributor
+      parameters: []
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - name
+                - email
+                - distributionModel
+                properties:
+                  id:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  name:
+                    $ref: '#/components/schemas/NonEmptyString'
+                  email:
+                    $ref: '#/components/schemas/Lowercase'
+                  distributionModel:
+                    type: string
+                    enum:
+                    - spiko-license
+                    - named-accounts
+                    - omnibus
+                additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpApiDecodeError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Unauthorized'
+                - $ref: '#/components/schemas/DistributorAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      description: Retrieve information about the distributor linked to the client credentials.
+      summary: Get distributor info
+  /v0/share-classes:
+    get:
+      tags:
+      - Distributors
+      operationId: distributors.getAllAllowedShareClasses
+      parameters: []
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - id
+                  - symbol
+                  - fundId
+                  - isin
+                  - navDecimals
+                  - shareDecimals
+                  - currency
+                  - tokens
+                  - useOfIncome
+                  - minimumInitialSubscription
+                  - minimumSubsequentSubscription
+                  - minimumRedemption
+                  - subscriptionFees
+                  - redemptionFees
+                  - managementFees
+                  - bankAccountNumber
+                  - bankAccountIntermediaryBic
+                  - bankAccountBic
+                  - intermediaryShareClasses
+                  - cashCollectionBankAccount
+                  properties:
+                    id:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    symbol:
+                      $ref: '#/components/schemas/ShareClassSymbol'
+                    fundId:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    isin:
+                      title: Isin
+                      type: string
+                      description: A valid ISIN
+                    navDecimals:
+                      type: integer
+                      description: a number between 0 and 20
+                      title: between(0, 20)
+                      minimum: 0
+                      maximum: 20
+                    shareDecimals:
+                      type: integer
+                      description: a number between 0 and 20
+                      title: between(0, 20)
+                      minimum: 0
+                      maximum: 20
+                    currency:
+                      type: string
+                      enum:
+                      - EUR
+                      - USD
+                      - GBP
+                      - CHF
+                      - JPY
+                      - SGD
+                      title: Currency code
+                      identifier: CurrencyCode
+                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                    tokens:
+                      type: array
+                      items:
+                        anyOf:
+                        - type: object
+                          required:
+                          - network
+                          - address
+                          properties:
+                            network:
+                              $ref: '#/components/schemas/EVMNetwork'
+                            address:
+                              type: string
+                              title: Ethereum address
+                              description: a valid Ethereum address, starting with 0x and followed by 40 hexadecimal characters e.g. "0xb794f5ea0ba39494ce839613fffba74279579268"
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - network
+                          - address
+                          properties:
+                            network:
+                              type: string
+                              enum:
+                              - Starknet
+                              - StarknetSepolia
+                            address:
+                              title: StarknetAddress
+                              type: string
+                              description: a valid Starknet address, starting with 0x and followed by 64 hexadecimal characters e.g. "0x0000000000000000000000000000000000000000000000000000000000000000"
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - network
+                          - address
+                          properties:
+                            network:
+                              type: string
+                              enum:
+                              - Stellar
+                              - StellarTestnet
+                            address:
+                              anyOf:
+                              - title: StellarAccountAddress
+                                type: string
+                                description: a valid Stellar account address, starting with G and followed by 55 hexadecimal characters e.g. "GBYIQXBKEB655EB3WTRITS6RR5GXEP6SQRBLPREZHNFYKT7WBMTMPR3H"
+                              - title: StellarContractAddress
+                                type: string
+                                description: a valid Stellar contract address, starting with C and followed by 55 hexadecimal characters e.g. "CCAANR7HZNOXYZD7SXS2WQLV5BAOXSRZ7V4O43IANSB355QN2RNG7WVC"
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - network
+                          - address
+                          properties:
+                            network:
+                              type: string
+                              enum:
+                              - Solana
+                              - SolanaDevnet
+                            address:
+                              type: string
+                              title: Solana address
+                              description: a valid Solana address, consisting of 32 to 44 base58 characters
+                          additionalProperties: false
+                    useOfIncome:
+                      type: string
+                      enum:
+                      - accumulating
+                      - distributing
+                    minimumInitialSubscription:
+                      type: string
+                      title: non-negative decimal number as a string
+                      description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
+                    minimumSubsequentSubscription:
+                      type: string
+                      title: non-negative decimal number as a string
+                      description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
+                    minimumRedemption:
+                      type: string
+                      title: non-negative decimal number as a string
+                      description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
+                    subscriptionFees:
+                      type: string
+                      title: non-negative decimal number as a string
+                      description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
+                    redemptionFees:
+                      type: string
+                      title: non-negative decimal number as a string
+                      description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
+                    managementFees:
+                      type: string
+                      title: non-negative decimal number as a string
+                      description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
+                    bankAccountNumber:
+                      title: IBAN
+                      type: string
+                      description: a valid IBAN (International Bank Account Number)
+                    bankAccountIntermediaryBic:
+                      anyOf:
+                      - title: BIC
+                        type: string
+                        description: A valid BIC (Bank Identifier Code)
+                      - type: 'null'
+                    bankAccountBic:
+                      title: BIC
+                      type: string
+                      description: A valid BIC (Bank Identifier Code)
+                    intermediaryShareClasses:
+                      type: array
+                      items:
+                        type: array
+                        minItems: 2
+                        prefixItems:
+                        - type: string
+                          enum:
+                          - EUR
+                          - USD
+                          - GBP
+                          - CHF
+                          - JPY
+                          - SGD
+                          title: Currency code
+                          identifier: CurrencyCode
+                          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                        - type: string
+                          description: a Universally Unique Identifier
+                          format: uuid
+                        items: false
+                    cashCollectionBankAccount:
+                      anyOf:
+                      - anyOf:
+                        - type: object
+                          required:
+                          - bank
+                          - id
+                          - details
+                          properties:
+                            bank:
+                              type: string
+                              enum:
+                              - MemoBank
+                            id:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                            details:
+                              type: object
+                              required:
+                              - beneficiaryName
+                              - bic
+                              - currency
+                              - accountNumber
+                              - intermediaryBic
+                              properties:
+                                beneficiaryName:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                bic:
+                                  title: BIC
+                                  type: string
+                                  description: A valid BIC (Bank Identifier Code)
+                                currency:
+                                  type: string
+                                  enum:
+                                  - EUR
+                                  - USD
+                                  - GBP
+                                  - CHF
+                                  - JPY
+                                  - SGD
+                                  title: Currency code
+                                  identifier: CurrencyCode
+                                  description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                accountNumber:
+                                  title: IBAN
+                                  type: string
+                                  description: a valid IBAN (International Bank Account Number)
+                                intermediaryBic:
+                                  anyOf:
+                                  - title: BIC
+                                    type: string
+                                    description: A valid BIC (Bank Identifier Code)
+                                  - type: 'null'
+                              additionalProperties: false
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - bank
+                          - id
+                          - details
+                          properties:
+                            bank:
+                              type: string
+                              enum:
+                              - BankingCircle
+                            id:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                            details:
+                              type: object
+                              required:
+                              - beneficiaryName
+                              - bic
+                              - currency
+                              - accountNumber
+                              - intermediaryBic
+                              properties:
+                                beneficiaryName:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                bic:
+                                  title: BIC
+                                  type: string
+                                  description: A valid BIC (Bank Identifier Code)
+                                currency:
+                                  type: string
+                                  enum:
+                                  - EUR
+                                  - USD
+                                  - GBP
+                                  - CHF
+                                  - JPY
+                                  - SGD
+                                  title: Currency code
+                                  identifier: CurrencyCode
+                                  description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                accountNumber:
+                                  title: IBAN
+                                  type: string
+                                  description: a valid IBAN (International Bank Account Number)
+                                intermediaryBic:
+                                  anyOf:
+                                  - title: BIC
+                                    type: string
+                                    description: A valid BIC (Bank Identifier Code)
+                                  - type: 'null'
+                              additionalProperties: false
+                          additionalProperties: false
+                      - type: 'null'
+                  additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpApiDecodeError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Unauthorized'
+                - $ref: '#/components/schemas/DistributorAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      description: List share classes accessible to the authenticated distributor.
+      summary: List share classes
+components:
+  schemas:
+    EVMNetwork:
+      type: string
+      enum:
+      - Sepolia
+      - PolygonAmoy
+      - BaseSepolia
+      - ArbitrumSepolia
+      - EtherlinkTestnet
+      - Ethereum
+      - Polygon
+      - Base
+      - Arbitrum
+      - Etherlink
+      description: an EVM blockchain network e.g. "Ethereum", "Polygon", "Arbitrum"
+      title: EVM Network
+    ForbiddenError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        customErrorCode:
+          type: string
+          enum:
+          - AccountDoesNotBelongToInvestor
+          - SessionIsNot2FA
+          - InvestorDocumentLinkedToActiveBankAccount
+          - AtLeastTwoAdminUsersRequired
+          - InvestorNotPendingOnboarding
+          - ShareClassNotAvailableForDistributor
+        _tag:
+          type: string
+          enum:
+          - ForbiddenError
+      additionalProperties: false
+      description: Forbidden
+    HttpApiDecodeError:
+      type: object
+      required:
+      - issues
+      - message
+      - _tag
+      properties:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+        message:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - HttpApiDecodeError
+      additionalProperties: false
+      description: The request did not match the expected schema
+    Issue:
+      type: object
+      required:
+      - _tag
+      - path
+      - message
+      properties:
+        _tag:
+          type: string
+          enum:
+          - Pointer
+          - Unexpected
+          - Missing
+          - Composite
+          - Refinement
+          - Transformation
+          - Type
+          - Forbidden
+          description: The tag identifying the type of parse issue
+        path:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyKey'
+          description: The path to the property where the issue occurred
+        message:
+          type: string
+          description: A descriptive message explaining the issue
+      additionalProperties: false
+      description: Represents an error encountered while parsing a value to match the schema
+    NonEmptyString:
+      type: string
+      description: a non empty string
+      title: nonEmptyString
+      minLength: 1
+    Lowercase:
+      type: string
+      description: a string that will be converted to lowercase
+    DistributorAuthenticationError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - DistributorAuthenticationError
+      additionalProperties: false
+      description: Authentication Error
+    Unauthorized:
+      $id: /schemas/void
+      title: Unauthorized
+    ShareClassSymbol:
+      type: string
+      enum:
+      - EUTBL
+      - USTBL
+      - eurUSTBL
+      - SPKCC
+      - eurSPKCC
+      - UKTBL
+      - eurUKTBL
+      - SAFO
+      - SAFOd
+      - eurSAFO
+      - eurSAFOd
+      - gbpSAFO
+      - chfSAFO
+      title: ShareClassSymbol
+    PropertyKey:
+      anyOf:
+      - type: string
+      - type: number
+      - type: object
+        required:
+        - _tag
+        - key
+        properties:
+          _tag:
+            type: string
+            enum:
+            - symbol
+          key:
+            type: string
+        additionalProperties: false
+        description: an object to be decoded into a globally shared symbol
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: Use your API client_id as username and client_secret as password.

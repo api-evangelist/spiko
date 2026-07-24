@@ -1,0 +1,1738 @@
+openapi: 3.1.0
+info:
+  title: Spiko Distributor Account transactions Accounts API
+  version: v0
+  description: The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.
+servers:
+- url: https://distributor-api.spiko.io
+  description: Production Server
+- url: https://distributor-api.preprod.spiko.io
+  description: Pre-production Server
+security: []
+tags:
+- name: Accounts
+paths:
+  /v0/accounts:
+    post:
+      tags:
+      - Accounts
+      operationId: accounts.createAccount
+      parameters: []
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - investorId
+                - walletId
+                - address
+                - network
+                - createdAt
+                - name
+                - shareClassIds
+                properties:
+                  id:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  investorId:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  walletId:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  address:
+                    anyOf:
+                    - type: string
+                      title: Ethereum address
+                      description: a valid Ethereum address, starting with 0x and followed by 40 hexadecimal characters e.g. "0xb794f5ea0ba39494ce839613fffba74279579268"
+                    - title: StarknetAddress
+                      type: string
+                      description: a valid Starknet address, starting with 0x and followed by 64 hexadecimal characters e.g. "0x0000000000000000000000000000000000000000000000000000000000000000"
+                    - anyOf:
+                      - title: StellarAccountAddress
+                        type: string
+                        description: a valid Stellar account address, starting with G and followed by 55 hexadecimal characters e.g. "GBYIQXBKEB655EB3WTRITS6RR5GXEP6SQRBLPREZHNFYKT7WBMTMPR3H"
+                      - title: StellarContractAddress
+                        type: string
+                        description: a valid Stellar contract address, starting with C and followed by 55 hexadecimal characters e.g. "CCAANR7HZNOXYZD7SXS2WQLV5BAOXSRZ7V4O43IANSB355QN2RNG7WVC"
+                    - type: string
+                      title: Solana address
+                      description: a valid Solana address, consisting of 32 to 44 base58 characters
+                    deprecated: true
+                    description: Deprecated. Use the wallet API instead.
+                  network:
+                    type: string
+                    enum:
+                    - Sepolia
+                    - PolygonAmoy
+                    - BaseSepolia
+                    - ArbitrumSepolia
+                    - EtherlinkTestnet
+                    - Ethereum
+                    - Polygon
+                    - Base
+                    - Arbitrum
+                    - Etherlink
+                    - Starknet
+                    - StarknetSepolia
+                    - Stellar
+                    - StellarTestnet
+                    - Solana
+                    - SolanaDevnet
+                    description: Deprecated. Use the wallet API instead.
+                    title: Network
+                    deprecated: true
+                  createdAt:
+                    anyOf:
+                    - $ref: '#/components/schemas/Date'
+                    - type: 'null'
+                  name:
+                    anyOf:
+                    - type: object
+                      required:
+                      - _tag
+                      properties:
+                        _tag:
+                          type: string
+                          enum:
+                          - None
+                      additionalProperties: false
+                      description: NoneEncoded
+                    - type: object
+                      required:
+                      - _tag
+                      - value
+                      properties:
+                        _tag:
+                          type: string
+                          enum:
+                          - Some
+                        value:
+                          $ref: '#/components/schemas/NonEmptyTrimmedString'
+                      additionalProperties: false
+                      description: SomeEncoded<NonEmptyTrimmedString>
+                    description: OptionEncoded<NonEmptyTrimmedString>
+                  shareClassIds:
+                    type: array
+                    items:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpApiDecodeError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Unauthorized'
+                - $ref: '#/components/schemas/DistributorAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: NotFound
+      description: Create an account for an investor
+      summary: Create an account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - investorId
+              properties:
+                investorId:
+                  type: string
+                  description: a Universally Unique Identifier
+                  format: uuid
+                name:
+                  type: string
+                  description: a string that will be trimmed
+                shareClassIds:
+                  type: array
+                  items:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+              additionalProperties: false
+        required: true
+    get:
+      tags:
+      - Accounts
+      operationId: accounts.getAccounts
+      parameters:
+      - name: investorId
+        in: query
+        schema:
+          type: string
+          description: a Universally Unique Identifier
+          format: uuid
+        required: true
+        description: a Universally Unique Identifier
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - id
+                  - investorId
+                  - walletId
+                  - address
+                  - network
+                  - createdAt
+                  - name
+                  - shareClassIds
+                  properties:
+                    id:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    investorId:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    walletId:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    address:
+                      anyOf:
+                      - type: string
+                        title: Ethereum address
+                        description: a valid Ethereum address, starting with 0x and followed by 40 hexadecimal characters e.g. "0xb794f5ea0ba39494ce839613fffba74279579268"
+                      - title: StarknetAddress
+                        type: string
+                        description: a valid Starknet address, starting with 0x and followed by 64 hexadecimal characters e.g. "0x0000000000000000000000000000000000000000000000000000000000000000"
+                      - anyOf:
+                        - title: StellarAccountAddress
+                          type: string
+                          description: a valid Stellar account address, starting with G and followed by 55 hexadecimal characters e.g. "GBYIQXBKEB655EB3WTRITS6RR5GXEP6SQRBLPREZHNFYKT7WBMTMPR3H"
+                        - title: StellarContractAddress
+                          type: string
+                          description: a valid Stellar contract address, starting with C and followed by 55 hexadecimal characters e.g. "CCAANR7HZNOXYZD7SXS2WQLV5BAOXSRZ7V4O43IANSB355QN2RNG7WVC"
+                      - type: string
+                        title: Solana address
+                        description: a valid Solana address, consisting of 32 to 44 base58 characters
+                      deprecated: true
+                      description: Deprecated. Use the wallet API instead.
+                    network:
+                      type: string
+                      enum:
+                      - Sepolia
+                      - PolygonAmoy
+                      - BaseSepolia
+                      - ArbitrumSepolia
+                      - EtherlinkTestnet
+                      - Ethereum
+                      - Polygon
+                      - Base
+                      - Arbitrum
+                      - Etherlink
+                      - Starknet
+                      - StarknetSepolia
+                      - Stellar
+                      - StellarTestnet
+                      - Solana
+                      - SolanaDevnet
+                      description: Deprecated. Use the wallet API instead.
+                      title: Network
+                      deprecated: true
+                    createdAt:
+                      anyOf:
+                      - $ref: '#/components/schemas/Date'
+                      - type: 'null'
+                    name:
+                      anyOf:
+                      - type: object
+                        required:
+                        - _tag
+                        properties:
+                          _tag:
+                            type: string
+                            enum:
+                            - None
+                        additionalProperties: false
+                        description: NoneEncoded
+                      - type: object
+                        required:
+                        - _tag
+                        - value
+                        properties:
+                          _tag:
+                            type: string
+                            enum:
+                            - Some
+                          value:
+                            $ref: '#/components/schemas/NonEmptyTrimmedString'
+                        additionalProperties: false
+                        description: SomeEncoded<NonEmptyTrimmedString>
+                      description: OptionEncoded<NonEmptyTrimmedString>
+                    shareClassIds:
+                      type: array
+                      items:
+                        type: string
+                        description: a Universally Unique Identifier
+                        format: uuid
+                  additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpApiDecodeError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Unauthorized'
+                - $ref: '#/components/schemas/DistributorAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: NotFound
+      description: Retrieve all accounts associated with a specific investor. Returns a list of accounts that can be used for deposits and withdrawals.
+      summary: Get accounts of an investor
+  /v0/accounts/{accountId}/lines:
+    post:
+      tags:
+      - Accounts
+      operationId: accounts.addAccountLine
+      parameters:
+      - name: accountId
+        in: path
+        schema:
+          type: string
+          description: a Universally Unique Identifier
+          format: uuid
+        required: true
+        description: a Universally Unique Identifier
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - investorId
+                - walletId
+                - address
+                - network
+                - createdAt
+                - name
+                - shareClassIds
+                properties:
+                  id:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  investorId:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  walletId:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  address:
+                    anyOf:
+                    - type: string
+                      title: Ethereum address
+                      description: a valid Ethereum address, starting with 0x and followed by 40 hexadecimal characters e.g. "0xb794f5ea0ba39494ce839613fffba74279579268"
+                    - title: StarknetAddress
+                      type: string
+                      description: a valid Starknet address, starting with 0x and followed by 64 hexadecimal characters e.g. "0x0000000000000000000000000000000000000000000000000000000000000000"
+                    - anyOf:
+                      - title: StellarAccountAddress
+                        type: string
+                        description: a valid Stellar account address, starting with G and followed by 55 hexadecimal characters e.g. "GBYIQXBKEB655EB3WTRITS6RR5GXEP6SQRBLPREZHNFYKT7WBMTMPR3H"
+                      - title: StellarContractAddress
+                        type: string
+                        description: a valid Stellar contract address, starting with C and followed by 55 hexadecimal characters e.g. "CCAANR7HZNOXYZD7SXS2WQLV5BAOXSRZ7V4O43IANSB355QN2RNG7WVC"
+                    - type: string
+                      title: Solana address
+                      description: a valid Solana address, consisting of 32 to 44 base58 characters
+                    deprecated: true
+                    description: Deprecated. Use the wallet API instead.
+                  network:
+                    type: string
+                    enum:
+                    - Sepolia
+                    - PolygonAmoy
+                    - BaseSepolia
+                    - ArbitrumSepolia
+                    - EtherlinkTestnet
+                    - Ethereum
+                    - Polygon
+                    - Base
+                    - Arbitrum
+                    - Etherlink
+                    - Starknet
+                    - StarknetSepolia
+                    - Stellar
+                    - StellarTestnet
+                    - Solana
+                    - SolanaDevnet
+                    description: Deprecated. Use the wallet API instead.
+                    title: Network
+                    deprecated: true
+                  createdAt:
+                    anyOf:
+                    - $ref: '#/components/schemas/Date'
+                    - type: 'null'
+                  name:
+                    anyOf:
+                    - type: object
+                      required:
+                      - _tag
+                      properties:
+                        _tag:
+                          type: string
+                          enum:
+                          - None
+                      additionalProperties: false
+                      description: NoneEncoded
+                    - type: object
+                      required:
+                      - _tag
+                      - value
+                      properties:
+                        _tag:
+                          type: string
+                          enum:
+                          - Some
+                        value:
+                          $ref: '#/components/schemas/NonEmptyTrimmedString'
+                      additionalProperties: false
+                      description: SomeEncoded<NonEmptyTrimmedString>
+                    description: OptionEncoded<NonEmptyTrimmedString>
+                  shareClassIds:
+                    type: array
+                    items:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/HttpApiDecodeError'
+                - $ref: '#/components/schemas/BadRequest'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Unauthorized'
+                - $ref: '#/components/schemas/DistributorAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: NotFound
+        '409':
+          description: Conflict
+      description: Add a new line to an internal account for a given share class. This enables the investor to hold and subscribe to that share class within the account. Returns 409 if the account already has a line for the specified share class.
+      summary: Add a share-class line to an account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - shareClassId
+              properties:
+                shareClassId:
+                  type: string
+                  description: a Universally Unique Identifier
+                  format: uuid
+              additionalProperties: false
+        required: true
+  /v0/accounts/{accountId}:
+    get:
+      tags:
+      - Accounts
+      operationId: accounts.getAccount
+      parameters:
+      - name: accountId
+        in: path
+        schema:
+          type: string
+          description: a Universally Unique Identifier
+          format: uuid
+        required: true
+        description: a Universally Unique Identifier
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - investorId
+                - walletId
+                - address
+                - network
+                - createdAt
+                - name
+                - shareClassIds
+                properties:
+                  id:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  investorId:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  walletId:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  address:
+                    anyOf:
+                    - type: string
+                      title: Ethereum address
+                      description: a valid Ethereum address, starting with 0x and followed by 40 hexadecimal characters e.g. "0xb794f5ea0ba39494ce839613fffba74279579268"
+                    - title: StarknetAddress
+                      type: string
+                      description: a valid Starknet address, starting with 0x and followed by 64 hexadecimal characters e.g. "0x0000000000000000000000000000000000000000000000000000000000000000"
+                    - anyOf:
+                      - title: StellarAccountAddress
+                        type: string
+                        description: a valid Stellar account address, starting with G and followed by 55 hexadecimal characters e.g. "GBYIQXBKEB655EB3WTRITS6RR5GXEP6SQRBLPREZHNFYKT7WBMTMPR3H"
+                      - title: StellarContractAddress
+                        type: string
+                        description: a valid Stellar contract address, starting with C and followed by 55 hexadecimal characters e.g. "CCAANR7HZNOXYZD7SXS2WQLV5BAOXSRZ7V4O43IANSB355QN2RNG7WVC"
+                    - type: string
+                      title: Solana address
+                      description: a valid Solana address, consisting of 32 to 44 base58 characters
+                    deprecated: true
+                    description: Deprecated. Use the wallet API instead.
+                  network:
+                    type: string
+                    enum:
+                    - Sepolia
+                    - PolygonAmoy
+                    - BaseSepolia
+                    - ArbitrumSepolia
+                    - EtherlinkTestnet
+                    - Ethereum
+                    - Polygon
+                    - Base
+                    - Arbitrum
+                    - Etherlink
+                    - Starknet
+                    - StarknetSepolia
+                    - Stellar
+                    - StellarTestnet
+                    - Solana
+                    - SolanaDevnet
+                    description: Deprecated. Use the wallet API instead.
+                    title: Network
+                    deprecated: true
+                  createdAt:
+                    anyOf:
+                    - $ref: '#/components/schemas/Date'
+                    - type: 'null'
+                  name:
+                    anyOf:
+                    - type: object
+                      required:
+                      - _tag
+                      properties:
+                        _tag:
+                          type: string
+                          enum:
+                          - None
+                      additionalProperties: false
+                      description: NoneEncoded
+                    - type: object
+                      required:
+                      - _tag
+                      - value
+                      properties:
+                        _tag:
+                          type: string
+                          enum:
+                          - Some
+                        value:
+                          $ref: '#/components/schemas/NonEmptyTrimmedString'
+                      additionalProperties: false
+                      description: SomeEncoded<NonEmptyTrimmedString>
+                    description: OptionEncoded<NonEmptyTrimmedString>
+                  shareClassIds:
+                    type: array
+                    items:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpApiDecodeError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Unauthorized'
+                - $ref: '#/components/schemas/DistributorAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: NotFound
+      description: Retrieve account information (including the investor who owns it) by providing the account ID.
+      summary: Get account
+  /v0/accounts/{accountId}/deposit-instructions:
+    get:
+      tags:
+      - Accounts
+      operationId: accounts.getDepositInstructions
+      parameters:
+      - name: accountId
+        in: path
+        schema:
+          type: string
+          description: a Universally Unique Identifier
+          format: uuid
+        required: true
+        description: a Universally Unique Identifier
+      - name: shareClassId
+        in: query
+        schema:
+          type: string
+          description: a Universally Unique Identifier
+          format: uuid
+        required: true
+        description: a Universally Unique Identifier
+      - name: subscriptionCurrency
+        in: query
+        schema:
+          type: string
+          enum:
+          - EUR
+          - USD
+          - GBP
+          - CHF
+          - JPY
+          - SGD
+          title: Currency code
+          identifier: CurrencyCode
+          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+        required: true
+        description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - shareClassCurrency
+                - accounts
+                properties:
+                  shareClassCurrency:
+                    type: string
+                    enum:
+                    - EUR
+                    - USD
+                    - GBP
+                    - CHF
+                    - JPY
+                    - SGD
+                    title: Currency code
+                    identifier: CurrencyCode
+                    description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                  accounts:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - accountDetails
+                      - bankName
+                      - beneficiaryName
+                      - rails
+                      properties:
+                        accountDetails:
+                          anyOf:
+                          - type: object
+                            required:
+                            - sortCode
+                            - accountNumber
+                            properties:
+                              sortCode:
+                                type: string
+                                description: a string matching the pattern ^\d{2}-\d{2}-\d{2}$
+                                pattern: ^\d{2}-\d{2}-\d{2}$
+                              accountNumber:
+                                type: string
+                                title: UK Bank Account Number
+                                description: a valid UK Bank Account Number (8 digits)
+                            additionalProperties: false
+                          - type: object
+                            required:
+                            - iban
+                            - bic
+                            properties:
+                              iban:
+                                title: IBAN
+                                type: string
+                                description: a valid IBAN (International Bank Account Number)
+                              bic:
+                                title: BIC
+                                type: string
+                                description: A valid BIC (Bank Identifier Code)
+                            additionalProperties: false
+                        bankName:
+                          type: string
+                          enum:
+                          - Memo Bank
+                          - Banking Circle
+                          - CACEIS
+                        beneficiaryName:
+                          $ref: '#/components/schemas/NonEmptyString'
+                        rails:
+                          type: array
+                          items:
+                            type: string
+                            enum:
+                            - SCT
+                            - SCT Instant
+                            - SWIFT
+                            - Faster Payments
+                            - CHAPS
+                            - BACS
+                      additionalProperties: false
+                additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpApiDecodeError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Unauthorized'
+                - $ref: '#/components/schemas/DistributorAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/ForbiddenError'
+                - $ref: '#/components/schemas/Forbidden'
+        '404':
+          description: NotFound
+      description: "\n**Retrieve virtual IBAN deposit instructions for a given account, share class, and subscription currency.**\n\nReturns a list of virtual bank accounts, each with its supported payment rails. An empty list means no virtual bank account has been provisioned (feature not available).\n\nEach entry includes payment informations and supported rails:\n- `SCT` / `SCT Instant` - SEPA Credit Transfer (EUR)\n- `Faster Payments` / `CHAPS` / `BACS` - UK local transfers (GBP); also includes `gbpLocalDetails` with sort code and account number\n- `SWIFT` - international wire\n          "
+      summary: Get deposit instructions
+  /accounts/:
+    post:
+      tags:
+      - Accounts
+      operationId: accounts.createAccount
+      parameters: []
+      security:
+      - basicAuth: []
+      - oauth2: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - investorId
+                - blockchainAccount
+                - type
+                - createdAt
+                - name
+                properties:
+                  id:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  investorId:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  blockchainAccount:
+                    anyOf:
+                    - type: object
+                      required:
+                      - address
+                      - network
+                      - permissionGroups
+                      properties:
+                        address:
+                          type: string
+                          title: Ethereum address
+                          description: a valid Ethereum address, starting with 0x and followed by 40 hexadecimal characters e.g. "0xb794f5ea0ba39494ce839613fffba74279579268"
+                        network:
+                          $ref: '#/components/schemas/EVMNetwork'
+                        permissionGroups:
+                          type: array
+                          items:
+                            $comment: /schemas/enums
+                            anyOf:
+                            - type: number
+                              title: ADMIN
+                              enum:
+                              - 0
+                            - type: number
+                              title: OPERATOR_EXCEPTIONAL
+                              enum:
+                              - 1
+                            - type: number
+                              title: OPERATOR_DAILY
+                              enum:
+                              - 2
+                            - type: number
+                              title: OPERATOR_ORACLE
+                              enum:
+                              - 3
+                            - type: number
+                              title: BURNER
+                              enum:
+                              - 4
+                            - type: number
+                              title: WHITELISTER
+                              enum:
+                              - 5
+                            - type: number
+                              title: WHITELISTED
+                              enum:
+                              - 6
+                      additionalProperties: false
+                    - type: object
+                      required:
+                      - address
+                      - network
+                      - permissionGroups
+                      properties:
+                        address:
+                          title: StarknetAddress
+                          type: string
+                          description: a valid Starknet address, starting with 0x and followed by 64 hexadecimal characters e.g. "0x0000000000000000000000000000000000000000000000000000000000000000"
+                        network:
+                          type: string
+                          enum:
+                          - Starknet
+                          - StarknetSepolia
+                        permissionGroups:
+                          type: array
+                          items:
+                            $comment: /schemas/enums
+                            anyOf:
+                            - type: string
+                              title: MINTER
+                              enum:
+                              - MINTER_ROLE
+                            - type: string
+                              title: PAUSER
+                              enum:
+                              - PAUSER_ROLE
+                            - type: string
+                              title: BURNER
+                              enum:
+                              - BURNER_ROLE
+                            - type: string
+                              title: WHITELISTER
+                              enum:
+                              - WHITELISTER_ROLE
+                            - type: string
+                              title: WHITELISTED
+                              enum:
+                              - WHITELISTED_ROLE
+                            - type: string
+                              title: REDEMPTION_EXECUTOR
+                              enum:
+                              - REDEMPTION_EXECUTOR_ROLE
+                      additionalProperties: false
+                    - type: object
+                      required:
+                      - address
+                      - network
+                      - permissionGroups
+                      properties:
+                        address:
+                          anyOf:
+                          - title: StellarAccountAddress
+                            type: string
+                            description: a valid Stellar account address, starting with G and followed by 55 hexadecimal characters e.g. "GBYIQXBKEB655EB3WTRITS6RR5GXEP6SQRBLPREZHNFYKT7WBMTMPR3H"
+                          - title: StellarContractAddress
+                            type: string
+                            description: a valid Stellar contract address, starting with C and followed by 55 hexadecimal characters e.g. "CCAANR7HZNOXYZD7SXS2WQLV5BAOXSRZ7V4O43IANSB355QN2RNG7WVC"
+                        network:
+                          type: string
+                          enum:
+                          - Stellar
+                          - StellarTestnet
+                        permissionGroups:
+                          type: array
+                          items:
+                            type: string
+                            enum:
+                            - MINTER
+                            - PAUSER
+                            - BURNER
+                            - WLISTER
+                            - WLISTED
+                            - REXECUTOR
+                      additionalProperties: false
+                  type:
+                    type: string
+                    enum:
+                    - internal
+                    - external
+                  createdAt:
+                    anyOf:
+                    - type: string
+                      title: valid range date
+                      description: A valid date within the range 2020-2100
+                    - type: 'null'
+                  name:
+                    anyOf:
+                    - $ref: '#/components/schemas/NonEmptyTrimmedString'
+                    - type: 'null'
+                additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/HttpApiDecodeError'
+                - $ref: '#/components/schemas/BadRequest'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Unauthorized'
+                - $ref: '#/components/schemas/InvestorAuthenticationError'
+        '403':
+          description: Forbidden
+        '409':
+          description: Conflict
+      description: Create a new internal account for an investor
+      summary: Create a new account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - investorId
+              - shareClassId
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - internal
+                investorId:
+                  type: string
+                  description: a Universally Unique Identifier
+                  format: uuid
+                shareClassId:
+                  type: string
+                  description: a Universally Unique Identifier
+                  format: uuid
+                network:
+                  $ref: '#/components/schemas/Network'
+                name:
+                  $ref: '#/components/schemas/NonEmptyTrimmedString'
+              additionalProperties: false
+        required: true
+    get:
+      tags:
+      - Accounts
+      operationId: accounts.getAccounts
+      parameters:
+      - name: investorId
+        in: query
+        schema:
+          type: string
+          description: a Universally Unique Identifier
+          format: uuid
+        required: true
+        description: a Universally Unique Identifier
+      security:
+      - basicAuth: []
+      - oauth2: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - id
+                  - investorId
+                  - blockchainAccount
+                  - type
+                  - createdAt
+                  - name
+                  properties:
+                    id:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    investorId:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    blockchainAccount:
+                      anyOf:
+                      - type: object
+                        required:
+                        - address
+                        - network
+                        - permissionGroups
+                        properties:
+                          address:
+                            type: string
+                            title: Ethereum address
+                            description: a valid Ethereum address, starting with 0x and followed by 40 hexadecimal characters e.g. "0xb794f5ea0ba39494ce839613fffba74279579268"
+                          network:
+                            $ref: '#/components/schemas/EVMNetwork'
+                          permissionGroups:
+                            type: array
+                            items:
+                              $comment: /schemas/enums
+                              anyOf:
+                              - type: number
+                                title: ADMIN
+                                enum:
+                                - 0
+                              - type: number
+                                title: OPERATOR_EXCEPTIONAL
+                                enum:
+                                - 1
+                              - type: number
+                                title: OPERATOR_DAILY
+                                enum:
+                                - 2
+                              - type: number
+                                title: OPERATOR_ORACLE
+                                enum:
+                                - 3
+                              - type: number
+                                title: BURNER
+                                enum:
+                                - 4
+                              - type: number
+                                title: WHITELISTER
+                                enum:
+                                - 5
+                              - type: number
+                                title: WHITELISTED
+                                enum:
+                                - 6
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - address
+                        - network
+                        - permissionGroups
+                        properties:
+                          address:
+                            title: StarknetAddress
+                            type: string
+                            description: a valid Starknet address, starting with 0x and followed by 64 hexadecimal characters e.g. "0x0000000000000000000000000000000000000000000000000000000000000000"
+                          network:
+                            type: string
+                            enum:
+                            - Starknet
+                            - StarknetSepolia
+                          permissionGroups:
+                            type: array
+                            items:
+                              $comment: /schemas/enums
+                              anyOf:
+                              - type: string
+                                title: MINTER
+                                enum:
+                                - MINTER_ROLE
+                              - type: string
+                                title: PAUSER
+                                enum:
+                                - PAUSER_ROLE
+                              - type: string
+                                title: BURNER
+                                enum:
+                                - BURNER_ROLE
+                              - type: string
+                                title: WHITELISTER
+                                enum:
+                                - WHITELISTER_ROLE
+                              - type: string
+                                title: WHITELISTED
+                                enum:
+                                - WHITELISTED_ROLE
+                              - type: string
+                                title: REDEMPTION_EXECUTOR
+                                enum:
+                                - REDEMPTION_EXECUTOR_ROLE
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - address
+                        - network
+                        - permissionGroups
+                        properties:
+                          address:
+                            anyOf:
+                            - title: StellarAccountAddress
+                              type: string
+                              description: a valid Stellar account address, starting with G and followed by 55 hexadecimal characters e.g. "GBYIQXBKEB655EB3WTRITS6RR5GXEP6SQRBLPREZHNFYKT7WBMTMPR3H"
+                            - title: StellarContractAddress
+                              type: string
+                              description: a valid Stellar contract address, starting with C and followed by 55 hexadecimal characters e.g. "CCAANR7HZNOXYZD7SXS2WQLV5BAOXSRZ7V4O43IANSB355QN2RNG7WVC"
+                          network:
+                            type: string
+                            enum:
+                            - Stellar
+                            - StellarTestnet
+                          permissionGroups:
+                            type: array
+                            items:
+                              type: string
+                              enum:
+                              - MINTER
+                              - PAUSER
+                              - BURNER
+                              - WLISTER
+                              - WLISTED
+                              - REXECUTOR
+                        additionalProperties: false
+                    type:
+                      type: string
+                      enum:
+                      - internal
+                      - external
+                    createdAt:
+                      anyOf:
+                      - type: string
+                        title: valid range date
+                        description: A valid date within the range 2020-2100
+                      - type: 'null'
+                    name:
+                      anyOf:
+                      - $ref: '#/components/schemas/NonEmptyTrimmedString'
+                      - type: 'null'
+                  additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpApiDecodeError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Unauthorized'
+                - $ref: '#/components/schemas/InvestorAuthenticationError'
+        '403':
+          description: Forbidden
+      description: Get list of an investor's accounts
+      summary: Get accounts
+  /accounts/{accountId}:
+    get:
+      tags:
+      - Accounts
+      operationId: accounts.getAccount
+      parameters:
+      - name: accountId
+        in: path
+        schema:
+          type: string
+          description: a Universally Unique Identifier
+          format: uuid
+        required: true
+        description: a Universally Unique Identifier
+      security:
+      - basicAuth: []
+      - oauth2: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - investorId
+                - blockchainAccount
+                - type
+                - createdAt
+                - name
+                properties:
+                  id:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  investorId:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  blockchainAccount:
+                    anyOf:
+                    - type: object
+                      required:
+                      - address
+                      - network
+                      - permissionGroups
+                      properties:
+                        address:
+                          type: string
+                          title: Ethereum address
+                          description: a valid Ethereum address, starting with 0x and followed by 40 hexadecimal characters e.g. "0xb794f5ea0ba39494ce839613fffba74279579268"
+                        network:
+                          $ref: '#/components/schemas/EVMNetwork'
+                        permissionGroups:
+                          type: array
+                          items:
+                            $comment: /schemas/enums
+                            anyOf:
+                            - type: number
+                              title: ADMIN
+                              enum:
+                              - 0
+                            - type: number
+                              title: OPERATOR_EXCEPTIONAL
+                              enum:
+                              - 1
+                            - type: number
+                              title: OPERATOR_DAILY
+                              enum:
+                              - 2
+                            - type: number
+                              title: OPERATOR_ORACLE
+                              enum:
+                              - 3
+                            - type: number
+                              title: BURNER
+                              enum:
+                              - 4
+                            - type: number
+                              title: WHITELISTER
+                              enum:
+                              - 5
+                            - type: number
+                              title: WHITELISTED
+                              enum:
+                              - 6
+                      additionalProperties: false
+                    - type: object
+                      required:
+                      - address
+                      - network
+                      - permissionGroups
+                      properties:
+                        address:
+                          title: StarknetAddress
+                          type: string
+                          description: a valid Starknet address, starting with 0x and followed by 64 hexadecimal characters e.g. "0x0000000000000000000000000000000000000000000000000000000000000000"
+                        network:
+                          type: string
+                          enum:
+                          - Starknet
+                          - StarknetSepolia
+                        permissionGroups:
+                          type: array
+                          items:
+                            $comment: /schemas/enums
+                            anyOf:
+                            - type: string
+                              title: MINTER
+                              enum:
+                              - MINTER_ROLE
+                            - type: string
+                              title: PAUSER
+                              enum:
+                              - PAUSER_ROLE
+                            - type: string
+                              title: BURNER
+                              enum:
+                              - BURNER_ROLE
+                            - type: string
+                              title: WHITELISTER
+                              enum:
+                              - WHITELISTER_ROLE
+                            - type: string
+                              title: WHITELISTED
+                              enum:
+                              - WHITELISTED_ROLE
+                            - type: string
+                              title: REDEMPTION_EXECUTOR
+                              enum:
+                              - REDEMPTION_EXECUTOR_ROLE
+                      additionalProperties: false
+                    - type: object
+                      required:
+                      - address
+                      - network
+                      - permissionGroups
+                      properties:
+                        address:
+                          anyOf:
+                          - title: StellarAccountAddress
+                            type: string
+                            description: a valid Stellar account address, starting with G and followed by 55 hexadecimal characters e.g. "GBYIQXBKEB655EB3WTRITS6RR5GXEP6SQRBLPREZHNFYKT7WBMTMPR3H"
+                          - title: StellarContractAddress
+                            type: string
+                            description: a valid Stellar contract address, starting with C and followed by 55 hexadecimal characters e.g. "CCAANR7HZNOXYZD7SXS2WQLV5BAOXSRZ7V4O43IANSB355QN2RNG7WVC"
+                        network:
+                          type: string
+                          enum:
+                          - Stellar
+                          - StellarTestnet
+                        permissionGroups:
+                          type: array
+                          items:
+                            type: string
+                            enum:
+                            - MINTER
+                            - PAUSER
+                            - BURNER
+                            - WLISTER
+                            - WLISTED
+                            - REXECUTOR
+                      additionalProperties: false
+                  type:
+                    type: string
+                    enum:
+                    - internal
+                    - external
+                  createdAt:
+                    anyOf:
+                    - type: string
+                      title: valid range date
+                      description: A valid date within the range 2020-2100
+                    - type: 'null'
+                  name:
+                    anyOf:
+                    - $ref: '#/components/schemas/NonEmptyTrimmedString'
+                    - type: 'null'
+                additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpApiDecodeError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Unauthorized'
+                - $ref: '#/components/schemas/InvestorAuthenticationError'
+        '403':
+          description: Forbidden
+        '404':
+          description: NotFound
+      description: Get a specific account
+      summary: Get account
+  /accounts/{accountId}/deposit-instructions:
+    get:
+      tags:
+      - Accounts
+      operationId: accounts.getDepositInstructions
+      parameters:
+      - name: accountId
+        in: path
+        schema:
+          type: string
+          description: a Universally Unique Identifier
+          format: uuid
+        required: true
+        description: a Universally Unique Identifier
+      - name: shareClassId
+        in: query
+        schema:
+          type: string
+          description: a Universally Unique Identifier
+          format: uuid
+        required: true
+        description: a Universally Unique Identifier
+      - name: subscriptionCurrency
+        in: query
+        schema:
+          type: string
+          enum:
+          - EUR
+          - USD
+          - GBP
+          - CHF
+          - JPY
+          - SGD
+          title: Currency code
+          identifier: CurrencyCode
+          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+        required: true
+        description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+      security:
+      - basicAuth: []
+      - oauth2: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - shareClassCurrency
+                - accounts
+                properties:
+                  shareClassCurrency:
+                    type: string
+                    enum:
+                    - EUR
+                    - USD
+                    - GBP
+                    - CHF
+                    - JPY
+                    - SGD
+                    title: Currency code
+                    identifier: CurrencyCode
+                    description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                  accounts:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - accountDetails
+                      - bankName
+                      - beneficiaryName
+                      - rails
+                      properties:
+                        accountDetails:
+                          anyOf:
+                          - type: object
+                            required:
+                            - sortCode
+                            - accountNumber
+                            properties:
+                              sortCode:
+                                type: string
+                                description: a string matching the pattern ^\d{2}-\d{2}-\d{2}$
+                                pattern: ^\d{2}-\d{2}-\d{2}$
+                              accountNumber:
+                                type: string
+                                title: UK Bank Account Number
+                                description: a valid UK Bank Account Number (8 digits)
+                            additionalProperties: false
+                          - type: object
+                            required:
+                            - iban
+                            - bic
+                            properties:
+                              iban:
+                                title: IBAN
+                                type: string
+                                description: a valid IBAN (International Bank Account Number)
+                              bic:
+                                title: BIC
+                                type: string
+                                description: A valid BIC (Bank Identifier Code)
+                            additionalProperties: false
+                        bankName:
+                          type: string
+                          enum:
+                          - Memo Bank
+                          - Banking Circle
+                          - CACEIS
+                        beneficiaryName:
+                          $ref: '#/components/schemas/NonEmptyString'
+                        rails:
+                          type: array
+                          items:
+                            type: string
+                            enum:
+                            - SCT
+                            - SCT Instant
+                            - SWIFT
+                            - Faster Payments
+                            - CHAPS
+                            - BACS
+                      additionalProperties: false
+                additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpApiDecodeError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Unauthorized'
+                - $ref: '#/components/schemas/InvestorAuthenticationError'
+        '403':
+          description: Forbidden
+        '404':
+          description: NotFound
+      description: "\n**Retrieve virtual IBAN deposit instructions for a given account, share class, and subscription currency.**\n\nReturns a list of virtual bank accounts, each with its supported payment rails. An empty list means no virtual bank account has been provisioned (feature not available).\n\nEach entry includes payment informations and supported rails:\n- `SCT` / `SCT Instant` - SEPA Credit Transfer (EUR)\n- `Faster Payments` / `CHAPS` / `BACS` - UK local transfers (GBP); the `accountDetails` field then contains `sortCode` and `accountNumber`\n- `SWIFT` - international wire\n          "
+      summary: Get deposit instructions
+components:
+  schemas:
+    EVMNetwork:
+      type: string
+      enum:
+      - Sepolia
+      - PolygonAmoy
+      - BaseSepolia
+      - ArbitrumSepolia
+      - EtherlinkTestnet
+      - Ethereum
+      - Polygon
+      - Base
+      - Arbitrum
+      - Etherlink
+      description: an EVM blockchain network e.g. "Ethereum", "Polygon", "Arbitrum"
+      title: EVM Network
+    InvestorAuthenticationError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - InvestorAuthenticationError
+      additionalProperties: false
+      description: Authentication Error
+    BadRequest:
+      $id: /schemas/void
+      title: BadRequest
+    ForbiddenError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        customErrorCode:
+          type: string
+          enum:
+          - AccountDoesNotBelongToInvestor
+          - SessionIsNot2FA
+          - InvestorDocumentLinkedToActiveBankAccount
+          - AtLeastTwoAdminUsersRequired
+          - InvestorNotPendingOnboarding
+          - ShareClassNotAvailableForDistributor
+        _tag:
+          type: string
+          enum:
+          - ForbiddenError
+      additionalProperties: false
+      description: Forbidden
+    HttpApiDecodeError:
+      type: object
+      required:
+      - issues
+      - message
+      - _tag
+      properties:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+        message:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - HttpApiDecodeError
+      additionalProperties: false
+      description: The request did not match the expected schema
+    Issue:
+      type: object
+      required:
+      - _tag
+      - path
+      - message
+      properties:
+        _tag:
+          type: string
+          enum:
+          - Pointer
+          - Unexpected
+          - Missing
+          - Composite
+          - Refinement
+          - Transformation
+          - Type
+          - Forbidden
+          description: The tag identifying the type of parse issue
+        path:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyKey'
+          description: The path to the property where the issue occurred
+        message:
+          type: string
+          description: A descriptive message explaining the issue
+      additionalProperties: false
+      description: Represents an error encountered while parsing a value to match the schema
+    NonEmptyString:
+      type: string
+      description: a non empty string
+      title: nonEmptyString
+      minLength: 1
+    PropertyKey:
+      anyOf:
+      - type: string
+      - type: number
+      - type: object
+        required:
+        - _tag
+        - key
+        properties:
+          _tag:
+            type: string
+            enum:
+            - symbol
+          key:
+            type: string
+        additionalProperties: false
+        description: an object to be decoded into a globally shared symbol
+    NonEmptyTrimmedString:
+      type: string
+      description: a non empty string
+      title: nonEmptyString
+      pattern: ^\S[\s\S]*\S$|^\S$|^$
+      minLength: 1
+    Forbidden:
+      $id: /schemas/void
+      title: Forbidden
+    DistributorAuthenticationError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - DistributorAuthenticationError
+      additionalProperties: false
+      description: Authentication Error
+    Unauthorized:
+      $id: /schemas/void
+      title: Unauthorized
+    Date:
+      type: string
+      description: a string to be decoded into a Date
+    Network:
+      type: string
+      enum:
+      - Sepolia
+      - PolygonAmoy
+      - BaseSepolia
+      - ArbitrumSepolia
+      - EtherlinkTestnet
+      - Ethereum
+      - Polygon
+      - Base
+      - Arbitrum
+      - Etherlink
+      - Starknet
+      - StarknetSepolia
+      - Stellar
+      - StellarTestnet
+      - Solana
+      - SolanaDevnet
+      description: a blockchain network e.g. "Ethereum", "Polygon", "Arbitrum", "Starknet"
+      title: Network
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: Use your API client_id as username and client_secret as password.

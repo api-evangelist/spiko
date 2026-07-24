@@ -1,0 +1,4069 @@
+openapi: 3.1.0
+info:
+  title: Spiko Distributor Account transactions Bank accounts API
+  version: v0
+  description: The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.
+servers:
+- url: https://distributor-api.spiko.io
+  description: Production Server
+- url: https://distributor-api.preprod.spiko.io
+  description: Pre-production Server
+security: []
+tags:
+- name: Bank accounts
+paths:
+  /v0/bank-accounts:
+    post:
+      tags:
+      - Bank accounts
+      operationId: bankAccounts.addBankAccount
+      parameters: []
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - type: object
+                  required:
+                  - id
+                  - investorId
+                  - details
+                  - createdAt
+                  - name
+                  - proofInvestorDocumentId
+                  - mandate
+                  - vop
+                  - status
+                  properties:
+                    id:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    investorId:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    details:
+                      anyOf:
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - bic
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - EUR
+                          accountNumber:
+                            title: IBAN
+                            type: string
+                            description: a valid IBAN (International Bank Account Number)
+                          bic:
+                            anyOf:
+                            - title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            - type: 'null'
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - sortCode
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - GBP
+                          accountNumber:
+                            type: string
+                            title: UK Bank Account Number
+                            description: a valid UK Bank Account Number (8 digits)
+                          sortCode:
+                            type: string
+                            title: Sort Code
+                            description: A valid UK Sort Code (6 digits)
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - bic
+                        - intermediaryBic
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - USD
+                            - GBP
+                            - CHF
+                            - JPY
+                            - SGD
+                          accountNumber:
+                            anyOf:
+                            - title: IBAN
+                              type: string
+                              description: a valid IBAN (International Bank Account Number)
+                            - type: string
+                              title: US Bank Account Number
+                              description: a valid US Bank Account Number
+                          bic:
+                            title: BIC
+                            type: string
+                            description: A valid BIC (Bank Identifier Code)
+                          intermediaryBic:
+                            anyOf:
+                            - title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            - type: 'null'
+                          address:
+                            anyOf:
+                            - type: object
+                              required:
+                              - street
+                              - city
+                              - zipCode
+                              - country
+                              properties:
+                                street:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                city:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                zipCode:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                country:
+                                  $ref: '#/components/schemas/CountryCodeAlpha2'
+                              additionalProperties: false
+                            - type: 'null'
+                        additionalProperties: false
+                    createdAt:
+                      type: string
+                      title: valid range date
+                      description: A valid date within the range 2020-2100
+                    name:
+                      anyOf:
+                      - $ref: '#/components/schemas/NonEmptyString'
+                        description: a string at most 255 character(s) long
+                        title: maxLength(255)
+                        maxLength: 255
+                      - type: 'null'
+                    proofInvestorDocumentId:
+                      anyOf:
+                      - type: string
+                        description: a Universally Unique Identifier
+                        format: uuid
+                      - type: 'null'
+                    mandate:
+                      anyOf:
+                      - anyOf:
+                        - type: object
+                          required:
+                          - mandateReference
+                          - mandateStatus
+                          - mandateSignedAt
+                          - externalMandateId
+                          properties:
+                            mandateReference:
+                              type: string
+                              description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                            mandateStatus:
+                              type: string
+                              enum:
+                              - pending-signature
+                            mandateSignedAt:
+                              type: 'null'
+                            externalMandateId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - mandateReference
+                          - mandateStatus
+                          - mandateSignedAt
+                          - externalMandateId
+                          properties:
+                            mandateReference:
+                              type: string
+                              description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                            mandateStatus:
+                              type: string
+                              enum:
+                              - signed
+                            mandateSignedAt:
+                              type: string
+                              title: valid range date
+                              description: A valid date within the range 2020-2100
+                            externalMandateId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                          additionalProperties: false
+                      - type: 'null'
+                    vop:
+                      type: 'null'
+                      deprecated: true
+                      description: Deprecated. Always null.
+                    status:
+                      type: string
+                      enum:
+                      - validated
+                  additionalProperties: false
+                - type: object
+                  required:
+                  - id
+                  - investorId
+                  - details
+                  - createdAt
+                  - name
+                  - proofInvestorDocumentId
+                  - mandate
+                  - vop
+                  - status
+                  properties:
+                    id:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    investorId:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    details:
+                      anyOf:
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - bic
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - EUR
+                          accountNumber:
+                            title: IBAN
+                            type: string
+                            description: a valid IBAN (International Bank Account Number)
+                          bic:
+                            anyOf:
+                            - title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            - type: 'null'
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - sortCode
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - GBP
+                          accountNumber:
+                            type: string
+                            title: UK Bank Account Number
+                            description: a valid UK Bank Account Number (8 digits)
+                          sortCode:
+                            type: string
+                            title: Sort Code
+                            description: A valid UK Sort Code (6 digits)
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - bic
+                        - intermediaryBic
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - USD
+                            - GBP
+                            - CHF
+                            - JPY
+                            - SGD
+                          accountNumber:
+                            anyOf:
+                            - title: IBAN
+                              type: string
+                              description: a valid IBAN (International Bank Account Number)
+                            - type: string
+                              title: US Bank Account Number
+                              description: a valid US Bank Account Number
+                          bic:
+                            title: BIC
+                            type: string
+                            description: A valid BIC (Bank Identifier Code)
+                          intermediaryBic:
+                            anyOf:
+                            - title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            - type: 'null'
+                          address:
+                            anyOf:
+                            - type: object
+                              required:
+                              - street
+                              - city
+                              - zipCode
+                              - country
+                              properties:
+                                street:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                city:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                zipCode:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                country:
+                                  $ref: '#/components/schemas/CountryCodeAlpha2'
+                              additionalProperties: false
+                            - type: 'null'
+                        additionalProperties: false
+                    createdAt:
+                      type: string
+                      title: valid range date
+                      description: A valid date within the range 2020-2100
+                    name:
+                      anyOf:
+                      - $ref: '#/components/schemas/NonEmptyString'
+                        description: a string at most 255 character(s) long
+                        title: maxLength(255)
+                        maxLength: 255
+                      - type: 'null'
+                    proofInvestorDocumentId:
+                      anyOf:
+                      - type: string
+                        description: a Universally Unique Identifier
+                        format: uuid
+                      - type: 'null'
+                    mandate:
+                      anyOf:
+                      - anyOf:
+                        - type: object
+                          required:
+                          - mandateReference
+                          - mandateStatus
+                          - mandateSignedAt
+                          - externalMandateId
+                          properties:
+                            mandateReference:
+                              type: string
+                              description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                            mandateStatus:
+                              type: string
+                              enum:
+                              - pending-signature
+                            mandateSignedAt:
+                              type: 'null'
+                            externalMandateId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - mandateReference
+                          - mandateStatus
+                          - mandateSignedAt
+                          - externalMandateId
+                          properties:
+                            mandateReference:
+                              type: string
+                              description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                            mandateStatus:
+                              type: string
+                              enum:
+                              - signed
+                            mandateSignedAt:
+                              type: string
+                              title: valid range date
+                              description: A valid date within the range 2020-2100
+                            externalMandateId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                          additionalProperties: false
+                      - type: 'null'
+                    vop:
+                      type: 'null'
+                      deprecated: true
+                      description: Deprecated. Always null.
+                    status:
+                      type: string
+                      enum:
+                      - pending-vop
+                  additionalProperties: false
+                - type: object
+                  required:
+                  - id
+                  - investorId
+                  - details
+                  - createdAt
+                  - name
+                  - proofInvestorDocumentId
+                  - mandate
+                  - vop
+                  - status
+                  properties:
+                    id:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    investorId:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    details:
+                      anyOf:
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - bic
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - EUR
+                          accountNumber:
+                            title: IBAN
+                            type: string
+                            description: a valid IBAN (International Bank Account Number)
+                          bic:
+                            anyOf:
+                            - title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            - type: 'null'
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - sortCode
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - GBP
+                          accountNumber:
+                            type: string
+                            title: UK Bank Account Number
+                            description: a valid UK Bank Account Number (8 digits)
+                          sortCode:
+                            type: string
+                            title: Sort Code
+                            description: A valid UK Sort Code (6 digits)
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - bic
+                        - intermediaryBic
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - USD
+                            - GBP
+                            - CHF
+                            - JPY
+                            - SGD
+                          accountNumber:
+                            anyOf:
+                            - title: IBAN
+                              type: string
+                              description: a valid IBAN (International Bank Account Number)
+                            - type: string
+                              title: US Bank Account Number
+                              description: a valid US Bank Account Number
+                          bic:
+                            title: BIC
+                            type: string
+                            description: A valid BIC (Bank Identifier Code)
+                          intermediaryBic:
+                            anyOf:
+                            - title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            - type: 'null'
+                          address:
+                            anyOf:
+                            - type: object
+                              required:
+                              - street
+                              - city
+                              - zipCode
+                              - country
+                              properties:
+                                street:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                city:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                zipCode:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                country:
+                                  $ref: '#/components/schemas/CountryCodeAlpha2'
+                              additionalProperties: false
+                            - type: 'null'
+                        additionalProperties: false
+                    createdAt:
+                      type: string
+                      title: valid range date
+                      description: A valid date within the range 2020-2100
+                    name:
+                      anyOf:
+                      - $ref: '#/components/schemas/NonEmptyString'
+                        description: a string at most 255 character(s) long
+                        title: maxLength(255)
+                        maxLength: 255
+                      - type: 'null'
+                    proofInvestorDocumentId:
+                      anyOf:
+                      - type: string
+                        description: a Universally Unique Identifier
+                        format: uuid
+                      - type: 'null'
+                    mandate:
+                      anyOf:
+                      - anyOf:
+                        - type: object
+                          required:
+                          - mandateReference
+                          - mandateStatus
+                          - mandateSignedAt
+                          - externalMandateId
+                          properties:
+                            mandateReference:
+                              type: string
+                              description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                            mandateStatus:
+                              type: string
+                              enum:
+                              - pending-signature
+                            mandateSignedAt:
+                              type: 'null'
+                            externalMandateId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - mandateReference
+                          - mandateStatus
+                          - mandateSignedAt
+                          - externalMandateId
+                          properties:
+                            mandateReference:
+                              type: string
+                              description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                            mandateStatus:
+                              type: string
+                              enum:
+                              - signed
+                            mandateSignedAt:
+                              type: string
+                              title: valid range date
+                              description: A valid date within the range 2020-2100
+                            externalMandateId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                          additionalProperties: false
+                      - type: 'null'
+                    vop:
+                      type: 'null'
+                      deprecated: true
+                      description: Deprecated. Always null.
+                    status:
+                      type: string
+                      enum:
+                      - pending-validation
+                  additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/HttpApiDecodeError'
+                - $ref: '#/components/schemas/ProofDocumentRequiredError'
+                - $ref: '#/components/schemas/BadRequestError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Unauthorized'
+                - $ref: '#/components/schemas/DistributorAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: NotFound
+      description: "\n**Create a new bank account, linked to an existing investor, and for a given currency.**\n\n- Link the specified banking details to the investor's profile for future withdrawals processing.\n- EUR/GBP accounts may undergo automated verification (VoP/CoP). The bank account status will reflect the verification state.\n- Other currencies REQUIRE a proof of bank account ownership document (`proofInvestorDocumentId`).\n- Return complete bank account information.\n          "
+      summary: Add bank account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - anyOf:
+                - type: object
+                  required:
+                  - currency
+                  - accountNumber
+                  - bic
+                  - investorId
+                  properties:
+                    currency:
+                      type: string
+                      enum:
+                      - EUR
+                    accountNumber:
+                      title: IBAN
+                      type: string
+                      description: a valid IBAN (International Bank Account Number)
+                    bic:
+                      anyOf:
+                      - title: BIC
+                        type: string
+                        description: A valid BIC (Bank Identifier Code)
+                      - type: 'null'
+                    investorId:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    proofInvestorDocumentId:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                  additionalProperties: false
+                - type: object
+                  required:
+                  - currency
+                  - accountNumber
+                  - sortCode
+                  - investorId
+                  properties:
+                    currency:
+                      type: string
+                      enum:
+                      - GBP
+                    accountNumber:
+                      type: string
+                      title: UK Bank Account Number
+                      description: a valid UK Bank Account Number (8 digits)
+                    sortCode:
+                      type: string
+                      title: Sort Code
+                      description: A valid UK Sort Code (6 digits)
+                    investorId:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    proofInvestorDocumentId:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                  additionalProperties: false
+              - type: object
+                required:
+                - currency
+                - accountNumber
+                - bic
+                - intermediaryBic
+                - investorId
+                properties:
+                  currency:
+                    type: string
+                    enum:
+                    - USD
+                    - GBP
+                    - CHF
+                    - JPY
+                    - SGD
+                  accountNumber:
+                    anyOf:
+                    - title: IBAN
+                      type: string
+                      description: a valid IBAN (International Bank Account Number)
+                    - type: string
+                      title: US Bank Account Number
+                      description: a valid US Bank Account Number
+                  bic:
+                    title: BIC
+                    type: string
+                    description: A valid BIC (Bank Identifier Code)
+                  intermediaryBic:
+                    anyOf:
+                    - title: BIC
+                      type: string
+                      description: A valid BIC (Bank Identifier Code)
+                    - type: 'null'
+                  address:
+                    anyOf:
+                    - type: object
+                      required:
+                      - street
+                      - city
+                      - zipCode
+                      - country
+                      properties:
+                        street:
+                          $ref: '#/components/schemas/NonEmptyString'
+                        city:
+                          $ref: '#/components/schemas/NonEmptyString'
+                        zipCode:
+                          $ref: '#/components/schemas/NonEmptyString'
+                        country:
+                          $ref: '#/components/schemas/CountryCodeAlpha2'
+                      additionalProperties: false
+                    - type: 'null'
+                  investorId:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  proofInvestorDocumentId:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                additionalProperties: false
+        required: true
+    get:
+      tags:
+      - Bank accounts
+      operationId: bankAccounts.getBankAccounts
+      parameters:
+      - name: investorId
+        in: query
+        schema:
+          type: string
+          description: a Universally Unique Identifier
+          format: uuid
+        required: true
+        description: a Universally Unique Identifier
+      - name: currency
+        in: query
+        schema:
+          type: string
+          enum:
+          - EUR
+          - USD
+          - GBP
+          - CHF
+          - JPY
+          - SGD
+          title: Currency code
+          identifier: CurrencyCode
+          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+        required: true
+        description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  anyOf:
+                  - type: object
+                    required:
+                    - id
+                    - investorId
+                    - details
+                    - createdAt
+                    - name
+                    - proofInvestorDocumentId
+                    - mandate
+                    - vop
+                    - status
+                    properties:
+                      id:
+                        type: string
+                        description: a Universally Unique Identifier
+                        format: uuid
+                      investorId:
+                        type: string
+                        description: a Universally Unique Identifier
+                        format: uuid
+                      details:
+                        anyOf:
+                        - type: object
+                          required:
+                          - currency
+                          - accountNumber
+                          - bic
+                          properties:
+                            currency:
+                              type: string
+                              enum:
+                              - EUR
+                            accountNumber:
+                              title: IBAN
+                              type: string
+                              description: a valid IBAN (International Bank Account Number)
+                            bic:
+                              anyOf:
+                              - title: BIC
+                                type: string
+                                description: A valid BIC (Bank Identifier Code)
+                              - type: 'null'
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - currency
+                          - accountNumber
+                          - sortCode
+                          properties:
+                            currency:
+                              type: string
+                              enum:
+                              - GBP
+                            accountNumber:
+                              type: string
+                              title: UK Bank Account Number
+                              description: a valid UK Bank Account Number (8 digits)
+                            sortCode:
+                              type: string
+                              title: Sort Code
+                              description: A valid UK Sort Code (6 digits)
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - currency
+                          - accountNumber
+                          - bic
+                          - intermediaryBic
+                          properties:
+                            currency:
+                              type: string
+                              enum:
+                              - USD
+                              - GBP
+                              - CHF
+                              - JPY
+                              - SGD
+                            accountNumber:
+                              anyOf:
+                              - title: IBAN
+                                type: string
+                                description: a valid IBAN (International Bank Account Number)
+                              - type: string
+                                title: US Bank Account Number
+                                description: a valid US Bank Account Number
+                            bic:
+                              title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            intermediaryBic:
+                              anyOf:
+                              - title: BIC
+                                type: string
+                                description: A valid BIC (Bank Identifier Code)
+                              - type: 'null'
+                            address:
+                              anyOf:
+                              - type: object
+                                required:
+                                - street
+                                - city
+                                - zipCode
+                                - country
+                                properties:
+                                  street:
+                                    $ref: '#/components/schemas/NonEmptyString'
+                                  city:
+                                    $ref: '#/components/schemas/NonEmptyString'
+                                  zipCode:
+                                    $ref: '#/components/schemas/NonEmptyString'
+                                  country:
+                                    $ref: '#/components/schemas/CountryCodeAlpha2'
+                                additionalProperties: false
+                              - type: 'null'
+                          additionalProperties: false
+                      createdAt:
+                        type: string
+                        title: valid range date
+                        description: A valid date within the range 2020-2100
+                      name:
+                        anyOf:
+                        - $ref: '#/components/schemas/NonEmptyString'
+                          description: a string at most 255 character(s) long
+                          title: maxLength(255)
+                          maxLength: 255
+                        - type: 'null'
+                      proofInvestorDocumentId:
+                        anyOf:
+                        - type: string
+                          description: a Universally Unique Identifier
+                          format: uuid
+                        - type: 'null'
+                      mandate:
+                        anyOf:
+                        - anyOf:
+                          - type: object
+                            required:
+                            - mandateReference
+                            - mandateStatus
+                            - mandateSignedAt
+                            - externalMandateId
+                            properties:
+                              mandateReference:
+                                type: string
+                                description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                                pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              mandateStatus:
+                                type: string
+                                enum:
+                                - pending-signature
+                              mandateSignedAt:
+                                type: 'null'
+                              externalMandateId:
+                                type: string
+                                description: a Universally Unique Identifier
+                                format: uuid
+                            additionalProperties: false
+                          - type: object
+                            required:
+                            - mandateReference
+                            - mandateStatus
+                            - mandateSignedAt
+                            - externalMandateId
+                            properties:
+                              mandateReference:
+                                type: string
+                                description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                                pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              mandateStatus:
+                                type: string
+                                enum:
+                                - signed
+                              mandateSignedAt:
+                                type: string
+                                title: valid range date
+                                description: A valid date within the range 2020-2100
+                              externalMandateId:
+                                type: string
+                                description: a Universally Unique Identifier
+                                format: uuid
+                            additionalProperties: false
+                        - type: 'null'
+                      vop:
+                        type: 'null'
+                        deprecated: true
+                        description: Deprecated. Always null.
+                      status:
+                        type: string
+                        enum:
+                        - pending-validation
+                    additionalProperties: false
+                  - type: object
+                    required:
+                    - id
+                    - investorId
+                    - details
+                    - createdAt
+                    - name
+                    - proofInvestorDocumentId
+                    - mandate
+                    - vop
+                    - status
+                    properties:
+                      id:
+                        type: string
+                        description: a Universally Unique Identifier
+                        format: uuid
+                      investorId:
+                        type: string
+                        description: a Universally Unique Identifier
+                        format: uuid
+                      details:
+                        anyOf:
+                        - type: object
+                          required:
+                          - currency
+                          - accountNumber
+                          - bic
+                          properties:
+                            currency:
+                              type: string
+                              enum:
+                              - EUR
+                            accountNumber:
+                              title: IBAN
+                              type: string
+                              description: a valid IBAN (International Bank Account Number)
+                            bic:
+                              anyOf:
+                              - title: BIC
+                                type: string
+                                description: A valid BIC (Bank Identifier Code)
+                              - type: 'null'
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - currency
+                          - accountNumber
+                          - sortCode
+                          properties:
+                            currency:
+                              type: string
+                              enum:
+                              - GBP
+                            accountNumber:
+                              type: string
+                              title: UK Bank Account Number
+                              description: a valid UK Bank Account Number (8 digits)
+                            sortCode:
+                              type: string
+                              title: Sort Code
+                              description: A valid UK Sort Code (6 digits)
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - currency
+                          - accountNumber
+                          - bic
+                          - intermediaryBic
+                          properties:
+                            currency:
+                              type: string
+                              enum:
+                              - USD
+                              - GBP
+                              - CHF
+                              - JPY
+                              - SGD
+                            accountNumber:
+                              anyOf:
+                              - title: IBAN
+                                type: string
+                                description: a valid IBAN (International Bank Account Number)
+                              - type: string
+                                title: US Bank Account Number
+                                description: a valid US Bank Account Number
+                            bic:
+                              title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            intermediaryBic:
+                              anyOf:
+                              - title: BIC
+                                type: string
+                                description: A valid BIC (Bank Identifier Code)
+                              - type: 'null'
+                            address:
+                              anyOf:
+                              - type: object
+                                required:
+                                - street
+                                - city
+                                - zipCode
+                                - country
+                                properties:
+                                  street:
+                                    $ref: '#/components/schemas/NonEmptyString'
+                                  city:
+                                    $ref: '#/components/schemas/NonEmptyString'
+                                  zipCode:
+                                    $ref: '#/components/schemas/NonEmptyString'
+                                  country:
+                                    $ref: '#/components/schemas/CountryCodeAlpha2'
+                                additionalProperties: false
+                              - type: 'null'
+                          additionalProperties: false
+                      createdAt:
+                        type: string
+                        title: valid range date
+                        description: A valid date within the range 2020-2100
+                      name:
+                        anyOf:
+                        - $ref: '#/components/schemas/NonEmptyString'
+                          description: a string at most 255 character(s) long
+                          title: maxLength(255)
+                          maxLength: 255
+                        - type: 'null'
+                      proofInvestorDocumentId:
+                        anyOf:
+                        - type: string
+                          description: a Universally Unique Identifier
+                          format: uuid
+                        - type: 'null'
+                      mandate:
+                        anyOf:
+                        - anyOf:
+                          - type: object
+                            required:
+                            - mandateReference
+                            - mandateStatus
+                            - mandateSignedAt
+                            - externalMandateId
+                            properties:
+                              mandateReference:
+                                type: string
+                                description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                                pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              mandateStatus:
+                                type: string
+                                enum:
+                                - pending-signature
+                              mandateSignedAt:
+                                type: 'null'
+                              externalMandateId:
+                                type: string
+                                description: a Universally Unique Identifier
+                                format: uuid
+                            additionalProperties: false
+                          - type: object
+                            required:
+                            - mandateReference
+                            - mandateStatus
+                            - mandateSignedAt
+                            - externalMandateId
+                            properties:
+                              mandateReference:
+                                type: string
+                                description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                                pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              mandateStatus:
+                                type: string
+                                enum:
+                                - signed
+                              mandateSignedAt:
+                                type: string
+                                title: valid range date
+                                description: A valid date within the range 2020-2100
+                              externalMandateId:
+                                type: string
+                                description: a Universally Unique Identifier
+                                format: uuid
+                            additionalProperties: false
+                        - type: 'null'
+                      vop:
+                        type: 'null'
+                        deprecated: true
+                        description: Deprecated. Always null.
+                      status:
+                        type: string
+                        enum:
+                        - pending-vop
+                    additionalProperties: false
+                  - type: object
+                    required:
+                    - id
+                    - investorId
+                    - details
+                    - createdAt
+                    - name
+                    - proofInvestorDocumentId
+                    - mandate
+                    - vop
+                    - status
+                    properties:
+                      id:
+                        type: string
+                        description: a Universally Unique Identifier
+                        format: uuid
+                      investorId:
+                        type: string
+                        description: a Universally Unique Identifier
+                        format: uuid
+                      details:
+                        anyOf:
+                        - type: object
+                          required:
+                          - currency
+                          - accountNumber
+                          - bic
+                          properties:
+                            currency:
+                              type: string
+                              enum:
+                              - EUR
+                            accountNumber:
+                              title: IBAN
+                              type: string
+                              description: a valid IBAN (International Bank Account Number)
+                            bic:
+                              anyOf:
+                              - title: BIC
+                                type: string
+                                description: A valid BIC (Bank Identifier Code)
+                              - type: 'null'
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - currency
+                          - accountNumber
+                          - sortCode
+                          properties:
+                            currency:
+                              type: string
+                              enum:
+                              - GBP
+                            accountNumber:
+                              type: string
+                              title: UK Bank Account Number
+                              description: a valid UK Bank Account Number (8 digits)
+                            sortCode:
+                              type: string
+                              title: Sort Code
+                              description: A valid UK Sort Code (6 digits)
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - currency
+                          - accountNumber
+                          - bic
+                          - intermediaryBic
+                          properties:
+                            currency:
+                              type: string
+                              enum:
+                              - USD
+                              - GBP
+                              - CHF
+                              - JPY
+                              - SGD
+                            accountNumber:
+                              anyOf:
+                              - title: IBAN
+                                type: string
+                                description: a valid IBAN (International Bank Account Number)
+                              - type: string
+                                title: US Bank Account Number
+                                description: a valid US Bank Account Number
+                            bic:
+                              title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            intermediaryBic:
+                              anyOf:
+                              - title: BIC
+                                type: string
+                                description: A valid BIC (Bank Identifier Code)
+                              - type: 'null'
+                            address:
+                              anyOf:
+                              - type: object
+                                required:
+                                - street
+                                - city
+                                - zipCode
+                                - country
+                                properties:
+                                  street:
+                                    $ref: '#/components/schemas/NonEmptyString'
+                                  city:
+                                    $ref: '#/components/schemas/NonEmptyString'
+                                  zipCode:
+                                    $ref: '#/components/schemas/NonEmptyString'
+                                  country:
+                                    $ref: '#/components/schemas/CountryCodeAlpha2'
+                                additionalProperties: false
+                              - type: 'null'
+                          additionalProperties: false
+                      createdAt:
+                        type: string
+                        title: valid range date
+                        description: A valid date within the range 2020-2100
+                      name:
+                        anyOf:
+                        - $ref: '#/components/schemas/NonEmptyString'
+                          description: a string at most 255 character(s) long
+                          title: maxLength(255)
+                          maxLength: 255
+                        - type: 'null'
+                      proofInvestorDocumentId:
+                        anyOf:
+                        - type: string
+                          description: a Universally Unique Identifier
+                          format: uuid
+                        - type: 'null'
+                      mandate:
+                        anyOf:
+                        - anyOf:
+                          - type: object
+                            required:
+                            - mandateReference
+                            - mandateStatus
+                            - mandateSignedAt
+                            - externalMandateId
+                            properties:
+                              mandateReference:
+                                type: string
+                                description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                                pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              mandateStatus:
+                                type: string
+                                enum:
+                                - pending-signature
+                              mandateSignedAt:
+                                type: 'null'
+                              externalMandateId:
+                                type: string
+                                description: a Universally Unique Identifier
+                                format: uuid
+                            additionalProperties: false
+                          - type: object
+                            required:
+                            - mandateReference
+                            - mandateStatus
+                            - mandateSignedAt
+                            - externalMandateId
+                            properties:
+                              mandateReference:
+                                type: string
+                                description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                                pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              mandateStatus:
+                                type: string
+                                enum:
+                                - signed
+                              mandateSignedAt:
+                                type: string
+                                title: valid range date
+                                description: A valid date within the range 2020-2100
+                              externalMandateId:
+                                type: string
+                                description: a Universally Unique Identifier
+                                format: uuid
+                            additionalProperties: false
+                        - type: 'null'
+                      vop:
+                        type: 'null'
+                        deprecated: true
+                        description: Deprecated. Always null.
+                      status:
+                        type: string
+                        enum:
+                        - validated
+                    additionalProperties: false
+                  - type: object
+                    required:
+                    - id
+                    - investorId
+                    - details
+                    - createdAt
+                    - name
+                    - proofInvestorDocumentId
+                    - mandate
+                    - vop
+                    - status
+                    - invalidationReason
+                    properties:
+                      id:
+                        type: string
+                        description: a Universally Unique Identifier
+                        format: uuid
+                      investorId:
+                        type: string
+                        description: a Universally Unique Identifier
+                        format: uuid
+                      details:
+                        anyOf:
+                        - type: object
+                          required:
+                          - currency
+                          - accountNumber
+                          - bic
+                          properties:
+                            currency:
+                              type: string
+                              enum:
+                              - EUR
+                            accountNumber:
+                              title: IBAN
+                              type: string
+                              description: a valid IBAN (International Bank Account Number)
+                            bic:
+                              anyOf:
+                              - title: BIC
+                                type: string
+                                description: A valid BIC (Bank Identifier Code)
+                              - type: 'null'
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - currency
+                          - accountNumber
+                          - sortCode
+                          properties:
+                            currency:
+                              type: string
+                              enum:
+                              - GBP
+                            accountNumber:
+                              type: string
+                              title: UK Bank Account Number
+                              description: a valid UK Bank Account Number (8 digits)
+                            sortCode:
+                              type: string
+                              title: Sort Code
+                              description: A valid UK Sort Code (6 digits)
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - currency
+                          - accountNumber
+                          - bic
+                          - intermediaryBic
+                          properties:
+                            currency:
+                              type: string
+                              enum:
+                              - USD
+                              - GBP
+                              - CHF
+                              - JPY
+                              - SGD
+                            accountNumber:
+                              anyOf:
+                              - title: IBAN
+                                type: string
+                                description: a valid IBAN (International Bank Account Number)
+                              - type: string
+                                title: US Bank Account Number
+                                description: a valid US Bank Account Number
+                            bic:
+                              title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            intermediaryBic:
+                              anyOf:
+                              - title: BIC
+                                type: string
+                                description: A valid BIC (Bank Identifier Code)
+                              - type: 'null'
+                            address:
+                              anyOf:
+                              - type: object
+                                required:
+                                - street
+                                - city
+                                - zipCode
+                                - country
+                                properties:
+                                  street:
+                                    $ref: '#/components/schemas/NonEmptyString'
+                                  city:
+                                    $ref: '#/components/schemas/NonEmptyString'
+                                  zipCode:
+                                    $ref: '#/components/schemas/NonEmptyString'
+                                  country:
+                                    $ref: '#/components/schemas/CountryCodeAlpha2'
+                                additionalProperties: false
+                              - type: 'null'
+                          additionalProperties: false
+                      createdAt:
+                        type: string
+                        title: valid range date
+                        description: A valid date within the range 2020-2100
+                      name:
+                        anyOf:
+                        - $ref: '#/components/schemas/NonEmptyString'
+                          description: a string at most 255 character(s) long
+                          title: maxLength(255)
+                          maxLength: 255
+                        - type: 'null'
+                      proofInvestorDocumentId:
+                        anyOf:
+                        - type: string
+                          description: a Universally Unique Identifier
+                          format: uuid
+                        - type: 'null'
+                      mandate:
+                        anyOf:
+                        - anyOf:
+                          - type: object
+                            required:
+                            - mandateReference
+                            - mandateStatus
+                            - mandateSignedAt
+                            - externalMandateId
+                            properties:
+                              mandateReference:
+                                type: string
+                                description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                                pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              mandateStatus:
+                                type: string
+                                enum:
+                                - pending-signature
+                              mandateSignedAt:
+                                type: 'null'
+                              externalMandateId:
+                                type: string
+                                description: a Universally Unique Identifier
+                                format: uuid
+                            additionalProperties: false
+                          - type: object
+                            required:
+                            - mandateReference
+                            - mandateStatus
+                            - mandateSignedAt
+                            - externalMandateId
+                            properties:
+                              mandateReference:
+                                type: string
+                                description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                                pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              mandateStatus:
+                                type: string
+                                enum:
+                                - signed
+                              mandateSignedAt:
+                                type: string
+                                title: valid range date
+                                description: A valid date within the range 2020-2100
+                              externalMandateId:
+                                type: string
+                                description: a Universally Unique Identifier
+                                format: uuid
+                            additionalProperties: false
+                        - type: 'null'
+                      vop:
+                        type: 'null'
+                        deprecated: true
+                        description: Deprecated. Always null.
+                      status:
+                        type: string
+                        enum:
+                        - invalidated
+                      invalidationReason:
+                        anyOf:
+                        - type: string
+                        - type: 'null'
+                    additionalProperties: false
+                  - type: object
+                    required:
+                    - id
+                    - investorId
+                    - details
+                    - createdAt
+                    - name
+                    - proofInvestorDocumentId
+                    - mandate
+                    - vop
+                    - status
+                    properties:
+                      id:
+                        type: string
+                        description: a Universally Unique Identifier
+                        format: uuid
+                      investorId:
+                        type: string
+                        description: a Universally Unique Identifier
+                        format: uuid
+                      details:
+                        anyOf:
+                        - type: object
+                          required:
+                          - currency
+                          - accountNumber
+                          - bic
+                          properties:
+                            currency:
+                              type: string
+                              enum:
+                              - EUR
+                            accountNumber:
+                              title: IBAN
+                              type: string
+                              description: a valid IBAN (International Bank Account Number)
+                            bic:
+                              anyOf:
+                              - title: BIC
+                                type: string
+                                description: A valid BIC (Bank Identifier Code)
+                              - type: 'null'
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - currency
+                          - accountNumber
+                          - sortCode
+                          properties:
+                            currency:
+                              type: string
+                              enum:
+                              - GBP
+                            accountNumber:
+                              type: string
+                              title: UK Bank Account Number
+                              description: a valid UK Bank Account Number (8 digits)
+                            sortCode:
+                              type: string
+                              title: Sort Code
+                              description: A valid UK Sort Code (6 digits)
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - currency
+                          - accountNumber
+                          - bic
+                          - intermediaryBic
+                          properties:
+                            currency:
+                              type: string
+                              enum:
+                              - USD
+                              - GBP
+                              - CHF
+                              - JPY
+                              - SGD
+                            accountNumber:
+                              anyOf:
+                              - title: IBAN
+                                type: string
+                                description: a valid IBAN (International Bank Account Number)
+                              - type: string
+                                title: US Bank Account Number
+                                description: a valid US Bank Account Number
+                            bic:
+                              title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            intermediaryBic:
+                              anyOf:
+                              - title: BIC
+                                type: string
+                                description: A valid BIC (Bank Identifier Code)
+                              - type: 'null'
+                            address:
+                              anyOf:
+                              - type: object
+                                required:
+                                - street
+                                - city
+                                - zipCode
+                                - country
+                                properties:
+                                  street:
+                                    $ref: '#/components/schemas/NonEmptyString'
+                                  city:
+                                    $ref: '#/components/schemas/NonEmptyString'
+                                  zipCode:
+                                    $ref: '#/components/schemas/NonEmptyString'
+                                  country:
+                                    $ref: '#/components/schemas/CountryCodeAlpha2'
+                                additionalProperties: false
+                              - type: 'null'
+                          additionalProperties: false
+                      createdAt:
+                        type: string
+                        title: valid range date
+                        description: A valid date within the range 2020-2100
+                      name:
+                        anyOf:
+                        - $ref: '#/components/schemas/NonEmptyString'
+                          description: a string at most 255 character(s) long
+                          title: maxLength(255)
+                          maxLength: 255
+                        - type: 'null'
+                      proofInvestorDocumentId:
+                        anyOf:
+                        - type: string
+                          description: a Universally Unique Identifier
+                          format: uuid
+                        - type: 'null'
+                      mandate:
+                        anyOf:
+                        - anyOf:
+                          - type: object
+                            required:
+                            - mandateReference
+                            - mandateStatus
+                            - mandateSignedAt
+                            - externalMandateId
+                            properties:
+                              mandateReference:
+                                type: string
+                                description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                                pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              mandateStatus:
+                                type: string
+                                enum:
+                                - pending-signature
+                              mandateSignedAt:
+                                type: 'null'
+                              externalMandateId:
+                                type: string
+                                description: a Universally Unique Identifier
+                                format: uuid
+                            additionalProperties: false
+                          - type: object
+                            required:
+                            - mandateReference
+                            - mandateStatus
+                            - mandateSignedAt
+                            - externalMandateId
+                            properties:
+                              mandateReference:
+                                type: string
+                                description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                                pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              mandateStatus:
+                                type: string
+                                enum:
+                                - signed
+                              mandateSignedAt:
+                                type: string
+                                title: valid range date
+                                description: A valid date within the range 2020-2100
+                              externalMandateId:
+                                type: string
+                                description: a Universally Unique Identifier
+                                format: uuid
+                            additionalProperties: false
+                        - type: 'null'
+                      vop:
+                        type: 'null'
+                        deprecated: true
+                        description: Deprecated. Always null.
+                      status:
+                        type: string
+                        enum:
+                        - archived
+                    additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpApiDecodeError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Unauthorized'
+                - $ref: '#/components/schemas/DistributorAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: NotFound
+      description: "\n**Retrieve all bank accounts for a given investor and currency.**\n\n- Returns account details including IBAN, BIC, and validation status.\n- Excludes archived bank accounts.\n            "
+      summary: Get bank accounts
+  /v0/bank-accounts/{id}:
+    get:
+      tags:
+      - Bank accounts
+      operationId: bankAccounts.getBankAccount
+      parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+          description: a Universally Unique Identifier
+          format: uuid
+        required: true
+        description: a Universally Unique Identifier
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - type: object
+                  required:
+                  - id
+                  - investorId
+                  - details
+                  - createdAt
+                  - name
+                  - proofInvestorDocumentId
+                  - mandate
+                  - vop
+                  - status
+                  properties:
+                    id:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    investorId:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    details:
+                      anyOf:
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - bic
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - EUR
+                          accountNumber:
+                            title: IBAN
+                            type: string
+                            description: a valid IBAN (International Bank Account Number)
+                          bic:
+                            anyOf:
+                            - title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            - type: 'null'
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - sortCode
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - GBP
+                          accountNumber:
+                            type: string
+                            title: UK Bank Account Number
+                            description: a valid UK Bank Account Number (8 digits)
+                          sortCode:
+                            type: string
+                            title: Sort Code
+                            description: A valid UK Sort Code (6 digits)
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - bic
+                        - intermediaryBic
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - USD
+                            - GBP
+                            - CHF
+                            - JPY
+                            - SGD
+                          accountNumber:
+                            anyOf:
+                            - title: IBAN
+                              type: string
+                              description: a valid IBAN (International Bank Account Number)
+                            - type: string
+                              title: US Bank Account Number
+                              description: a valid US Bank Account Number
+                          bic:
+                            title: BIC
+                            type: string
+                            description: A valid BIC (Bank Identifier Code)
+                          intermediaryBic:
+                            anyOf:
+                            - title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            - type: 'null'
+                          address:
+                            anyOf:
+                            - type: object
+                              required:
+                              - street
+                              - city
+                              - zipCode
+                              - country
+                              properties:
+                                street:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                city:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                zipCode:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                country:
+                                  $ref: '#/components/schemas/CountryCodeAlpha2'
+                              additionalProperties: false
+                            - type: 'null'
+                        additionalProperties: false
+                    createdAt:
+                      type: string
+                      title: valid range date
+                      description: A valid date within the range 2020-2100
+                    name:
+                      anyOf:
+                      - $ref: '#/components/schemas/NonEmptyString'
+                        description: a string at most 255 character(s) long
+                        title: maxLength(255)
+                        maxLength: 255
+                      - type: 'null'
+                    proofInvestorDocumentId:
+                      anyOf:
+                      - type: string
+                        description: a Universally Unique Identifier
+                        format: uuid
+                      - type: 'null'
+                    mandate:
+                      anyOf:
+                      - anyOf:
+                        - type: object
+                          required:
+                          - mandateReference
+                          - mandateStatus
+                          - mandateSignedAt
+                          - externalMandateId
+                          properties:
+                            mandateReference:
+                              type: string
+                              description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                            mandateStatus:
+                              type: string
+                              enum:
+                              - pending-signature
+                            mandateSignedAt:
+                              type: 'null'
+                            externalMandateId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - mandateReference
+                          - mandateStatus
+                          - mandateSignedAt
+                          - externalMandateId
+                          properties:
+                            mandateReference:
+                              type: string
+                              description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                            mandateStatus:
+                              type: string
+                              enum:
+                              - signed
+                            mandateSignedAt:
+                              type: string
+                              title: valid range date
+                              description: A valid date within the range 2020-2100
+                            externalMandateId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                          additionalProperties: false
+                      - type: 'null'
+                    vop:
+                      type: 'null'
+                      deprecated: true
+                      description: Deprecated. Always null.
+                    status:
+                      type: string
+                      enum:
+                      - pending-validation
+                  additionalProperties: false
+                - type: object
+                  required:
+                  - id
+                  - investorId
+                  - details
+                  - createdAt
+                  - name
+                  - proofInvestorDocumentId
+                  - mandate
+                  - vop
+                  - status
+                  properties:
+                    id:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    investorId:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    details:
+                      anyOf:
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - bic
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - EUR
+                          accountNumber:
+                            title: IBAN
+                            type: string
+                            description: a valid IBAN (International Bank Account Number)
+                          bic:
+                            anyOf:
+                            - title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            - type: 'null'
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - sortCode
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - GBP
+                          accountNumber:
+                            type: string
+                            title: UK Bank Account Number
+                            description: a valid UK Bank Account Number (8 digits)
+                          sortCode:
+                            type: string
+                            title: Sort Code
+                            description: A valid UK Sort Code (6 digits)
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - bic
+                        - intermediaryBic
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - USD
+                            - GBP
+                            - CHF
+                            - JPY
+                            - SGD
+                          accountNumber:
+                            anyOf:
+                            - title: IBAN
+                              type: string
+                              description: a valid IBAN (International Bank Account Number)
+                            - type: string
+                              title: US Bank Account Number
+                              description: a valid US Bank Account Number
+                          bic:
+                            title: BIC
+                            type: string
+                            description: A valid BIC (Bank Identifier Code)
+                          intermediaryBic:
+                            anyOf:
+                            - title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            - type: 'null'
+                          address:
+                            anyOf:
+                            - type: object
+                              required:
+                              - street
+                              - city
+                              - zipCode
+                              - country
+                              properties:
+                                street:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                city:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                zipCode:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                country:
+                                  $ref: '#/components/schemas/CountryCodeAlpha2'
+                              additionalProperties: false
+                            - type: 'null'
+                        additionalProperties: false
+                    createdAt:
+                      type: string
+                      title: valid range date
+                      description: A valid date within the range 2020-2100
+                    name:
+                      anyOf:
+                      - $ref: '#/components/schemas/NonEmptyString'
+                        description: a string at most 255 character(s) long
+                        title: maxLength(255)
+                        maxLength: 255
+                      - type: 'null'
+                    proofInvestorDocumentId:
+                      anyOf:
+                      - type: string
+                        description: a Universally Unique Identifier
+                        format: uuid
+                      - type: 'null'
+                    mandate:
+                      anyOf:
+                      - anyOf:
+                        - type: object
+                          required:
+                          - mandateReference
+                          - mandateStatus
+                          - mandateSignedAt
+                          - externalMandateId
+                          properties:
+                            mandateReference:
+                              type: string
+                              description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                            mandateStatus:
+                              type: string
+                              enum:
+                              - pending-signature
+                            mandateSignedAt:
+                              type: 'null'
+                            externalMandateId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - mandateReference
+                          - mandateStatus
+                          - mandateSignedAt
+                          - externalMandateId
+                          properties:
+                            mandateReference:
+                              type: string
+                              description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                            mandateStatus:
+                              type: string
+                              enum:
+                              - signed
+                            mandateSignedAt:
+                              type: string
+                              title: valid range date
+                              description: A valid date within the range 2020-2100
+                            externalMandateId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                          additionalProperties: false
+                      - type: 'null'
+                    vop:
+                      type: 'null'
+                      deprecated: true
+                      description: Deprecated. Always null.
+                    status:
+                      type: string
+                      enum:
+                      - pending-vop
+                  additionalProperties: false
+                - type: object
+                  required:
+                  - id
+                  - investorId
+                  - details
+                  - createdAt
+                  - name
+                  - proofInvestorDocumentId
+                  - mandate
+                  - vop
+                  - status
+                  properties:
+                    id:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    investorId:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    details:
+                      anyOf:
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - bic
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - EUR
+                          accountNumber:
+                            title: IBAN
+                            type: string
+                            description: a valid IBAN (International Bank Account Number)
+                          bic:
+                            anyOf:
+                            - title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            - type: 'null'
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - sortCode
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - GBP
+                          accountNumber:
+                            type: string
+                            title: UK Bank Account Number
+                            description: a valid UK Bank Account Number (8 digits)
+                          sortCode:
+                            type: string
+                            title: Sort Code
+                            description: A valid UK Sort Code (6 digits)
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - bic
+                        - intermediaryBic
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - USD
+                            - GBP
+                            - CHF
+                            - JPY
+                            - SGD
+                          accountNumber:
+                            anyOf:
+                            - title: IBAN
+                              type: string
+                              description: a valid IBAN (International Bank Account Number)
+                            - type: string
+                              title: US Bank Account Number
+                              description: a valid US Bank Account Number
+                          bic:
+                            title: BIC
+                            type: string
+                            description: A valid BIC (Bank Identifier Code)
+                          intermediaryBic:
+                            anyOf:
+                            - title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            - type: 'null'
+                          address:
+                            anyOf:
+                            - type: object
+                              required:
+                              - street
+                              - city
+                              - zipCode
+                              - country
+                              properties:
+                                street:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                city:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                zipCode:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                country:
+                                  $ref: '#/components/schemas/CountryCodeAlpha2'
+                              additionalProperties: false
+                            - type: 'null'
+                        additionalProperties: false
+                    createdAt:
+                      type: string
+                      title: valid range date
+                      description: A valid date within the range 2020-2100
+                    name:
+                      anyOf:
+                      - $ref: '#/components/schemas/NonEmptyString'
+                        description: a string at most 255 character(s) long
+                        title: maxLength(255)
+                        maxLength: 255
+                      - type: 'null'
+                    proofInvestorDocumentId:
+                      anyOf:
+                      - type: string
+                        description: a Universally Unique Identifier
+                        format: uuid
+                      - type: 'null'
+                    mandate:
+                      anyOf:
+                      - anyOf:
+                        - type: object
+                          required:
+                          - mandateReference
+                          - mandateStatus
+                          - mandateSignedAt
+                          - externalMandateId
+                          properties:
+                            mandateReference:
+                              type: string
+                              description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                            mandateStatus:
+                              type: string
+                              enum:
+                              - pending-signature
+                            mandateSignedAt:
+                              type: 'null'
+                            externalMandateId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - mandateReference
+                          - mandateStatus
+                          - mandateSignedAt
+                          - externalMandateId
+                          properties:
+                            mandateReference:
+                              type: string
+                              description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                            mandateStatus:
+                              type: string
+                              enum:
+                              - signed
+                            mandateSignedAt:
+                              type: string
+                              title: valid range date
+                              description: A valid date within the range 2020-2100
+                            externalMandateId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                          additionalProperties: false
+                      - type: 'null'
+                    vop:
+                      type: 'null'
+                      deprecated: true
+                      description: Deprecated. Always null.
+                    status:
+                      type: string
+                      enum:
+                      - validated
+                  additionalProperties: false
+                - type: object
+                  required:
+                  - id
+                  - investorId
+                  - details
+                  - createdAt
+                  - name
+                  - proofInvestorDocumentId
+                  - mandate
+                  - vop
+                  - status
+                  - invalidationReason
+                  properties:
+                    id:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    investorId:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    details:
+                      anyOf:
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - bic
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - EUR
+                          accountNumber:
+                            title: IBAN
+                            type: string
+                            description: a valid IBAN (International Bank Account Number)
+                          bic:
+                            anyOf:
+                            - title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            - type: 'null'
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - sortCode
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - GBP
+                          accountNumber:
+                            type: string
+                            title: UK Bank Account Number
+                            description: a valid UK Bank Account Number (8 digits)
+                          sortCode:
+                            type: string
+                            title: Sort Code
+                            description: A valid UK Sort Code (6 digits)
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - bic
+                        - intermediaryBic
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - USD
+                            - GBP
+                            - CHF
+                            - JPY
+                            - SGD
+                          accountNumber:
+                            anyOf:
+                            - title: IBAN
+                              type: string
+                              description: a valid IBAN (International Bank Account Number)
+                            - type: string
+                              title: US Bank Account Number
+                              description: a valid US Bank Account Number
+                          bic:
+                            title: BIC
+                            type: string
+                            description: A valid BIC (Bank Identifier Code)
+                          intermediaryBic:
+                            anyOf:
+                            - title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            - type: 'null'
+                          address:
+                            anyOf:
+                            - type: object
+                              required:
+                              - street
+                              - city
+                              - zipCode
+                              - country
+                              properties:
+                                street:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                city:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                zipCode:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                country:
+                                  $ref: '#/components/schemas/CountryCodeAlpha2'
+                              additionalProperties: false
+                            - type: 'null'
+                        additionalProperties: false
+                    createdAt:
+                      type: string
+                      title: valid range date
+                      description: A valid date within the range 2020-2100
+                    name:
+                      anyOf:
+                      - $ref: '#/components/schemas/NonEmptyString'
+                        description: a string at most 255 character(s) long
+                        title: maxLength(255)
+                        maxLength: 255
+                      - type: 'null'
+                    proofInvestorDocumentId:
+                      anyOf:
+                      - type: string
+                        description: a Universally Unique Identifier
+                        format: uuid
+                      - type: 'null'
+                    mandate:
+                      anyOf:
+                      - anyOf:
+                        - type: object
+                          required:
+                          - mandateReference
+                          - mandateStatus
+                          - mandateSignedAt
+                          - externalMandateId
+                          properties:
+                            mandateReference:
+                              type: string
+                              description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                            mandateStatus:
+                              type: string
+                              enum:
+                              - pending-signature
+                            mandateSignedAt:
+                              type: 'null'
+                            externalMandateId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - mandateReference
+                          - mandateStatus
+                          - mandateSignedAt
+                          - externalMandateId
+                          properties:
+                            mandateReference:
+                              type: string
+                              description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                            mandateStatus:
+                              type: string
+                              enum:
+                              - signed
+                            mandateSignedAt:
+                              type: string
+                              title: valid range date
+                              description: A valid date within the range 2020-2100
+                            externalMandateId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                          additionalProperties: false
+                      - type: 'null'
+                    vop:
+                      type: 'null'
+                      deprecated: true
+                      description: Deprecated. Always null.
+                    status:
+                      type: string
+                      enum:
+                      - invalidated
+                    invalidationReason:
+                      anyOf:
+                      - type: string
+                      - type: 'null'
+                  additionalProperties: false
+                - type: object
+                  required:
+                  - id
+                  - investorId
+                  - details
+                  - createdAt
+                  - name
+                  - proofInvestorDocumentId
+                  - mandate
+                  - vop
+                  - status
+                  properties:
+                    id:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    investorId:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    details:
+                      anyOf:
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - bic
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - EUR
+                          accountNumber:
+                            title: IBAN
+                            type: string
+                            description: a valid IBAN (International Bank Account Number)
+                          bic:
+                            anyOf:
+                            - title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            - type: 'null'
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - sortCode
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - GBP
+                          accountNumber:
+                            type: string
+                            title: UK Bank Account Number
+                            description: a valid UK Bank Account Number (8 digits)
+                          sortCode:
+                            type: string
+                            title: Sort Code
+                            description: A valid UK Sort Code (6 digits)
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - bic
+                        - intermediaryBic
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - USD
+                            - GBP
+                            - CHF
+                            - JPY
+                            - SGD
+                          accountNumber:
+                            anyOf:
+                            - title: IBAN
+                              type: string
+                              description: a valid IBAN (International Bank Account Number)
+                            - type: string
+                              title: US Bank Account Number
+                              description: a valid US Bank Account Number
+                          bic:
+                            title: BIC
+                            type: string
+                            description: A valid BIC (Bank Identifier Code)
+                          intermediaryBic:
+                            anyOf:
+                            - title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            - type: 'null'
+                          address:
+                            anyOf:
+                            - type: object
+                              required:
+                              - street
+                              - city
+                              - zipCode
+                              - country
+                              properties:
+                                street:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                city:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                zipCode:
+                                  $ref: '#/components/schemas/NonEmptyString'
+                                country:
+                                  $ref: '#/components/schemas/CountryCodeAlpha2'
+                              additionalProperties: false
+                            - type: 'null'
+                        additionalProperties: false
+                    createdAt:
+                      type: string
+                      title: valid range date
+                      description: A valid date within the range 2020-2100
+                    name:
+                      anyOf:
+                      - $ref: '#/components/schemas/NonEmptyString'
+                        description: a string at most 255 character(s) long
+                        title: maxLength(255)
+                        maxLength: 255
+                      - type: 'null'
+                    proofInvestorDocumentId:
+                      anyOf:
+                      - type: string
+                        description: a Universally Unique Identifier
+                        format: uuid
+                      - type: 'null'
+                    mandate:
+                      anyOf:
+                      - anyOf:
+                        - type: object
+                          required:
+                          - mandateReference
+                          - mandateStatus
+                          - mandateSignedAt
+                          - externalMandateId
+                          properties:
+                            mandateReference:
+                              type: string
+                              description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                            mandateStatus:
+                              type: string
+                              enum:
+                              - pending-signature
+                            mandateSignedAt:
+                              type: 'null'
+                            externalMandateId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - mandateReference
+                          - mandateStatus
+                          - mandateSignedAt
+                          - externalMandateId
+                          properties:
+                            mandateReference:
+                              type: string
+                              description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                              pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                            mandateStatus:
+                              type: string
+                              enum:
+                              - signed
+                            mandateSignedAt:
+                              type: string
+                              title: valid range date
+                              description: A valid date within the range 2020-2100
+                            externalMandateId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                          additionalProperties: false
+                      - type: 'null'
+                    vop:
+                      type: 'null'
+                      deprecated: true
+                      description: Deprecated. Always null.
+                    status:
+                      type: string
+                      enum:
+                      - archived
+                  additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpApiDecodeError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Unauthorized'
+                - $ref: '#/components/schemas/DistributorAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: NotFound
+      description: "\n**Fetch a bank account by its ID.**\n\n- Return detailed bank account information, including IBAN or account number, BIC, and validation status.\n        "
+      summary: Get bank account
+    delete:
+      tags:
+      - Bank accounts
+      operationId: bankAccounts.archiveBankAccount
+      parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+          description: a Universally Unique Identifier
+          format: uuid
+        required: true
+        description: a Universally Unique Identifier
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - investorId
+                - details
+                - createdAt
+                - name
+                - proofInvestorDocumentId
+                - mandate
+                - vop
+                - status
+                properties:
+                  id:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  investorId:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  details:
+                    anyOf:
+                    - type: object
+                      required:
+                      - currency
+                      - accountNumber
+                      - bic
+                      properties:
+                        currency:
+                          type: string
+                          enum:
+                          - EUR
+                        accountNumber:
+                          title: IBAN
+                          type: string
+                          description: a valid IBAN (International Bank Account Number)
+                        bic:
+                          anyOf:
+                          - title: BIC
+                            type: string
+                            description: A valid BIC (Bank Identifier Code)
+                          - type: 'null'
+                      additionalProperties: false
+                    - type: object
+                      required:
+                      - currency
+                      - accountNumber
+                      - sortCode
+                      properties:
+                        currency:
+                          type: string
+                          enum:
+                          - GBP
+                        accountNumber:
+                          type: string
+                          title: UK Bank Account Number
+                          description: a valid UK Bank Account Number (8 digits)
+                        sortCode:
+                          type: string
+                          title: Sort Code
+                          description: A valid UK Sort Code (6 digits)
+                      additionalProperties: false
+                    - type: object
+                      required:
+                      - currency
+                      - accountNumber
+                      - bic
+                      - intermediaryBic
+                      properties:
+                        currency:
+                          type: string
+                          enum:
+                          - USD
+                          - GBP
+                          - CHF
+                          - JPY
+                          - SGD
+                        accountNumber:
+                          anyOf:
+                          - title: IBAN
+                            type: string
+                            description: a valid IBAN (International Bank Account Number)
+                          - type: string
+                            title: US Bank Account Number
+                            description: a valid US Bank Account Number
+                        bic:
+                          title: BIC
+                          type: string
+                          description: A valid BIC (Bank Identifier Code)
+                        intermediaryBic:
+                          anyOf:
+                          - title: BIC
+                            type: string
+                            description: A valid BIC (Bank Identifier Code)
+                          - type: 'null'
+                        address:
+                          anyOf:
+                          - type: object
+                            required:
+                            - street
+                            - city
+                            - zipCode
+                            - country
+                            properties:
+                              street:
+                                $ref: '#/components/schemas/NonEmptyString'
+                              city:
+                                $ref: '#/components/schemas/NonEmptyString'
+                              zipCode:
+                                $ref: '#/components/schemas/NonEmptyString'
+                              country:
+                                $ref: '#/components/schemas/CountryCodeAlpha2'
+                            additionalProperties: false
+                          - type: 'null'
+                      additionalProperties: false
+                  createdAt:
+                    type: string
+                    title: valid range date
+                    description: A valid date within the range 2020-2100
+                  name:
+                    anyOf:
+                    - $ref: '#/components/schemas/NonEmptyString'
+                      description: a string at most 255 character(s) long
+                      title: maxLength(255)
+                      maxLength: 255
+                    - type: 'null'
+                  proofInvestorDocumentId:
+                    anyOf:
+                    - type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    - type: 'null'
+                  mandate:
+                    anyOf:
+                    - anyOf:
+                      - type: object
+                        required:
+                        - mandateReference
+                        - mandateStatus
+                        - mandateSignedAt
+                        - externalMandateId
+                        properties:
+                          mandateReference:
+                            type: string
+                            description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                            pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                          mandateStatus:
+                            type: string
+                            enum:
+                            - pending-signature
+                          mandateSignedAt:
+                            type: 'null'
+                          externalMandateId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - mandateReference
+                        - mandateStatus
+                        - mandateSignedAt
+                        - externalMandateId
+                        properties:
+                          mandateReference:
+                            type: string
+                            description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                            pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                          mandateStatus:
+                            type: string
+                            enum:
+                            - signed
+                          mandateSignedAt:
+                            type: string
+                            title: valid range date
+                            description: A valid date within the range 2020-2100
+                          externalMandateId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                        additionalProperties: false
+                    - type: 'null'
+                  vop:
+                    type: 'null'
+                    deprecated: true
+                    description: Deprecated. Always null.
+                  status:
+                    type: string
+                    enum:
+                    - archived
+                additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/HttpApiDecodeError'
+                - $ref: '#/components/schemas/BadRequest'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Unauthorized'
+                - $ref: '#/components/schemas/DistributorAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: NotFound
+      description: "\n**Archive a bank account. The associated proof of ownership document (if any) is also archived.**\n\n- Once archived, a bank account is no longer available for new transactions, but remains accessible for historical reference and audit purposes.\n- Any pending withdrawal orders that were using this account will have the bank account reference removed. Orders that are already executed are not affected.\n          "
+      summary: Archive bank account
+  /bank-accounts/{id}:
+    patch:
+      tags:
+      - Bank accounts
+      operationId: bankAccounts.uploadBankAccountProofDocument
+      parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+          description: a Universally Unique Identifier
+          format: uuid
+        required: true
+        description: a Universally Unique Identifier
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - investorId
+                - details
+                - createdAt
+                - name
+                - proofInvestorDocumentId
+                - mandate
+                - vop
+                - status
+                properties:
+                  id:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  investorId:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  details:
+                    anyOf:
+                    - type: object
+                      required:
+                      - currency
+                      - accountNumber
+                      - bic
+                      properties:
+                        currency:
+                          type: string
+                          enum:
+                          - EUR
+                        accountNumber:
+                          title: IBAN
+                          type: string
+                          description: a valid IBAN (International Bank Account Number)
+                        bic:
+                          anyOf:
+                          - title: BIC
+                            type: string
+                            description: A valid BIC (Bank Identifier Code)
+                          - type: 'null'
+                      additionalProperties: false
+                    - type: object
+                      required:
+                      - currency
+                      - accountNumber
+                      - sortCode
+                      properties:
+                        currency:
+                          type: string
+                          enum:
+                          - GBP
+                        accountNumber:
+                          type: string
+                          title: UK Bank Account Number
+                          description: a valid UK Bank Account Number (8 digits)
+                        sortCode:
+                          type: string
+                          title: Sort Code
+                          description: A valid UK Sort Code (6 digits)
+                      additionalProperties: false
+                    - type: object
+                      required:
+                      - currency
+                      - accountNumber
+                      - bic
+                      - intermediaryBic
+                      properties:
+                        currency:
+                          type: string
+                          enum:
+                          - USD
+                          - GBP
+                          - CHF
+                          - JPY
+                          - SGD
+                        accountNumber:
+                          anyOf:
+                          - title: IBAN
+                            type: string
+                            description: a valid IBAN (International Bank Account Number)
+                          - type: string
+                            title: US Bank Account Number
+                            description: a valid US Bank Account Number
+                        bic:
+                          title: BIC
+                          type: string
+                          description: A valid BIC (Bank Identifier Code)
+                        intermediaryBic:
+                          anyOf:
+                          - title: BIC
+                            type: string
+                            description: A valid BIC (Bank Identifier Code)
+                          - type: 'null'
+                        address:
+                          anyOf:
+                          - type: object
+                            required:
+                            - street
+                            - city
+                            - zipCode
+                            - country
+                            properties:
+                              street:
+                                $ref: '#/components/schemas/NonEmptyString'
+                              city:
+                                $ref: '#/components/schemas/NonEmptyString'
+                              zipCode:
+                                $ref: '#/components/schemas/NonEmptyString'
+                              country:
+                                $ref: '#/components/schemas/CountryCodeAlpha2'
+                            additionalProperties: false
+                          - type: 'null'
+                      additionalProperties: false
+                  createdAt:
+                    type: string
+                    title: valid range date
+                    description: A valid date within the range 2020-2100
+                  name:
+                    anyOf:
+                    - $ref: '#/components/schemas/NonEmptyString'
+                      description: a string at most 255 character(s) long
+                      title: maxLength(255)
+                      maxLength: 255
+                    - type: 'null'
+                  proofInvestorDocumentId:
+                    anyOf:
+                    - type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    - type: 'null'
+                  mandate:
+                    anyOf:
+                    - anyOf:
+                      - type: object
+                        required:
+                        - mandateReference
+                        - mandateStatus
+                        - mandateSignedAt
+                        - externalMandateId
+                        properties:
+                          mandateReference:
+                            type: string
+                            description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                            pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                          mandateStatus:
+                            type: string
+                            enum:
+                            - pending-signature
+                          mandateSignedAt:
+                            type: 'null'
+                          externalMandateId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - mandateReference
+                        - mandateStatus
+                        - mandateSignedAt
+                        - externalMandateId
+                        properties:
+                          mandateReference:
+                            type: string
+                            description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                            pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                          mandateStatus:
+                            type: string
+                            enum:
+                            - signed
+                          mandateSignedAt:
+                            type: string
+                            title: valid range date
+                            description: A valid date within the range 2020-2100
+                          externalMandateId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                        additionalProperties: false
+                    - type: 'null'
+                  vop:
+                    type: 'null'
+                    deprecated: true
+                    description: Deprecated. Always null.
+                  status:
+                    type: string
+                    enum:
+                    - pending-validation
+                additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/HttpApiDecodeError'
+                - $ref: '#/components/schemas/BankAccountProofUploadNotAllowedError'
+                - $ref: '#/components/schemas/InvalidProofDocumentError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Unauthorized'
+                - $ref: '#/components/schemas/DistributorAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: NotFound
+      description: "\n**Upload a proof of bank account ownership document for a bank account that was invalidated after VoP verification failure.**\n\n- Only allowed on bank accounts with status `invalidated`.\n- Transitions the bank account to `pending-validation` for manual review by Spiko's operations team.\n- The `proofInvestorDocumentId` must reference a previously uploaded investor document.\n          "
+      summary: Upload proof document for invalidated bank account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - proofInvestorDocumentId
+              properties:
+                proofInvestorDocumentId:
+                  type: string
+                  description: a Universally Unique Identifier
+                  format: uuid
+              additionalProperties: false
+        required: true
+  /bank-accounts/{bankAccountId}:
+    get:
+      tags:
+      - Bank accounts
+      operationId: bankAccounts.getBankAccountById
+      parameters:
+      - name: bankAccountId
+        in: path
+        schema:
+          type: string
+          description: a Universally Unique Identifier
+          format: uuid
+        required: true
+        description: a Universally Unique Identifier
+      - name: bankAccountId
+        in: query
+        schema:
+          type: string
+          description: a Universally Unique Identifier
+          format: uuid
+        required: true
+        description: a Universally Unique Identifier
+      security:
+      - basicAuth: []
+      - oauth2: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - investorId
+                - name
+                - details
+                properties:
+                  id:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  investorId:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  name:
+                    anyOf:
+                    - $ref: '#/components/schemas/NonEmptyString'
+                      description: a string at most 255 character(s) long
+                      title: maxLength(255)
+                      maxLength: 255
+                    - type: 'null'
+                  details:
+                    anyOf:
+                    - type: object
+                      required:
+                      - currency
+                      - accountNumber
+                      - bic
+                      properties:
+                        currency:
+                          type: string
+                          enum:
+                          - EUR
+                          - USD
+                          - GBP
+                          - CHF
+                          - JPY
+                          - SGD
+                          title: Currency code
+                          identifier: CurrencyCode
+                          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                        accountNumber:
+                          anyOf:
+                          - title: IBAN
+                            type: string
+                            description: a valid IBAN (International Bank Account Number)
+                          - type: string
+                            title: US Bank Account Number
+                            description: a valid US Bank Account Number
+                        bic:
+                          anyOf:
+                          - title: BIC
+                            type: string
+                            description: A valid BIC (Bank Identifier Code)
+                          - type: 'null'
+                      additionalProperties: false
+                    - type: object
+                      required:
+                      - currency
+                      - accountNumber
+                      - sortCode
+                      properties:
+                        currency:
+                          type: string
+                          enum:
+                          - EUR
+                          - USD
+                          - GBP
+                          - CHF
+                          - JPY
+                          - SGD
+                          title: Currency code
+                          identifier: CurrencyCode
+                          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                        accountNumber:
+                          type: string
+                          title: UK Bank Account Number
+                          description: a valid UK Bank Account Number (8 digits)
+                        sortCode:
+                          type: string
+                          title: Sort Code
+                          description: A valid UK Sort Code (6 digits)
+                      additionalProperties: false
+                  mandate:
+                    anyOf:
+                    - type: object
+                      required:
+                      - mandateReference
+                      - mandateStatus
+                      - mandateSignedAt
+                      properties:
+                        mandateReference:
+                          type: string
+                          description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                          pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                        mandateStatus:
+                          type: string
+                          enum:
+                          - pending-signature
+                        mandateSignedAt:
+                          type: 'null'
+                      additionalProperties: false
+                    - type: object
+                      required:
+                      - mandateReference
+                      - mandateStatus
+                      - mandateSignedAt
+                      properties:
+                        mandateReference:
+                          type: string
+                          description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                          pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                        mandateStatus:
+                          type: string
+                          enum:
+                          - signed
+                        mandateSignedAt:
+                          type: string
+                          title: valid range date
+                          description: A valid date within the range 2020-2100
+                      additionalProperties: false
+                additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpApiDecodeError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Unauthorized'
+                - $ref: '#/components/schemas/InvestorAuthenticationError'
+        '403':
+          description: Forbidden
+        '404':
+          description: NotFound
+      description: Get info of a bank account (currency / IBAN / BIC)
+      summary: Get bank account
+  /bank-accounts/:
+    get:
+      tags:
+      - Bank accounts
+      operationId: bankAccounts.getBankAccounts
+      parameters:
+      - name: investorId
+        in: query
+        schema:
+          type: string
+          description: a Universally Unique Identifier
+          format: uuid
+        required: true
+        description: a Universally Unique Identifier
+      security:
+      - basicAuth: []
+      - oauth2: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - id
+                  - investorId
+                  - name
+                  - details
+                  properties:
+                    id:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    investorId:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    name:
+                      anyOf:
+                      - $ref: '#/components/schemas/NonEmptyString'
+                        description: a string at most 255 character(s) long
+                        title: maxLength(255)
+                        maxLength: 255
+                      - type: 'null'
+                    details:
+                      anyOf:
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - bic
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - EUR
+                            - USD
+                            - GBP
+                            - CHF
+                            - JPY
+                            - SGD
+                            title: Currency code
+                            identifier: CurrencyCode
+                            description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                          accountNumber:
+                            anyOf:
+                            - title: IBAN
+                              type: string
+                              description: a valid IBAN (International Bank Account Number)
+                            - type: string
+                              title: US Bank Account Number
+                              description: a valid US Bank Account Number
+                          bic:
+                            anyOf:
+                            - title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            - type: 'null'
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - currency
+                        - accountNumber
+                        - sortCode
+                        properties:
+                          currency:
+                            type: string
+                            enum:
+                            - EUR
+                            - USD
+                            - GBP
+                            - CHF
+                            - JPY
+                            - SGD
+                            title: Currency code
+                            identifier: CurrencyCode
+                            description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                          accountNumber:
+                            type: string
+                            title: UK Bank Account Number
+                            description: a valid UK Bank Account Number (8 digits)
+                          sortCode:
+                            type: string
+                            title: Sort Code
+                            description: A valid UK Sort Code (6 digits)
+                        additionalProperties: false
+                    mandate:
+                      anyOf:
+                      - type: object
+                        required:
+                        - mandateReference
+                        - mandateStatus
+                        - mandateSignedAt
+                        properties:
+                          mandateReference:
+                            type: string
+                            description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                            pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                          mandateStatus:
+                            type: string
+                            enum:
+                            - pending-signature
+                          mandateSignedAt:
+                            type: 'null'
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - mandateReference
+                        - mandateStatus
+                        - mandateSignedAt
+                        properties:
+                          mandateReference:
+                            type: string
+                            description: a string matching the pattern ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                            pattern: ^[A-Za-z0-9+?/\-:().,'\s]{1,35}$
+                          mandateStatus:
+                            type: string
+                            enum:
+                            - signed
+                          mandateSignedAt:
+                            type: string
+                            title: valid range date
+                            description: A valid date within the range 2020-2100
+                        additionalProperties: false
+                  additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpApiDecodeError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Unauthorized'
+                - $ref: '#/components/schemas/InvestorAuthenticationError'
+        '403':
+          description: Forbidden
+      description: Get list of bank account's info of an investor (IBAN / BIC)
+      summary: Get bank accounts of an investor
+components:
+  schemas:
+    BadRequestError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - BadRequestError
+      additionalProperties: false
+      description: Bad Request
+    BankAccountProofUploadNotAllowedError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - BankAccountProofUploadNotAllowedError
+      additionalProperties: false
+      description: The bank account is not in invalidated status. Proof document upload is only allowed on invalidated bank accounts.
+    InvestorAuthenticationError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - InvestorAuthenticationError
+      additionalProperties: false
+      description: Authentication Error
+    BadRequest:
+      $id: /schemas/void
+      title: BadRequest
+    ForbiddenError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        customErrorCode:
+          type: string
+          enum:
+          - AccountDoesNotBelongToInvestor
+          - SessionIsNot2FA
+          - InvestorDocumentLinkedToActiveBankAccount
+          - AtLeastTwoAdminUsersRequired
+          - InvestorNotPendingOnboarding
+          - ShareClassNotAvailableForDistributor
+        _tag:
+          type: string
+          enum:
+          - ForbiddenError
+      additionalProperties: false
+      description: Forbidden
+    InvalidProofDocumentError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - InvalidProofDocumentError
+      additionalProperties: false
+      description: The proof document is invalid. Make sure it was previously uploaded.
+    ProofDocumentRequiredError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - ProofDocumentRequiredError
+      additionalProperties: false
+      description: A proof of bank account ownership document is required. Automated verification (VoP/CoP) is not available for this currency.
+    NonEmptyString:
+      type: string
+      description: a non empty string
+      title: nonEmptyString
+      minLength: 1
+    HttpApiDecodeError:
+      type: object
+      required:
+      - issues
+      - message
+      - _tag
+      properties:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+        message:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - HttpApiDecodeError
+      additionalProperties: false
+      description: The request did not match the expected schema
+    CountryCodeAlpha2:
+      type: string
+      enum:
+      - AD
+      - AE
+      - AF
+      - AG
+      - AI
+      - AL
+      - AM
+      - AO
+      - AQ
+      - AR
+      - AS
+      - AT
+      - AU
+      - AW
+      - AX
+      - AZ
+      - BA
+      - BB
+      - BD
+      - BE
+      - BF
+      - BG
+      - BH
+      - BI
+      - BJ
+      - BL
+      - BM
+      - BN
+      - BO
+      - BQ
+      - BR
+      - BS
+      - BT
+      - BV
+      - BW
+      - BY
+      - BZ
+      - CA
+      - CC
+      - CD
+      - CF
+      - CG
+      - CH
+      - CI
+      - CK
+      - CL
+      - CM
+      - CN
+      - CO
+      - CR
+      - CU
+      - CV
+      - CW
+      - CX
+      - CY
+      - CZ
+      - DE
+      - DJ
+      - DK
+      - DM
+      - DO
+      - DZ
+      - EC
+      - EE
+      - EG
+      - EH
+      - ER
+      - ES
+      - ET
+      - FI
+      - FJ
+      - FK
+      - FM
+      - FO
+      - FR
+      - GA
+      - GB
+      - GD
+      - GE
+      - GF
+      - GG
+      - GH
+      - GI
+      - GL
+      - GM
+      - GN
+      - GP
+      - GQ
+      - GR
+      - GS
+      - GT
+      - GU
+      - GW
+      - GY
+      - HK
+      - HM
+      - HN
+      - HR
+      - HT
+      - HU
+      - ID
+      - IE
+      - IL
+      - IM
+      - IN
+      - IO
+      - IQ
+      - IR
+      - IS
+      - IT
+      - JE
+      - JM
+      - JO
+      - JP
+      - KE
+      - KG
+      - KH
+      - KI
+      - KM
+      - KN
+      - KP
+      - KR
+      - KW
+      - KY
+      - KZ
+      - LA
+      - LB
+      - LC
+      - LI
+      - LK
+      - LR
+      - LS
+      - LT
+      - LU
+      - LV
+      - LY
+      - MA
+      - MC
+      - MD
+      - ME
+      - MF
+      - MG
+      - MH
+      - MK
+      - ML
+      - MM
+      - MN
+      - MO
+      - MP
+      - MQ
+      - MR
+      - MS
+      - MT
+      - MU
+      - MV
+      - MW
+      - MX
+      - MY
+      - MZ
+      - NA
+      - NC
+      - NE
+      - NF
+      - NG
+      - NI
+      - NL
+      - 'NO'
+      - NP
+      - NR
+      - NU
+      - NZ
+      - OM
+      - PA
+      - PE
+      - PF
+      - PG
+      - PH
+      - PK
+      - PL
+      - PM
+      - PN
+      - PR
+      - PS
+      - PT
+      - PW
+      - PY
+      - QA
+      - RE
+      - RO
+      - RS
+      - RU
+      - RW
+      - SA
+      - SB
+      - SC
+      - SD
+      - SE
+      - SG
+      - SH
+      - SI
+      - SJ
+      - SK
+      - SL
+      - SM
+      - SN
+      - SO
+      - SR
+      - SS
+      - ST
+      - SV
+      - SX
+      - SY
+      - SZ
+      - TC
+      - TD
+      - TF
+      - TG
+      - TH
+      - TJ
+      - TK
+      - TL
+      - TM
+      - TN
+      - TO
+      - TR
+      - TT
+      - TV
+      - TW
+      - TZ
+      - UA
+      - UG
+      - UM
+      - US
+      - UY
+      - UZ
+      - VA
+      - VC
+      - VE
+      - VG
+      - VI
+      - VN
+      - VU
+      - WF
+      - WS
+      - YE
+      - YT
+      - ZA
+      - ZM
+      - ZW
+      description: alpha-2 country code (ISO 3166-1)
+      title: Country code
+      examples:
+      - FR
+      - BE
+      - DE
+      identifier: CountryCodeAlpha2
+      documentation: ISO 3166-1 alpha-2 country code, 'FR' for France, 'BE' for Belgium, 'DE' for Germany etc.
+    Issue:
+      type: object
+      required:
+      - _tag
+      - path
+      - message
+      properties:
+        _tag:
+          type: string
+          enum:
+          - Pointer
+          - Unexpected
+          - Missing
+          - Composite
+          - Refinement
+          - Transformation
+          - Type
+          - Forbidden
+          description: The tag identifying the type of parse issue
+        path:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyKey'
+          description: The path to the property where the issue occurred
+        message:
+          type: string
+          description: A descriptive message explaining the issue
+      additionalProperties: false
+      description: Represents an error encountered while parsing a value to match the schema
+    DistributorAuthenticationError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - DistributorAuthenticationError
+      additionalProperties: false
+      description: Authentication Error
+    Unauthorized:
+      $id: /schemas/void
+      title: Unauthorized
+    PropertyKey:
+      anyOf:
+      - type: string
+      - type: number
+      - type: object
+        required:
+        - _tag
+        - key
+        properties:
+          _tag:
+            type: string
+            enum:
+            - symbol
+          key:
+            type: string
+        additionalProperties: false
+        description: an object to be decoded into a globally shared symbol
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: Use your API client_id as username and client_secret as password.

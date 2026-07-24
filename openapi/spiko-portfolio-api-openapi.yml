@@ -1,0 +1,348 @@
+openapi: 3.1.0
+info:
+  title: Spiko Distributor Account transactions Portfolio API
+  version: v0
+  description: The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.
+servers:
+- url: https://distributor-api.spiko.io
+  description: Production Server
+- url: https://distributor-api.preprod.spiko.io
+  description: Pre-production Server
+security: []
+tags:
+- name: Portfolio
+paths:
+  /portfolio/:
+    get:
+      tags:
+      - Portfolio
+      operationId: portfolio.getPortfolio
+      parameters:
+      - name: investorId
+        in: query
+        schema:
+          type: string
+          description: a Universally Unique Identifier
+          format: uuid
+        required: true
+        description: a Universally Unique Identifier
+      security:
+      - basicAuth: []
+      - oauth2: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - investorId
+                - items
+                properties:
+                  investorId:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - name
+                      - account
+                      - custodialAccount
+                      - shareClassAccount
+                      - shareClass
+                      - totalNumberOfShares
+                      - totalSharesAmount
+                      - totalGainSinceStart
+                      properties:
+                        name:
+                          $ref: '#/components/schemas/NonEmptyTrimmedString'
+                        account:
+                          type: object
+                          required:
+                          - id
+                          properties:
+                            id:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                          additionalProperties: false
+                        custodialAccount:
+                          type: object
+                          deprecated: true
+                          description: please now use pair `{account.id, shareClass.id}` instead
+                        shareClassAccount:
+                          type: object
+                          deprecated: true
+                          description: please now use pair `{account.id, shareClass.id}` instead
+                        shareClass:
+                          type: object
+                          required:
+                          - id
+                          - name
+                          - isin
+                          properties:
+                            id:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                            name:
+                              type: string
+                            isin:
+                              type: string
+                          additionalProperties: false
+                        totalNumberOfShares:
+                          $ref: '#/components/schemas/BigDecimal'
+                        totalSharesAmount:
+                          $ref: '#/components/schemas/Amount'
+                        totalGainSinceStart:
+                          $ref: '#/components/schemas/Amount'
+                      additionalProperties: false
+                additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpApiDecodeError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Unauthorized'
+                - $ref: '#/components/schemas/InvestorAuthenticationError'
+        '403':
+          description: Forbidden
+        '404':
+          description: NotFound
+      description: Get all portfolio information for a given investor
+      summary: Get portfolio of an investor
+  /portfolio/totals:
+    get:
+      tags:
+      - Portfolio
+      operationId: portfolio.getPortfolioTotals
+      parameters:
+      - name: investorId
+        in: query
+        schema:
+          type: string
+          description: a Universally Unique Identifier
+          format: uuid
+        required: true
+        description: a Universally Unique Identifier
+      - name: currency
+        in: query
+        schema:
+          type: string
+          enum:
+          - EUR
+          - USD
+          - GBP
+          - CHF
+          - JPY
+          - SGD
+          title: Currency code
+          identifier: CurrencyCode
+          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+        required: false
+        description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+      security:
+      - basicAuth: []
+      - oauth2: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - accountId
+                  - accountName
+                  - totalBalance
+                  - breakdown
+                  properties:
+                    accountId:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    accountName:
+                      type: string
+                    totalBalance:
+                      $ref: '#/components/schemas/NonNegativeAmount'
+                    breakdown:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/NonNegativeAmount'
+                  additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpApiDecodeError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Unauthorized'
+                - $ref: '#/components/schemas/InvestorAuthenticationError'
+        '403':
+          description: Forbidden
+      description: Get the aggregated balance per account across all share classes. The `totalBalance` is converted to a single currency (defaults to EUR, unless all active positions share a single other currency). The `breakdown` gives the native balance per currency before conversion.
+      summary: Get aggregated portfolio totals
+components:
+  schemas:
+    Amount:
+      type: object
+      required:
+      - value
+      - currency
+      properties:
+        value:
+          type: string
+          title: decimal number as a string
+          description: a string representation of a decimal number e.g. "10000", "0.00" or "-7432092.04"
+        currency:
+          type: string
+          enum:
+          - EUR
+          - USD
+          - GBP
+          - CHF
+          - JPY
+          - SGD
+          title: Currency code
+          identifier: CurrencyCode
+          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+      additionalProperties: false
+    InvestorAuthenticationError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - InvestorAuthenticationError
+      additionalProperties: false
+      description: Authentication Error
+    HttpApiDecodeError:
+      type: object
+      required:
+      - issues
+      - message
+      - _tag
+      properties:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+        message:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - HttpApiDecodeError
+      additionalProperties: false
+      description: The request did not match the expected schema
+    Issue:
+      type: object
+      required:
+      - _tag
+      - path
+      - message
+      properties:
+        _tag:
+          type: string
+          enum:
+          - Pointer
+          - Unexpected
+          - Missing
+          - Composite
+          - Refinement
+          - Transformation
+          - Type
+          - Forbidden
+          description: The tag identifying the type of parse issue
+        path:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyKey'
+          description: The path to the property where the issue occurred
+        message:
+          type: string
+          description: A descriptive message explaining the issue
+      additionalProperties: false
+      description: Represents an error encountered while parsing a value to match the schema
+    NonEmptyTrimmedString:
+      type: string
+      description: a non empty string
+      title: nonEmptyString
+      pattern: ^\S[\s\S]*\S$|^\S$|^$
+      minLength: 1
+    NonNegativeAmount:
+      type: object
+      required:
+      - value
+      - currency
+      properties:
+        value:
+          type: string
+          title: non-negative decimal number as a string
+          description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
+        currency:
+          type: string
+          enum:
+          - EUR
+          - USD
+          - GBP
+          - CHF
+          - JPY
+          - SGD
+          title: Currency code
+          identifier: CurrencyCode
+          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+      additionalProperties: false
+      title: Non-Negative Amount
+    Unauthorized:
+      $id: /schemas/void
+      title: Unauthorized
+    PropertyKey:
+      anyOf:
+      - type: string
+      - type: number
+      - type: object
+        required:
+        - _tag
+        - key
+        properties:
+          _tag:
+            type: string
+            enum:
+            - symbol
+          key:
+            type: string
+        additionalProperties: false
+        description: an object to be decoded into a globally shared symbol
+    BigDecimal:
+      type: string
+      description: a string to be decoded into a BigDecimal
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: Use your API client_id as username and client_secret as password.

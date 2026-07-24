@@ -1,0 +1,198 @@
+openapi: 3.1.0
+info:
+  title: Spiko Distributor Account transactions Investor tokens API
+  version: v0
+  description: The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.
+servers:
+- url: https://distributor-api.spiko.io
+  description: Production Server
+- url: https://distributor-api.preprod.spiko.io
+  description: Pre-production Server
+security: []
+tags:
+- name: Investor tokens
+paths:
+  /v0/investor-tokens/:
+    post:
+      tags:
+      - Investor tokens
+      operationId: investorTokens.createInvestorToken
+      parameters: []
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - token
+                - expiresAt
+                properties:
+                  token:
+                    type: string
+                  expiresAt:
+                    $ref: '#/components/schemas/Date'
+                additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpApiDecodeError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Unauthorized'
+                - $ref: '#/components/schemas/DistributorAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: NotFound
+      description: Create a short-lived, single-use JWT for the investor to place orders directly from the distributor frontend.
+      summary: Mint an investor-scoped JWT
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - investorId
+              - operation
+              properties:
+                investorId:
+                  type: string
+                  description: a Universally Unique Identifier
+                  format: uuid
+                operation:
+                  type: string
+                  enum:
+                  - subscription
+                  - deposit
+                  - withdrawal
+              additionalProperties: false
+        required: true
+components:
+  schemas:
+    ForbiddenError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        customErrorCode:
+          type: string
+          enum:
+          - AccountDoesNotBelongToInvestor
+          - SessionIsNot2FA
+          - InvestorDocumentLinkedToActiveBankAccount
+          - AtLeastTwoAdminUsersRequired
+          - InvestorNotPendingOnboarding
+          - ShareClassNotAvailableForDistributor
+        _tag:
+          type: string
+          enum:
+          - ForbiddenError
+      additionalProperties: false
+      description: Forbidden
+    HttpApiDecodeError:
+      type: object
+      required:
+      - issues
+      - message
+      - _tag
+      properties:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+        message:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - HttpApiDecodeError
+      additionalProperties: false
+      description: The request did not match the expected schema
+    Issue:
+      type: object
+      required:
+      - _tag
+      - path
+      - message
+      properties:
+        _tag:
+          type: string
+          enum:
+          - Pointer
+          - Unexpected
+          - Missing
+          - Composite
+          - Refinement
+          - Transformation
+          - Type
+          - Forbidden
+          description: The tag identifying the type of parse issue
+        path:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyKey'
+          description: The path to the property where the issue occurred
+        message:
+          type: string
+          description: A descriptive message explaining the issue
+      additionalProperties: false
+      description: Represents an error encountered while parsing a value to match the schema
+    DistributorAuthenticationError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - DistributorAuthenticationError
+      additionalProperties: false
+      description: Authentication Error
+    Unauthorized:
+      $id: /schemas/void
+      title: Unauthorized
+    Date:
+      type: string
+      description: a string to be decoded into a Date
+    PropertyKey:
+      anyOf:
+      - type: string
+      - type: number
+      - type: object
+        required:
+        - _tag
+        - key
+        properties:
+          _tag:
+            type: string
+            enum:
+            - symbol
+          key:
+            type: string
+        additionalProperties: false
+        description: an object to be decoded into a globally shared symbol
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: Use your API client_id as username and client_secret as password.

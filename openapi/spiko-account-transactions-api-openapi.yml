@@ -1,0 +1,3416 @@
+openapi: 3.1.0
+info:
+  title: Spiko Distributor Account transactions API
+  version: v0
+  description: The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.
+servers:
+- url: https://distributor-api.spiko.io
+  description: Production Server
+- url: https://distributor-api.preprod.spiko.io
+  description: Pre-production Server
+security: []
+tags:
+- name: Account transactions
+paths:
+  /v0/account-transactions/:
+    get:
+      tags:
+      - Account transactions
+      operationId: accountTransactions.getAccountTransactions
+      parameters:
+      - name: accountId
+        in: query
+        schema:
+          type: string
+          description: a Universally Unique Identifier
+          format: uuid
+        required: true
+        description: a Universally Unique Identifier
+      - name: transactionType
+        in: query
+        schema:
+          type: string
+          enum:
+          - deposit
+          - withdrawal
+          - transfer
+          - yield
+        required: false
+      - name: direction
+        in: query
+        schema:
+          type: string
+          description: '"desc" returns newest transactions first (anti-chronological), "asc" returns oldest first (chronological). Defaults to "desc".'
+        required: false
+        description: '"desc" returns newest transactions first (anti-chronological), "asc" returns oldest first (chronological). Defaults to "desc".'
+      - name: limit
+        in: query
+        schema:
+          type: string
+          title: Number of items per page
+          description: defaults to "50" if not provided, max 10000
+        required: false
+        description: defaults to "50" if not provided, max 10000
+      - name: cursor
+        in: query
+        schema:
+          $ref: '#/components/schemas/StringFromBase64Url'
+        required: false
+      - name: search
+        in: query
+        schema:
+          type: string
+        required: false
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - items
+                - nextCursor
+                - hasMore
+                properties:
+                  items:
+                    type: array
+                    items:
+                      anyOf:
+                      - anyOf:
+                        - type: object
+                          required:
+                          - createdAt
+                          - shareClassId
+                          - shareClassSymbol
+                          - shareDecimals
+                          - accountId
+                          - sharesAmount
+                          - netAssetValue
+                          - amount
+                          - confirmedAt
+                          - applicableExchangeRateConversion
+                          - id
+                          - orderType
+                          - scheduled
+                          - shareClassNetAssetValueAtCreation
+                          - exchangeRateAtCreation
+                          - bankAccountName
+                          - bankAccountNumber
+                          - bankAccountBic
+                          - recurringWithdrawalScheduleId
+                          - status
+                          - amountAtCreation
+                          properties:
+                            createdAt:
+                              $ref: '#/components/schemas/Date'
+                            shareClassId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                            shareClassSymbol:
+                              $ref: '#/components/schemas/ShareClassSymbol'
+                            shareDecimals:
+                              $ref: '#/components/schemas/Int'
+                            accountId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                            sharesAmount:
+                              anyOf:
+                              - $ref: '#/components/schemas/BigDecimal'
+                              - type: 'null'
+                            netAssetValue:
+                              anyOf:
+                              - $ref: '#/components/schemas/NonNegativeAmount'
+                              - type: 'null'
+                            amount:
+                              anyOf:
+                              - $ref: '#/components/schemas/NonNegativeAmount'
+                              - type: 'null'
+                            confirmedAt:
+                              anyOf:
+                              - $ref: '#/components/schemas/Date'
+                              - type: 'null'
+                            applicableExchangeRateConversion:
+                              anyOf:
+                              - type: object
+                                required:
+                                - exchangeRate
+                                - convertedAmount
+                                properties:
+                                  exchangeRate:
+                                    type: object
+                                    required:
+                                    - fundId
+                                    - day
+                                    - baseCurrency
+                                    - quoteCurrency
+                                    - fxRate
+                                    properties:
+                                      fundId:
+                                        type: string
+                                        description: a Universally Unique Identifier
+                                        format: uuid
+                                      day:
+                                        type: string
+                                        title: Day
+                                        description: a day in ISO format "YYYY-MM-DD"
+                                      baseCurrency:
+                                        type: string
+                                        enum:
+                                        - EUR
+                                        - USD
+                                        - GBP
+                                        - CHF
+                                        - JPY
+                                        - SGD
+                                        title: Currency code
+                                        identifier: CurrencyCode
+                                        description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                      quoteCurrency:
+                                        type: string
+                                        enum:
+                                        - EUR
+                                        - USD
+                                        - GBP
+                                        - CHF
+                                        - JPY
+                                        - SGD
+                                        title: Currency code
+                                        identifier: CurrencyCode
+                                        description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                      fxRate:
+                                        $ref: '#/components/schemas/BigDecimal'
+                                    additionalProperties: false
+                                  convertedAmount:
+                                    $ref: '#/components/schemas/NonNegativeAmount'
+                                additionalProperties: false
+                              - type: 'null'
+                            id:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                            orderType:
+                              type: string
+                              enum:
+                              - Redemption
+                            scheduled:
+                              anyOf:
+                              - $ref: '#/components/schemas/Date'
+                              - type: 'null'
+                            shareClassNetAssetValueAtCreation:
+                              $ref: '#/components/schemas/NonNegativeAmount'
+                            exchangeRateAtCreation:
+                              anyOf:
+                              - type: object
+                                required:
+                                - fundId
+                                - day
+                                - baseCurrency
+                                - quoteCurrency
+                                - fxRate
+                                properties:
+                                  fundId:
+                                    type: string
+                                    description: a Universally Unique Identifier
+                                    format: uuid
+                                  day:
+                                    type: string
+                                    title: Day
+                                    description: a day in ISO format "YYYY-MM-DD"
+                                  baseCurrency:
+                                    type: string
+                                    enum:
+                                    - EUR
+                                    - USD
+                                    - GBP
+                                    - CHF
+                                    - JPY
+                                    - SGD
+                                    title: Currency code
+                                    identifier: CurrencyCode
+                                    description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                  quoteCurrency:
+                                    type: string
+                                    enum:
+                                    - EUR
+                                    - USD
+                                    - GBP
+                                    - CHF
+                                    - JPY
+                                    - SGD
+                                    title: Currency code
+                                    identifier: CurrencyCode
+                                    description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                  fxRate:
+                                    $ref: '#/components/schemas/BigDecimal'
+                                additionalProperties: false
+                              - type: 'null'
+                            bankAccountName:
+                              anyOf:
+                              - type: string
+                              - type: 'null'
+                            bankAccountNumber:
+                              anyOf:
+                              - type: string
+                              - type: 'null'
+                            bankAccountBic:
+                              anyOf:
+                              - type: string
+                              - type: 'null'
+                            recurringWithdrawalScheduleId:
+                              anyOf:
+                              - type: string
+                                description: a Universally Unique Identifier
+                                format: uuid
+                              - type: 'null'
+                            status:
+                              type: string
+                              enum:
+                              - scheduled-in-shares
+                              - scheduled
+                              - canceled
+                              - created-on-app
+                              - pending-valuation
+                            amountAtCreation:
+                              $ref: '#/components/schemas/NonNegativeAmount'
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - createdAt
+                          - shareClassId
+                          - shareClassSymbol
+                          - shareDecimals
+                          - accountId
+                          - sharesAmount
+                          - netAssetValue
+                          - amount
+                          - confirmedAt
+                          - applicableExchangeRateConversion
+                          - id
+                          - orderType
+                          - scheduled
+                          - shareClassNetAssetValueAtCreation
+                          - exchangeRateAtCreation
+                          - bankAccountName
+                          - bankAccountNumber
+                          - bankAccountBic
+                          - recurringWithdrawalScheduleId
+                          - status
+                          properties:
+                            createdAt:
+                              $ref: '#/components/schemas/Date'
+                            shareClassId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                            shareClassSymbol:
+                              $ref: '#/components/schemas/ShareClassSymbol'
+                            shareDecimals:
+                              $ref: '#/components/schemas/Int'
+                            accountId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                            sharesAmount:
+                              anyOf:
+                              - $ref: '#/components/schemas/BigDecimal'
+                              - type: 'null'
+                            netAssetValue:
+                              $ref: '#/components/schemas/NonNegativeAmount'
+                            amount:
+                              $ref: '#/components/schemas/NonNegativeAmount'
+                            confirmedAt:
+                              anyOf:
+                              - $ref: '#/components/schemas/Date'
+                              - type: 'null'
+                            applicableExchangeRateConversion:
+                              anyOf:
+                              - type: object
+                                required:
+                                - exchangeRate
+                                - convertedAmount
+                                properties:
+                                  exchangeRate:
+                                    type: object
+                                    required:
+                                    - fundId
+                                    - day
+                                    - baseCurrency
+                                    - quoteCurrency
+                                    - fxRate
+                                    properties:
+                                      fundId:
+                                        type: string
+                                        description: a Universally Unique Identifier
+                                        format: uuid
+                                      day:
+                                        type: string
+                                        title: Day
+                                        description: a day in ISO format "YYYY-MM-DD"
+                                      baseCurrency:
+                                        type: string
+                                        enum:
+                                        - EUR
+                                        - USD
+                                        - GBP
+                                        - CHF
+                                        - JPY
+                                        - SGD
+                                        title: Currency code
+                                        identifier: CurrencyCode
+                                        description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                      quoteCurrency:
+                                        type: string
+                                        enum:
+                                        - EUR
+                                        - USD
+                                        - GBP
+                                        - CHF
+                                        - JPY
+                                        - SGD
+                                        title: Currency code
+                                        identifier: CurrencyCode
+                                        description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                      fxRate:
+                                        $ref: '#/components/schemas/BigDecimal'
+                                    additionalProperties: false
+                                  convertedAmount:
+                                    $ref: '#/components/schemas/NonNegativeAmount'
+                                additionalProperties: false
+                              - type: 'null'
+                            id:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                            orderType:
+                              type: string
+                              enum:
+                              - Redemption
+                            scheduled:
+                              anyOf:
+                              - $ref: '#/components/schemas/Date'
+                              - type: 'null'
+                            shareClassNetAssetValueAtCreation:
+                              $ref: '#/components/schemas/NonNegativeAmount'
+                            exchangeRateAtCreation:
+                              anyOf:
+                              - type: object
+                                required:
+                                - fundId
+                                - day
+                                - baseCurrency
+                                - quoteCurrency
+                                - fxRate
+                                properties:
+                                  fundId:
+                                    type: string
+                                    description: a Universally Unique Identifier
+                                    format: uuid
+                                  day:
+                                    type: string
+                                    title: Day
+                                    description: a day in ISO format "YYYY-MM-DD"
+                                  baseCurrency:
+                                    type: string
+                                    enum:
+                                    - EUR
+                                    - USD
+                                    - GBP
+                                    - CHF
+                                    - JPY
+                                    - SGD
+                                    title: Currency code
+                                    identifier: CurrencyCode
+                                    description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                  quoteCurrency:
+                                    type: string
+                                    enum:
+                                    - EUR
+                                    - USD
+                                    - GBP
+                                    - CHF
+                                    - JPY
+                                    - SGD
+                                    title: Currency code
+                                    identifier: CurrencyCode
+                                    description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                  fxRate:
+                                    $ref: '#/components/schemas/BigDecimal'
+                                additionalProperties: false
+                              - type: 'null'
+                            bankAccountName:
+                              anyOf:
+                              - type: string
+                              - type: 'null'
+                            bankAccountNumber:
+                              anyOf:
+                              - type: string
+                              - type: 'null'
+                            bankAccountBic:
+                              anyOf:
+                              - type: string
+                              - type: 'null'
+                            recurringWithdrawalScheduleId:
+                              anyOf:
+                              - type: string
+                                description: a Universally Unique Identifier
+                                format: uuid
+                              - type: 'null'
+                            status:
+                              type: string
+                              enum:
+                              - pending-execution
+                              - executed
+                          additionalProperties: false
+                      - type: object
+                        required:
+                        - createdAt
+                        - shareClassId
+                        - shareClassSymbol
+                        - shareDecimals
+                        - accountId
+                        - sharesAmount
+                        - netAssetValue
+                        - amount
+                        - confirmedAt
+                        - applicableExchangeRateConversion
+                        - id
+                        - status
+                        - orderType
+                        - bankAccountName
+                        - bankAccountNumber
+                        - bankAccountBic
+                        properties:
+                          createdAt:
+                            $ref: '#/components/schemas/Date'
+                          shareClassId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          shareClassSymbol:
+                            $ref: '#/components/schemas/ShareClassSymbol'
+                          shareDecimals:
+                            $ref: '#/components/schemas/Int'
+                          accountId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          sharesAmount:
+                            anyOf:
+                            - $ref: '#/components/schemas/BigDecimal'
+                            - type: 'null'
+                          netAssetValue:
+                            anyOf:
+                            - $ref: '#/components/schemas/NonNegativeAmount'
+                            - type: 'null'
+                          amount:
+                            $ref: '#/components/schemas/NonNegativeAmount'
+                          confirmedAt:
+                            anyOf:
+                            - $ref: '#/components/schemas/Date'
+                            - type: 'null'
+                          applicableExchangeRateConversion:
+                            anyOf:
+                            - type: object
+                              required:
+                              - exchangeRate
+                              - convertedAmount
+                              properties:
+                                exchangeRate:
+                                  type: object
+                                  required:
+                                  - fundId
+                                  - day
+                                  - baseCurrency
+                                  - quoteCurrency
+                                  - fxRate
+                                  properties:
+                                    fundId:
+                                      type: string
+                                      description: a Universally Unique Identifier
+                                      format: uuid
+                                    day:
+                                      type: string
+                                      title: Day
+                                      description: a day in ISO format "YYYY-MM-DD"
+                                    baseCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    quoteCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    fxRate:
+                                      $ref: '#/components/schemas/BigDecimal'
+                                  additionalProperties: false
+                                convertedAmount:
+                                  $ref: '#/components/schemas/NonNegativeAmount'
+                              additionalProperties: false
+                            - type: 'null'
+                          id:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          status:
+                            type: string
+                            enum:
+                            - pending
+                            - canceled
+                            - executed
+                          orderType:
+                            type: string
+                            enum:
+                            - InstantRedemption
+                          bankAccountName:
+                            anyOf:
+                            - type: string
+                            - type: 'null'
+                          bankAccountNumber:
+                            anyOf:
+                            - type: string
+                            - type: 'null'
+                          bankAccountBic:
+                            anyOf:
+                            - type: string
+                            - type: 'null'
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - createdAt
+                        - shareClassId
+                        - shareClassSymbol
+                        - shareDecimals
+                        - accountId
+                        - sharesAmount
+                        - netAssetValue
+                        - amount
+                        - confirmedAt
+                        - applicableExchangeRateConversion
+                        - id
+                        - status
+                        - orderType
+                        - wireReference
+                        - accountNumber
+                        - bic
+                        - intermediaryBic
+                        - intermerdiaryBic
+                        - bankAccountName
+                        - bankAccountNumber
+                        - bankAccountBic
+                        properties:
+                          createdAt:
+                            $ref: '#/components/schemas/Date'
+                          shareClassId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          shareClassSymbol:
+                            $ref: '#/components/schemas/ShareClassSymbol'
+                          shareDecimals:
+                            $ref: '#/components/schemas/Int'
+                          accountId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          sharesAmount:
+                            anyOf:
+                            - $ref: '#/components/schemas/BigDecimal'
+                            - type: 'null'
+                          netAssetValue:
+                            anyOf:
+                            - $ref: '#/components/schemas/NonNegativeAmount'
+                            - type: 'null'
+                          amount:
+                            $ref: '#/components/schemas/NonNegativeAmount'
+                          confirmedAt:
+                            anyOf:
+                            - $ref: '#/components/schemas/Date'
+                            - type: 'null'
+                          applicableExchangeRateConversion:
+                            anyOf:
+                            - type: object
+                              required:
+                              - exchangeRate
+                              - convertedAmount
+                              properties:
+                                exchangeRate:
+                                  type: object
+                                  required:
+                                  - fundId
+                                  - day
+                                  - baseCurrency
+                                  - quoteCurrency
+                                  - fxRate
+                                  properties:
+                                    fundId:
+                                      type: string
+                                      description: a Universally Unique Identifier
+                                      format: uuid
+                                    day:
+                                      type: string
+                                      title: Day
+                                      description: a day in ISO format "YYYY-MM-DD"
+                                    baseCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    quoteCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    fxRate:
+                                      $ref: '#/components/schemas/BigDecimal'
+                                  additionalProperties: false
+                                convertedAmount:
+                                  $ref: '#/components/schemas/NonNegativeAmount'
+                              additionalProperties: false
+                            - type: 'null'
+                          id:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          status:
+                            type: string
+                            enum:
+                            - pending-wire
+                            - canceled
+                            - pending-valuation
+                            - pending-execution
+                            - executed
+                          orderType:
+                            type: string
+                            enum:
+                            - Subscription
+                          method:
+                            type: string
+                            enum:
+                            - collection
+                          wireReference:
+                            anyOf:
+                            - type: string
+                            - type: 'null'
+                          accountNumber:
+                            type: string
+                          bic:
+                            title: BIC
+                            type: string
+                            description: A valid BIC (Bank Identifier Code)
+                          intermediaryBic:
+                            anyOf:
+                            - title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            - type: 'null'
+                          intermerdiaryBic:
+                            anyOf:
+                            - title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            - type: 'null'
+                          bankAccountName:
+                            anyOf:
+                            - type: string
+                            - type: 'null'
+                          bankAccountNumber:
+                            anyOf:
+                            - type: string
+                            - type: 'null'
+                          bankAccountBic:
+                            anyOf:
+                            - type: string
+                            - type: 'null'
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - createdAt
+                        - shareClassId
+                        - shareClassSymbol
+                        - shareDecimals
+                        - accountId
+                        - sharesAmount
+                        - netAssetValue
+                        - amount
+                        - confirmedAt
+                        - applicableExchangeRateConversion
+                        - id
+                        - status
+                        - orderType
+                        - toInvestorName
+                        properties:
+                          createdAt:
+                            $ref: '#/components/schemas/Date'
+                          shareClassId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          shareClassSymbol:
+                            $ref: '#/components/schemas/ShareClassSymbol'
+                          shareDecimals:
+                            $ref: '#/components/schemas/Int'
+                          accountId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          sharesAmount:
+                            $ref: '#/components/schemas/BigDecimal'
+                          netAssetValue:
+                            anyOf:
+                            - $ref: '#/components/schemas/NonNegativeAmount'
+                            - type: 'null'
+                          amount:
+                            $ref: '#/components/schemas/NonNegativeAmount'
+                          confirmedAt:
+                            anyOf:
+                            - $ref: '#/components/schemas/Date'
+                            - type: 'null'
+                          applicableExchangeRateConversion:
+                            anyOf:
+                            - type: object
+                              required:
+                              - exchangeRate
+                              - convertedAmount
+                              properties:
+                                exchangeRate:
+                                  type: object
+                                  required:
+                                  - fundId
+                                  - day
+                                  - baseCurrency
+                                  - quoteCurrency
+                                  - fxRate
+                                  properties:
+                                    fundId:
+                                      type: string
+                                      description: a Universally Unique Identifier
+                                      format: uuid
+                                    day:
+                                      type: string
+                                      title: Day
+                                      description: a day in ISO format "YYYY-MM-DD"
+                                    baseCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    quoteCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    fxRate:
+                                      $ref: '#/components/schemas/BigDecimal'
+                                  additionalProperties: false
+                                convertedAmount:
+                                  $ref: '#/components/schemas/NonNegativeAmount'
+                              additionalProperties: false
+                            - type: 'null'
+                          id:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          status:
+                            type: string
+                            enum:
+                            - created-on-app
+                            - pending-execution
+                            - executed
+                            - canceled
+                            - failed
+                          orderType:
+                            type: string
+                            enum:
+                            - TransferFrom
+                          toInvestorName:
+                            type: string
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - createdAt
+                        - shareClassId
+                        - shareClassSymbol
+                        - shareDecimals
+                        - accountId
+                        - sharesAmount
+                        - netAssetValue
+                        - amount
+                        - confirmedAt
+                        - applicableExchangeRateConversion
+                        - id
+                        - status
+                        - orderType
+                        - fromInvestorName
+                        properties:
+                          createdAt:
+                            $ref: '#/components/schemas/Date'
+                          shareClassId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          shareClassSymbol:
+                            $ref: '#/components/schemas/ShareClassSymbol'
+                          shareDecimals:
+                            $ref: '#/components/schemas/Int'
+                          accountId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          sharesAmount:
+                            $ref: '#/components/schemas/BigDecimal'
+                          netAssetValue:
+                            anyOf:
+                            - $ref: '#/components/schemas/NonNegativeAmount'
+                            - type: 'null'
+                          amount:
+                            $ref: '#/components/schemas/NonNegativeAmount'
+                          confirmedAt:
+                            anyOf:
+                            - $ref: '#/components/schemas/Date'
+                            - type: 'null'
+                          applicableExchangeRateConversion:
+                            anyOf:
+                            - type: object
+                              required:
+                              - exchangeRate
+                              - convertedAmount
+                              properties:
+                                exchangeRate:
+                                  type: object
+                                  required:
+                                  - fundId
+                                  - day
+                                  - baseCurrency
+                                  - quoteCurrency
+                                  - fxRate
+                                  properties:
+                                    fundId:
+                                      type: string
+                                      description: a Universally Unique Identifier
+                                      format: uuid
+                                    day:
+                                      type: string
+                                      title: Day
+                                      description: a day in ISO format "YYYY-MM-DD"
+                                    baseCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    quoteCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    fxRate:
+                                      $ref: '#/components/schemas/BigDecimal'
+                                  additionalProperties: false
+                                convertedAmount:
+                                  $ref: '#/components/schemas/NonNegativeAmount'
+                              additionalProperties: false
+                            - type: 'null'
+                          id:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          status:
+                            type: string
+                            enum:
+                            - created-on-app
+                            - pending-execution
+                            - executed
+                            - canceled
+                            - failed
+                          orderType:
+                            type: string
+                            enum:
+                            - TransferTo
+                          fromInvestorName:
+                            type: string
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - createdAt
+                        - shareClassId
+                        - shareClassSymbol
+                        - shareDecimals
+                        - accountId
+                        - sharesAmount
+                        - netAssetValue
+                        - amount
+                        - confirmedAt
+                        - applicableExchangeRateConversion
+                        - id
+                        - orderType
+                        - status
+                        - toAccountName
+                        - toAccountId
+                        - toShareClassId
+                        - fundSwapFields
+                        properties:
+                          createdAt:
+                            $ref: '#/components/schemas/Date'
+                          shareClassId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          shareClassSymbol:
+                            $ref: '#/components/schemas/ShareClassSymbol'
+                          shareDecimals:
+                            $ref: '#/components/schemas/Int'
+                          accountId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          sharesAmount:
+                            anyOf:
+                            - $ref: '#/components/schemas/BigDecimal'
+                            - type: 'null'
+                          netAssetValue:
+                            anyOf:
+                            - $ref: '#/components/schemas/NonNegativeAmount'
+                            - type: 'null'
+                          amount:
+                            anyOf:
+                            - $ref: '#/components/schemas/NonNegativeAmount'
+                            - type: 'null'
+                          confirmedAt:
+                            anyOf:
+                            - $ref: '#/components/schemas/Date'
+                            - type: 'null'
+                          applicableExchangeRateConversion:
+                            anyOf:
+                            - type: object
+                              required:
+                              - exchangeRate
+                              - convertedAmount
+                              properties:
+                                exchangeRate:
+                                  type: object
+                                  required:
+                                  - fundId
+                                  - day
+                                  - baseCurrency
+                                  - quoteCurrency
+                                  - fxRate
+                                  properties:
+                                    fundId:
+                                      type: string
+                                      description: a Universally Unique Identifier
+                                      format: uuid
+                                    day:
+                                      type: string
+                                      title: Day
+                                      description: a day in ISO format "YYYY-MM-DD"
+                                    baseCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    quoteCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    fxRate:
+                                      $ref: '#/components/schemas/BigDecimal'
+                                  additionalProperties: false
+                                convertedAmount:
+                                  $ref: '#/components/schemas/NonNegativeAmount'
+                              additionalProperties: false
+                            - type: 'null'
+                          id:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          orderType:
+                            type: string
+                            enum:
+                            - FundSwapTransferFrom
+                          status:
+                            type: string
+                            enum:
+                            - pending-redemption
+                            - pending-subscription
+                            - executed
+                            - canceled
+                          toAccountName:
+                            type: string
+                          toAccountId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          toShareClassId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          fundSwapFields:
+                            type: object
+                            required:
+                            - sourceAmount
+                            - targetAmount
+                            properties:
+                              sourceAmount:
+                                $ref: '#/components/schemas/NonNegativeAmount'
+                              targetAmount:
+                                $ref: '#/components/schemas/NonNegativeAmount'
+                            additionalProperties: false
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - createdAt
+                        - shareClassId
+                        - shareClassSymbol
+                        - shareDecimals
+                        - accountId
+                        - sharesAmount
+                        - netAssetValue
+                        - amount
+                        - confirmedAt
+                        - applicableExchangeRateConversion
+                        - id
+                        - orderType
+                        - status
+                        - fromAccountName
+                        - fromAccountId
+                        - fromShareClassId
+                        - fundSwapFields
+                        properties:
+                          createdAt:
+                            $ref: '#/components/schemas/Date'
+                          shareClassId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          shareClassSymbol:
+                            $ref: '#/components/schemas/ShareClassSymbol'
+                          shareDecimals:
+                            $ref: '#/components/schemas/Int'
+                          accountId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          sharesAmount:
+                            anyOf:
+                            - $ref: '#/components/schemas/BigDecimal'
+                            - type: 'null'
+                          netAssetValue:
+                            anyOf:
+                            - $ref: '#/components/schemas/NonNegativeAmount'
+                            - type: 'null'
+                          amount:
+                            anyOf:
+                            - $ref: '#/components/schemas/NonNegativeAmount'
+                            - type: 'null'
+                          confirmedAt:
+                            anyOf:
+                            - $ref: '#/components/schemas/Date'
+                            - type: 'null'
+                          applicableExchangeRateConversion:
+                            anyOf:
+                            - type: object
+                              required:
+                              - exchangeRate
+                              - convertedAmount
+                              properties:
+                                exchangeRate:
+                                  type: object
+                                  required:
+                                  - fundId
+                                  - day
+                                  - baseCurrency
+                                  - quoteCurrency
+                                  - fxRate
+                                  properties:
+                                    fundId:
+                                      type: string
+                                      description: a Universally Unique Identifier
+                                      format: uuid
+                                    day:
+                                      type: string
+                                      title: Day
+                                      description: a day in ISO format "YYYY-MM-DD"
+                                    baseCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    quoteCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    fxRate:
+                                      $ref: '#/components/schemas/BigDecimal'
+                                  additionalProperties: false
+                                convertedAmount:
+                                  $ref: '#/components/schemas/NonNegativeAmount'
+                              additionalProperties: false
+                            - type: 'null'
+                          id:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          orderType:
+                            type: string
+                            enum:
+                            - FundSwapTransferTo
+                          status:
+                            type: string
+                            enum:
+                            - pending-redemption
+                            - pending-subscription
+                            - executed
+                            - canceled
+                          fromAccountName:
+                            type: string
+                          fromAccountId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          fromShareClassId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          fundSwapFields:
+                            type: object
+                            required:
+                            - sourceAmount
+                            - targetAmount
+                            properties:
+                              sourceAmount:
+                                $ref: '#/components/schemas/NonNegativeAmount'
+                              targetAmount:
+                                $ref: '#/components/schemas/NonNegativeAmount'
+                            additionalProperties: false
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - createdAt
+                        - shareClassId
+                        - shareClassSymbol
+                        - shareDecimals
+                        - accountId
+                        - sharesAmount
+                        - netAssetValue
+                        - amount
+                        - confirmedAt
+                        - applicableExchangeRateConversion
+                        - id
+                        - status
+                        - orderType
+                        properties:
+                          createdAt:
+                            $ref: '#/components/schemas/Date'
+                          shareClassId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          shareClassSymbol:
+                            $ref: '#/components/schemas/ShareClassSymbol'
+                          shareDecimals:
+                            $ref: '#/components/schemas/Int'
+                          accountId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          sharesAmount:
+                            $ref: '#/components/schemas/BigDecimal'
+                          netAssetValue:
+                            anyOf:
+                            - $ref: '#/components/schemas/NonNegativeAmount'
+                            - type: 'null'
+                          amount:
+                            anyOf:
+                            - $ref: '#/components/schemas/NonNegativeAmount'
+                            - type: 'null'
+                          confirmedAt:
+                            anyOf:
+                            - $ref: '#/components/schemas/Date'
+                            - type: 'null'
+                          applicableExchangeRateConversion:
+                            anyOf:
+                            - type: object
+                              required:
+                              - exchangeRate
+                              - convertedAmount
+                              properties:
+                                exchangeRate:
+                                  type: object
+                                  required:
+                                  - fundId
+                                  - day
+                                  - baseCurrency
+                                  - quoteCurrency
+                                  - fxRate
+                                  properties:
+                                    fundId:
+                                      type: string
+                                      description: a Universally Unique Identifier
+                                      format: uuid
+                                    day:
+                                      type: string
+                                      title: Day
+                                      description: a day in ISO format "YYYY-MM-DD"
+                                    baseCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    quoteCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    fxRate:
+                                      $ref: '#/components/schemas/BigDecimal'
+                                  additionalProperties: false
+                                convertedAmount:
+                                  $ref: '#/components/schemas/NonNegativeAmount'
+                              additionalProperties: false
+                            - type: 'null'
+                          id:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          status:
+                            type: string
+                            enum:
+                            - created
+                            - pending-execution
+                            - executed
+                            - canceled
+                          orderType:
+                            type: string
+                            enum:
+                            - SharesWithdrawal
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - createdAt
+                        - shareClassId
+                        - shareClassSymbol
+                        - shareDecimals
+                        - accountId
+                        - sharesAmount
+                        - netAssetValue
+                        - amount
+                        - confirmedAt
+                        - applicableExchangeRateConversion
+                        - id
+                        - orderType
+                        - status
+                        - yieldNavId
+                        - yieldDay
+                        properties:
+                          createdAt:
+                            $ref: '#/components/schemas/Date'
+                          shareClassId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          shareClassSymbol:
+                            $ref: '#/components/schemas/ShareClassSymbol'
+                          shareDecimals:
+                            $ref: '#/components/schemas/Int'
+                          accountId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          sharesAmount:
+                            anyOf:
+                            - $ref: '#/components/schemas/BigDecimal'
+                            - type: 'null'
+                          netAssetValue:
+                            anyOf:
+                            - $ref: '#/components/schemas/NonNegativeAmount'
+                            - type: 'null'
+                          amount:
+                            $ref: '#/components/schemas/Amount'
+                          confirmedAt:
+                            anyOf:
+                            - $ref: '#/components/schemas/Date'
+                            - type: 'null'
+                          applicableExchangeRateConversion:
+                            anyOf:
+                            - type: object
+                              required:
+                              - exchangeRate
+                              - convertedAmount
+                              properties:
+                                exchangeRate:
+                                  type: object
+                                  required:
+                                  - fundId
+                                  - day
+                                  - baseCurrency
+                                  - quoteCurrency
+                                  - fxRate
+                                  properties:
+                                    fundId:
+                                      type: string
+                                      description: a Universally Unique Identifier
+                                      format: uuid
+                                    day:
+                                      type: string
+                                      title: Day
+                                      description: a day in ISO format "YYYY-MM-DD"
+                                    baseCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    quoteCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    fxRate:
+                                      $ref: '#/components/schemas/BigDecimal'
+                                  additionalProperties: false
+                                convertedAmount:
+                                  $ref: '#/components/schemas/NonNegativeAmount'
+                              additionalProperties: false
+                            - type: 'null'
+                          id:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          orderType:
+                            type: string
+                            enum:
+                            - Yield
+                          status:
+                            type: string
+                            enum:
+                            - executed
+                          yieldNavId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          yieldDay:
+                            type: string
+                            title: Day
+                            description: a day in ISO format "YYYY-MM-DD"
+                        additionalProperties: false
+                  nextCursor:
+                    anyOf:
+                    - $ref: '#/components/schemas/StringFromBase64Url'
+                    - type: 'null'
+                  hasMore:
+                    type: boolean
+                additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpApiDecodeError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Unauthorized'
+                - $ref: '#/components/schemas/DistributorAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: NotFound
+      description: "\n**Retrieve the unified transaction history for an account.**\n\nThis is the recommended endpoint for displaying an account's activity to investors. It returns deposits, withdrawals, transfers and yield accruals merged into a single, paginated, time-ordered stream.\n\n- Results are paginated using a cursor. Pass the `nextCursor` returned by the previous call to retrieve subsequent pages.\n- Sorted anti-chronologically (newest first) by default; pass `direction=asc` for chronological order.\n- Optional `transactionType` filter narrows to one of `deposit`, `withdrawal`, `transfer`, or `yield`.\n- Canceled and failed entries are excluded.\n          "
+      summary: Get account transaction history
+  /account-transactions/:
+    get:
+      tags:
+      - Account transactions
+      operationId: accountTransactions.getAccountTransactions
+      parameters:
+      - name: accountId
+        in: query
+        schema:
+          type: string
+          description: a Universally Unique Identifier
+          format: uuid
+        required: true
+        description: a Universally Unique Identifier
+      - name: transactionType
+        in: query
+        schema:
+          type: string
+          enum:
+          - deposit
+          - withdrawal
+          - transfer
+          - yield
+        required: false
+      - name: direction
+        in: query
+        schema:
+          type: string
+          description: '"desc" returns newest transactions first (anti-chronological), "asc" returns oldest first (chronological). Defaults to "desc".'
+        required: false
+        description: '"desc" returns newest transactions first (anti-chronological), "asc" returns oldest first (chronological). Defaults to "desc".'
+      - name: limit
+        in: query
+        schema:
+          type: string
+          title: Number of items per page
+          description: defaults to "50" if not provided, max 10000
+        required: false
+        description: defaults to "50" if not provided, max 10000
+      - name: cursor
+        in: query
+        schema:
+          $ref: '#/components/schemas/StringFromBase64Url'
+        required: false
+      - name: search
+        in: query
+        schema:
+          type: string
+        required: false
+      security:
+      - basicAuth: []
+      - oauth2: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - items
+                - nextCursor
+                - hasMore
+                properties:
+                  items:
+                    type: array
+                    items:
+                      anyOf:
+                      - anyOf:
+                        - type: object
+                          required:
+                          - createdAt
+                          - shareClassId
+                          - shareClassSymbol
+                          - shareDecimals
+                          - accountId
+                          - sharesAmount
+                          - netAssetValue
+                          - amount
+                          - confirmedAt
+                          - applicableExchangeRateConversion
+                          - id
+                          - status
+                          - orderType
+                          - scheduled
+                          - shareClassNetAssetValueAtCreation
+                          - exchangeRateAtCreation
+                          - bankAccountName
+                          - bankAccountNumber
+                          - bankAccountBic
+                          - recurringWithdrawalScheduleId
+                          - destinationWalletNetwork
+                          - destinationWalletAddress
+                          - stablecoinCode
+                          - stablecoinTransactionHash
+                          - amountAtCreation
+                          properties:
+                            createdAt:
+                              $ref: '#/components/schemas/Date'
+                            shareClassId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                            shareClassSymbol:
+                              $ref: '#/components/schemas/ShareClassSymbol'
+                            shareDecimals:
+                              $ref: '#/components/schemas/Int'
+                            accountId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                            sharesAmount:
+                              anyOf:
+                              - $ref: '#/components/schemas/BigDecimal'
+                              - type: 'null'
+                            netAssetValue:
+                              anyOf:
+                              - $ref: '#/components/schemas/NonNegativeAmount'
+                              - type: 'null'
+                            amount:
+                              anyOf:
+                              - $ref: '#/components/schemas/NonNegativeAmount'
+                              - type: 'null'
+                            confirmedAt:
+                              anyOf:
+                              - $ref: '#/components/schemas/Date'
+                              - type: 'null'
+                            applicableExchangeRateConversion:
+                              anyOf:
+                              - type: object
+                                required:
+                                - exchangeRate
+                                - convertedAmount
+                                properties:
+                                  exchangeRate:
+                                    type: object
+                                    required:
+                                    - fundId
+                                    - day
+                                    - baseCurrency
+                                    - quoteCurrency
+                                    - fxRate
+                                    properties:
+                                      fundId:
+                                        type: string
+                                        description: a Universally Unique Identifier
+                                        format: uuid
+                                      day:
+                                        type: string
+                                        title: Day
+                                        description: a day in ISO format "YYYY-MM-DD"
+                                      baseCurrency:
+                                        type: string
+                                        enum:
+                                        - EUR
+                                        - USD
+                                        - GBP
+                                        - CHF
+                                        - JPY
+                                        - SGD
+                                        title: Currency code
+                                        identifier: CurrencyCode
+                                        description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                      quoteCurrency:
+                                        type: string
+                                        enum:
+                                        - EUR
+                                        - USD
+                                        - GBP
+                                        - CHF
+                                        - JPY
+                                        - SGD
+                                        title: Currency code
+                                        identifier: CurrencyCode
+                                        description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                      fxRate:
+                                        $ref: '#/components/schemas/BigDecimal'
+                                    additionalProperties: false
+                                  convertedAmount:
+                                    $ref: '#/components/schemas/NonNegativeAmount'
+                                additionalProperties: false
+                              - type: 'null'
+                            id:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                            status:
+                              type: string
+                              enum:
+                              - scheduled-in-shares
+                              - scheduled
+                              - canceled
+                              - created-on-app
+                              - pending-valuation
+                            orderType:
+                              type: string
+                              enum:
+                              - Redemption
+                            scheduled:
+                              anyOf:
+                              - $ref: '#/components/schemas/Date'
+                              - type: 'null'
+                            shareClassNetAssetValueAtCreation:
+                              $ref: '#/components/schemas/NonNegativeAmount'
+                            exchangeRateAtCreation:
+                              anyOf:
+                              - type: object
+                                required:
+                                - fundId
+                                - day
+                                - baseCurrency
+                                - quoteCurrency
+                                - fxRate
+                                properties:
+                                  fundId:
+                                    type: string
+                                    description: a Universally Unique Identifier
+                                    format: uuid
+                                  day:
+                                    type: string
+                                    title: Day
+                                    description: a day in ISO format "YYYY-MM-DD"
+                                  baseCurrency:
+                                    type: string
+                                    enum:
+                                    - EUR
+                                    - USD
+                                    - GBP
+                                    - CHF
+                                    - JPY
+                                    - SGD
+                                    title: Currency code
+                                    identifier: CurrencyCode
+                                    description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                  quoteCurrency:
+                                    type: string
+                                    enum:
+                                    - EUR
+                                    - USD
+                                    - GBP
+                                    - CHF
+                                    - JPY
+                                    - SGD
+                                    title: Currency code
+                                    identifier: CurrencyCode
+                                    description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                  fxRate:
+                                    $ref: '#/components/schemas/BigDecimal'
+                                additionalProperties: false
+                              - type: 'null'
+                            bankAccountName:
+                              anyOf:
+                              - type: string
+                              - type: 'null'
+                            bankAccountNumber:
+                              anyOf:
+                              - type: string
+                              - type: 'null'
+                            bankAccountBic:
+                              anyOf:
+                              - type: string
+                              - type: 'null'
+                            recurringWithdrawalScheduleId:
+                              anyOf:
+                              - type: string
+                                description: a Universally Unique Identifier
+                                format: uuid
+                              - type: 'null'
+                            destinationWalletNetwork:
+                              anyOf:
+                              - $ref: '#/components/schemas/Network'
+                              - type: 'null'
+                            destinationWalletAddress:
+                              anyOf:
+                              - anyOf:
+                                - type: string
+                                  title: Ethereum address
+                                  description: a valid Ethereum address, starting with 0x and followed by 40 hexadecimal characters e.g. "0xb794f5ea0ba39494ce839613fffba74279579268"
+                                - title: StarknetAddress
+                                  type: string
+                                  description: a valid Starknet address, starting with 0x and followed by 64 hexadecimal characters e.g. "0x0000000000000000000000000000000000000000000000000000000000000000"
+                                - anyOf:
+                                  - title: StellarAccountAddress
+                                    type: string
+                                    description: a valid Stellar account address, starting with G and followed by 55 hexadecimal characters e.g. "GBYIQXBKEB655EB3WTRITS6RR5GXEP6SQRBLPREZHNFYKT7WBMTMPR3H"
+                                  - title: StellarContractAddress
+                                    type: string
+                                    description: a valid Stellar contract address, starting with C and followed by 55 hexadecimal characters e.g. "CCAANR7HZNOXYZD7SXS2WQLV5BAOXSRZ7V4O43IANSB355QN2RNG7WVC"
+                                - type: string
+                                  title: Solana address
+                                  description: a valid Solana address, consisting of 32 to 44 base58 characters
+                              - type: 'null'
+                            stablecoinCode:
+                              anyOf:
+                              - type: string
+                                enum:
+                                - USDC
+                                - EURC
+                              - type: 'null'
+                            stablecoinTransactionHash:
+                              anyOf:
+                              - anyOf:
+                                - type: string
+                                  description: a string that will be converted to lowercase
+                                - $ref: '#/components/schemas/Lowercase'
+                                - $ref: '#/components/schemas/Lowercase'
+                                - type: string
+                              - type: 'null'
+                            amountAtCreation:
+                              $ref: '#/components/schemas/NonNegativeAmount'
+                          additionalProperties: false
+                        - type: object
+                          required:
+                          - createdAt
+                          - shareClassId
+                          - shareClassSymbol
+                          - shareDecimals
+                          - accountId
+                          - sharesAmount
+                          - netAssetValue
+                          - amount
+                          - confirmedAt
+                          - applicableExchangeRateConversion
+                          - id
+                          - status
+                          - orderType
+                          - scheduled
+                          - shareClassNetAssetValueAtCreation
+                          - exchangeRateAtCreation
+                          - bankAccountName
+                          - bankAccountNumber
+                          - bankAccountBic
+                          - recurringWithdrawalScheduleId
+                          - destinationWalletNetwork
+                          - destinationWalletAddress
+                          - stablecoinCode
+                          - stablecoinTransactionHash
+                          properties:
+                            createdAt:
+                              $ref: '#/components/schemas/Date'
+                            shareClassId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                            shareClassSymbol:
+                              $ref: '#/components/schemas/ShareClassSymbol'
+                            shareDecimals:
+                              $ref: '#/components/schemas/Int'
+                            accountId:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                            sharesAmount:
+                              anyOf:
+                              - $ref: '#/components/schemas/BigDecimal'
+                              - type: 'null'
+                            netAssetValue:
+                              $ref: '#/components/schemas/NonNegativeAmount'
+                            amount:
+                              $ref: '#/components/schemas/NonNegativeAmount'
+                            confirmedAt:
+                              anyOf:
+                              - $ref: '#/components/schemas/Date'
+                              - type: 'null'
+                            applicableExchangeRateConversion:
+                              anyOf:
+                              - type: object
+                                required:
+                                - exchangeRate
+                                - convertedAmount
+                                properties:
+                                  exchangeRate:
+                                    type: object
+                                    required:
+                                    - fundId
+                                    - day
+                                    - baseCurrency
+                                    - quoteCurrency
+                                    - fxRate
+                                    properties:
+                                      fundId:
+                                        type: string
+                                        description: a Universally Unique Identifier
+                                        format: uuid
+                                      day:
+                                        type: string
+                                        title: Day
+                                        description: a day in ISO format "YYYY-MM-DD"
+                                      baseCurrency:
+                                        type: string
+                                        enum:
+                                        - EUR
+                                        - USD
+                                        - GBP
+                                        - CHF
+                                        - JPY
+                                        - SGD
+                                        title: Currency code
+                                        identifier: CurrencyCode
+                                        description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                      quoteCurrency:
+                                        type: string
+                                        enum:
+                                        - EUR
+                                        - USD
+                                        - GBP
+                                        - CHF
+                                        - JPY
+                                        - SGD
+                                        title: Currency code
+                                        identifier: CurrencyCode
+                                        description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                      fxRate:
+                                        $ref: '#/components/schemas/BigDecimal'
+                                    additionalProperties: false
+                                  convertedAmount:
+                                    $ref: '#/components/schemas/NonNegativeAmount'
+                                additionalProperties: false
+                              - type: 'null'
+                            id:
+                              type: string
+                              description: a Universally Unique Identifier
+                              format: uuid
+                            status:
+                              type: string
+                              enum:
+                              - pending-execution
+                              - executed
+                            orderType:
+                              type: string
+                              enum:
+                              - Redemption
+                            scheduled:
+                              anyOf:
+                              - $ref: '#/components/schemas/Date'
+                              - type: 'null'
+                            shareClassNetAssetValueAtCreation:
+                              $ref: '#/components/schemas/NonNegativeAmount'
+                            exchangeRateAtCreation:
+                              anyOf:
+                              - type: object
+                                required:
+                                - fundId
+                                - day
+                                - baseCurrency
+                                - quoteCurrency
+                                - fxRate
+                                properties:
+                                  fundId:
+                                    type: string
+                                    description: a Universally Unique Identifier
+                                    format: uuid
+                                  day:
+                                    type: string
+                                    title: Day
+                                    description: a day in ISO format "YYYY-MM-DD"
+                                  baseCurrency:
+                                    type: string
+                                    enum:
+                                    - EUR
+                                    - USD
+                                    - GBP
+                                    - CHF
+                                    - JPY
+                                    - SGD
+                                    title: Currency code
+                                    identifier: CurrencyCode
+                                    description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                  quoteCurrency:
+                                    type: string
+                                    enum:
+                                    - EUR
+                                    - USD
+                                    - GBP
+                                    - CHF
+                                    - JPY
+                                    - SGD
+                                    title: Currency code
+                                    identifier: CurrencyCode
+                                    description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                  fxRate:
+                                    $ref: '#/components/schemas/BigDecimal'
+                                additionalProperties: false
+                              - type: 'null'
+                            bankAccountName:
+                              anyOf:
+                              - type: string
+                              - type: 'null'
+                            bankAccountNumber:
+                              anyOf:
+                              - type: string
+                              - type: 'null'
+                            bankAccountBic:
+                              anyOf:
+                              - type: string
+                              - type: 'null'
+                            recurringWithdrawalScheduleId:
+                              anyOf:
+                              - type: string
+                                description: a Universally Unique Identifier
+                                format: uuid
+                              - type: 'null'
+                            destinationWalletNetwork:
+                              anyOf:
+                              - $ref: '#/components/schemas/Network'
+                              - type: 'null'
+                            destinationWalletAddress:
+                              anyOf:
+                              - anyOf:
+                                - type: string
+                                  title: Ethereum address
+                                  description: a valid Ethereum address, starting with 0x and followed by 40 hexadecimal characters e.g. "0xb794f5ea0ba39494ce839613fffba74279579268"
+                                - title: StarknetAddress
+                                  type: string
+                                  description: a valid Starknet address, starting with 0x and followed by 64 hexadecimal characters e.g. "0x0000000000000000000000000000000000000000000000000000000000000000"
+                                - anyOf:
+                                  - title: StellarAccountAddress
+                                    type: string
+                                    description: a valid Stellar account address, starting with G and followed by 55 hexadecimal characters e.g. "GBYIQXBKEB655EB3WTRITS6RR5GXEP6SQRBLPREZHNFYKT7WBMTMPR3H"
+                                  - title: StellarContractAddress
+                                    type: string
+                                    description: a valid Stellar contract address, starting with C and followed by 55 hexadecimal characters e.g. "CCAANR7HZNOXYZD7SXS2WQLV5BAOXSRZ7V4O43IANSB355QN2RNG7WVC"
+                                - type: string
+                                  title: Solana address
+                                  description: a valid Solana address, consisting of 32 to 44 base58 characters
+                              - type: 'null'
+                            stablecoinCode:
+                              anyOf:
+                              - type: string
+                                enum:
+                                - USDC
+                                - EURC
+                              - type: 'null'
+                            stablecoinTransactionHash:
+                              anyOf:
+                              - anyOf:
+                                - type: string
+                                  description: a string that will be converted to lowercase
+                                - $ref: '#/components/schemas/Lowercase'
+                                - $ref: '#/components/schemas/Lowercase'
+                                - type: string
+                              - type: 'null'
+                          additionalProperties: false
+                      - type: object
+                        required:
+                        - createdAt
+                        - shareClassId
+                        - shareClassSymbol
+                        - shareDecimals
+                        - accountId
+                        - sharesAmount
+                        - netAssetValue
+                        - amount
+                        - confirmedAt
+                        - applicableExchangeRateConversion
+                        - id
+                        - status
+                        - orderType
+                        - bankAccountName
+                        - bankAccountNumber
+                        - bankAccountBic
+                        properties:
+                          createdAt:
+                            $ref: '#/components/schemas/Date'
+                          shareClassId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          shareClassSymbol:
+                            $ref: '#/components/schemas/ShareClassSymbol'
+                          shareDecimals:
+                            $ref: '#/components/schemas/Int'
+                          accountId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          sharesAmount:
+                            anyOf:
+                            - $ref: '#/components/schemas/BigDecimal'
+                            - type: 'null'
+                          netAssetValue:
+                            anyOf:
+                            - $ref: '#/components/schemas/NonNegativeAmount'
+                            - type: 'null'
+                          amount:
+                            $ref: '#/components/schemas/NonNegativeAmount'
+                          confirmedAt:
+                            anyOf:
+                            - $ref: '#/components/schemas/Date'
+                            - type: 'null'
+                          applicableExchangeRateConversion:
+                            anyOf:
+                            - type: object
+                              required:
+                              - exchangeRate
+                              - convertedAmount
+                              properties:
+                                exchangeRate:
+                                  type: object
+                                  required:
+                                  - fundId
+                                  - day
+                                  - baseCurrency
+                                  - quoteCurrency
+                                  - fxRate
+                                  properties:
+                                    fundId:
+                                      type: string
+                                      description: a Universally Unique Identifier
+                                      format: uuid
+                                    day:
+                                      type: string
+                                      title: Day
+                                      description: a day in ISO format "YYYY-MM-DD"
+                                    baseCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    quoteCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    fxRate:
+                                      $ref: '#/components/schemas/BigDecimal'
+                                  additionalProperties: false
+                                convertedAmount:
+                                  $ref: '#/components/schemas/NonNegativeAmount'
+                              additionalProperties: false
+                            - type: 'null'
+                          id:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          status:
+                            type: string
+                            enum:
+                            - pending
+                            - canceled
+                            - executed
+                          orderType:
+                            type: string
+                            enum:
+                            - InstantRedemption
+                          bankAccountName:
+                            anyOf:
+                            - type: string
+                            - type: 'null'
+                          bankAccountNumber:
+                            anyOf:
+                            - type: string
+                            - type: 'null'
+                          bankAccountBic:
+                            anyOf:
+                            - type: string
+                            - type: 'null'
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - createdAt
+                        - shareClassId
+                        - shareClassSymbol
+                        - shareDecimals
+                        - accountId
+                        - sharesAmount
+                        - netAssetValue
+                        - amount
+                        - confirmedAt
+                        - applicableExchangeRateConversion
+                        - id
+                        - status
+                        - orderType
+                        - wireReference
+                        - accountNumber
+                        - bic
+                        - intermediaryBic
+                        - intermerdiaryBic
+                        - bankAccountName
+                        - bankAccountNumber
+                        - bankAccountBic
+                        - stablecoinCode
+                        - stablecoinNetwork
+                        - stablecoinTransactionHash
+                        - stablecoinAmount
+                        properties:
+                          createdAt:
+                            $ref: '#/components/schemas/Date'
+                          shareClassId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          shareClassSymbol:
+                            $ref: '#/components/schemas/ShareClassSymbol'
+                          shareDecimals:
+                            $ref: '#/components/schemas/Int'
+                          accountId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          sharesAmount:
+                            anyOf:
+                            - $ref: '#/components/schemas/BigDecimal'
+                            - type: 'null'
+                          netAssetValue:
+                            anyOf:
+                            - $ref: '#/components/schemas/NonNegativeAmount'
+                            - type: 'null'
+                          amount:
+                            $ref: '#/components/schemas/NonNegativeAmount'
+                          confirmedAt:
+                            anyOf:
+                            - $ref: '#/components/schemas/Date'
+                            - type: 'null'
+                          applicableExchangeRateConversion:
+                            anyOf:
+                            - type: object
+                              required:
+                              - exchangeRate
+                              - convertedAmount
+                              properties:
+                                exchangeRate:
+                                  type: object
+                                  required:
+                                  - fundId
+                                  - day
+                                  - baseCurrency
+                                  - quoteCurrency
+                                  - fxRate
+                                  properties:
+                                    fundId:
+                                      type: string
+                                      description: a Universally Unique Identifier
+                                      format: uuid
+                                    day:
+                                      type: string
+                                      title: Day
+                                      description: a day in ISO format "YYYY-MM-DD"
+                                    baseCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    quoteCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    fxRate:
+                                      $ref: '#/components/schemas/BigDecimal'
+                                  additionalProperties: false
+                                convertedAmount:
+                                  $ref: '#/components/schemas/NonNegativeAmount'
+                              additionalProperties: false
+                            - type: 'null'
+                          id:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          status:
+                            type: string
+                            enum:
+                            - pending-wire
+                            - canceled
+                            - pending-valuation
+                            - pending-execution
+                            - executed
+                          orderType:
+                            type: string
+                            enum:
+                            - Subscription
+                          method:
+                            type: string
+                            enum:
+                            - collection
+                          wireReference:
+                            anyOf:
+                            - type: string
+                            - type: 'null'
+                          accountNumber:
+                            type: string
+                          bic:
+                            title: BIC
+                            type: string
+                            description: A valid BIC (Bank Identifier Code)
+                          intermediaryBic:
+                            anyOf:
+                            - title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            - type: 'null'
+                          intermerdiaryBic:
+                            anyOf:
+                            - title: BIC
+                              type: string
+                              description: A valid BIC (Bank Identifier Code)
+                            - type: 'null'
+                          bankAccountName:
+                            anyOf:
+                            - type: string
+                            - type: 'null'
+                          bankAccountNumber:
+                            anyOf:
+                            - type: string
+                            - type: 'null'
+                          bankAccountBic:
+                            anyOf:
+                            - type: string
+                            - type: 'null'
+                          stablecoinCode:
+                            anyOf:
+                            - type: string
+                              enum:
+                              - USDC
+                              - EURC
+                            - type: 'null'
+                          stablecoinNetwork:
+                            anyOf:
+                            - $ref: '#/components/schemas/Network'
+                            - type: 'null'
+                          stablecoinTransactionHash:
+                            anyOf:
+                            - anyOf:
+                              - type: string
+                                description: a string that will be converted to lowercase
+                              - $ref: '#/components/schemas/Lowercase'
+                              - $ref: '#/components/schemas/Lowercase'
+                              - type: string
+                            - type: 'null'
+                          stablecoinAmount:
+                            anyOf:
+                            - $ref: '#/components/schemas/BigDecimal'
+                            - type: 'null'
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - createdAt
+                        - shareClassId
+                        - shareClassSymbol
+                        - shareDecimals
+                        - accountId
+                        - sharesAmount
+                        - netAssetValue
+                        - amount
+                        - confirmedAt
+                        - applicableExchangeRateConversion
+                        - id
+                        - status
+                        - orderType
+                        - toInvestorName
+                        properties:
+                          createdAt:
+                            $ref: '#/components/schemas/Date'
+                          shareClassId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          shareClassSymbol:
+                            $ref: '#/components/schemas/ShareClassSymbol'
+                          shareDecimals:
+                            $ref: '#/components/schemas/Int'
+                          accountId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          sharesAmount:
+                            $ref: '#/components/schemas/BigDecimal'
+                          netAssetValue:
+                            anyOf:
+                            - $ref: '#/components/schemas/NonNegativeAmount'
+                            - type: 'null'
+                          amount:
+                            $ref: '#/components/schemas/NonNegativeAmount'
+                          confirmedAt:
+                            anyOf:
+                            - $ref: '#/components/schemas/Date'
+                            - type: 'null'
+                          applicableExchangeRateConversion:
+                            anyOf:
+                            - type: object
+                              required:
+                              - exchangeRate
+                              - convertedAmount
+                              properties:
+                                exchangeRate:
+                                  type: object
+                                  required:
+                                  - fundId
+                                  - day
+                                  - baseCurrency
+                                  - quoteCurrency
+                                  - fxRate
+                                  properties:
+                                    fundId:
+                                      type: string
+                                      description: a Universally Unique Identifier
+                                      format: uuid
+                                    day:
+                                      type: string
+                                      title: Day
+                                      description: a day in ISO format "YYYY-MM-DD"
+                                    baseCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    quoteCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    fxRate:
+                                      $ref: '#/components/schemas/BigDecimal'
+                                  additionalProperties: false
+                                convertedAmount:
+                                  $ref: '#/components/schemas/NonNegativeAmount'
+                              additionalProperties: false
+                            - type: 'null'
+                          id:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          status:
+                            type: string
+                            enum:
+                            - created-on-app
+                            - pending-execution
+                            - executed
+                            - canceled
+                            - failed
+                          orderType:
+                            type: string
+                            enum:
+                            - TransferFrom
+                          toInvestorName:
+                            type: string
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - createdAt
+                        - shareClassId
+                        - shareClassSymbol
+                        - shareDecimals
+                        - accountId
+                        - sharesAmount
+                        - netAssetValue
+                        - amount
+                        - confirmedAt
+                        - applicableExchangeRateConversion
+                        - id
+                        - status
+                        - orderType
+                        - fromInvestorName
+                        properties:
+                          createdAt:
+                            $ref: '#/components/schemas/Date'
+                          shareClassId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          shareClassSymbol:
+                            $ref: '#/components/schemas/ShareClassSymbol'
+                          shareDecimals:
+                            $ref: '#/components/schemas/Int'
+                          accountId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          sharesAmount:
+                            $ref: '#/components/schemas/BigDecimal'
+                          netAssetValue:
+                            anyOf:
+                            - $ref: '#/components/schemas/NonNegativeAmount'
+                            - type: 'null'
+                          amount:
+                            $ref: '#/components/schemas/NonNegativeAmount'
+                          confirmedAt:
+                            anyOf:
+                            - $ref: '#/components/schemas/Date'
+                            - type: 'null'
+                          applicableExchangeRateConversion:
+                            anyOf:
+                            - type: object
+                              required:
+                              - exchangeRate
+                              - convertedAmount
+                              properties:
+                                exchangeRate:
+                                  type: object
+                                  required:
+                                  - fundId
+                                  - day
+                                  - baseCurrency
+                                  - quoteCurrency
+                                  - fxRate
+                                  properties:
+                                    fundId:
+                                      type: string
+                                      description: a Universally Unique Identifier
+                                      format: uuid
+                                    day:
+                                      type: string
+                                      title: Day
+                                      description: a day in ISO format "YYYY-MM-DD"
+                                    baseCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    quoteCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    fxRate:
+                                      $ref: '#/components/schemas/BigDecimal'
+                                  additionalProperties: false
+                                convertedAmount:
+                                  $ref: '#/components/schemas/NonNegativeAmount'
+                              additionalProperties: false
+                            - type: 'null'
+                          id:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          status:
+                            type: string
+                            enum:
+                            - created-on-app
+                            - pending-execution
+                            - executed
+                            - canceled
+                            - failed
+                          orderType:
+                            type: string
+                            enum:
+                            - TransferTo
+                          fromInvestorName:
+                            type: string
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - createdAt
+                        - shareClassId
+                        - shareClassSymbol
+                        - shareDecimals
+                        - accountId
+                        - sharesAmount
+                        - netAssetValue
+                        - amount
+                        - confirmedAt
+                        - applicableExchangeRateConversion
+                        - id
+                        - orderType
+                        - status
+                        - toAccountName
+                        - toAccountId
+                        - toShareClassId
+                        - fundSwapFields
+                        properties:
+                          createdAt:
+                            $ref: '#/components/schemas/Date'
+                          shareClassId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          shareClassSymbol:
+                            $ref: '#/components/schemas/ShareClassSymbol'
+                          shareDecimals:
+                            $ref: '#/components/schemas/Int'
+                          accountId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          sharesAmount:
+                            anyOf:
+                            - $ref: '#/components/schemas/BigDecimal'
+                            - type: 'null'
+                          netAssetValue:
+                            anyOf:
+                            - $ref: '#/components/schemas/NonNegativeAmount'
+                            - type: 'null'
+                          amount:
+                            anyOf:
+                            - $ref: '#/components/schemas/NonNegativeAmount'
+                            - type: 'null'
+                          confirmedAt:
+                            anyOf:
+                            - $ref: '#/components/schemas/Date'
+                            - type: 'null'
+                          applicableExchangeRateConversion:
+                            anyOf:
+                            - type: object
+                              required:
+                              - exchangeRate
+                              - convertedAmount
+                              properties:
+                                exchangeRate:
+                                  type: object
+                                  required:
+                                  - fundId
+                                  - day
+                                  - baseCurrency
+                                  - quoteCurrency
+                                  - fxRate
+                                  properties:
+                                    fundId:
+                                      type: string
+                                      description: a Universally Unique Identifier
+                                      format: uuid
+                                    day:
+                                      type: string
+                                      title: Day
+                                      description: a day in ISO format "YYYY-MM-DD"
+                                    baseCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    quoteCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    fxRate:
+                                      $ref: '#/components/schemas/BigDecimal'
+                                  additionalProperties: false
+                                convertedAmount:
+                                  $ref: '#/components/schemas/NonNegativeAmount'
+                              additionalProperties: false
+                            - type: 'null'
+                          id:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          orderType:
+                            type: string
+                            enum:
+                            - FundSwapTransferFrom
+                          status:
+                            type: string
+                            enum:
+                            - pending-redemption
+                            - pending-subscription
+                            - executed
+                            - canceled
+                          toAccountName:
+                            type: string
+                          toAccountId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          toShareClassId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          fundSwapFields:
+                            type: object
+                            required:
+                            - sourceAmount
+                            - targetAmount
+                            properties:
+                              sourceAmount:
+                                $ref: '#/components/schemas/NonNegativeAmount'
+                              targetAmount:
+                                $ref: '#/components/schemas/NonNegativeAmount'
+                            additionalProperties: false
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - createdAt
+                        - shareClassId
+                        - shareClassSymbol
+                        - shareDecimals
+                        - accountId
+                        - sharesAmount
+                        - netAssetValue
+                        - amount
+                        - confirmedAt
+                        - applicableExchangeRateConversion
+                        - id
+                        - orderType
+                        - status
+                        - fromAccountName
+                        - fromAccountId
+                        - fromShareClassId
+                        - fundSwapFields
+                        properties:
+                          createdAt:
+                            $ref: '#/components/schemas/Date'
+                          shareClassId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          shareClassSymbol:
+                            $ref: '#/components/schemas/ShareClassSymbol'
+                          shareDecimals:
+                            $ref: '#/components/schemas/Int'
+                          accountId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          sharesAmount:
+                            anyOf:
+                            - $ref: '#/components/schemas/BigDecimal'
+                            - type: 'null'
+                          netAssetValue:
+                            anyOf:
+                            - $ref: '#/components/schemas/NonNegativeAmount'
+                            - type: 'null'
+                          amount:
+                            anyOf:
+                            - $ref: '#/components/schemas/NonNegativeAmount'
+                            - type: 'null'
+                          confirmedAt:
+                            anyOf:
+                            - $ref: '#/components/schemas/Date'
+                            - type: 'null'
+                          applicableExchangeRateConversion:
+                            anyOf:
+                            - type: object
+                              required:
+                              - exchangeRate
+                              - convertedAmount
+                              properties:
+                                exchangeRate:
+                                  type: object
+                                  required:
+                                  - fundId
+                                  - day
+                                  - baseCurrency
+                                  - quoteCurrency
+                                  - fxRate
+                                  properties:
+                                    fundId:
+                                      type: string
+                                      description: a Universally Unique Identifier
+                                      format: uuid
+                                    day:
+                                      type: string
+                                      title: Day
+                                      description: a day in ISO format "YYYY-MM-DD"
+                                    baseCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    quoteCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    fxRate:
+                                      $ref: '#/components/schemas/BigDecimal'
+                                  additionalProperties: false
+                                convertedAmount:
+                                  $ref: '#/components/schemas/NonNegativeAmount'
+                              additionalProperties: false
+                            - type: 'null'
+                          id:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          orderType:
+                            type: string
+                            enum:
+                            - FundSwapTransferTo
+                          status:
+                            type: string
+                            enum:
+                            - pending-redemption
+                            - pending-subscription
+                            - executed
+                            - canceled
+                          fromAccountName:
+                            type: string
+                          fromAccountId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          fromShareClassId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          fundSwapFields:
+                            type: object
+                            required:
+                            - sourceAmount
+                            - targetAmount
+                            properties:
+                              sourceAmount:
+                                $ref: '#/components/schemas/NonNegativeAmount'
+                              targetAmount:
+                                $ref: '#/components/schemas/NonNegativeAmount'
+                            additionalProperties: false
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - createdAt
+                        - shareClassId
+                        - shareClassSymbol
+                        - shareDecimals
+                        - accountId
+                        - sharesAmount
+                        - netAssetValue
+                        - amount
+                        - confirmedAt
+                        - applicableExchangeRateConversion
+                        - id
+                        - status
+                        - orderType
+                        properties:
+                          createdAt:
+                            $ref: '#/components/schemas/Date'
+                          shareClassId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          shareClassSymbol:
+                            $ref: '#/components/schemas/ShareClassSymbol'
+                          shareDecimals:
+                            $ref: '#/components/schemas/Int'
+                          accountId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          sharesAmount:
+                            $ref: '#/components/schemas/BigDecimal'
+                          netAssetValue:
+                            anyOf:
+                            - $ref: '#/components/schemas/NonNegativeAmount'
+                            - type: 'null'
+                          amount:
+                            anyOf:
+                            - $ref: '#/components/schemas/NonNegativeAmount'
+                            - type: 'null'
+                          confirmedAt:
+                            anyOf:
+                            - $ref: '#/components/schemas/Date'
+                            - type: 'null'
+                          applicableExchangeRateConversion:
+                            anyOf:
+                            - type: object
+                              required:
+                              - exchangeRate
+                              - convertedAmount
+                              properties:
+                                exchangeRate:
+                                  type: object
+                                  required:
+                                  - fundId
+                                  - day
+                                  - baseCurrency
+                                  - quoteCurrency
+                                  - fxRate
+                                  properties:
+                                    fundId:
+                                      type: string
+                                      description: a Universally Unique Identifier
+                                      format: uuid
+                                    day:
+                                      type: string
+                                      title: Day
+                                      description: a day in ISO format "YYYY-MM-DD"
+                                    baseCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    quoteCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    fxRate:
+                                      $ref: '#/components/schemas/BigDecimal'
+                                  additionalProperties: false
+                                convertedAmount:
+                                  $ref: '#/components/schemas/NonNegativeAmount'
+                              additionalProperties: false
+                            - type: 'null'
+                          id:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          status:
+                            type: string
+                            enum:
+                            - created
+                            - pending-execution
+                            - executed
+                            - canceled
+                          orderType:
+                            type: string
+                            enum:
+                            - SharesWithdrawal
+                        additionalProperties: false
+                      - type: object
+                        required:
+                        - createdAt
+                        - shareClassId
+                        - shareClassSymbol
+                        - shareDecimals
+                        - accountId
+                        - sharesAmount
+                        - netAssetValue
+                        - amount
+                        - confirmedAt
+                        - applicableExchangeRateConversion
+                        - id
+                        - orderType
+                        - status
+                        - yieldNavId
+                        - yieldDay
+                        properties:
+                          createdAt:
+                            $ref: '#/components/schemas/Date'
+                          shareClassId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          shareClassSymbol:
+                            $ref: '#/components/schemas/ShareClassSymbol'
+                          shareDecimals:
+                            $ref: '#/components/schemas/Int'
+                          accountId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          sharesAmount:
+                            anyOf:
+                            - $ref: '#/components/schemas/BigDecimal'
+                            - type: 'null'
+                          netAssetValue:
+                            anyOf:
+                            - $ref: '#/components/schemas/NonNegativeAmount'
+                            - type: 'null'
+                          amount:
+                            $ref: '#/components/schemas/Amount'
+                          confirmedAt:
+                            anyOf:
+                            - $ref: '#/components/schemas/Date'
+                            - type: 'null'
+                          applicableExchangeRateConversion:
+                            anyOf:
+                            - type: object
+                              required:
+                              - exchangeRate
+                              - convertedAmount
+                              properties:
+                                exchangeRate:
+                                  type: object
+                                  required:
+                                  - fundId
+                                  - day
+                                  - baseCurrency
+                                  - quoteCurrency
+                                  - fxRate
+                                  properties:
+                                    fundId:
+                                      type: string
+                                      description: a Universally Unique Identifier
+                                      format: uuid
+                                    day:
+                                      type: string
+                                      title: Day
+                                      description: a day in ISO format "YYYY-MM-DD"
+                                    baseCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    quoteCurrency:
+                                      type: string
+                                      enum:
+                                      - EUR
+                                      - USD
+                                      - GBP
+                                      - CHF
+                                      - JPY
+                                      - SGD
+                                      title: Currency code
+                                      identifier: CurrencyCode
+                                      description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+                                    fxRate:
+                                      $ref: '#/components/schemas/BigDecimal'
+                                  additionalProperties: false
+                                convertedAmount:
+                                  $ref: '#/components/schemas/NonNegativeAmount'
+                              additionalProperties: false
+                            - type: 'null'
+                          id:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          orderType:
+                            type: string
+                            enum:
+                            - Yield
+                          status:
+                            type: string
+                            enum:
+                            - executed
+                          yieldNavId:
+                            type: string
+                            description: a Universally Unique Identifier
+                            format: uuid
+                          yieldDay:
+                            type: string
+                            title: Day
+                            description: a day in ISO format "YYYY-MM-DD"
+                        additionalProperties: false
+                  nextCursor:
+                    anyOf:
+                    - $ref: '#/components/schemas/StringFromBase64Url'
+                    - type: 'null'
+                  hasMore:
+                    type: boolean
+                additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpApiDecodeError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Unauthorized'
+                - $ref: '#/components/schemas/InvestorAuthenticationError'
+        '403':
+          description: Forbidden
+        '404':
+          description: NotFound
+      description: Get paginated account transactions including orders and yield accruals. Sorted anti-chronologically (newest first) by default. Use direction=asc for chronological order (oldest first). Supports filtering by transaction type.
+      summary: Get account transactions
+components:
+  schemas:
+    Amount:
+      type: object
+      required:
+      - value
+      - currency
+      properties:
+        value:
+          type: string
+          title: decimal number as a string
+          description: a string representation of a decimal number e.g. "10000", "0.00" or "-7432092.04"
+        currency:
+          type: string
+          enum:
+          - EUR
+          - USD
+          - GBP
+          - CHF
+          - JPY
+          - SGD
+          title: Currency code
+          identifier: CurrencyCode
+          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+      additionalProperties: false
+    StringFromBase64Url:
+      type: string
+      description: A string that is interpreted as being Base64Url-encoded and will be decoded into a UTF-8 string
+    ForbiddenError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        customErrorCode:
+          type: string
+          enum:
+          - AccountDoesNotBelongToInvestor
+          - SessionIsNot2FA
+          - InvestorDocumentLinkedToActiveBankAccount
+          - AtLeastTwoAdminUsersRequired
+          - InvestorNotPendingOnboarding
+          - ShareClassNotAvailableForDistributor
+        _tag:
+          type: string
+          enum:
+          - ForbiddenError
+      additionalProperties: false
+      description: Forbidden
+    InvestorAuthenticationError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - InvestorAuthenticationError
+      additionalProperties: false
+      description: Authentication Error
+    HttpApiDecodeError:
+      type: object
+      required:
+      - issues
+      - message
+      - _tag
+      properties:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+        message:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - HttpApiDecodeError
+      additionalProperties: false
+      description: The request did not match the expected schema
+    Issue:
+      type: object
+      required:
+      - _tag
+      - path
+      - message
+      properties:
+        _tag:
+          type: string
+          enum:
+          - Pointer
+          - Unexpected
+          - Missing
+          - Composite
+          - Refinement
+          - Transformation
+          - Type
+          - Forbidden
+          description: The tag identifying the type of parse issue
+        path:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyKey'
+          description: The path to the property where the issue occurred
+        message:
+          type: string
+          description: A descriptive message explaining the issue
+      additionalProperties: false
+      description: Represents an error encountered while parsing a value to match the schema
+    Unauthorized:
+      $id: /schemas/void
+      title: Unauthorized
+    Int:
+      type: integer
+      description: an integer
+      title: int
+    Lowercase:
+      type: string
+      description: a string that will be converted to lowercase
+    DistributorAuthenticationError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - DistributorAuthenticationError
+      additionalProperties: false
+      description: Authentication Error
+    NonNegativeAmount:
+      type: object
+      required:
+      - value
+      - currency
+      properties:
+        value:
+          type: string
+          title: non-negative decimal number as a string
+          description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
+        currency:
+          type: string
+          enum:
+          - EUR
+          - USD
+          - GBP
+          - CHF
+          - JPY
+          - SGD
+          title: Currency code
+          identifier: CurrencyCode
+          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+      additionalProperties: false
+      title: Non-Negative Amount
+    Network:
+      type: string
+      enum:
+      - Sepolia
+      - PolygonAmoy
+      - BaseSepolia
+      - ArbitrumSepolia
+      - EtherlinkTestnet
+      - Ethereum
+      - Polygon
+      - Base
+      - Arbitrum
+      - Etherlink
+      - Starknet
+      - StarknetSepolia
+      - Stellar
+      - StellarTestnet
+      - Solana
+      - SolanaDevnet
+      description: a blockchain network e.g. "Ethereum", "Polygon", "Arbitrum", "Starknet"
+      title: Network
+    Date:
+      type: string
+      description: a string to be decoded into a Date
+    ShareClassSymbol:
+      type: string
+      enum:
+      - EUTBL
+      - USTBL
+      - eurUSTBL
+      - SPKCC
+      - eurSPKCC
+      - UKTBL
+      - eurUKTBL
+      - SAFO
+      - SAFOd
+      - eurSAFO
+      - eurSAFOd
+      - gbpSAFO
+      - chfSAFO
+      title: ShareClassSymbol
+    PropertyKey:
+      anyOf:
+      - type: string
+      - type: number
+      - type: object
+        required:
+        - _tag
+        - key
+        properties:
+          _tag:
+            type: string
+            enum:
+            - symbol
+          key:
+            type: string
+        additionalProperties: false
+        description: an object to be decoded into a globally shared symbol
+    BigDecimal:
+      type: string
+      description: a string to be decoded into a BigDecimal
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: Use your API client_id as username and client_secret as password.

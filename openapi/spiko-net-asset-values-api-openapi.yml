@@ -1,0 +1,304 @@
+openapi: 3.1.0
+info:
+  title: Spiko Distributor Account transactions Net Asset Values API
+  version: v0
+  description: The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.
+servers:
+- url: https://distributor-api.spiko.io
+  description: Production Server
+- url: https://distributor-api.preprod.spiko.io
+  description: Pre-production Server
+security: []
+tags:
+- name: Net Asset Values
+paths:
+  /net-asset-values/{shareClassSymbol}/{day}:
+    get:
+      tags:
+      - Net Asset Values
+      operationId: Get Net Asset Value
+      parameters:
+      - name: shareClassSymbol
+        in: path
+        schema:
+          $ref: '#/components/schemas/ShareClassSymbol'
+        required: true
+      - name: day
+        in: path
+        schema:
+          type: string
+          title: Day
+          description: a day formatted as "yyyy-MM-dd"
+        required: true
+        description: a day formatted as "yyyy-MM-dd"
+      security: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - shareClassId
+                - day
+                - amount
+                - updatedAt
+                properties:
+                  id:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  shareClassId:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  day:
+                    type: string
+                    title: Day
+                    description: a day in ISO format "YYYY-MM-DD"
+                  amount:
+                    $ref: '#/components/schemas/NonNegativeAmount'
+                  updatedAt:
+                    type: string
+                    title: valid range date
+                    description: A valid date within the range 2020-2100
+                additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpApiDecodeError'
+        '404':
+          description: NotFound
+  /net-asset-values/{shareClassSymbol}:
+    get:
+      tags:
+      - Net Asset Values
+      operationId: Get Net Asset Values
+      parameters:
+      - name: shareClassSymbol
+        in: path
+        schema:
+          $ref: '#/components/schemas/ShareClassSymbol'
+        required: true
+      - name: startDay
+        in: query
+        schema:
+          type: string
+          title: Day
+          description: a day formatted as "yyyy-MM-dd"
+        required: true
+        description: a day formatted as "yyyy-MM-dd"
+      security: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - id
+                  - shareClassId
+                  - day
+                  - amount
+                  - updatedAt
+                  properties:
+                    id:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    shareClassId:
+                      type: string
+                      description: a Universally Unique Identifier
+                      format: uuid
+                    day:
+                      type: string
+                      title: Day
+                      description: a day in ISO format "YYYY-MM-DD"
+                    amount:
+                      $ref: '#/components/schemas/NonNegativeAmount'
+                    updatedAt:
+                      type: string
+                      title: valid range date
+                      description: A valid date within the range 2020-2100
+                  additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpApiDecodeError'
+        '404':
+          description: NotFound
+  /net-asset-values/{shareClassSymbol}/latest:
+    get:
+      tags:
+      - Net Asset Values
+      operationId: Get Latest Net Asset Value
+      parameters:
+      - name: shareClassSymbol
+        in: path
+        schema:
+          $ref: '#/components/schemas/ShareClassSymbol'
+        required: true
+      security: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - shareClassId
+                - day
+                - amount
+                - updatedAt
+                properties:
+                  id:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  shareClassId:
+                    type: string
+                    description: a Universally Unique Identifier
+                    format: uuid
+                  day:
+                    type: string
+                    title: Day
+                    description: a day in ISO format "YYYY-MM-DD"
+                  amount:
+                    $ref: '#/components/schemas/NonNegativeAmount'
+                  updatedAt:
+                    type: string
+                    title: valid range date
+                    description: A valid date within the range 2020-2100
+                additionalProperties: false
+        '400':
+          description: The request did not match the expected schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpApiDecodeError'
+        '404':
+          description: NotFound
+components:
+  schemas:
+    HttpApiDecodeError:
+      type: object
+      required:
+      - issues
+      - message
+      - _tag
+      properties:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+        message:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - HttpApiDecodeError
+      additionalProperties: false
+      description: The request did not match the expected schema
+    Issue:
+      type: object
+      required:
+      - _tag
+      - path
+      - message
+      properties:
+        _tag:
+          type: string
+          enum:
+          - Pointer
+          - Unexpected
+          - Missing
+          - Composite
+          - Refinement
+          - Transformation
+          - Type
+          - Forbidden
+          description: The tag identifying the type of parse issue
+        path:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyKey'
+          description: The path to the property where the issue occurred
+        message:
+          type: string
+          description: A descriptive message explaining the issue
+      additionalProperties: false
+      description: Represents an error encountered while parsing a value to match the schema
+    NonNegativeAmount:
+      type: object
+      required:
+      - value
+      - currency
+      properties:
+        value:
+          type: string
+          title: non-negative decimal number as a string
+          description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
+        currency:
+          type: string
+          enum:
+          - EUR
+          - USD
+          - GBP
+          - CHF
+          - JPY
+          - SGD
+          title: Currency code
+          identifier: CurrencyCode
+          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+      additionalProperties: false
+      title: Non-Negative Amount
+    ShareClassSymbol:
+      type: string
+      enum:
+      - EUTBL
+      - USTBL
+      - eurUSTBL
+      - SPKCC
+      - eurSPKCC
+      - UKTBL
+      - eurUKTBL
+      - SAFO
+      - SAFOd
+      - eurSAFO
+      - eurSAFOd
+      - gbpSAFO
+      - chfSAFO
+      title: ShareClassSymbol
+    PropertyKey:
+      anyOf:
+      - type: string
+      - type: number
+      - type: object
+        required:
+        - _tag
+        - key
+        properties:
+          _tag:
+            type: string
+            enum:
+            - symbol
+          key:
+            type: string
+        additionalProperties: false
+        description: an object to be decoded into a globally shared symbol
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: Use your API client_id as username and client_secret as password.

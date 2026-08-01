@@ -1,0 +1,44 @@
+generated: '2026-07-21'
+method: searched
+source:
+- https://docs.spiko.io/developers/distributor_api/technical_guides/versioning
+- openapi/spiko-investor-openapi.json
+- openapi/spiko-distributor-openapi.json
+versioning:
+  scheme: uri-path per endpoint
+  current:
+    public_api: v0
+    investor_api: v1
+    distributor_api: v0 (with v1 investor creation endpoint)
+  docs: https://docs.spiko.io/developers/distributor_api/technical_guides/versioning
+  policy: >-
+    Path-based versioning applied per endpoint. When an endpoint is superseded,
+    the older version keeps working but is marked deprecated; both coexist during
+    the transition. Terminology migrated from subscription/redemption to
+    deposit/withdrawal.
+deprecation:
+  policy_url: https://docs.spiko.io/developers/distributor_api/technical_guides/versioning
+  sunset_header: false
+  notes: >-
+    Deprecated endpoints and legacy webhook topics (subscription-order.*,
+    redemption-order.*) remain for backward compatibility. No Sunset/Deprecation
+    headers or dated end-of-life timeline is published.
+deprecated_operations:
+- openapi/spiko-investor-openapi.json#investors.getInvestors
+- openapi/spiko-investor-openapi.json#subscriptionOrders.createSubscriptionOrder
+- openapi/spiko-investor-openapi.json#subscriptionOrders.getSubscriptionOrders
+- openapi/spiko-investor-openapi.json#subscriptionOrders.createSubscriptionOrderByDirectDebit
+- openapi/spiko-investor-openapi.json#subscriptionOrders.getSubscriptionOrder
+- openapi/spiko-investor-openapi.json#redemptionOrders.createRedemptionOrder
+- openapi/spiko-investor-openapi.json#redemptionOrders.getRedemptionOrders
+- openapi/spiko-investor-openapi.json#redemptionOrders.createInstantRedemptionOrder
+- openapi/spiko-investor-openapi.json#redemptionOrders.getRedemptionOrder
+- openapi/spiko-distributor-openapi.json#investors.createInvestor
+status_page:
+  url: null
+  notes: >-
+    No dedicated status page (e.g. status.spiko.io) was found. Spiko publishes
+    live fund/market data at https://data.spiko.io but this is not an API
+    uptime/incident status page.
+sla:
+  url: null

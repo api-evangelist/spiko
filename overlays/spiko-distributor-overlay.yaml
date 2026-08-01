@@ -1,0 +1,18 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Spiko Distributor API
+  version: 1.0.0
+extends: openapi/spiko-distributor-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-21'
+    x-apievangelist-artifacts:
+      authentication: authentication/spiko-authentication.yml
+      conventions: conventions/spiko-conventions.yml
+      errors: errors/spiko-problem-types.yml
+      lifecycle: lifecycle/spiko-lifecycle.yml
+- target: $.info
+  update:
+    x-apievangelist-provider: Spiko
+    x-apievangelist-regulated: MiFID II investment firm (ACPR #19183); UCITS money market funds

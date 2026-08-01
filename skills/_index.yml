@@ -1,0 +1,16 @@
+generated: '2026-07-21'
+method: generated
+source: OpenAPI operations grounded verbatim in the three Spiko specs
+skills:
+- file: spiko-fetch-fund-data.md
+  name: Fetch Spiko fund market data
+  api: openapi/spiko-public-openapi.json
+  operations: [Get all Funds, Get Share Class, Get Share Class Yield, Get Latest Net Asset Value, Get Latest Exchange Rate]
+- file: spiko-onboard-investor-and-deposit.md
+  name: Onboard an investor and place a deposit (Distributor API)
+  api: openapi/spiko-distributor-openapi.json
+  operations: [investors.createInvestorV1, accounts.createAccount, accounts.getDepositInstructions, depositOrders.createDepositOrder, depositOrders.getDepositOrder]
+- file: spiko-investor-deposit-and-portfolio.md
+  name: Deposit and check portfolio (Investor API)
+  api: openapi/spiko-investor-openapi.json
+  operations: [investors.getInvestor, accounts.getAccounts, accounts.getDepositInstructions, depositOrders.createDepositOrder, portfolio.getPortfolio, yields.getYieldHistory]

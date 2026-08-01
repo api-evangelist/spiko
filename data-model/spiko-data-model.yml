@@ -1,0 +1,94 @@
+generated: '2026-07-21'
+method: derived
+source:
+- openapi/spiko-public-openapi.json
+- openapi/spiko-investor-openapi.json
+- openapi/spiko-distributor-openapi.json
+notes: >-
+  Entity graph derived from the OpenAPI path structure, tags, and id-reference
+  parameters across the three Spiko APIs. Public API models the fund/market data
+  domain; Investor and Distributor APIs model the account/order domain.
+entities:
+- name: Fund
+  api: public
+  key_ops: [Get Fund, Get all Funds]
+  relationships:
+  - has_many: ShareClass
+  - has_many: FundAsset
+- name: ShareClass
+  api: public
+  identifier: shareClassSymbol
+  relationships:
+  - belongs_to: Fund
+  - has_many: NetAssetValue
+  - has_one: Yield
+- name: NetAssetValue
+  api: public
+  relationships:
+  - belongs_to: ShareClass (via shareClassSymbol)
+- name: ExchangeRate
+  api: public
+- name: Investor
+  api: [investor, distributor]
+  identifier: investorId
+  relationships:
+  - has_many: Account
+  - has_many: BankAccount
+  - has_many: User (distributor invitations)
+  - has_many: InvestorDocument
+- name: Account
+  api: [investor, distributor]
+  identifier: accountId
+  relationships:
+  - belongs_to: Investor
+  - belongs_to: ShareClass (via shareClassId)
+  - has_many: AccountTransaction
+  - has_many: DepositOrder
+  - has_many: WithdrawalOrder
+- name: DepositOrder
+  api: [investor, distributor]
+  relationships:
+  - belongs_to: Account
+  - belongs_to: BankAccount
+- name: WithdrawalOrder
+  api: [investor, distributor]
+  relationships:
+  - belongs_to: Account
+  - belongs_to: BankAccount
+- name: TransferOrder
+  api: investor
+  relationships:
+  - belongs_to: Account
+- name: BankAccount
+  api: [investor, distributor]
+  identifier: bankAccountId
+  relationships:
+  - belongs_to: Investor
+- name: Portfolio
+  api: [investor, distributor]
+  relationships:
+  - belongs_to: Investor
+- name: AccountTransaction
+  api: [investor, distributor]
+  relationships:
+  - belongs_to: Account
+- name: Yield
+  api: [investor, distributor]
+  relationships:
+  - belongs_to: AccountingPosition (via accountingPositionId)
+- name: DistributorInvestorContract
+  api: distributor
+  relationships:
+  - belongs_to: Investor
+  - belongs_to: ShareClass
+- name: Wallet
+  api: distributor
+  identifier: walletId
+- name: WebhookConfiguration
+  api: distributor
+  relationships:
+  - has_many: WebhookEvent
+- name: WebhookEvent
+  api: distributor
+  relationships:
+  - belongs_to: WebhookConfiguration

@@ -1,0 +1,122 @@
+generated: '2026-07-21'
+method: derived
+source:
+- openapi/spiko-public-openapi.json
+- openapi/spiko-investor-openapi.json
+- openapi/spiko-distributor-openapi.json
+format: effect-tagged-json
+media_type: application/json
+envelope:
+  discriminator: _tag
+  description: >-
+    Spiko returns Effect-TS tagged errors, not RFC 9457 problem+json. Every error
+    body carries a `_tag` field naming the error class plus error-specific fields.
+    Schema-decode failures (HttpApiDecodeError) include an `issues[]` array of
+    {path (Pointer), message}. This catalog is derived from the OpenAPI 4xx/5xx
+    response schemas across the three APIs.
+http_status_codes:
+  public: [400, 404, 503]
+  investor: [400, 401, 403, 404, 409, 503]
+  distributor: [400, 401, 403, 404, 405, 409, 422, 500]
+problems:
+- tag: HttpApiDecodeError
+  status: 400
+  title: Request did not match the expected schema
+  remediation: Fix the request body/params to satisfy the OpenAPI schema; inspect issues[].
+  apis: [public, investor, distributor]
+- tag: BadRequestError
+  status: 400
+  title: Bad request
+  apis: [investor, distributor]
+- tag: InvestorAuthenticationError
+  status: 401
+  title: Investor authentication failed
+  remediation: Verify Basic credentials or OAuth bearer token.
+  apis: [investor]
+- tag: DistributorAuthenticationError
+  status: 401
+  title: Distributor authentication failed
+  remediation: Verify client_id/client_secret Basic credentials.
+  apis: [distributor]
+- tag: ForbiddenError
+  status: 403
+  title: Operation not permitted for this caller
+  apis: [distributor]
+- tag: InsufficientBalanceError
+  status: 409
+  title: Insufficient balance for the requested order
+  apis: [investor, distributor]
+- tag: DepositNotAllowedError
+  status: 409
+  title: Deposit not allowed on this account
+  apis: [investor]
+- tag: SubscriptionNotAllowedError
+  status: 409
+  title: Subscription not allowed (deprecated flow)
+  apis: [investor]
+- tag: CollectionNotCancelableError
+  status: 409
+  title: Order/collection cannot be canceled in its current state
+  apis: [investor]
+- tag: AccountAlreadyExistsApiError
+  status: 409
+  title: Account already exists for this investor/share class
+  apis: [distributor]
+- tag: InvitationAlreadyExistsApiError
+  status: 409
+  title: Invitation already exists for this email
+  apis: [distributor]
+- tag: DuplicateInvestorTokenError
+  status: 409
+  title: Duplicate investor token
+  apis: [distributor]
+- tag: InvestorNotReadyError
+  status: 422
+  title: Investor is not ready (KYC/compliance incomplete)
+  remediation: Complete onboarding, KYC, and compliance checks before ordering.
+  apis: [distributor]
+- tag: BlockedResidenceCountryError
+  status: 422
+  title: Investor residence country is blocked
+  apis: [distributor]
+- tag: MissingFatcaCrsStatusError
+  status: 422
+  title: Missing FATCA/CRS status
+  apis: [distributor]
+- tag: MissingFiscalIdentificationNumberError
+  status: 422
+  title: Missing fiscal identification number
+  apis: [distributor]
+- tag: MissingInvestorEmailError
+  status: 422
+  title: Missing investor email
+  apis: [distributor]
+- tag: MissingRelatedPersonsError
+  status: 422
+  title: Missing related persons
+  apis: [distributor]
+- tag: MissingRequiredPersonFieldsError
+  status: 422
+  title: Missing required person fields
+  apis: [distributor]
+- tag: ProofDocumentRequiredError
+  status: 422
+  title: Proof document required
+  apis: [distributor]
+- tag: InvalidProofDocumentError
+  status: 422
+  title: Invalid proof document
+  apis: [distributor]
+- tag: BankAccountProofUploadNotAllowedError
+  status: 422
+  title: Bank account proof upload not allowed
+  apis: [distributor]
+- tag: ServiceUnavailableError
+  status: 503
+  title: Service temporarily unavailable
+  remediation: Retry with backoff.
+  apis: [investor]
+- tag: ApplicationError
+  status: 500
+  title: Unexpected application error
+  apis: [investor, distributor]

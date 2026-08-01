@@ -1,0 +1,42 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/spiko-investor-openapi.json
+docs: https://docs.spiko.io/developers/investor_api/getting_started
+authorization_server: https://investor-auth.spiko.io
+well_known: https://investor-auth.spiko.io/.well-known/openid-configuration
+notes: >-
+  OAuth 2.0 (authorization code + PKCE S256) protects the Investor API. Scopes
+  advertised by the authorization server's OpenID discovery document are openid,
+  offline, and offline_access. The OpenAPI oauth2 flow only enumerates the
+  `offline` scope (used to request a refresh token); the remaining scopes come
+  from the live /.well-known/openid-configuration. The Distributor API does not
+  use OAuth (HTTP Basic only) and therefore has no scope surface.
+schemes:
+- name: oauth2
+  source: openapi/spiko-investor-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://investor-auth.spiko.io/oauth2/auth
+    tokenUrl: https://investor-auth.spiko.io/oauth2/token
+    code_challenge_methods:
+    - S256
+    - plain
+scopes:
+- scope: openid
+  description: OpenID Connect authentication; returns an ID token.
+  flows:
+  - authorizationCode
+  sources:
+  - https://investor-auth.spiko.io/.well-known/openid-configuration
+- scope: offline
+  description: Required for obtaining a refresh token.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/spiko-investor-openapi.json
+- scope: offline_access
+  description: Standard OIDC offline access scope for issuing refresh tokens.
+  flows:
+  - authorizationCode
+  sources:
+  - https://investor-auth.spiko.io/.well-known/openid-configuration

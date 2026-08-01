@@ -1,0 +1,29 @@
+generated: '2026-07-21'
+method: searched
+source: live probes of Spiko API + auth hosts
+notes: >-
+  The Investor API authorization server (investor-auth.spiko.io) publishes both
+  OpenID Connect discovery and RFC 8414 OAuth authorization-server metadata.
+  No security.txt, api-catalog, or ai-plugin.json was found on the API or auth
+  hosts (all 404).
+hosts:
+- host: https://investor-auth.spiko.io
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: spiko-openid-configuration.json
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: spiko-oauth-authorization-server.json
+- host: https://public-api.spiko.io
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+- host: https://investor-api.spiko.io
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+- host: https://spiko.io
+  documents:
+  - path: /.well-known/security.txt
+    status: 404

@@ -1,0 +1,69 @@
+generated: '2026-07-21'
+method: searched
+source:
+- https://docs.spiko.io/developers/distributor_api/technical_guides/idempotency
+- https://docs.spiko.io/developers/distributor_api/technical_guides/versioning
+- https://docs.spiko.io/developers/distributor_api/technical_guides/webhooks
+- openapi/spiko-investor-openapi.json
+- openapi/spiko-distributor-openapi.json
+authentication:
+  style: HTTP Basic (client_id/client_secret) and OAuth 2.0 (Investor API); Public API is open.
+  ref: authentication/spiko-authentication.yml
+idempotency:
+  supported: true
+  header: Idempotency-Key
+  scope: POST requests only (create operations)
+  key_format: any alphanumeric string, 8-255 characters
+  behavior: >-
+    The server stores the request body and response for a given key. A repeat
+    request with the same key and identical payload returns the exact same
+    response without re-executing the operation, even after a server error (500).
+    The same key with a different payload is processed as a new operation.
+  optional: true
+  retention: not documented
+pagination:
+  style: cursor
+  request_params:
+  - cursor
+  - limit
+  - direction
+  webhook_events_params:
+  - after
+  - sequenceNumber
+  notes: >-
+    List endpoints use cursor-based pagination. The distributor webhook-events
+    feed is polled with `after` + `sequenceNumber`. Some distributor list
+    endpoints also accept a legacy `page` parameter.
+error_envelope:
+  format: effect-tagged-json
+  media_type: application/json
+  discriminator: _tag
+  shape: >-
+    Errors are Effect-TS tagged unions. Each error body carries a `_tag` field
+    naming the error class (e.g. HttpApiDecodeError, InvestorAuthenticationError,
+    InsufficientBalanceError) plus error-specific fields such as `message`,
+    `reason`, or an `issues[]` array of {path, message} decode issues. Not RFC
+    9457 problem+json.
+  ref: errors/spiko-problem-types.yml
+versioning:
+  scheme: uri-path per endpoint (e.g. /v0, /v1)
+  policy: >-
+    Path-based versioning applied per endpoint; a superseded endpoint keeps
+    working but is marked deprecated. Terminology migrated from
+    subscription/redemption to deposit/withdrawal, with legacy webhook topics
+    retained for backward compatibility.
+  sunset_header: false
+  ref: lifecycle/spiko-lifecycle.yml
+webhooks:
+  standard: Standard Webhooks (https://www.standardwebhooks.com)
+  signature_headers:
+  - webhook-id
+  - webhook-timestamp
+  - webhook-signature
+  algorithm: HMAC-SHA256
+  ref: asyncapi/spiko-distributor-webhooks.yml
+rate_limiting:
+  documented: false
+  notes: No published rate-limit policy or RateLimit response headers found in docs or specs.
+request_tracing:
+  documented: false

@@ -1,0 +1,83 @@
+generated: '2026-07-21'
+method: searched
+source:
+- https://docs.spiko.io/developers/distributor_api/technical_guides/webhooks
+- openapi/spiko-distributor-openapi.json
+spec_type: Webhooks
+notes: >-
+  Spiko does not publish an AsyncAPI document. The Distributor API exposes a
+  webhook event surface following the Standard Webhooks specification
+  (https://www.standardwebhooks.com). This file captures the webhook catalog.
+transport: HTTPS push (POST to a configured endpoint) + pull fallback via GET /v0/webhook-events
+configuration:
+  create: POST /v0/webhook-configurations
+  list: GET /v0/webhook-configurations
+  update: PUT /v0/webhook-configurations/{id}
+  enable: PUT /v0/webhook-configurations/{id}/enable
+  disable: PUT /v0/webhook-configurations/{id}/disable
+  rotate_secret: POST /v0/webhook-configurations/{id}/rotate-secret
+  poll: GET /v0/webhook-events
+signing:
+  standard: Standard Webhooks
+  secret_format: whsec_<base64_key>
+  headers:
+  - webhook-id
+  - webhook-timestamp
+  - webhook-signature
+  algorithm: HMAC-SHA256
+  signature_format: v1,<base64_signature>
+  signed_content: "${webhook-id}.${webhook-timestamp}.${payload}"
+  replay_protection: Reject timestamps older than 5 minutes.
+  secret_rotation: Both old and new secrets valid for 24h; signatures carry both during grace period.
+delivery:
+  success: 2xx — no retry
+  retry_on: [408, 429, 5xx, connection errors]
+  retries: up to 6 (7 total attempts) with escalating delay 1 min -> 24 hrs
+  permanent_failure: other 4xx — no retry
+  circuit_breaker: configuration disabled after 50 consecutive failures
+  recovery: failed events remain recoverable via GET /v0/webhook-events (cursor after/sequenceNumber)
+payload_envelope:
+  type: resource.action
+  timestamp: ISO 8601
+  data:
+    resource: type
+    id: uuid
+  note: Payloads are thin; fetch full detail via the API using the resource id.
+events:
+- account.internal.created
+- deposit-order.created
+- deposit-order.funded
+- deposit-order.executed
+- deposit-order.canceled
+- subscription-order.created
+- subscription-order.executed
+- subscription-order.canceled
+- subscription-order.wire-validated
+- redemption-order.created
+- redemption-order.executed
+- redemption-order.canceled
+- withdrawal-order.pending
+- withdrawal-order.executed
+- withdrawal-order.canceled
+- transfer-order.created
+- transfer-order.executed
+- investor.created
+- investor.updated
+- investor.activated
+- investor.made-compliant
+- investor.made-non-compliant
+- investor.archived
+- bank-account.created
+- bank-account.validated
+- bank-account.invalidated
+- bank-account.pending-validation
+- investor-invitation.accepted
+- yield.credited
+deprecated_events:
+- subscription-order.created
+- subscription-order.executed
+- subscription-order.canceled
+- subscription-order.wire-validated
+- redemption-order.created
+- redemption-order.executed
+- redemption-order.canceled

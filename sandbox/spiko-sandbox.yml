@@ -1,0 +1,29 @@
+generated: '2026-07-21'
+method: searched
+source:
+- https://docs.spiko.io/developers/investor_api/sandbox
+- https://docs.spiko.io/developers/distributor_api/sandbox
+environments:
+  production:
+    investor_api: https://investor-api.spiko.io/v1
+    distributor_api: https://distributor-api.spiko.io
+  sandbox:
+    investor_api: https://investor-api.preprod.spiko.io/v1
+    distributor_api: https://distributor-api.preprod.spiko.io
+switching: Replace the host subdomain — `.preprod.spiko.io` for sandbox, `.spiko.io` for production.
+credentials:
+  separation: Sandbox credentials are separate from production credentials.
+  access: Request sandbox access by contacting contact@spiko.io. No self-serve test keys are published.
+behavior:
+  kyc_compliance: >-
+    Real. Sandbox runs the same identity/document verification and sanctions/PEP
+    screening as production, so realistic data must be used.
+  money_movement: >-
+    Simulated by Spiko on request. No real wires move in sandbox; NAV updates and
+    executions are not run on the production schedule. Contact Spiko to simulate
+    deposits and execute transactions for full end-to-end flow testing.
+test_values:
+  published: false
+  notes: >-
+    Spiko does not publish magic test card/bank/investor values. Test data is
+    provisioned per-integrator on request. No fabricated test values are recorded here.

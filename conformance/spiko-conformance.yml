@@ -1,0 +1,53 @@
+generated: '2026-07-21'
+method: searched
+source:
+- openapi/spiko-investor-openapi.json
+- openapi/spiko-distributor-openapi.json
+- https://investor-auth.spiko.io/.well-known/openid-configuration
+- https://docs.spiko.io/developers/distributor_api/technical_guides/webhooks
+- https://spiko.io
+standards:
+- id: oauth2
+  conforms: true
+  evidence: Investor API declares an oauth2 authorizationCode flow with PKCE (S256).
+- id: oidc
+  conforms: true
+  evidence: investor-auth.spiko.io publishes an OpenID Connect discovery document (openid scope, id_token).
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: true
+  evidence: /.well-known/oauth-authorization-server returns 200 with issuer/endpoints.
+- id: standard-webhooks
+  conforms: true
+  evidence: Distributor webhooks follow standardwebhooks.com (webhook-id/timestamp/signature, HMAC-SHA256).
+- id: idempotency-key
+  conforms: true
+  evidence: POST endpoints honor an Idempotency-Key header with request/response caching.
+- id: cursor-pagination
+  conforms: true
+  evidence: List endpoints use cursor + limit + direction parameters.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors are Effect-TS tagged JSON (_tag discriminator), not application/problem+json.
+- id: mifid-ii
+  conforms: true
+  evidence: Spiko Finance is a MiFID-authorized investment firm licensed by the ACPR (license #19183).
+- id: ucits
+  conforms: true
+  evidence: Spiko's money market funds are UCITS-approved by French regulators.
+- id: fhir-r4
+  conforms: false
+- id: scim
+  conforms: false
+- id: odata
+  conforms: false
+compliance:
+  regulated: true
+  authorizations:
+  - MiFID II investment firm — ACPR license #19183 (France)
+  - ORIAS banking/payment services intermediary #23008251
+  - UCITS-approved money market funds
+  custodian: CACEIS Bank (Crédit Agricole group); Spiko holds no client funds.
+  docs: https://support.spiko.io/hc/en-us/sections/45292991501073-Legal-and-regulatory-documentation
+  security_certifications:
+    soc2: not published
+    iso27001: not published

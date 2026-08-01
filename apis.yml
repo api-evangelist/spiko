@@ -1,27 +1,670 @@
 aid: spiko
 name: Spiko
-description: 'Spiko is a company surfaced as a portfolio company of index-ventures and added to the API
-  Evangelist network as a stub for enrichment. Sector: fintech. This profile is a lead awaiting the enrichment
-  pipeline.'
+description: >-
+  Spiko is a European fintech and MiFID-authorized investment firm (ACPR license
+  #19183) offering regulated daily treasury management through tokenized,
+  UCITS-approved government money market funds and multi-currency cash accounts
+  (EUR, USD, GBP, CHF). Businesses and individuals earn the risk-free rate on idle
+  cash while keeping daily liquidity; client funds are custodied by CACEIS Bank
+  and Spiko itself holds no client funds. Spiko exposes three developer APIs: an
+  open Public API for fund, share-class, NAV, yield, and exchange-rate data; an
+  Investor API for direct clients and partners to manage accounts and
+  deposit/withdrawal/transfer orders; and a Distributor API for partners to
+  onboard investors, manage accounts and orders, and receive webhook events.
 url: https://raw.githubusercontent.com/api-evangelist/spiko/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://cdn.prod.website-files.com/670cbf7bea9b168605318b30/674b4c0d4a61fe0fa0036e29_Logo_square_white%402x.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - index-ventures
-x-tier: stub
+x-tier: enriched
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
 - Fintech
-apis: []
+- Money Market Funds
+- Treasury Management
+- Tokenization
+- Cash Management
+- Payments
+- Webhooks
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: spiko:spiko-account-transactions-api
+  name: Spiko Account transactions API
+  description: The Account transactions API from Spiko — 2 operation(s) for account transactions.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Account transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-account-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-accounting-positions-api
+  name: Spiko Accounting positions API
+  description: The Accounting positions API from Spiko — 5 operation(s) for accounting positions.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Accounting positions
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-accounting-positions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-accounts-api
+  name: Spiko Accounts API
+  description: The Accounts API from Spiko — 7 operation(s) for accounts.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-bank-accounts-api
+  name: Spiko Bank accounts API
+  description: The Bank accounts API from Spiko — 5 operation(s) for bank accounts.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Bank accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-bank-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-deposit-orders-api
+  name: Spiko Deposit orders API
+  description: The Deposit orders API from Spiko — 8 operation(s) for deposit orders.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Deposit orders
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-deposit-orders-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-distributor-investor-contracts-api
+  name: Spiko Distributor investor contracts API
+  description: >-
+    The Distributor investor contracts API from Spiko — 4 operation(s) for distributor investor contracts.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Distributor investor contracts
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-distributor-investor-contracts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-distributors-api
+  name: Spiko Distributors API
+  description: The Distributors API from Spiko — 2 operation(s) for distributors.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Distributors
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-distributors-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-exchange-rates-api
+  name: Spiko Exchange Rates API
+  description: The Exchange Rates API from Spiko — 2 operation(s) for exchange rates.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Exchange Rates
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-exchange-rates-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-fund-assets-api
+  name: Spiko Fund Assets API
+  description: The Fund Assets API from Spiko — 1 operation(s) for fund assets.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Fund Assets
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-fund-assets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-funds-api
+  name: Spiko Funds API
+  description: The Funds API from Spiko — 2 operation(s) for funds.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Funds
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-funds-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-index-values-api
+  name: Spiko Index Values API
+  description: The Index Values API from Spiko — 2 operation(s) for index values.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Index Values
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-index-values-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-investor-documents-api
+  name: Spiko Investor Documents API
+  description: The Investor Documents API from Spiko — 2 operation(s) for investor documents.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Investor Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-investor-documents-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-investor-tokens-api
+  name: Spiko Investor tokens API
+  description: The Investor tokens API from Spiko — 1 operation(s) for investor tokens.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Investor tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-investor-tokens-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-investors-api
+  name: Spiko Investors API
+  description: The Investors API from Spiko — 5 operation(s) for investors.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Investors
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-investors-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-net-asset-values-api
+  name: Spiko Net Asset Values API
+  description: The Net Asset Values API from Spiko — 3 operation(s) for net asset values.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Net Asset Values
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-net-asset-values-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-portfolio-api
+  name: Spiko Portfolio API
+  description: The Portfolio API from Spiko — 2 operation(s) for portfolio.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Portfolio
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-portfolio-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-portfolios-api
+  name: Spiko Portfolios API
+  description: The Portfolios API from Spiko — 1 operation(s) for portfolios.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Portfolios
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-portfolios-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-redemption-orders-deprecated-api
+  name: Spiko Redemption Orders (deprecated) API
+  description: >-
+    The Redemption Orders (deprecated) API from Spiko — 3 operation(s) for redemption orders (deprecated).
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Redemption Orders (deprecated)
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-redemption-orders-deprecated-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-share-classes-api
+  name: Spiko Share Classes API
+  description: The Share Classes API from Spiko — 5 operation(s) for share classes.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Share Classes
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-share-classes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-subscription-orders-deprecated-api
+  name: Spiko Subscription Orders (deprecated) API
+  description: >-
+    The Subscription Orders (deprecated) API from Spiko — 3 operation(s) for subscription orders (deprecated).
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Subscription Orders (deprecated)
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-subscription-orders-deprecated-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-transfer-orders-api
+  name: Spiko Transfer Orders API
+  description: The Transfer Orders API from Spiko — 2 operation(s) for transfer orders.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Transfer Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-transfer-orders-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-users-api
+  name: Spiko Users API
+  description: The Users API from Spiko — 6 operation(s) for users.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-users-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-wallets-api
+  name: Spiko Wallets API
+  description: The Wallets API from Spiko — 1 operation(s) for wallets.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Wallets
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-wallets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-webhook-configurations-api
+  name: Spiko Webhook Configurations API
+  description: The Webhook Configurations API from Spiko — 5 operation(s) for webhook configurations.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Webhook Configurations
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-webhook-configurations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-webhook-events-api
+  name: Spiko Webhook Events API
+  description: The Webhook Events API from Spiko — 1 operation(s) for webhook events.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Webhook Events
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-webhook-events-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-withdrawal-orders-api
+  name: Spiko Withdrawal orders API
+  description: The Withdrawal orders API from Spiko — 7 operation(s) for withdrawal orders.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Withdrawal orders
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-withdrawal-orders-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
+- aid: spiko:spiko-yields-api
+  name: Spiko Yields API
+  description: The Yields API from Spiko — 3 operation(s) for yields.
+  humanURL: https://docs.spiko.io/developers/public_api/getting_started
+  baseURL: https://public-api.spiko.io/v0
+  tags:
+  - Yields
+  properties:
+  - type: OpenAPI
+    url: openapi/spiko-yields-api-openapi.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/public_api/getting_started
+  - type: Documentation
+    url: https://docs.spiko.io/developers/investor_api/getting_started
+  - type: Sandbox
+    url: sandbox/spiko-sandbox.yml
+  - type: Documentation
+    url: https://docs.spiko.io/developers/distributor_api/getting_started
+  - type: Webhooks
+    url: asyncapi/spiko-distributor-webhooks.yml
 common:
 - type: Website
-  url: http://spiko.io
+  url: https://spiko.io
+- type: DeveloperPortal
+  url: https://docs.spiko.io/developers/introduction
+- type: Documentation
+  url: https://docs.spiko.io
+- type: APIReference
+  url: https://docs.spiko.io/developers/distributor_api/reference/spiko-distributor-api
+- type: GettingStarted
+  url: https://docs.spiko.io/developers/public_api/getting_started
+- type: Support
+  url: https://support.spiko.io/hc/en-us
+- type: Blog
+  url: https://tech.spiko.io/
+- type: GitHubOrganization
+  url: https://github.com/spiko-tech
+- type: Pricing
+  url: https://spiko.io/pricing
+- type: SignUp
+  url: https://app.spiko.io/signup
+- type: Login
+  url: https://app.spiko.io/signin
+- type: TermsOfService
+  url: https://support.spiko.io/hc/en-us/articles/45293573063057-Terms-of-Use
+- type: PrivacyPolicy
+  url: https://support.spiko.io/hc/en-us/articles/45293614056593-Privacy-Policy
+- type: Compliance
+  url: https://support.spiko.io/hc/en-us/sections/45292991501073-Legal-and-regulatory-documentation
+- type: Authentication
+  url: authentication/spiko-authentication.yml
+- type: OAuthScopes
+  url: scopes/spiko-scopes.yml
+- type: OpenIDConnect
+  url: well-known/spiko-openid-configuration.json
+- type: WellKnown
+  url: well-known/spiko-well-known.yml
+- type: AgenticAccess
+  url: agentic-access/spiko-agentic-access.yml
+- type: DomainSecurity
+  url: security/spiko-domain-security.yml
+- type: MCPServer
+  url: mcp/spiko-mcp.yml
+- type: LLMsTxt
+  url: llms/spiko-llms.txt
+- type: Conventions
+  url: conventions/spiko-conventions.yml
+- type: Idempotency
+  url: conventions/spiko-conventions.yml
+- type: ErrorCatalog
+  url: errors/spiko-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/spiko-lifecycle.yml
+- type: Deprecation
+  url: lifecycle/spiko-lifecycle.yml
+- type: Conformance
+  url: conformance/spiko-conformance.yml
+- type: Sandbox
+  url: sandbox/spiko-sandbox.yml
+- type: DataModel
+  url: data-model/spiko-data-model.yml
+- type: Webhooks
+  url: asyncapi/spiko-distributor-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Overlay
+  url: overlays/spiko-public-overlay.yaml
+- type: Overlay
+  url: overlays/spiko-investor-overlay.yaml
+- type: Overlay
+  url: overlays/spiko-distributor-overlay.yaml
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 26
+  pass: local-v1

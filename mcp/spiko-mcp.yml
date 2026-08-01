@@ -1,0 +1,41 @@
+generated: '2026-07-21'
+method: derived
+status: candidate
+source: openapi/spiko-public-openapi.json
+notes: >-
+  No official hosted or remote Spiko MCP server was found (no listing in the MCP
+  registry, npm @modelcontextprotocol, or Spiko docs). This is a DERIVED candidate
+  tool list mapped from the open, unauthenticated Public API — the safest surface
+  to expose to agents (read-only fund/market data, no credentials required).
+server:
+  name: spiko-public
+  transport: http
+  url: null
+tools:
+- name: get_funds
+  description: List all Spiko funds.
+  source_operation: openapi/spiko-public-openapi.json#Get all Funds
+- name: get_fund
+  description: Get a single fund by id.
+  source_operation: openapi/spiko-public-openapi.json#Get Fund
+- name: get_share_classes
+  description: List all share classes.
+  source_operation: openapi/spiko-public-openapi.json#Get all Share Classes
+- name: get_share_class
+  description: Get a share class by symbol.
+  source_operation: openapi/spiko-public-openapi.json#Get Share Class
+- name: get_share_class_yield
+  description: Get the yield for a share class.
+  source_operation: openapi/spiko-public-openapi.json#Get Share Class Yield
+- name: get_latest_net_asset_value
+  description: Get the latest NAV for a share class.
+  source_operation: openapi/spiko-public-openapi.json#Get Latest Net Asset Value
+- name: get_net_asset_values
+  description: Get NAV history for a share class.
+  source_operation: openapi/spiko-public-openapi.json#Get Net Asset Values
+- name: get_latest_exchange_rate
+  description: Get the latest exchange rate.
+  source_operation: openapi/spiko-public-openapi.json#Get Latest Exchange Rate
+- name: get_fund_assets
+  description: List fund assets (portfolio holdings).
+  source_operation: openapi/spiko-public-openapi.json#Get all Fund Assets

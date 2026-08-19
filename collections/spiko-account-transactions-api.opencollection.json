@@ -1,0 +1,120 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spiko Distributor Account transactions API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get account transaction history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/account-transactions/",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "transactionType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "\"desc\" returns newest transactions first (anti-chronological), \"asc\" returns oldest first (chronological). Defaults to \"desc\"."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "defaults to \"50\" if not provided, max 10000"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Retrieve the unified transaction history for an account.**\n\nThis is the recommended endpoint for displaying an account's activity to investors. It returns deposits, withdrawals, transfers and yield accruals merged into a single, paginated, time-ordered stream.\n\n- Results are paginated using a cursor. Pass the `nextCursor` returned by the previous call to retrieve subsequent pages.\n- Sorted anti-chronologically (newest first) by default; pass `direction=asc` for chronological order.\n- Optional"
+        },
+        {
+          "info": {
+            "name": "Get account transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/account-transactions/",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "transactionType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "\"desc\" returns newest transactions first (anti-chronological), \"asc\" returns oldest first (chronological). Defaults to \"desc\"."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "defaults to \"50\" if not provided, max 10000"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get paginated account transactions including orders and yield accruals. Sorted anti-chronologically (newest first) by default. Use direction=asc for chronological order (oldest first). Supports filtering by transaction type."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

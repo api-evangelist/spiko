@@ -1,0 +1,212 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spiko Distributor Account transactions Users API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get users of investor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/investors/:investorId/users",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Retrieve all users associated with an investor.**\n\n- Returns the list of users with their roles (admin, manager, or viewer).\n          "
+        },
+        {
+          "info": {
+            "name": "Invite user to investor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://distributor-api.spiko.io/v0/investors/:investorId/users",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Invite a new user to join an investor account.**\n\n- If the user already has a Spiko account, they will be added directly to the investor with the specified role.\n- If the user does not have a Spiko account, an invitation email will be sent.\n- Returns either the created invitation or the added user depending on the scenario.\n          "
+        },
+        {
+          "info": {
+            "name": "Get pending invitations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/investors/:investorId/invitations",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Retrieve all pending user invitations for an investor.**\n\n- Returns invitations that have been sent but not yet accepted.\n          "
+        },
+        {
+          "info": {
+            "name": "Get invitation of investor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/investors/:investorId/invitations/:id",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Retrieve a user invitation by its ID.**\n\n- Returns the invitation with its current status (`pending` or `accepted`).\n- Useful for looking up an invitation when receiving an `investor-invitation.accepted` webhook.\n          "
+        },
+        {
+          "info": {
+            "name": "Unlink user from investor",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://distributor-api.spiko.io/v0/investors/:investorId/users/:userId",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Remove a user from an investor account.**\n          "
+        },
+        {
+          "info": {
+            "name": "Delete pending invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://distributor-api.spiko.io/v0/investors/:investorId/invitations/:email",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Delete a pending user invitation for an investor.**\n\n- Only pending (not yet accepted) invitations can be deleted.\n- The invitation is identified by the invitee's email address.\n          "
+        },
+        {
+          "info": {
+            "name": "Resend pending invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://distributor-api.spiko.io/v0/investors/:investorId/invitations/:email/resend",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Resend the invitation email for a pending user invitation.**\n\n- Only pending (not yet accepted) invitations can be resent.\n- The invitation is identified by the invitee's email address.\n- A new invitation email is sent to the invitee.\n          "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

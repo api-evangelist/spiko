@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spiko Distributor Account transactions Subscription Orders (deprecated) API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subscription Orders (deprecated)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get list of an investor's subscription orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/subscription-orders/",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Deprecated - use deposit endpoints instead.** Get all subscription orders for a given investor with optional status filter.\n\n> ⚠️ **For displaying an account's activity, prefer the [account transaction history endpoint](#tag/Account-Transactions/operation/accountTransactions.getAccountTransactions).** It returns deposits, withdrawals, transfers and yield accruals as a single time-ordered stream, with cursor pagination, so you don't need to call multiple per-order-type endpoints and reconcile "
+        },
+        {
+          "info": {
+            "name": "Create a new subscription order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://distributor-api.spiko.io/subscription-orders/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**Deprecated - use deposit endpoints instead.** Create a new subscription order and return the order info. This subscription shall be paid via bank transfer."
+        },
+        {
+          "info": {
+            "name": "Create a new subscription order via SEPA Direct Debit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://distributor-api.spiko.io/subscription-orders/direct-debit/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**Deprecated - use deposit endpoints instead.** Create a new SEPA Direct Debit collection for an account. Only allowed for EUTBL and eurSAFO share classes, for professional investors for whom the feature has been enabled and who have signed a mandate on app.spiko.io."
+        },
+        {
+          "info": {
+            "name": "Get subscription order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/subscription-orders/:subscriptionOrderId",
+            "params": [
+              {
+                "name": "subscriptionOrderId",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**Deprecated - use deposit endpoints instead.** Get info of a specific subscription order by its ID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

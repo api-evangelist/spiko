@@ -1,0 +1,880 @@
+{
+  "item": [
+    {
+      "id": "0fcc13dc-8b77-4fbe-8fb2-412bc6ee7fe0",
+      "name": "Account transactions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8b5af5be-40cc-46b1-ac82-dc076ca1193e",
+          "name": "Get account transaction history",
+          "request": {
+            "name": "Get account transaction history",
+            "description": {
+              "content": "\n**Retrieve the unified transaction history for an account.**\n\nThis is the recommended endpoint for displaying an account's activity to investors. It returns deposits, withdrawals, transfers and yield accruals merged into a single, paginated, time-ordered stream.\n\n- Results are paginated using a cursor. Pass the `nextCursor` returned by the previous call to retrieve subsequent pages.\n- Sorted anti-chronologically (newest first) by default; pass `direction=asc` for chronological order.\n- Optional `transactionType` filter narrows to one of `deposit`, `withdrawal`, `transfer`, or `yield`.\n- Canceled and failed entries are excluded.\n          ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "account-transactions",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "accountId",
+                  "value": "<uuid>",
+                  "description": "(Required) a Universally Unique Identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "transactionType",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "direction",
+                  "value": "<string>",
+                  "description": "\"desc\" returns newest transactions first (anti-chronological), \"asc\" returns oldest first (chronological). Defaults to \"desc\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<string>",
+                  "description": "defaults to \"50\" if not provided, max 10000"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "173852cc-6d8e-4baf-9646-7486fde4679d",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "account-transactions",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "transactionType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "string"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"createdAt\": \"string\",\n      \"shareClassId\": \"21ee62e7-2dcb-43b1-b425-c434ef9157f4\",\n      \"shareClassSymbol\": \"chfSAFO\",\n      \"shareDecimals\": 6017,\n      \"accountId\": \"9267bc22-8848-51bc-2900-410f1bbffc77\",\n      \"sharesAmount\": \"string\",\n      \"netAssetValue\": {\n        \"value\": \"string\",\n        \"currency\": \"SGD\"\n      },\n      \"amount\": {\n        \"value\": \"string\",\n        \"currency\": \"JPY\"\n      },\n      \"confirmedAt\": \"string\",\n      \"applicableExchangeRateConversion\": {\n        \"exchangeRate\": {\n          \"fundId\": \"607cc7c7-3ebe-3f11-094c-660758a56ffc\",\n          \"day\": \"string\",\n          \"baseCurrency\": \"USD\",\n          \"quoteCurrency\": \"SGD\",\n          \"fxRate\": \"string\"\n        },\n        \"convertedAmount\": {\n          \"value\": \"string\",\n          \"currency\": \"USD\"\n        }\n      },\n      \"id\": \"53cb1e9e-314e-6648-24d3-140b4acffb0f\",\n      \"orderType\": \"Redemption\",\n      \"scheduled\": \"string\",\n      \"shareClassNetAssetValueAtCreation\": {\n        \"value\": \"string\",\n        \"currency\": \"GBP\"\n      },\n      \"exchangeRateAtCreation\": {\n        \"fundId\": \"a3a106c4-7012-202d-321f-374f476729a9\",\n        \"day\": \"string\",\n        \"baseCurrency\": \"USD\",\n        \"quoteCurrency\": \"USD\",\n        \"fxRate\": \"string\"\n      },\n      \"bankAccountName\": \"string\",\n      \"bankAccountNumber\": \"string\",\n      \"bankAccountBic\": \"string\",\n      \"recurringWithdrawalScheduleId\": \"dc3827d7-378a-aaad-cb46-7f04d2630c94\",\n      \"status\": \"scheduled-in-shares\",\n      \"amountAtCreation\": {\n        \"value\": \"string\",\n        \"currency\": \"EUR\"\n      }\n    },\n    {\n      \"createdAt\": \"string\",\n      \"shareClassId\": \"37e2eda2-ed13-df83-1a3e-6c626f4b2c75\",\n      \"shareClassSymbol\": \"UKTBL\",\n      \"shareDecimals\": 2634,\n      \"accountId\": \"00ae781d-e82a-8ad9-6c93-10524933fa80\",\n      \"sharesAmount\": \"string\",\n      \"netAssetValue\": {\n        \"value\": \"string\",\n        \"currency\": \"JPY\"\n      },\n      \"amount\": {\n        \"value\": \"string\",\n        \"currency\": \"SGD\"\n      },\n      \"confirmedAt\": \"string\",\n      \"applicableExchangeRateConversion\": {\n        \"exchangeRate\": {\n          \"fundId\": \"f77ccae3-afae-687a-afd5-6123f0381cf4\",\n          \"day\": \"string\",\n          \"baseCurrency\": \"JPY\",\n          \"quoteCurrency\": \"USD\",\n          \"fxRate\": \"string\"\n        },\n        \"convertedAmount\": {\n          \"value\": \"string\",\n          \"currency\": \"EUR\"\n        }\n      },\n      \"id\": \"1dad0b3d-33b5-1ef6-dfa4-b997483d73eb\",\n      \"orderType\": \"Redemption\",\n      \"scheduled\": \"string\",\n      \"shareClassNetAssetValueAtCreation\": {\n        \"value\": \"string\",\n        \"currency\": \"CHF\"\n      },\n      \"exchangeRateAtCreation\": {\n        \"fundId\": \"80f7fe3c-e68b-564c-1647-f3e0e548a19c\",\n        \"day\": \"string\",\n        \"baseCurrency\": \"EUR\",\n        \"quoteCurrency\": \"SGD\",\n        \"fxRate\": \"string\"\n      },\n      \"bankAccountName\": \"string\",\n      \"bankAccountNumber\": \"string\",\n      \"bankAccountBic\": \"string\",\n      \"recurringWithdrawalScheduleId\": \"506c2540-9ee7-1f9c-0335-33e2b85ba595\",\n      \"status\": \"canceled\",\n      \"amountAtCreation\": {\n        \"value\": \"string\",\n        \"currency\": \"JPY\"\n      }\n    }\n  ],\n  \"nextCursor\": \"string\",\n  \"hasMore\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5eee4113-49e7-4902-8bfa-3e7f1d58cbd3",
+              "name": "The request did not match the expected schema",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "account-transactions",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "transactionType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "string"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Composite\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f5289b45-587f-4d47-a0fc-7affc140acf1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "account-transactions",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "transactionType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "string"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bcd8944f-ec44-482a-be26-0bcbd14b1fa0",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "account-transactions",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "transactionType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "string"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reason\": \"string\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"ShareClassNotAvailableForDistributor\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "356435c3-86d8-4c64-8603-8b2b71de82e6",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "account-transactions",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "transactionType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "string"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dc70222c-47dc-4d7f-975b-9aba88899d8c",
+          "name": "Get account transactions",
+          "request": {
+            "name": "Get account transactions",
+            "description": {
+              "content": "Get paginated account transactions including orders and yield accruals. Sorted anti-chronologically (newest first) by default. Use direction=asc for chronological order (oldest first). Supports filtering by transaction type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account-transactions",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "accountId",
+                  "value": "<uuid>",
+                  "description": "(Required) a Universally Unique Identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "transactionType",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "direction",
+                  "value": "<string>",
+                  "description": "\"desc\" returns newest transactions first (anti-chronological), \"asc\" returns oldest first (chronological). Defaults to \"desc\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<string>",
+                  "description": "defaults to \"50\" if not provided, max 10000"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6e556866-9db0-4f57-bd8f-87a8bb602cf6",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account-transactions",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "transactionType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "string"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"createdAt\": \"string\",\n      \"shareClassId\": \"9719d417-33c3-9941-49f3-47ea2460eb7d\",\n      \"shareClassSymbol\": \"eurUSTBL\",\n      \"shareDecimals\": 6762,\n      \"accountId\": \"fb3f4272-4942-7a0e-ec9e-0d5b72e38434\",\n      \"sharesAmount\": \"string\",\n      \"netAssetValue\": {\n        \"value\": \"string\",\n        \"currency\": \"SGD\"\n      },\n      \"amount\": {\n        \"value\": \"string\",\n        \"currency\": \"CHF\"\n      },\n      \"confirmedAt\": \"string\",\n      \"applicableExchangeRateConversion\": {\n        \"exchangeRate\": {\n          \"fundId\": \"dfdd4c2d-985a-3684-1546-b724580065e2\",\n          \"day\": \"string\",\n          \"baseCurrency\": \"EUR\",\n          \"quoteCurrency\": \"USD\",\n          \"fxRate\": \"string\"\n        },\n        \"convertedAmount\": {\n          \"value\": \"string\",\n          \"currency\": \"GBP\"\n        }\n      },\n      \"id\": \"637dc303-dbbb-ab52-1c2a-4ba929c95511\",\n      \"status\": \"scheduled-in-shares\",\n      \"orderType\": \"Redemption\",\n      \"scheduled\": \"string\",\n      \"shareClassNetAssetValueAtCreation\": {\n        \"value\": \"string\",\n        \"currency\": \"CHF\"\n      },\n      \"exchangeRateAtCreation\": {\n        \"fundId\": \"3f47d2cf-f064-73cf-5240-ae44e7e52710\",\n        \"day\": \"string\",\n        \"baseCurrency\": \"EUR\",\n        \"quoteCurrency\": \"USD\",\n        \"fxRate\": \"string\"\n      },\n      \"bankAccountName\": \"string\",\n      \"bankAccountNumber\": \"string\",\n      \"bankAccountBic\": \"string\",\n      \"recurringWithdrawalScheduleId\": \"72736c50-c7e3-7e9b-aff2-485102679502\",\n      \"destinationWalletNetwork\": \"EtherlinkTestnet\",\n      \"destinationWalletAddress\": \"string\",\n      \"stablecoinCode\": \"USDC\",\n      \"stablecoinTransactionHash\": \"string\",\n      \"amountAtCreation\": {\n        \"value\": \"string\",\n        \"currency\": \"EUR\"\n      }\n    },\n    {\n      \"createdAt\": \"string\",\n      \"shareClassId\": \"e0cddcf0-61db-a0a1-555e-334e7a547910\",\n      \"shareClassSymbol\": \"eurSAFOd\",\n      \"shareDecimals\": 6854,\n      \"accountId\": \"e3ea09ea-0430-ab74-5a3a-771e230058e6\",\n      \"sharesAmount\": \"string\",\n      \"netAssetValue\": {\n        \"value\": \"string\",\n        \"currency\": \"JPY\"\n      },\n      \"amount\": {\n        \"value\": \"string\",\n        \"currency\": \"EUR\"\n      },\n      \"confirmedAt\": \"string\",\n      \"applicableExchangeRateConversion\": {\n        \"exchangeRate\": {\n          \"fundId\": \"a758cad5-8471-3e88-afa2-301b3d32c72b\",\n          \"day\": \"string\",\n          \"baseCurrency\": \"SGD\",\n          \"quoteCurrency\": \"GBP\",\n          \"fxRate\": \"string\"\n        },\n        \"convertedAmount\": {\n          \"value\": \"string\",\n          \"currency\": \"SGD\"\n        }\n      },\n      \"id\": \"5875c2bd-25ff-0cf3-c8aa-e13e30780921\",\n      \"status\": \"canceled\",\n      \"orderType\": \"Redemption\",\n      \"scheduled\": \"string\",\n      \"shareClassNetAssetValueAtCreation\": {\n        \"value\": \"string\",\n        \"currency\": \"CHF\"\n      },\n      \"exchangeRateAtCreation\": {\n        \"fundId\": \"be7b5ffa-a11b-4765-f1e8-eada8343f354\",\n        \"day\": \"string\",\n        \"baseCurrency\": \"USD\",\n        \"quoteCurrency\": \"SGD\",\n        \"fxRate\": \"string\"\n      },\n      \"bankAccountName\": \"string\",\n      \"bankAccountNumber\": \"string\",\n      \"bankAccountBic\": \"string\",\n      \"recurringWithdrawalScheduleId\": \"1beafa0d-0fc9-42fc-4e80-373df94f1d6f\",\n      \"destinationWalletNetwork\": \"SolanaDevnet\",\n      \"destinationWalletAddress\": \"string\",\n      \"stablecoinCode\": \"EURC\",\n      \"stablecoinTransactionHash\": \"string\",\n      \"amountAtCreation\": {\n        \"value\": \"string\",\n        \"currency\": \"CHF\"\n      }\n    }\n  ],\n  \"nextCursor\": \"string\",\n  \"hasMore\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4752b3bf-ddda-404b-b8cf-e09f850abbc8",
+              "name": "The request did not match the expected schema",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account-transactions",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "transactionType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "string"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Composite\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "24632049-305e-431d-8df2-296427615610",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account-transactions",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "transactionType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "string"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9baa3cb6-63f0-434c-93b9-cf47e712dd22",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account-transactions",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "transactionType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "string"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "93d9b308-31f8-48f0-99fb-637d002a3679",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account-transactions",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "transactionType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "string"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://distributor-api.spiko.io",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "82d27396-37a0-423f-8366-dccb89481783",
+    "name": "Spiko Distributor Account transactions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spiko Distributor Account transactions Portfolios API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Portfolios",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get portfolio",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/portfolios/",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieve a view of an investor's investment portfolio, including current asset values, asset allocation, and performance metrics."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,72 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spiko Distributor Account transactions Portfolio API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Portfolio",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get portfolio of an investor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/portfolio/",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get all portfolio information for a given investor"
+        },
+        {
+          "info": {
+            "name": "Get aggregated portfolio totals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/portfolio/totals",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "a currency code among \"EUR\", \"USD\", \"GBP\", \"CHF\", \"JPY\", \"SGD\""
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get the aggregated balance per account across all share classes. The `totalBalance` is converted to a single currency (defaults to EUR, unless all active positions share a single other currency). The `breakdown` gives the native balance per currency before conversion."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

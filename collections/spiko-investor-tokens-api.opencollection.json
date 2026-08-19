@@ -1,0 +1,38 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spiko Distributor Account transactions Investor tokens API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Investor tokens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Mint an investor-scoped JWT",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://distributor-api.spiko.io/v0/investor-tokens/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create a short-lived, single-use JWT for the investor to place orders directly from the distributor frontend."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,275 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spiko Distributor Account transactions Deposit orders API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Deposit orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get deposit orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/deposit-orders/",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "shareClassId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "defaults to \"1\" if not provided "
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "defaults to \"50\" if not provided"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Retrieve a paginated list of the deposit orders made by an investor.**\n\n> ⚠️ **For displaying an account's activity, prefer the [account transaction history endpoint](#tag/Account-transactions/operation/accountTransactions.getAccountTransactions).** It returns deposits, withdrawals, transfers and yield accruals as a single time-ordered stream, with cursor pagination, so you don't need to call multiple per-order-type endpoints and reconcile their results.\n\n- Orders are sorted by creation date "
+        },
+        {
+          "info": {
+            "name": "Create deposit order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://distributor-api.spiko.io/v0/deposit-orders/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Create a new deposit order for an investor with the specified parameters.**\n\n- Return order details, including wire instructions to fund the deposit.\n\n> **Distribute-with-Spiko's-license distributors** cannot place this order from their backend. The investor must place it directly from the browser with a short-lived [Investor JWT](/developers/distributor_api/technical_guides/investor_jwt), targeting the investor-scoped path **`POST /v0/investor/deposit-orders/`** (identical payload and respon"
+        },
+        {
+          "info": {
+            "name": "Get deposit order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/deposit-orders/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Retrieve information about a specific deposit order.**\n\n- Includes order status (`created` / `pending-collection` / `funded` / `executed` / `canceled`).\n"
+        },
+        {
+          "info": {
+            "name": "Get all distributor deposit orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/deposit-orders/all/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "defaults to \"1\" if not provided "
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "defaults to \"50\" if not provided"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Retrieve a paginated list of all deposit orders made by a distributor.**\n\n> ⚠️ **For displaying an account's activity, prefer the [account transaction history endpoint](#tag/Account-transactions/operation/accountTransactions.getAccountTransactions).** It returns deposits, withdrawals, transfers and yield accruals as a single time-ordered stream, with cursor pagination, so you don't need to call multiple per-order-type endpoints and reconcile their results.\n\n- Orders are sorted by creation dat"
+        },
+        {
+          "info": {
+            "name": "Cancel deposit order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://distributor-api.spiko.io/v0/deposit-orders/:id/cancel",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**Cancel a deposit order.** Order must be in created or pending-collection status."
+        },
+        {
+          "info": {
+            "name": "Get list of an investor's deposit orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/deposit-orders/",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\nGet all deposit orders for a given investor with optional status filter.\n\n> ⚠️ **For displaying an account's activity, prefer the [account transaction history endpoint](#tag/Account-Transactions/operation/accountTransactions.getAccountTransactions).** It returns deposits, withdrawals, transfers and yield accruals as a single time-ordered stream, with cursor pagination, so you don't need to call multiple per-order-type endpoints and reconcile their results.\n"
+        },
+        {
+          "info": {
+            "name": "Create a new deposit order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://distributor-api.spiko.io/deposit-orders/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\nCreate a deposit order and return wire instructions for funding via bank transfer.\n\n**When to use this endpoint**\n\nThis endpoint is **required** only for share classes **without** a per-investor virtual IBAN (vIBAN), such as **USTBL (USD)**. The response includes `wireInstructions.reference`, which must be included in the wire transfer so incoming funds can be matched.\n\nFor share classes that support **cash collection** (direct wire to a virtual IBAN), **do not call this endpoint**. Wire funds "
+        },
+        {
+          "info": {
+            "name": "Cancel a deposit order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://distributor-api.spiko.io/deposit-orders/:depositOrderId/cancel",
+            "params": [
+              {
+                "name": "depositOrderId",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Cancel a pending deposit order. Only orders in pending status can be canceled. If funds have already been received, cancelling the deposit order will fail."
+        },
+        {
+          "info": {
+            "name": "Get deposit order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/deposit-orders/:depositOrderId",
+            "params": [
+              {
+                "name": "depositOrderId",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get info of a specific deposit order by its ID"
+        },
+        {
+          "info": {
+            "name": "Create a new deposit order via SEPA Direct Debit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://distributor-api.spiko.io/deposit-orders/direct-debit/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create a new SEPA Direct Debit collection for an account. Only allowed for EUTBL and eurSAFO share classes, for professional investors for whom the feature has been enabled and who have signed a mandate on app.spiko.io."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

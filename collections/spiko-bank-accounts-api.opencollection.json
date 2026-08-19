@@ -1,0 +1,198 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spiko Distributor Account transactions Bank accounts API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bank accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get bank accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/bank-accounts",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "a currency code among \"EUR\", \"USD\", \"GBP\", \"CHF\", \"JPY\", \"SGD\""
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Retrieve all bank accounts for a given investor and currency.**\n\n- Returns account details including IBAN, BIC, and validation status.\n- Excludes archived bank accounts.\n            "
+        },
+        {
+          "info": {
+            "name": "Add bank account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://distributor-api.spiko.io/v0/bank-accounts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Create a new bank account, linked to an existing investor, and for a given currency.**\n\n- Link the specified banking details to the investor's profile for future withdrawals processing.\n- EUR/GBP accounts may undergo automated verification (VoP/CoP). The bank account status will reflect the verification state.\n- Other currencies REQUIRE a proof of bank account ownership document (`proofInvestorDocumentId`).\n- Return complete bank account information.\n          "
+        },
+        {
+          "info": {
+            "name": "Get bank account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/bank-accounts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Fetch a bank account by its ID.**\n\n- Return detailed bank account information, including IBAN or account number, BIC, and validation status.\n        "
+        },
+        {
+          "info": {
+            "name": "Archive bank account",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://distributor-api.spiko.io/v0/bank-accounts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Archive a bank account. The associated proof of ownership document (if any) is also archived.**\n\n- Once archived, a bank account is no longer available for new transactions, but remains accessible for historical reference and audit purposes.\n- Any pending withdrawal orders that were using this account will have the bank account reference removed. Orders that are already executed are not affected.\n          "
+        },
+        {
+          "info": {
+            "name": "Upload proof document for invalidated bank account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://distributor-api.spiko.io/bank-accounts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Upload a proof of bank account ownership document for a bank account that was invalidated after VoP verification failure.**\n\n- Only allowed on bank accounts with status `invalidated`.\n- Transitions the bank account to `pending-validation` for manual review by Spiko's operations team.\n- The `proofInvestorDocumentId` must reference a previously uploaded investor document.\n          "
+        },
+        {
+          "info": {
+            "name": "Get bank account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/bank-accounts/:bankAccountId",
+            "params": [
+              {
+                "name": "bankAccountId",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "bankAccountId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get info of a bank account (currency / IBAN / BIC)"
+        },
+        {
+          "info": {
+            "name": "Get bank accounts of an investor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/bank-accounts/",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get list of bank account's info of an investor (IBAN / BIC)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

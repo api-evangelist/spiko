@@ -1,0 +1,255 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spiko Distributor Account transactions Withdrawal orders API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Withdrawal orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get withdrawal orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/withdrawal-orders/",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "shareClassId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "defaults to \"1\" if not provided "
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "defaults to \"50\" if not provided"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Retrieve a paginated list of the withdrawal orders made by an investor.**\n\n> ⚠️ **For displaying an account's activity, prefer the [account transaction history endpoint](#tag/Account-transactions/operation/accountTransactions.getAccountTransactions).** It returns deposits, withdrawals, transfers and yield accruals as a single time-ordered stream, with cursor pagination, so you don't need to call multiple per-order-type endpoints and reconcile their results.\n\n- Orders are sorted by creation da"
+        },
+        {
+          "info": {
+            "name": "Create withdrawal order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://distributor-api.spiko.io/v0/withdrawal-orders/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Create a new withdrawal order for an investor with the specified parameters.**\n\n- The `quantity` field supports three modes:\n  - `{\"mode\":\"amount\",\"amount\":{\"value\":\"1000\",\"currency\":\"USD\"}}` - withdraw a specific fiat amount\n  - `{\"mode\":\"shares\",\"shares\":\"10.5\"}` - withdraw a specific number of shares\n  - `{\"mode\":\"total\"}` - withdraw all shares (full withdrawal)\n- If the order is expressed in shares or if it is total, the currency used will be the bank account currency.\n- Returns complete "
+        },
+        {
+          "info": {
+            "name": "Get withdrawal order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/withdrawal-orders/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Retrieve information about a specific withdrawal order.**\n\n- Includes order status (`pending` / `executed` / `canceled`).\n"
+        },
+        {
+          "info": {
+            "name": "Get all distributor withdrawal orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/withdrawal-orders/all/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "defaults to \"1\" if not provided "
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "defaults to \"50\" if not provided"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Retrieve a paginated list of all withdrawal orders made by a distributor.**\n\n> ⚠️ **For displaying an account's activity, prefer the [account transaction history endpoint](#tag/Account-transactions/operation/accountTransactions.getAccountTransactions).** It returns deposits, withdrawals, transfers and yield accruals as a single time-ordered stream, with cursor pagination, so you don't need to call multiple per-order-type endpoints and reconcile their results.\n\n- Orders are sorted by creation "
+        },
+        {
+          "info": {
+            "name": "Cancel withdrawal order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://distributor-api.spiko.io/v0/withdrawal-orders/:id/cancel",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**Cancel a withdrawal order.** Order must be in `pending` status."
+        },
+        {
+          "info": {
+            "name": "Get list of an investor's withdrawal orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/withdrawal-orders/",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\nGet all withdrawal orders for a given investor with optional status filter.\n\n> ⚠️ **For displaying an account's activity, prefer the [account transaction history endpoint](#tag/Account-Transactions/operation/accountTransactions.getAccountTransactions).** It returns deposits, withdrawals, transfers and yield accruals as a single time-ordered stream, with cursor pagination, so you don't need to call multiple per-order-type endpoints and reconcile their results.\n"
+        },
+        {
+          "info": {
+            "name": "Create a new withdrawal order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://distributor-api.spiko.io/withdrawal-orders/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\nCreate a new withdrawal order for an investor and return the order info.\n\n- The `quantity` field supports three modes:\n  - `{\"mode\":\"amount\",\"amount\":{\"value\":\"1000\",\"currency\":\"EUR\"}}` - withdraw a specific fiat amount\n  - `{\"mode\":\"shares\",\"shares\":\"10.5\"}` - withdraw a specific number of shares\n  - `{\"mode\":\"total\"}` - withdraw all shares (full withdrawal)\n"
+        },
+        {
+          "info": {
+            "name": "Cancel a withdrawal order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://distributor-api.spiko.io/withdrawal-orders/:withdrawalOrderId/cancel",
+            "params": [
+              {
+                "name": "withdrawalOrderId",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Cancel a pending withdrawal order. Only orders in pending status can be canceled."
+        },
+        {
+          "info": {
+            "name": "Get withdrawal order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/withdrawal-orders/:withdrawalOrderId",
+            "params": [
+              {
+                "name": "withdrawalOrderId",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get info of a specific withdrawal order by its ID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

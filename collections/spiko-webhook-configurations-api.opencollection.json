@@ -1,0 +1,154 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spiko Distributor Account transactions Webhook Configurations API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhook Configurations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List webhook configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/webhook-configurations",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "List all webhook configurations for the authenticated distributor."
+        },
+        {
+          "info": {
+            "name": "Create a webhook configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://distributor-api.spiko.io/v0/webhook-configurations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Register a new webhook endpoint. The signing secret is returned only in this response - store it securely."
+        },
+        {
+          "info": {
+            "name": "Update a webhook configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://distributor-api.spiko.io/v0/webhook-configurations/:webhookConfigurationId",
+            "params": [
+              {
+                "name": "webhookConfigurationId",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Update the URL and topics of an active webhook configuration."
+        },
+        {
+          "info": {
+            "name": "Disable a webhook configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://distributor-api.spiko.io/v0/webhook-configurations/:webhookConfigurationId/disable",
+            "params": [
+              {
+                "name": "webhookConfigurationId",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Disable an active webhook configuration. No more events will be delivered to this endpoint."
+        },
+        {
+          "info": {
+            "name": "Enable a webhook configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://distributor-api.spiko.io/v0/webhook-configurations/:webhookConfigurationId/enable",
+            "params": [
+              {
+                "name": "webhookConfigurationId",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Re-enable a disabled or circuit-broken webhook configuration."
+        },
+        {
+          "info": {
+            "name": "Rotate the signing secret",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://distributor-api.spiko.io/v0/webhook-configurations/:webhookConfigurationId/rotate-secret",
+            "params": [
+              {
+                "name": "webhookConfigurationId",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Generate a new signing secret. Both old and new secrets are valid for 24 hours. The new secret is returned only in this response."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

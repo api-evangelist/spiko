@@ -1,0 +1,207 @@
+{
+  "item": [
+    {
+      "id": "e1794245-e56b-4509-b68f-c4f401465a11",
+      "name": "Fund Assets",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "36e6908b-9370-4b2a-a967-9aea05a1d675",
+          "name": "Get all Fund Assets",
+          "request": {
+            "name": "Get all Fund Assets",
+            "description": {},
+            "url": {
+              "path": [
+                "fund-assets",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fundId",
+                  "value": "<uuid>",
+                  "description": "(Required) a Universally Unique Identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "valuationDay",
+                  "value": "<string>",
+                  "description": "a day formatted as \"yyyy-MM-dd\""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bc329407-fd78-4378-8fd5-785f3185df8f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fund-assets",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fundId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "valuationDay",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"4fb08de1-52e3-6f59-05e9-90252f2171fd\",\n    \"fundId\": \"893a7152-6f21-5209-ebc6-76df9cd07cad\",\n    \"valuationDay\": \"string\",\n    \"assetLabel\": {\n      \"en\": \"string\",\n      \"es\": \"string\",\n      \"fr\": \"string\",\n      \"it\": \"string\",\n      \"de\": \"string\"\n    },\n    \"currency\": \"GBP\",\n    \"quantity\": \"string\",\n    \"totalMarketValue\": {\n      \"value\": \"string\",\n      \"currency\": \"GBP\"\n    },\n    \"unitMarketValue\": {\n      \"value\": \"string\",\n      \"currency\": \"SGD\"\n    },\n    \"totalAcquisitionCost\": {\n      \"value\": \"string\",\n      \"currency\": \"SGD\"\n    },\n    \"unitAcquisitionCost\": {\n      \"value\": \"string\",\n      \"currency\": \"SGD\"\n    },\n    \"totalGainOnAsset\": {\n      \"value\": \"string\",\n      \"currency\": \"GBP\"\n    },\n    \"unitGainOnAsset\": {\n      \"value\": \"string\",\n      \"currency\": \"JPY\"\n    },\n    \"percentageOfFundTotalNetAssets\": \"string\",\n    \"fundTotalNetAssetsMarketValue\": {\n      \"value\": \"string\",\n      \"currency\": \"USD\"\n    },\n    \"createdAt\": \"string\",\n    \"assetType\": \"bond\",\n    \"isin\": \"string\",\n    \"issuerCountryCode\": \"string\",\n    \"nominalValue\": {\n      \"value\": \"string\",\n      \"currency\": \"JPY\"\n    },\n    \"maturity\": \"short\",\n    \"maturityDate\": \"string\",\n    \"daysToMaturity\": 8180.809535937696,\n    \"yieldToMaturity\": \"string\"\n  },\n  {\n    \"id\": \"bbca5d5f-b394-aec2-9437-eda2b7279d5b\",\n    \"fundId\": \"18aea933-4d9d-91c3-3335-00cb2f45111f\",\n    \"valuationDay\": \"string\",\n    \"assetLabel\": {\n      \"en\": \"string\",\n      \"es\": \"string\",\n      \"fr\": \"string\",\n      \"it\": \"string\",\n      \"de\": \"string\"\n    },\n    \"currency\": \"GBP\",\n    \"quantity\": \"string\",\n    \"totalMarketValue\": {\n      \"value\": \"string\",\n      \"currency\": \"EUR\"\n    },\n    \"unitMarketValue\": {\n      \"value\": \"string\",\n      \"currency\": \"JPY\"\n    },\n    \"totalAcquisitionCost\": {\n      \"value\": \"string\",\n      \"currency\": \"SGD\"\n    },\n    \"unitAcquisitionCost\": {\n      \"value\": \"string\",\n      \"currency\": \"GBP\"\n    },\n    \"totalGainOnAsset\": {\n      \"value\": \"string\",\n      \"currency\": \"SGD\"\n    },\n    \"unitGainOnAsset\": {\n      \"value\": \"string\",\n      \"currency\": \"GBP\"\n    },\n    \"percentageOfFundTotalNetAssets\": \"string\",\n    \"fundTotalNetAssetsMarketValue\": {\n      \"value\": \"string\",\n      \"currency\": \"EUR\"\n    },\n    \"createdAt\": \"string\",\n    \"assetType\": \"bond\",\n    \"isin\": \"string\",\n    \"issuerCountryCode\": \"string\",\n    \"nominalValue\": {\n      \"value\": \"string\",\n      \"currency\": \"USD\"\n    },\n    \"maturity\": \"long\",\n    \"maturityDate\": \"string\",\n    \"daysToMaturity\": 9052.080939179681,\n    \"yieldToMaturity\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8daf6beb-be18-4c17-af18-f9d9caee48d1",
+              "name": "The request did not match the expected schema",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fund-assets",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fundId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "valuationDay",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Unexpected\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Unexpected\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c5995449-4d96-4550-a6db-74c0586f3932",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fund-assets",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fundId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "valuationDay",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://distributor-api.spiko.io",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b7c2fc89-f049-45c7-99af-b5779772a0d5",
+    "name": "Spiko Distributor Account transactions Fund Assets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.",
+      "type": "text/plain"
+    }
+  }
+}

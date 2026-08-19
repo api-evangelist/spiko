@@ -1,0 +1,148 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spiko Distributor Account transactions Distributor investor contracts API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Distributor investor contracts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get distributor investor contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/distributor-investor-contracts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieve information about a distributor investor contract (investor, share class, annual fee)."
+        },
+        {
+          "info": {
+            "name": "Get distributor investor contract of investor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/distributor-investor-contracts/investor",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "shareClassId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get a distributor investor contract informations of the given investor."
+        },
+        {
+          "info": {
+            "name": "Create a contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://distributor-api.spiko.io/v0/distributor-investor-contracts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create a new contract that defines the annual fee paid by the investor to the distributor for a share class."
+        },
+        {
+          "info": {
+            "name": "Update a distributor investor contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://distributor-api.spiko.io/v0/distributor-investor-contracts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Update the annual fee of an existing distributor investor contract."
+        },
+        {
+          "info": {
+            "name": "Get the fees paid for the given distributor investor contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/distributor-investor-contracts/:distributorInvestorContractId/paid-fees",
+            "params": [
+              {
+                "name": "distributorInvestorContractId",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "a day formatted as \"yyyy-MM-dd\""
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "a day formatted as \"yyyy-MM-dd\""
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Retrieve the fees paid for the given distributor investor contract.**\n\n- Returns an array of paid fees both in amount and in number of shares, sorted by day.\n- `from` and `to` query parameters are optional and used to filter the results by day range.\n          "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

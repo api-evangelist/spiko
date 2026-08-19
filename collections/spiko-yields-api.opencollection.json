@@ -1,0 +1,132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spiko Distributor Account transactions Yields API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Yields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get yields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/yields/history",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "shareClassId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "a day formatted as \"yyyy-MM-dd\""
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "a day formatted as \"yyyy-MM-dd\""
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Return a chronological list of daily yields for an investor in a specific share class.**\n\n> ⚠️ **For displaying an account's activity, prefer the [account transaction history endpoint](#tag/Account-transactions/operation/accountTransactions.getAccountTransactions).** It returns deposits, withdrawals, transfers and yield accruals as a single time-ordered stream, with cursor pagination, so you don't need to call multiple per-order-type endpoints and reconcile their results.\n\n- `from` and `to` p"
+        },
+        {
+          "info": {
+            "name": "Get a yield",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/yields/:accountingPositionId",
+            "params": [
+              {
+                "name": "accountingPositionId",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Return a single daily yield by its identifier.**\n\nThe identifier is the `id` delivered in the `yield.credited` webhook payload.\n          "
+        },
+        {
+          "info": {
+            "name": "Get daily yields of an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/yields/history",
+            "params": [
+              {
+                "name": "shareClassId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "a day in ISO format \"YYYY-MM-DD\""
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "a day in ISO format \"YYYY-MM-DD\""
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get all daily yields for a given account and share class between two dates"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

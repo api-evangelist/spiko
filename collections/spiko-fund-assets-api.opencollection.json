@@ -1,0 +1,42 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spiko Distributor Account transactions Fund Assets API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Fund Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Fund Assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/fund-assets/",
+            "params": [
+              {
+                "name": "fundId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "valuationDay",
+                "value": "",
+                "type": "query",
+                "description": "a day formatted as \"yyyy-MM-dd\""
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spiko Distributor Account transactions Net Asset Values API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Net Asset Values",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Net Asset Value",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/net-asset-values/:shareClassSymbol/:day",
+            "params": [
+              {
+                "name": "shareClassSymbol",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "day",
+                "value": "",
+                "type": "path",
+                "description": "a day formatted as \"yyyy-MM-dd\""
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Get Net Asset Values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/net-asset-values/:shareClassSymbol",
+            "params": [
+              {
+                "name": "shareClassSymbol",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "startDay",
+                "value": "",
+                "type": "query",
+                "description": "a day formatted as \"yyyy-MM-dd\""
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Get Latest Net Asset Value",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/net-asset-values/:shareClassSymbol/latest",
+            "params": [
+              {
+                "name": "shareClassSymbol",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -2,11 +2,9 @@ generated: '2026-07-21'
 method: derived
 status: candidate
 source: openapi/spiko-public-openapi.json
-notes: >-
-  No official hosted or remote Spiko MCP server was found (no listing in the MCP
-  registry, npm @modelcontextprotocol, or Spiko docs). This is a DERIVED candidate
-  tool list mapped from the open, unauthenticated Public API — the safest surface
-  to expose to agents (read-only fund/market data, no credentials required).
+notes: No official hosted or remote Spiko MCP server was found (no listing in the MCP registry, npm @modelcontextprotocol,
+  or Spiko docs). This is a DERIVED candidate tool list mapped from the open, unauthenticated Public API
+  — the safest surface to expose to agents (read-only fund/market data, no credentials required).
 server:
   name: spiko-public
   transport: http
@@ -39,3 +37,9 @@ tools:
 - name: get_fund_assets
   description: List fund assets (portfolio holdings).
   source_operation: openapi/spiko-public-openapi.json#Get all Fund Assets
+deployment:
+  mode: none
+  verified: derived
+  tools: 9
+  checked: '2026-08-12'
+  source: catalog MCP census

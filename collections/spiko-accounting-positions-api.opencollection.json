@@ -1,0 +1,248 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spiko Distributor Account transactions Accounting positions API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accounting positions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get accounting positions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/accounting-positions/history",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "shareClassId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "a day in ISO format \"YYYY-MM-DD\""
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "a day in ISO format \"YYYY-MM-DD\""
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Retrieve detailed accounting positions (midnight to midnight UTC) for an investor in a specific share class.**\n\nReturns a chronological list of positions within the specified date range, including:\n- Holdings (in shares and in currency);\n- Daily and total subscriptions, redemptions, and transfers;\n- Realized and unrealized gains;\n- Daily and total yields.\n        "
+        },
+        {
+          "info": {
+            "name": "Download account statement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/accounting-positions/account-statement",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "shareClassId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "a day in ISO format \"YYYY-MM-DD\""
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "a day in ISO format \"YYYY-MM-DD\""
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n  **Download an account statement related to an investor and a share class between two dates.**\n\n  - The account statement will be a pdf file.\n            "
+        },
+        {
+          "info": {
+            "name": "Get accounting positions (midnight to midnight UTC) of an investor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/accounting-positions/history",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "shareClassId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "a day in ISO format \"YYYY-MM-DD\""
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "a day in ISO format \"YYYY-MM-DD\""
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get all accounting positions (midnight to midnight UTC) for a given investor and share class between two dates"
+        },
+        {
+          "info": {
+            "name": "Get accounting positions (midnight to midnight UTC) of an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/accounting-positions/account-history",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "shareClassId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "a day in ISO format \"YYYY-MM-DD\""
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "a day in ISO format \"YYYY-MM-DD\""
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get all accounting positions (midnight to midnight UTC) for a given account and share class between two dates"
+        },
+        {
+          "info": {
+            "name": "Download account statement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/accounting-positions/account-statement",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "shareClassSymbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "a day in ISO format \"YYYY-MM-DD\""
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "a day in ISO format \"YYYY-MM-DD\""
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "showNumberOfShares",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n  **Download an account statement related to a share class between two dates.**\n\n  - The account statement will be a pdf file.\n  - If no accountId is provided, the account statement will be for the sum of all archived and active accounts of the investor.\n            "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

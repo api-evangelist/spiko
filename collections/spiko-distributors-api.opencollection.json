@@ -1,0 +1,50 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spiko Distributor Account transactions Distributors API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Distributors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get distributor info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/distributors/me",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieve information about the distributor linked to the client credentials."
+        },
+        {
+          "info": {
+            "name": "List share classes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/share-classes",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "List share classes accessible to the authenticated distributor."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

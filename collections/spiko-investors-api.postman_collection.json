@@ -1,0 +1,2041 @@
+{
+  "item": [
+    {
+      "id": "b42da39e-996b-4341-9ad0-fcc08eafdf3f",
+      "name": "Investors",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "046637b2-4b56-4c50-b30e-8c753685573a",
+          "name": "Create investor",
+          "request": {
+            "name": "Create investor",
+            "description": {
+              "content": "\n**Register a new investor with the platform.**\n\n- The investor is always created with status `pending-onboarding-workflow` while compliance checks (PEP/sanctions screening) run asynchronously.\n- Once checks complete successfully, the investor is automatically transitioned to `active` (if the distributor has KYC reliance enabled). The distributor is notified of the status change via webhook.\n\n**Related persons requirements:**\n- Each related person must include `dateOfBirth`, `nationality`, and `countryOfResidence` (required for compliance screening).\n- **Organization** investors must provide all their UBOs and directors. FR organizations are exempt (persons are automatically fetched from INPI), unless the distributor operates under a **KYC reliance agreement with Spiko** in which case all UBOs and directors must be provided regardless of country.\n- For **passive NFE** investors (`fatcaCrsStatus: \"passiveNFE\"`), non-FR UBOs must include a `fiscalIdentificationNumber`.\n\n**FATCA/CRS status:**\n- Organization investors must provide a `fatcaCrsStatus` in the `details` object. When set to `passiveNFE`, non-FR UBOs must include a `fiscalIdentificationNumber`.\n            ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "investors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"country\": \"<string>\",\n  \"address\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"details\": {\n    \"type\": \"<string>\",\n    \"taxInformationByCountryOfResidence\": [\n      {\n        \"country\": \"<string>\",\n        \"taxIdentificationNumber\": \"<string>\"\n      }\n    ],\n    \"dateOfBirth\": \"<string>\",\n    \"placeOfBirth\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"nationality\": \"<string>\",\n    \"industry\": \"<string>\"\n  },\n  \"relatedPersons\": [\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"<string>\",\n      \"nationality\": \"<string>\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"<string>\"\n    },\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"<string>\",\n      \"nationality\": \"<string>\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"<string>\"\n    }\n  ],\n  \"investorEmail\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aaa3f6f4-4f93-4e17-8e54-7fa2d4bc1457",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "investors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"country\": \"FR\",\n  \"address\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"details\": {\n    \"type\": \"<string>\",\n    \"taxInformationByCountryOfResidence\": [\n      {\n        \"country\": \"FR\",\n        \"taxIdentificationNumber\": \"8895095610425\"\n      }\n    ],\n    \"dateOfBirth\": \"<string>\",\n    \"placeOfBirth\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"nationality\": \"FR\",\n    \"industry\": \"<string>\"\n  },\n  \"relatedPersons\": [\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    },\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    }\n  ],\n  \"investorEmail\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"firstName\": \"string\",\n  \"lastName\": \"string\",\n  \"country\": \"FR\",\n  \"address\": \"string\",\n  \"zipCode\": \"string\",\n  \"city\": \"string\",\n  \"details\": {\n    \"type\": \"individual\",\n    \"taxInformationByCountryOfResidence\": [\n      {\n        \"country\": \"FR\",\n        \"taxInformation\": {\n          \"taxIdentificationNumber\": \"string\",\n          \"updatedAt\": \"string\"\n        }\n      }\n    ],\n    \"dateOfBirth\": \"string\",\n    \"placeOfBirth\": \"string\",\n    \"gender\": \"Female\",\n    \"industry\": \"HealthProfessions\"\n  },\n  \"id\": \"a319ed65-42ce-ec24-1c74-e03159ef755b\",\n  \"distributorId\": \"ab504660-7d8f-dced-9864-9e77351dd4f7\",\n  \"createdOn\": \"string\",\n  \"updatedOn\": \"string\",\n  \"status\": \"pending-onboarding-workflow\",\n  \"complianceStatus\": \"pending-onboarding\",\n  \"relatedPersons\": [\n    {\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"relationshipTypes\": [\n        \"director\",\n        \"director\"\n      ],\n      \"fiscalIdentificationNumber\": \"string\",\n      \"gender\": \"Female\",\n      \"dateOfBirth\": \"string\",\n      \"cityOfBirth\": \"string\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"string\",\n      \"cityOfResidence\": \"string\",\n      \"zipCodeOfResidence\": \"string\",\n      \"countryOfResidence\": \"FR\"\n    },\n    {\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"relationshipTypes\": [\n        \"ubo\",\n        \"director\"\n      ],\n      \"fiscalIdentificationNumber\": \"string\",\n      \"gender\": \"Female\",\n      \"dateOfBirth\": \"string\",\n      \"cityOfBirth\": \"string\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"string\",\n      \"cityOfResidence\": \"string\",\n      \"zipCodeOfResidence\": \"string\",\n      \"countryOfResidence\": \"FR\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c234a5de-baea-4e42-9550-55bfd0d0bafc",
+              "name": "The request did not match the expected schema",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "investors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"country\": \"FR\",\n  \"address\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"details\": {\n    \"type\": \"<string>\",\n    \"taxInformationByCountryOfResidence\": [\n      {\n        \"country\": \"FR\",\n        \"taxIdentificationNumber\": \"8895095610425\"\n      }\n    ],\n    \"dateOfBirth\": \"<string>\",\n    \"placeOfBirth\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"nationality\": \"FR\",\n    \"industry\": \"<string>\"\n  },\n  \"relatedPersons\": [\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    },\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    }\n  ],\n  \"investorEmail\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3bf3192-a0f3-4881-985e-cff284fdeb35",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "investors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"country\": \"FR\",\n  \"address\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"details\": {\n    \"type\": \"<string>\",\n    \"taxInformationByCountryOfResidence\": [\n      {\n        \"country\": \"FR\",\n        \"taxIdentificationNumber\": \"8895095610425\"\n      }\n    ],\n    \"dateOfBirth\": \"<string>\",\n    \"placeOfBirth\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"nationality\": \"FR\",\n    \"industry\": \"<string>\"\n  },\n  \"relatedPersons\": [\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    },\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    }\n  ],\n  \"investorEmail\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae2ddab9-9df9-4bde-87d6-ce37ee386175",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "investors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"country\": \"FR\",\n  \"address\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"details\": {\n    \"type\": \"<string>\",\n    \"taxInformationByCountryOfResidence\": [\n      {\n        \"country\": \"FR\",\n        \"taxIdentificationNumber\": \"8895095610425\"\n      }\n    ],\n    \"dateOfBirth\": \"<string>\",\n    \"placeOfBirth\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"nationality\": \"FR\",\n    \"industry\": \"<string>\"\n  },\n  \"relatedPersons\": [\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    },\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    }\n  ],\n  \"investorEmail\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reason\": \"string\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"AccountDoesNotBelongToInvestor\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "47690309-3b61-46f9-9f03-9610ad1fa96c",
+          "name": "Create investor (deprecated)",
+          "request": {
+            "name": "Create investor (deprecated)",
+            "description": {
+              "content": "\n**Deprecated - use `POST /v1/investors` instead.**\n\nRegister a new investor with the platform. Returns the complete investor profile including generated UUID identifier.\n            ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "investors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"country\": \"<string>\",\n  \"address\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"details\": {\n    \"type\": \"<string>\",\n    \"taxInformationByCountryOfResidence\": [\n      {\n        \"country\": \"<string>\",\n        \"taxIdentificationNumber\": \"<string>\"\n      }\n    ],\n    \"dateOfBirth\": \"<string>\",\n    \"placeOfBirth\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"nationality\": \"<string>\",\n    \"industry\": \"<string>\"\n  },\n  \"relatedPersons\": [\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"<string>\",\n      \"nationality\": \"<string>\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"<string>\"\n    },\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"<string>\",\n      \"nationality\": \"<string>\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "104acaf9-2d1f-4681-a539-5267ba9952dd",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "investors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"country\": \"FR\",\n  \"address\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"details\": {\n    \"type\": \"<string>\",\n    \"taxInformationByCountryOfResidence\": [\n      {\n        \"country\": \"FR\",\n        \"taxIdentificationNumber\": \"9724496117715\"\n      }\n    ],\n    \"dateOfBirth\": \"<string>\",\n    \"placeOfBirth\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"nationality\": \"FR\",\n    \"industry\": \"<string>\"\n  },\n  \"relatedPersons\": [\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    },\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"firstName\": \"string\",\n  \"lastName\": \"string\",\n  \"country\": \"FR\",\n  \"address\": \"string\",\n  \"zipCode\": \"string\",\n  \"city\": \"string\",\n  \"details\": {\n    \"type\": \"individual\",\n    \"taxInformationByCountryOfResidence\": [\n      {\n        \"country\": \"FR\",\n        \"taxInformation\": {\n          \"taxIdentificationNumber\": \"string\",\n          \"updatedAt\": \"string\"\n        }\n      }\n    ],\n    \"dateOfBirth\": \"string\",\n    \"placeOfBirth\": \"string\",\n    \"gender\": \"Male\",\n    \"industry\": \"FoodAndLodging\"\n  },\n  \"id\": \"bfe32c07-80fb-02e1-d537-70be531bf2f2\",\n  \"distributorId\": \"3ddf1654-89db-535b-1afe-47984654aa7d\",\n  \"createdOn\": \"string\",\n  \"updatedOn\": \"string\",\n  \"status\": \"compliant\",\n  \"complianceStatus\": \"compliant\",\n  \"hasAccessToProfessionalProducts\": false,\n  \"relatedPersons\": [\n    {\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"relationshipTypes\": [\n        \"director\",\n        \"director\"\n      ],\n      \"fiscalIdentificationNumber\": \"string\",\n      \"gender\": \"Female\",\n      \"dateOfBirth\": \"string\",\n      \"cityOfBirth\": \"string\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"string\",\n      \"cityOfResidence\": \"string\",\n      \"zipCodeOfResidence\": \"string\",\n      \"countryOfResidence\": \"FR\"\n    },\n    {\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"relationshipTypes\": [\n        \"director\",\n        \"ubo\"\n      ],\n      \"fiscalIdentificationNumber\": \"string\",\n      \"gender\": \"Male\",\n      \"dateOfBirth\": \"string\",\n      \"cityOfBirth\": \"string\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"string\",\n      \"cityOfResidence\": \"string\",\n      \"zipCodeOfResidence\": \"string\",\n      \"countryOfResidence\": \"FR\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "024bc0dc-b3cb-43cc-b3d7-0a8b71505c76",
+              "name": "The request did not match the expected schema",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "investors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"country\": \"FR\",\n  \"address\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"details\": {\n    \"type\": \"<string>\",\n    \"taxInformationByCountryOfResidence\": [\n      {\n        \"country\": \"FR\",\n        \"taxIdentificationNumber\": \"9724496117715\"\n      }\n    ],\n    \"dateOfBirth\": \"<string>\",\n    \"placeOfBirth\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"nationality\": \"FR\",\n    \"industry\": \"<string>\"\n  },\n  \"relatedPersons\": [\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    },\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d1635c9-0654-4276-9fd8-62fc11c1a414",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "investors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"country\": \"FR\",\n  \"address\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"details\": {\n    \"type\": \"<string>\",\n    \"taxInformationByCountryOfResidence\": [\n      {\n        \"country\": \"FR\",\n        \"taxIdentificationNumber\": \"9724496117715\"\n      }\n    ],\n    \"dateOfBirth\": \"<string>\",\n    \"placeOfBirth\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"nationality\": \"FR\",\n    \"industry\": \"<string>\"\n  },\n  \"relatedPersons\": [\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    },\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78372ef9-9ef7-4a5f-9942-c119d307d0e8",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "investors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"country\": \"FR\",\n  \"address\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"details\": {\n    \"type\": \"<string>\",\n    \"taxInformationByCountryOfResidence\": [\n      {\n        \"country\": \"FR\",\n        \"taxIdentificationNumber\": \"9724496117715\"\n      }\n    ],\n    \"dateOfBirth\": \"<string>\",\n    \"placeOfBirth\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"nationality\": \"FR\",\n    \"industry\": \"<string>\"\n  },\n  \"relatedPersons\": [\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    },\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reason\": \"string\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"AccountDoesNotBelongToInvestor\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7dfb9597-0aa0-4f8a-80f6-ffe260ea3ebd",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "investors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"country\": \"FR\",\n  \"address\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"details\": {\n    \"type\": \"<string>\",\n    \"taxInformationByCountryOfResidence\": [\n      {\n        \"country\": \"FR\",\n        \"taxIdentificationNumber\": \"9724496117715\"\n      }\n    ],\n    \"dateOfBirth\": \"<string>\",\n    \"placeOfBirth\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"nationality\": \"FR\",\n    \"industry\": \"<string>\"\n  },\n  \"relatedPersons\": [\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    },\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "16360032-c463-4700-aa62-79759f6ebe42",
+          "name": "Get investors",
+          "request": {
+            "name": "Get investors",
+            "description": {
+              "content": "\n**Retrieve a paginated list of investors linked to the distributor.**\n\n- Investors are sorted by creation date (newest first).\n- Pagination parameters (`page` & `limit`) are optional and default to `page = 1` and `limit = 50`.\n- Use `textSearch` to filter investors by ID, name (first/last/legal), or email.\n          ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "investors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<string>",
+                  "description": "defaults to \"1\" if not provided "
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<string>",
+                  "description": "defaults to \"50\" if not provided"
+                },
+                {
+                  "disabled": false,
+                  "key": "textSearch",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ead37296-585d-4c93-b787-65f948189108",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "investors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "textSearch",
+                      "value": "string"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"country\": \"FR\",\n    \"address\": \"string\",\n    \"zipCode\": \"string\",\n    \"city\": \"string\",\n    \"details\": {\n      \"type\": \"individual\",\n      \"taxInformationByCountryOfResidence\": [\n        {\n          \"country\": \"FR\",\n          \"taxInformation\": {\n            \"taxIdentificationNumber\": \"string\",\n            \"updatedAt\": \"string\"\n          }\n        }\n      ],\n      \"dateOfBirth\": \"string\",\n      \"placeOfBirth\": \"string\",\n      \"gender\": \"Female\",\n      \"industry\": \"Construction\"\n    },\n    \"id\": \"64205627-bc54-05a5-208a-9aa8349cc178\",\n    \"distributorId\": \"65306709-7eed-bd9d-b84a-f414781384f3\",\n    \"createdOn\": \"string\",\n    \"updatedOn\": \"string\",\n    \"status\": \"compliant\",\n    \"complianceStatus\": \"compliant\",\n    \"hasAccessToProfessionalProducts\": false,\n    \"relatedPersons\": [\n      {\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"relationshipTypes\": [\n          \"ubo\",\n          \"director\"\n        ],\n        \"fiscalIdentificationNumber\": \"string\",\n        \"gender\": \"Male\",\n        \"dateOfBirth\": \"string\",\n        \"cityOfBirth\": \"string\",\n        \"countryOfBirth\": \"FR\",\n        \"nationality\": \"FR\",\n        \"addressOfResidence\": \"string\",\n        \"cityOfResidence\": \"string\",\n        \"zipCodeOfResidence\": \"string\",\n        \"countryOfResidence\": \"FR\"\n      },\n      {\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"relationshipTypes\": [\n          \"director\",\n          \"director\"\n        ],\n        \"fiscalIdentificationNumber\": \"string\",\n        \"gender\": \"Male\",\n        \"dateOfBirth\": \"string\",\n        \"cityOfBirth\": \"string\",\n        \"countryOfBirth\": \"FR\",\n        \"nationality\": \"FR\",\n        \"addressOfResidence\": \"string\",\n        \"cityOfResidence\": \"string\",\n        \"zipCodeOfResidence\": \"string\",\n        \"countryOfResidence\": \"FR\"\n      }\n    ]\n  },\n  {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"country\": \"FR\",\n    \"address\": \"string\",\n    \"zipCode\": \"string\",\n    \"city\": \"string\",\n    \"details\": {\n      \"type\": \"individual\",\n      \"taxInformationByCountryOfResidence\": [\n        {\n          \"country\": \"FR\",\n          \"taxInformation\": {\n            \"taxIdentificationNumber\": \"string\",\n            \"updatedAt\": \"string\"\n          }\n        }\n      ],\n      \"dateOfBirth\": \"string\",\n      \"placeOfBirth\": \"string\",\n      \"gender\": \"Male\",\n      \"industry\": \"RetailTradeOthers\"\n    },\n    \"id\": \"84bc77c7-43d1-1711-c833-42e2411bde15\",\n    \"distributorId\": \"758ec789-002c-c044-975b-1b49c85eae9e\",\n    \"createdOn\": \"string\",\n    \"updatedOn\": \"string\",\n    \"status\": \"compliant\",\n    \"complianceStatus\": \"compliant\",\n    \"hasAccessToProfessionalProducts\": true,\n    \"relatedPersons\": [\n      {\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"relationshipTypes\": [\n          \"other\",\n          \"director\"\n        ],\n        \"fiscalIdentificationNumber\": \"string\",\n        \"gender\": \"Female\",\n        \"dateOfBirth\": \"string\",\n        \"cityOfBirth\": \"string\",\n        \"countryOfBirth\": \"FR\",\n        \"nationality\": \"FR\",\n        \"addressOfResidence\": \"string\",\n        \"cityOfResidence\": \"string\",\n        \"zipCodeOfResidence\": \"string\",\n        \"countryOfResidence\": \"FR\"\n      },\n      {\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"relationshipTypes\": [\n          \"ubo\",\n          \"ubo\"\n        ],\n        \"fiscalIdentificationNumber\": \"string\",\n        \"gender\": \"Female\",\n        \"dateOfBirth\": \"string\",\n        \"cityOfBirth\": \"string\",\n        \"countryOfBirth\": \"FR\",\n        \"nationality\": \"FR\",\n        \"addressOfResidence\": \"string\",\n        \"cityOfResidence\": \"string\",\n        \"zipCodeOfResidence\": \"string\",\n        \"countryOfResidence\": \"FR\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f184b33d-44da-42b6-ac89-c9f8398f4ef3",
+              "name": "The request did not match the expected schema",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "investors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "textSearch",
+                      "value": "string"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "53af35b3-33fe-4ca5-8821-8ecdc34e1dfb",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "investors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "textSearch",
+                      "value": "string"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ecd51891-48f9-4bc5-9b93-5d30830bd92f",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "investors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "textSearch",
+                      "value": "string"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reason\": \"string\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"AccountDoesNotBelongToInvestor\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b17a3957-704d-43ea-bd00-12c7effa79fb",
+          "name": "Get investor",
+          "request": {
+            "name": "Get investor",
+            "description": {
+              "content": "\n**Retrieve detailed information about an investor linked to the distributor.**\n\n- Returns the complete investor profile including company or personal details and compliance status.\n          ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "investors",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) a Universally Unique Identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2fdeea2f-295f-4d2f-8e06-e0d7d569ac83",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "investors",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) a Universally Unique Identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"firstName\": \"string\",\n  \"lastName\": \"string\",\n  \"country\": \"FR\",\n  \"address\": \"string\",\n  \"zipCode\": \"string\",\n  \"city\": \"string\",\n  \"details\": {\n    \"type\": \"individual\",\n    \"taxInformationByCountryOfResidence\": [\n      {\n        \"country\": \"FR\",\n        \"taxInformation\": {\n          \"taxIdentificationNumber\": \"string\",\n          \"updatedAt\": \"string\"\n        }\n      }\n    ],\n    \"dateOfBirth\": \"string\",\n    \"placeOfBirth\": \"string\",\n    \"gender\": \"Male\",\n    \"industry\": \"FoodAndLodging\"\n  },\n  \"id\": \"bfe32c07-80fb-02e1-d537-70be531bf2f2\",\n  \"distributorId\": \"3ddf1654-89db-535b-1afe-47984654aa7d\",\n  \"createdOn\": \"string\",\n  \"updatedOn\": \"string\",\n  \"status\": \"compliant\",\n  \"complianceStatus\": \"compliant\",\n  \"hasAccessToProfessionalProducts\": false,\n  \"relatedPersons\": [\n    {\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"relationshipTypes\": [\n        \"director\",\n        \"director\"\n      ],\n      \"fiscalIdentificationNumber\": \"string\",\n      \"gender\": \"Female\",\n      \"dateOfBirth\": \"string\",\n      \"cityOfBirth\": \"string\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"string\",\n      \"cityOfResidence\": \"string\",\n      \"zipCodeOfResidence\": \"string\",\n      \"countryOfResidence\": \"FR\"\n    },\n    {\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"relationshipTypes\": [\n        \"director\",\n        \"ubo\"\n      ],\n      \"fiscalIdentificationNumber\": \"string\",\n      \"gender\": \"Male\",\n      \"dateOfBirth\": \"string\",\n      \"cityOfBirth\": \"string\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"string\",\n      \"cityOfResidence\": \"string\",\n      \"zipCodeOfResidence\": \"string\",\n      \"countryOfResidence\": \"FR\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3e08972-1af8-4a0f-bf0d-b14b828b20cc",
+              "name": "The request did not match the expected schema",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "investors",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) a Universally Unique Identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "057e9401-b5db-428d-8d1c-ac3b57e1796a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "investors",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) a Universally Unique Identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3dcbc1b-cda1-4313-8132-82fc31f8914d",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "investors",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) a Universally Unique Identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reason\": \"string\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"AccountDoesNotBelongToInvestor\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d4ec658-8cbd-4e24-a512-877582ffa4e2",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "investors",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) a Universally Unique Identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a4e1acc7-6868-4150-afbb-bfa7e1640e2f",
+          "name": "Update investor",
+          "request": {
+            "name": "Update investor",
+            "description": {
+              "content": "\n**Modify an existing investor by updating the specified attributes.**\n\n- Return the complete investor profile.\n            ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "investors",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) a Universally Unique Identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"country\": \"<string>\",\n  \"address\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"details\": {\n    \"taxInformationByCountryOfResidence\": [\n      {\n        \"country\": \"<string>\",\n        \"taxIdentificationNumber\": \"<string>\"\n      }\n    ],\n    \"dateOfBirth\": \"<string>\",\n    \"placeOfBirth\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"nationality\": \"<string>\",\n    \"industry\": \"<string>\"\n  },\n  \"relatedPersons\": [\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"<string>\",\n      \"nationality\": \"<string>\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"<string>\"\n    },\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"<string>\",\n      \"nationality\": \"<string>\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"<string>\"\n    }\n  ],\n  \"investorEmail\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "da4ef29c-2304-4b62-9c9b-2c25ddd22a47",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "investors",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) a Universally Unique Identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"country\": \"FR\",\n  \"address\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"details\": {\n    \"taxInformationByCountryOfResidence\": [\n      {\n        \"country\": \"FR\",\n        \"taxIdentificationNumber\": \"0471899620673\"\n      }\n    ],\n    \"dateOfBirth\": \"<string>\",\n    \"placeOfBirth\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"nationality\": \"FR\",\n    \"industry\": \"<string>\"\n  },\n  \"relatedPersons\": [\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    },\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    }\n  ],\n  \"investorEmail\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"firstName\": \"string\",\n  \"lastName\": \"string\",\n  \"country\": \"FR\",\n  \"address\": \"string\",\n  \"zipCode\": \"string\",\n  \"city\": \"string\",\n  \"details\": {\n    \"type\": \"individual\",\n    \"taxInformationByCountryOfResidence\": [\n      {\n        \"country\": \"FR\",\n        \"taxInformation\": {\n          \"taxIdentificationNumber\": \"string\",\n          \"updatedAt\": \"string\"\n        }\n      }\n    ],\n    \"dateOfBirth\": \"string\",\n    \"placeOfBirth\": \"string\",\n    \"gender\": \"Male\",\n    \"industry\": \"FoodAndLodging\"\n  },\n  \"id\": \"bfe32c07-80fb-02e1-d537-70be531bf2f2\",\n  \"distributorId\": \"3ddf1654-89db-535b-1afe-47984654aa7d\",\n  \"createdOn\": \"string\",\n  \"updatedOn\": \"string\",\n  \"status\": \"compliant\",\n  \"complianceStatus\": \"compliant\",\n  \"hasAccessToProfessionalProducts\": false,\n  \"relatedPersons\": [\n    {\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"relationshipTypes\": [\n        \"director\",\n        \"director\"\n      ],\n      \"fiscalIdentificationNumber\": \"string\",\n      \"gender\": \"Female\",\n      \"dateOfBirth\": \"string\",\n      \"cityOfBirth\": \"string\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"string\",\n      \"cityOfResidence\": \"string\",\n      \"zipCodeOfResidence\": \"string\",\n      \"countryOfResidence\": \"FR\"\n    },\n    {\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"relationshipTypes\": [\n        \"director\",\n        \"ubo\"\n      ],\n      \"fiscalIdentificationNumber\": \"string\",\n      \"gender\": \"Male\",\n      \"dateOfBirth\": \"string\",\n      \"cityOfBirth\": \"string\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"string\",\n      \"cityOfResidence\": \"string\",\n      \"zipCodeOfResidence\": \"string\",\n      \"countryOfResidence\": \"FR\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "24d455bf-48eb-48d9-9744-5124de2e76c1",
+              "name": "The request did not match the expected schema",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "investors",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) a Universally Unique Identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"country\": \"FR\",\n  \"address\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"details\": {\n    \"taxInformationByCountryOfResidence\": [\n      {\n        \"country\": \"FR\",\n        \"taxIdentificationNumber\": \"0471899620673\"\n      }\n    ],\n    \"dateOfBirth\": \"<string>\",\n    \"placeOfBirth\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"nationality\": \"FR\",\n    \"industry\": \"<string>\"\n  },\n  \"relatedPersons\": [\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    },\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    }\n  ],\n  \"investorEmail\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4fd22633-418e-4cc4-99bd-327a7219e8a8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "investors",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) a Universally Unique Identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"country\": \"FR\",\n  \"address\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"details\": {\n    \"taxInformationByCountryOfResidence\": [\n      {\n        \"country\": \"FR\",\n        \"taxIdentificationNumber\": \"0471899620673\"\n      }\n    ],\n    \"dateOfBirth\": \"<string>\",\n    \"placeOfBirth\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"nationality\": \"FR\",\n    \"industry\": \"<string>\"\n  },\n  \"relatedPersons\": [\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    },\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    }\n  ],\n  \"investorEmail\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ecd0b447-6c02-4578-a6a7-769d2c2c895c",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "investors",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) a Universally Unique Identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"country\": \"FR\",\n  \"address\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"details\": {\n    \"taxInformationByCountryOfResidence\": [\n      {\n        \"country\": \"FR\",\n        \"taxIdentificationNumber\": \"0471899620673\"\n      }\n    ],\n    \"dateOfBirth\": \"<string>\",\n    \"placeOfBirth\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"nationality\": \"FR\",\n    \"industry\": \"<string>\"\n  },\n  \"relatedPersons\": [\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    },\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    }\n  ],\n  \"investorEmail\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reason\": \"string\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"AccountDoesNotBelongToInvestor\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "02d846d4-e880-4028-99d6-7ce76a228816",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "investors",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) a Universally Unique Identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"country\": \"FR\",\n  \"address\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"details\": {\n    \"taxInformationByCountryOfResidence\": [\n      {\n        \"country\": \"FR\",\n        \"taxIdentificationNumber\": \"0471899620673\"\n      }\n    ],\n    \"dateOfBirth\": \"<string>\",\n    \"placeOfBirth\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"nationality\": \"FR\",\n    \"industry\": \"<string>\"\n  },\n  \"relatedPersons\": [\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    },\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"relationshipTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fiscalIdentificationNumber\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"dateOfBirth\": \"<string>\",\n      \"cityOfBirth\": \"<string>\",\n      \"countryOfBirth\": \"FR\",\n      \"nationality\": \"FR\",\n      \"addressOfResidence\": \"<string>\",\n      \"cityOfResidence\": \"<string>\",\n      \"zipCodeOfResidence\": \"<string>\",\n      \"countryOfResidence\": \"FR\"\n    }\n  ],\n  \"investorEmail\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "96e99b84-be51-47c4-8eee-3162b03f18d2",
+          "name": "Get investor info",
+          "request": {
+            "name": "Get investor info",
+            "description": {
+              "content": "Get info about the authenticated investor",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "investors",
+                "me"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8ceb5a9b-c336-4683-88fe-387b5ca0da5f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "investors",
+                    "me"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"5f48b394-ed51-7a75-2018-fb9c8a1d53fe\",\n  \"name\": \"string\",\n  \"address\": \"string\",\n  \"zipCode\": \"string\",\n  \"city\": \"string\",\n  \"country\": \"FR\",\n  \"nationality\": \"FR\",\n  \"type\": \"individual\",\n  \"taxInformationByCountryOfResidence\": [\n    {\n      \"country\": \"FR\",\n      \"taxInformation\": {\n        \"taxIdentificationNumber\": \"string\",\n        \"updatedAt\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1189c9c8-3407-4ae6-8437-456856767333",
+              "name": "The request did not match the expected schema",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "investors",
+                    "me"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e205bccd-6924-4f11-af3e-5a35b7e51205",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "investors",
+                    "me"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26a0f815-22c6-473c-ad83-c8599361f886",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "investors",
+                    "me"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8bbda91e-fa09-4d13-b05e-3b9156f3e6e9",
+          "name": "Get all investors' infos",
+          "request": {
+            "name": "Get all investors' infos",
+            "description": {
+              "content": "Get info about all available investors",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "investors",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d3ff546e-a3d6-4519-9db8-3a3f119fc4b3",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "investors",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"cbaecc8b-080d-64c0-d334-6cb33e49b62d\",\n    \"name\": \"string\",\n    \"address\": \"string\",\n    \"zipCode\": \"string\",\n    \"city\": \"string\",\n    \"country\": \"FR\",\n    \"nationality\": \"FR\",\n    \"type\": \"individual\",\n    \"taxInformationByCountryOfResidence\": [\n      {\n        \"country\": \"FR\",\n        \"taxInformation\": {\n          \"taxIdentificationNumber\": \"string\",\n          \"updatedAt\": \"string\"\n        }\n      }\n    ]\n  },\n  {\n    \"id\": \"560aca4c-7538-0086-f05e-97401fb4bd09\",\n    \"name\": \"string\",\n    \"address\": \"string\",\n    \"zipCode\": \"string\",\n    \"city\": \"string\",\n    \"country\": \"FR\",\n    \"nationality\": \"FR\",\n    \"type\": \"individual\",\n    \"taxInformationByCountryOfResidence\": [\n      {\n        \"country\": \"FR\",\n        \"taxInformation\": {\n          \"taxIdentificationNumber\": \"string\",\n          \"updatedAt\": \"string\"\n        }\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0a9cef0-01ff-4b1b-89eb-06e5d8e92d7e",
+              "name": "The request did not match the expected schema",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "investors",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "90f12d82-4cae-49f7-bd87-a94afb353146",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "investors",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c2ca7fe-2929-4ef1-b8a2-e9aa831b56a4",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "investors",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://distributor-api.spiko.io",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2b39a26e-bbb0-4750-80be-2466412a9aa7",
+    "name": "Spiko Distributor Account transactions Investors API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.",
+      "type": "text/plain"
+    }
+  }
+}

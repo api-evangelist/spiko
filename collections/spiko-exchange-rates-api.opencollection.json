@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spiko Distributor Account transactions Exchange Rates API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Exchange Rates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Exchange Rate by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/exchange-rates/:exchangeRateId",
+            "params": [
+              {
+                "name": "exchangeRateId",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Get Latest Exchange Rate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/exchange-rates/latest",
+            "params": [
+              {
+                "name": "fundId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "quoteCurrency",
+                "value": "",
+                "type": "query",
+                "description": "a currency code among \"EUR\", \"USD\", \"GBP\", \"CHF\", \"JPY\", \"SGD\""
+              },
+              {
+                "name": "baseCurrency",
+                "value": "",
+                "type": "query",
+                "description": "a currency code among \"EUR\", \"USD\", \"GBP\", \"CHF\", \"JPY\", \"SGD\""
+              },
+              {
+                "name": "latestUpdateDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fallbackToAnyOtherFund",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

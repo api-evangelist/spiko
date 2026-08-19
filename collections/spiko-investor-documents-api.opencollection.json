@@ -1,0 +1,107 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spiko Distributor Account transactions Investor Documents API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Investor Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get investor documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/investor-documents",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "documentTypes",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Retrieve all documents for an investor.**\n\n- Returns a list of documents uploaded for the specified investor.\n- Only active (non-archived) documents are returned.\n- Optionally filter by `documentTypes` (e.g. [`official-id`, `proof-of-address`, `imprime-fiscal-unique`]).\n          "
+        },
+        {
+          "info": {
+            "name": "Upload investor document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://distributor-api.spiko.io/v0/investor-documents",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "investorId",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "type",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Upload document (official ID / proof of address / screening report etc.) related to an investor.**\n\n- Supported extensions are: pdf, jpg, png, doc, docx, xls, xlsx.\n- Returns the ID of the created investor document.\n        "
+        },
+        {
+          "info": {
+            "name": "Download investor document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/investor-documents/:investorDocumentId",
+            "params": [
+              {
+                "name": "investorDocumentId",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Get a signed URL to download a specific investor document.**\n\n- Returns a pre-signed URL that can be used to download the document.\n- The URL is valid for a limited time.\n          "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

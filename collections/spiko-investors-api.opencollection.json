@@ -1,0 +1,177 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spiko Distributor Account transactions Investors API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Investors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create investor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://distributor-api.spiko.io/v1/investors",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Register a new investor with the platform.**\n\n- The investor is always created with status `pending-onboarding-workflow` while compliance checks (PEP/sanctions screening) run asynchronously.\n- Once checks complete successfully, the investor is automatically transitioned to `active` (if the distributor has KYC reliance enabled). The distributor is notified of the status change via webhook.\n\n**Related persons requirements:**\n- Each related person must include `dateOfBirth`, `nationality`, and `"
+        },
+        {
+          "info": {
+            "name": "Get investors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/investors",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "defaults to \"1\" if not provided "
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "defaults to \"50\" if not provided"
+              },
+              {
+                "name": "textSearch",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Retrieve a paginated list of investors linked to the distributor.**\n\n- Investors are sorted by creation date (newest first).\n- Pagination parameters (`page` & `limit`) are optional and default to `page = 1` and `limit = 50`.\n- Use `textSearch` to filter investors by ID, name (first/last/legal), or email.\n          "
+        },
+        {
+          "info": {
+            "name": "Create investor (deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://distributor-api.spiko.io/v0/investors",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Deprecated - use `POST /v1/investors` instead.**\n\nRegister a new investor with the platform. Returns the complete investor profile including generated UUID identifier.\n            "
+        },
+        {
+          "info": {
+            "name": "Get investor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/v0/investors/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Retrieve detailed information about an investor linked to the distributor.**\n\n- Returns the complete investor profile including company or personal details and compliance status.\n          "
+        },
+        {
+          "info": {
+            "name": "Update investor",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://distributor-api.spiko.io/v0/investors/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Modify an existing investor by updating the specified attributes.**\n\n- Return the complete investor profile.\n            "
+        },
+        {
+          "info": {
+            "name": "Get investor info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/investors/me",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get info about the authenticated investor"
+        },
+        {
+          "info": {
+            "name": "Get all investors' infos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/investors/",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get info about all available investors"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

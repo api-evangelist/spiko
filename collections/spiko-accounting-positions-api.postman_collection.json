@@ -1,0 +1,2004 @@
+{
+  "item": [
+    {
+      "id": "c603df81-7606-40ff-8d4f-0aea0b6eda49",
+      "name": "Accounting positions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bed66d98-1a70-4722-a728-7f3385d3fa35",
+          "name": "Get accounting positions",
+          "request": {
+            "name": "Get accounting positions",
+            "description": {
+              "content": "\n**Retrieve detailed accounting positions (midnight to midnight UTC) for an investor in a specific share class.**\n\nReturns a chronological list of positions within the specified date range, including:\n- Holdings (in shares and in currency);\n- Daily and total subscriptions, redemptions, and transfers;\n- Realized and unrealized gains;\n- Daily and total yields.\n        ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "accounting-positions",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "investorId",
+                  "value": "<uuid>",
+                  "description": "(Required) a Universally Unique Identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "shareClassId",
+                  "value": "<uuid>",
+                  "description": "(Required) a Universally Unique Identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "(Required) a day in ISO format \"YYYY-MM-DD\""
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "(Required) a day in ISO format \"YYYY-MM-DD\""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "553b1531-4f2b-4e7f-868e-02200121e3d9",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "accounting-positions",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "investorId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"day\": \"string\",\n    \"status\": \"nav\",\n    \"investorId\": \"c5b32b4e-6d25-2093-fbb6-fd32489bedc7\",\n    \"shareClassId\": \"2d703461-eafa-1dfc-71ef-9fcb357a688d\",\n    \"accountIds\": [\n      \"200c8ade-f0f6-9f18-ff59-3b400e793ab4\"\n    ],\n    \"sharesHoldings\": \"string\",\n    \"holdings\": {\n      \"value\": \"string\",\n      \"currency\": \"USD\"\n    },\n    \"subscriptions\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"EUR\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"EUR\"\n      }\n    },\n    \"redemptions\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"GBP\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"GBP\"\n      }\n    },\n    \"transfers\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"SGD\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"JPY\"\n      }\n    },\n    \"yield\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"EUR\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"USD\"\n      }\n    },\n    \"realizedGain\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"EUR\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"SGD\"\n      }\n    },\n    \"transferredGain\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"USD\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"GBP\"\n      }\n    },\n    \"totalUnrealizedGain\": {\n      \"value\": \"string\",\n      \"currency\": \"SGD\"\n    }\n  },\n  {\n    \"day\": \"string\",\n    \"status\": \"nav\",\n    \"investorId\": \"d85a8e51-5a4d-8fd9-4248-590af4550006\",\n    \"shareClassId\": \"abd42fef-653e-d59f-6b91-10cb699d94cf\",\n    \"accountIds\": [\n      \"5de31150-2b2e-6856-32cf-1209fcfcc464\"\n    ],\n    \"sharesHoldings\": \"string\",\n    \"holdings\": {\n      \"value\": \"string\",\n      \"currency\": \"JPY\"\n    },\n    \"subscriptions\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"SGD\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"SGD\"\n      }\n    },\n    \"redemptions\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"JPY\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"CHF\"\n      }\n    },\n    \"transfers\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"USD\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"CHF\"\n      }\n    },\n    \"yield\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"USD\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"JPY\"\n      }\n    },\n    \"realizedGain\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"SGD\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"CHF\"\n      }\n    },\n    \"transferredGain\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"CHF\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"USD\"\n      }\n    },\n    \"totalUnrealizedGain\": {\n      \"value\": \"string\",\n      \"currency\": \"GBP\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7ccf657a-8ec3-4201-a98c-63a33724b937",
+              "name": "The request did not match the expected schema",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "accounting-positions",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "investorId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Pointer\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Unexpected\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c58b8db-ef01-4877-ac42-42f19ca5c796",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "accounting-positions",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "investorId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "365cd916-29fa-4eb0-91f3-f6fdf4ca979f",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "accounting-positions",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "investorId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reason\": \"string\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"ShareClassNotAvailableForDistributor\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2abd4659-d69a-40dc-8daf-044d6c01daad",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "accounting-positions",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "investorId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "43475eb3-f22e-4409-91ff-bc88e43df45b",
+          "name": "Download account statement",
+          "request": {
+            "name": "Download account statement",
+            "description": {
+              "content": "\n  **Download an account statement related to an investor and a share class between two dates.**\n\n  - The account statement will be a pdf file.\n            ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "accounting-positions",
+                "account-statement"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "investorId",
+                  "value": "<uuid>",
+                  "description": "(Required) a Universally Unique Identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "shareClassId",
+                  "value": "<uuid>",
+                  "description": "(Required) a Universally Unique Identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "(Required) a day in ISO format \"YYYY-MM-DD\""
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "(Required) a day in ISO format \"YYYY-MM-DD\""
+                },
+                {
+                  "disabled": false,
+                  "key": "locale",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/pdf"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "213d7fcd-3959-4f9b-8bf9-e0db4b708913",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "accounting-positions",
+                    "account-statement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "investorId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "en"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cbe1290b-84d1-4d05-bee6-178ee177e98d",
+              "name": "The request did not match the expected schema",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "accounting-positions",
+                    "account-statement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "investorId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "en"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Pointer\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Unexpected\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10a743f1-de21-49bd-aa46-4ae2d0f6bed9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "accounting-positions",
+                    "account-statement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "investorId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "en"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20e95a73-fc8c-4a65-b6ab-bbbf6d43480e",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "accounting-positions",
+                    "account-statement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "investorId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "en"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reason\": \"string\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"ShareClassNotAvailableForDistributor\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91943342-4f84-47ae-9c6f-8512f8e77a97",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "accounting-positions",
+                    "account-statement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "investorId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "en"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ed46a09-a646-49b2-8f8f-d547ba17150c",
+          "name": "Get accounting positions (midnight to midnight UTC) of an investor",
+          "request": {
+            "name": "Get accounting positions (midnight to midnight UTC) of an investor",
+            "description": {
+              "content": "Get all accounting positions (midnight to midnight UTC) for a given investor and share class between two dates",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounting-positions",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "investorId",
+                  "value": "<uuid>",
+                  "description": "(Required) a Universally Unique Identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "shareClassId",
+                  "value": "<uuid>",
+                  "description": "(Required) a Universally Unique Identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "(Required) a day in ISO format \"YYYY-MM-DD\""
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "(Required) a day in ISO format \"YYYY-MM-DD\""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b6a1f85a-b0f9-4b15-a20d-39afd92efb04",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting-positions",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "investorId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"day\": \"string\",\n    \"status\": \"nav\",\n    \"investorId\": \"c5b32b4e-6d25-2093-fbb6-fd32489bedc7\",\n    \"shareClassId\": \"2d703461-eafa-1dfc-71ef-9fcb357a688d\",\n    \"accountIds\": [\n      \"200c8ade-f0f6-9f18-ff59-3b400e793ab4\"\n    ],\n    \"sharesHoldings\": \"string\",\n    \"holdings\": {\n      \"value\": \"string\",\n      \"currency\": \"USD\"\n    },\n    \"subscriptions\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"EUR\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"EUR\"\n      }\n    },\n    \"redemptions\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"GBP\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"GBP\"\n      }\n    },\n    \"transfers\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"SGD\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"JPY\"\n      }\n    },\n    \"yield\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"EUR\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"USD\"\n      }\n    },\n    \"realizedGain\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"EUR\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"SGD\"\n      }\n    },\n    \"transferredGain\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"USD\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"GBP\"\n      }\n    },\n    \"totalUnrealizedGain\": {\n      \"value\": \"string\",\n      \"currency\": \"SGD\"\n    }\n  },\n  {\n    \"day\": \"string\",\n    \"status\": \"nav\",\n    \"investorId\": \"d85a8e51-5a4d-8fd9-4248-590af4550006\",\n    \"shareClassId\": \"abd42fef-653e-d59f-6b91-10cb699d94cf\",\n    \"accountIds\": [\n      \"5de31150-2b2e-6856-32cf-1209fcfcc464\"\n    ],\n    \"sharesHoldings\": \"string\",\n    \"holdings\": {\n      \"value\": \"string\",\n      \"currency\": \"JPY\"\n    },\n    \"subscriptions\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"SGD\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"SGD\"\n      }\n    },\n    \"redemptions\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"JPY\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"CHF\"\n      }\n    },\n    \"transfers\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"USD\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"CHF\"\n      }\n    },\n    \"yield\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"USD\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"JPY\"\n      }\n    },\n    \"realizedGain\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"SGD\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"CHF\"\n      }\n    },\n    \"transferredGain\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"CHF\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"USD\"\n      }\n    },\n    \"totalUnrealizedGain\": {\n      \"value\": \"string\",\n      \"currency\": \"GBP\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0bf77857-ae08-4ddc-bac3-304307a3f4c5",
+              "name": "The request did not match the expected schema",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting-positions",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "investorId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Pointer\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Unexpected\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df08ffdd-93f6-4121-ac62-3652c87c4cdf",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting-positions",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "investorId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c430a02f-f370-4ad2-8ae6-1cb1cd015138",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting-positions",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "investorId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "392a554b-f50b-48fe-b7a8-b459c5060821",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting-positions",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "investorId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f6f73d6b-da44-4574-b67a-93f73715cf21",
+          "name": "Get accounting positions (midnight to midnight UTC) of an account",
+          "request": {
+            "name": "Get accounting positions (midnight to midnight UTC) of an account",
+            "description": {
+              "content": "Get all accounting positions (midnight to midnight UTC) for a given account and share class between two dates",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounting-positions",
+                "account-history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "accountId",
+                  "value": "<uuid>",
+                  "description": "(Required) a Universally Unique Identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "shareClassId",
+                  "value": "<uuid>",
+                  "description": "(Required) a Universally Unique Identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "(Required) a day in ISO format \"YYYY-MM-DD\""
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "(Required) a day in ISO format \"YYYY-MM-DD\""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b0974c12-99eb-41eb-be17-b8b87fa91a9d",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting-positions",
+                    "account-history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"414bac5c-f3f2-511c-fe6e-b3c988d6c258\",\n    \"day\": \"string\",\n    \"status\": \"noNav\",\n    \"investorId\": \"a4149e99-0e1e-3216-1b97-f1106b2e813d\",\n    \"shareClassId\": \"45b3c613-5142-fabb-991b-1c59001cfaad\",\n    \"accountId\": \"443e3a19-a516-625f-b63b-975adbb4ccb6\",\n    \"navId\": \"afbd1cbf-d7b8-d810-2f45-a4ae118816fd\",\n    \"timestampGte\": \"string\",\n    \"timestampLt\": \"string\",\n    \"sharesHoldings\": \"string\",\n    \"holdings\": {\n      \"value\": \"string\",\n      \"currency\": \"USD\"\n    },\n    \"subscriptions\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"USD\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"CHF\"\n      }\n    },\n    \"redemptions\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"SGD\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"CHF\"\n      }\n    },\n    \"transfers\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"CHF\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"EUR\"\n      }\n    },\n    \"yield\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"EUR\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"SGD\"\n      }\n    },\n    \"realizedGain\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"GBP\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"JPY\"\n      }\n    },\n    \"transferredGain\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"JPY\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"CHF\"\n      }\n    },\n    \"totalUnrealizedGain\": {\n      \"value\": \"string\",\n      \"currency\": \"EUR\"\n    }\n  },\n  {\n    \"id\": \"506cb666-22a4-58b0-a68f-a738b3a8a52e\",\n    \"day\": \"string\",\n    \"status\": \"nav\",\n    \"investorId\": \"9c6cb3e6-cba3-39d0-ea36-e8b1e9c38fcd\",\n    \"shareClassId\": \"62ae708c-ed53-7472-5d4f-0f618172abb2\",\n    \"accountId\": \"c28c22a3-4749-593b-bc1e-9a1493a303d8\",\n    \"navId\": \"b93d06bd-0555-5aac-dab7-e14617a8ae07\",\n    \"timestampGte\": \"string\",\n    \"timestampLt\": \"string\",\n    \"sharesHoldings\": \"string\",\n    \"holdings\": {\n      \"value\": \"string\",\n      \"currency\": \"SGD\"\n    },\n    \"subscriptions\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"EUR\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"GBP\"\n      }\n    },\n    \"redemptions\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"CHF\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"EUR\"\n      }\n    },\n    \"transfers\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"CHF\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"EUR\"\n      }\n    },\n    \"yield\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"EUR\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"USD\"\n      }\n    },\n    \"realizedGain\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"USD\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"EUR\"\n      }\n    },\n    \"transferredGain\": {\n      \"ofDay\": {\n        \"value\": \"string\",\n        \"currency\": \"GBP\"\n      },\n      \"total\": {\n        \"value\": \"string\",\n        \"currency\": \"EUR\"\n      }\n    },\n    \"totalUnrealizedGain\": {\n      \"value\": \"string\",\n      \"currency\": \"EUR\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2156ce6d-4c0d-41ed-9a7d-7423f64e0794",
+              "name": "The request did not match the expected schema",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting-positions",
+                    "account-history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Pointer\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Unexpected\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee8be165-1e67-4252-8940-cf0ed29c9758",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting-positions",
+                    "account-history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a03c116-d238-4bd1-9e52-3e329e2c4da0",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting-positions",
+                    "account-history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3ac62638-39d8-4a8b-9f66-f1c40f43d9b0",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting-positions",
+                    "account-history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "57cc59e9-2363-42bc-bea0-4e9bed843c53",
+          "name": "Download account statement",
+          "request": {
+            "name": "Download account statement",
+            "description": {
+              "content": "\n  **Download an account statement related to a share class between two dates.**\n\n  - The account statement will be a pdf file.\n  - If no accountId is provided, the account statement will be for the sum of all archived and active accounts of the investor.\n            ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounting-positions",
+                "account-statement"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "investorId",
+                  "value": "<uuid>",
+                  "description": "(Required) a Universally Unique Identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "accountId",
+                  "value": "<uuid>",
+                  "description": "a Universally Unique Identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "shareClassSymbol",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "(Required) a day in ISO format \"YYYY-MM-DD\""
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "(Required) a day in ISO format \"YYYY-MM-DD\""
+                },
+                {
+                  "disabled": false,
+                  "key": "locale",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "showNumberOfShares",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/pdf"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2f0e83fe-3541-43f7-948a-a291a5c9831e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting-positions",
+                    "account-statement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "investorId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "accountId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassSymbol",
+                      "value": "SAFO"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "en"
+                    },
+                    {
+                      "key": "showNumberOfShares",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "40cc8eba-9e20-4b84-be5d-bb0d9f9d0677",
+              "name": "The request did not match the expected schema",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting-positions",
+                    "account-statement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "investorId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "accountId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassSymbol",
+                      "value": "SAFO"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "en"
+                    },
+                    {
+                      "key": "showNumberOfShares",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Pointer\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Unexpected\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f3f04bb-24d5-4150-a214-4b8709f978e5",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting-positions",
+                    "account-statement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "investorId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "accountId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassSymbol",
+                      "value": "SAFO"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "en"
+                    },
+                    {
+                      "key": "showNumberOfShares",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66d652b7-f8db-4cf1-ab0b-37096ec309db",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting-positions",
+                    "account-statement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "investorId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "accountId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassSymbol",
+                      "value": "SAFO"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "en"
+                    },
+                    {
+                      "key": "showNumberOfShares",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a24a4ed4-b047-4edf-902c-2cbf43ef882d",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting-positions",
+                    "account-statement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "investorId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "accountId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "shareClassSymbol",
+                      "value": "SAFO"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "en"
+                    },
+                    {
+                      "key": "showNumberOfShares",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://distributor-api.spiko.io",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "37e13639-dbd5-46b1-a349-3a30d7aac925",
+    "name": "Spiko Distributor Account transactions Accounting positions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.",
+      "type": "text/plain"
+    }
+  }
+}

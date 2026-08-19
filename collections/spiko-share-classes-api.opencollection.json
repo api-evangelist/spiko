@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spiko Distributor Account transactions Share Classes API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Share Classes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Share Classes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/share-classes/"
+          }
+        },
+        {
+          "info": {
+            "name": "Get Share Class",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/share-classes/:shareClassSymbol",
+            "params": [
+              {
+                "name": "shareClassSymbol",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Get Share Class Yield",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/share-classes/:shareClassSymbol/yield",
+            "params": [
+              {
+                "name": "shareClassSymbol",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Get Share Class Totals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/share-classes/:shareClassSymbol/totals",
+            "params": [
+              {
+                "name": "shareClassSymbol",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Get Share Class Totals From Day",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/share-classes/:shareClassSymbol/totals/from-day",
+            "params": [
+              {
+                "name": "shareClassSymbol",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "startDay",
+                "value": "",
+                "type": "query",
+                "description": "a day formatted as \"yyyy-MM-dd\""
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

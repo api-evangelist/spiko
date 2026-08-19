@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spiko Distributor Account transactions Redemption Orders (deprecated) API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Redemption Orders (deprecated)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get list of an investor's redemption orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/redemption-orders/",
+            "params": [
+              {
+                "name": "investorId",
+                "value": "",
+                "type": "query",
+                "description": "a Universally Unique Identifier"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "\n**Deprecated - use withdrawal endpoints instead.** Get all redemption orders for a given investor with optional status filter.\n\n> ⚠️ **For displaying an account's activity, prefer the [account transaction history endpoint](#tag/Account-Transactions/operation/accountTransactions.getAccountTransactions).** It returns deposits, withdrawals, transfers and yield accruals as a single time-ordered stream, with cursor pagination, so you don't need to call multiple per-order-type endpoints and reconcile"
+        },
+        {
+          "info": {
+            "name": "Create a new redemption order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://distributor-api.spiko.io/redemption-orders/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**Deprecated - use withdrawal endpoints instead.** Create a new redemption order for an investor and return the order info."
+        },
+        {
+          "info": {
+            "name": "Create a new instant redemption order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://distributor-api.spiko.io/redemption-orders/instant",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**Deprecated - use withdrawal endpoints instead.** Create an instant redemption order for an investor. Only available for organization investors who have accepted terms of use."
+        },
+        {
+          "info": {
+            "name": "Get redemption order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://distributor-api.spiko.io/redemption-orders/:redemptionOrderId",
+            "params": [
+              {
+                "name": "redemptionOrderId",
+                "value": "",
+                "type": "path",
+                "description": "a Universally Unique Identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**Deprecated - use withdrawal endpoints instead.** Get info of a specific redemption order by its ID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

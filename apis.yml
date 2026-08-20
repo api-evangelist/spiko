@@ -42,6 +42,15 @@ tags:
 - Tokenization
 - Cash Management
 - Payments
+- Webhook
+tags_raw:
+- Company
+- Fintech
+- Money Market Funds
+- Treasury Management
+- Tokenization
+- Cash Management
+- Payments
 - Webhooks
 maintainers:
 - FN: Kin Lane
@@ -55,6 +64,8 @@ apis:
   humanURL: https://docs.spiko.io/developers/public_api/getting_started
   baseURL: https://public-api.spiko.io/v0
   tags:
+  - Account Transactions
+  tags_raw:
   - Account transactions
   properties:
   - type: OpenAPI
@@ -95,6 +106,8 @@ apis:
   humanURL: https://docs.spiko.io/developers/public_api/getting_started
   baseURL: https://public-api.spiko.io/v0
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -115,6 +128,8 @@ apis:
   humanURL: https://docs.spiko.io/developers/public_api/getting_started
   baseURL: https://public-api.spiko.io/v0
   tags:
+  - Bank Accounts
+  tags_raw:
   - Bank accounts
   properties:
   - type: OpenAPI
@@ -376,6 +391,8 @@ apis:
   humanURL: https://docs.spiko.io/developers/public_api/getting_started
   baseURL: https://public-api.spiko.io/v0
   tags:
+  - Portfolio
+  tags_raw:
   - Portfolios
   properties:
   - type: OpenAPI
@@ -478,6 +495,8 @@ apis:
   humanURL: https://docs.spiko.io/developers/public_api/getting_started
   baseURL: https://public-api.spiko.io/v0
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI

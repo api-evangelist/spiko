@@ -76,7 +76,7 @@ apis:
   humanURL: https://docs.spiko.io/developers/public_api/getting_started
   baseURL: https://public-api.spiko.io/v0
   tags:
-  - Account transactions
+  - Account Transactions
   tags_raw:
   - Account transactions
   properties:

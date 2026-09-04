@@ -624,6 +624,9 @@ apis:
   - type: Webhooks
     url: asyncapi/spiko-distributor-webhooks.yml
 common:
+- type: CapabilityMap
+  url: capabilities/spiko-capability-edges.yml
+  name: Spiko Business Capability Map
 - type: Website
   url: https://spiko.io
 - type: DeveloperPortal
@@ -664,8 +667,9 @@ common:
   url: agentic-access/spiko-agentic-access.yml
 - type: DomainSecurity
   url: security/spiko-domain-security.yml
-- type: MCPServer
+- type: X-MCPServerCandidate
   url: mcp/spiko-mcp.yml
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
 - type: LLMsTxt
   url: llms/spiko-llms.txt
 - type: Conventions

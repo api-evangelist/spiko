@@ -203,6 +203,8 @@ apis:
   humanURL: https://docs.spiko.io/developers/public_api/getting_started
   baseURL: https://public-api.spiko.io/v0
   tags:
+  - Distributor
+  tags_raw:
   - Distributors
   properties:
   - type: OpenAPI
@@ -263,6 +265,8 @@ apis:
   humanURL: https://docs.spiko.io/developers/public_api/getting_started
   baseURL: https://public-api.spiko.io/v0
   tags:
+  - Fund
+  tags_raw:
   - Funds
   properties:
   - type: OpenAPI
@@ -343,6 +347,8 @@ apis:
   humanURL: https://docs.spiko.io/developers/public_api/getting_started
   baseURL: https://public-api.spiko.io/v0
   tags:
+  - Investor
+  tags_raw:
   - Investors
   properties:
   - type: OpenAPI
@@ -609,6 +615,8 @@ apis:
   humanURL: https://docs.spiko.io/developers/public_api/getting_started
   baseURL: https://public-api.spiko.io/v0
   tags:
+  - Yield
+  tags_raw:
   - Yields
   properties:
   - type: OpenAPI

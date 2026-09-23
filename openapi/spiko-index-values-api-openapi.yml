@@ -1,13 +1,11 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Spiko Distributor Account transactions Index Values API
+  title: Spiko Public Index Values API
   version: v0
-  description: The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.
+  description: The Public API provides access to public financial data about the Spiko Funds. You can retrieve detailed information about our Funds, their portfolio, their yield or their share classes.
 servers:
-- url: https://distributor-api.spiko.io
+- url: https://public-api.spiko.io/v0
   description: Production Server
-- url: https://distributor-api.preprod.spiko.io
-  description: Pre-production Server
 security: []
 tags:
 - name: Index Values
@@ -62,6 +60,8 @@ paths:
           description: NotFound
         '503':
           description: ServiceUnavailable
+      summary: Get index values
+      x-summary-source: derived
   /index-values/spkcc/with-allocation:
     get:
       tags:
@@ -114,8 +114,34 @@ paths:
           description: NotFound
         '503':
           description: ServiceUnavailable
+      summary: Get SPKCC chart data
+      x-summary-source: derived
 components:
   schemas:
+    NonNegativeAmount:
+      type: object
+      required:
+      - value
+      - currency
+      properties:
+        value:
+          type: string
+          title: non-negative decimal number as a string
+          description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
+        currency:
+          type: string
+          enum:
+          - EUR
+          - USD
+          - GBP
+          - CHF
+          - JPY
+          - SGD
+          title: Currency code
+          identifier: CurrencyCode
+          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+      additionalProperties: false
+      title: Non-Negative Amount
     HttpApiDecodeError:
       type: object
       required:
@@ -135,6 +161,23 @@ components:
           - HttpApiDecodeError
       additionalProperties: false
       description: The request did not match the expected schema
+    ShareClassSymbol:
+      type: string
+      enum:
+      - EUTBL
+      - USTBL
+      - eurUSTBL
+      - SPKCC
+      - eurSPKCC
+      - UKTBL
+      - eurUKTBL
+      - SAFO
+      - SAFOd
+      - eurSAFO
+      - eurSAFOd
+      - gbpSAFO
+      - chfSAFO
+      title: ShareClassSymbol
     Issue:
       type: object
       required:
@@ -164,47 +207,6 @@ components:
           description: A descriptive message explaining the issue
       additionalProperties: false
       description: Represents an error encountered while parsing a value to match the schema
-    NonNegativeAmount:
-      type: object
-      required:
-      - value
-      - currency
-      properties:
-        value:
-          type: string
-          title: non-negative decimal number as a string
-          description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
-        currency:
-          type: string
-          enum:
-          - EUR
-          - USD
-          - GBP
-          - CHF
-          - JPY
-          - SGD
-          title: Currency code
-          identifier: CurrencyCode
-          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
-      additionalProperties: false
-      title: Non-Negative Amount
-    ShareClassSymbol:
-      type: string
-      enum:
-      - EUTBL
-      - USTBL
-      - eurUSTBL
-      - SPKCC
-      - eurSPKCC
-      - UKTBL
-      - eurUKTBL
-      - SAFO
-      - SAFOd
-      - eurSAFO
-      - eurSAFOd
-      - gbpSAFO
-      - chfSAFO
-      title: ShareClassSymbol
     PropertyKey:
       anyOf:
       - type: string
@@ -222,8 +224,3 @@ components:
             type: string
         additionalProperties: false
         description: an object to be decoded into a globally shared symbol
-  securitySchemes:
-    basicAuth:
-      type: http
-      scheme: basic
-      description: Use your API client_id as username and client_secret as password.

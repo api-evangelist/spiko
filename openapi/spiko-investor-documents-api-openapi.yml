@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Spiko Distributor Account transactions Investor Documents API
+  title: Spiko Distributor Investor Documents API
   version: v0
   description: The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.
 servers:
@@ -223,7 +223,14 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
         '404':
           description: NotFound
-      description: "\n**Retrieve all documents for an investor.**\n\n- Returns a list of documents uploaded for the specified investor.\n- Only active (non-archived) documents are returned.\n- Optionally filter by `documentTypes` (e.g. [`official-id`, `proof-of-address`, `imprime-fiscal-unique`]).\n          "
+      description: '**Retrieve all documents for an investor.**
+
+
+        - Returns a list of documents uploaded for the specified investor.
+
+        - Only active (non-archived) documents are returned.
+
+        - Optionally filter by `documentTypes` (e.g. [`official-id`, `proof-of-address`, `imprime-fiscal-unique`]).'
       summary: Get investor documents
     post:
       tags:
@@ -266,7 +273,12 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
         '404':
           description: NotFound
-      description: "\n**Upload document (official ID / proof of address / screening report etc.) related to an investor.**\n\n- Supported extensions are: pdf, jpg, png, doc, docx, xls, xlsx.\n- Returns the ID of the created investor document.\n        "
+      description: '**Upload document (official ID / proof of address / screening report etc.) related to an investor.**
+
+
+        - Supported extensions are: pdf, jpg, png, doc, docx, xls, xlsx.
+
+        - Returns the ID of the created investor document.'
       summary: Upload investor document
       requestBody:
         content:
@@ -339,11 +351,16 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
         '404':
           description: NotFound
-      description: "\n**Get a signed URL to download a specific investor document.**\n\n- Returns a pre-signed URL that can be used to download the document.\n- The URL is valid for a limited time.\n          "
+      description: '**Get a signed URL to download a specific investor document.**
+
+
+        - Returns a pre-signed URL that can be used to download the document.
+
+        - The URL is valid for a limited time.'
       summary: Download investor document
 components:
   schemas:
-    ForbiddenError:
+    DistributorAuthenticationError:
       type: object
       required:
       - reason
@@ -351,21 +368,12 @@ components:
       properties:
         reason:
           type: string
-        customErrorCode:
-          type: string
-          enum:
-          - AccountDoesNotBelongToInvestor
-          - SessionIsNot2FA
-          - InvestorDocumentLinkedToActiveBankAccount
-          - AtLeastTwoAdminUsersRequired
-          - InvestorNotPendingOnboarding
-          - ShareClassNotAvailableForDistributor
         _tag:
           type: string
           enum:
-          - ForbiddenError
+          - DistributorAuthenticationError
       additionalProperties: false
-      description: Forbidden
+      description: Authentication Error
     BadRequest:
       $id: /schemas/void
       title: BadRequest
@@ -417,6 +425,9 @@ components:
           description: A descriptive message explaining the issue
       additionalProperties: false
       description: Represents an error encountered while parsing a value to match the schema
+    Unauthorized:
+      $id: /schemas/void
+      title: Unauthorized
     ApplicationError:
       type: object
       required:
@@ -450,26 +461,6 @@ components:
           - ApplicationError
       additionalProperties: false
       description: Application Error
-    PersistedFile:
-      type: string
-      format: binary
-    DistributorAuthenticationError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - DistributorAuthenticationError
-      additionalProperties: false
-      description: Authentication Error
-    Unauthorized:
-      $id: /schemas/void
-      title: Unauthorized
     PropertyKey:
       anyOf:
       - type: string
@@ -487,6 +478,29 @@ components:
             type: string
         additionalProperties: false
         description: an object to be decoded into a globally shared symbol
+    ForbiddenError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        customErrorCode:
+          type: string
+          enum:
+          - AccountDoesNotBelongToInvestor
+          - SessionIsNot2FA
+          - InvestorDocumentLinkedToActiveBankAccount
+          - AtLeastTwoAdminUsersRequired
+          - InvestorNotPendingOnboarding
+          - ShareClassNotAvailableForDistributor
+        _tag:
+          type: string
+          enum:
+          - ForbiddenError
+      additionalProperties: false
+      description: Forbidden
     UploadableInvestorDocumentType:
       type: string
       enum:
@@ -502,6 +516,9 @@ components:
       - power-of-attorney
       - other-document
       - unknown
+    PersistedFile:
+      type: string
+      format: binary
   securitySchemes:
     basicAuth:
       type: http

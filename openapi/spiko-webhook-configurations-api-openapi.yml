@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Spiko Distributor Account transactions Webhook Configurations API
+  title: Spiko Distributor Webhook Configurations API
   version: v0
   description: The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.
 servers:
@@ -843,7 +843,7 @@ paths:
       summary: Rotate the signing secret
 components:
   schemas:
-    ForbiddenError:
+    DistributorAuthenticationError:
       type: object
       required:
       - reason
@@ -851,29 +851,20 @@ components:
       properties:
         reason:
           type: string
-        customErrorCode:
-          type: string
-          enum:
-          - AccountDoesNotBelongToInvestor
-          - SessionIsNot2FA
-          - InvestorDocumentLinkedToActiveBankAccount
-          - AtLeastTwoAdminUsersRequired
-          - InvestorNotPendingOnboarding
-          - ShareClassNotAvailableForDistributor
         _tag:
           type: string
           enum:
-          - ForbiddenError
+          - DistributorAuthenticationError
       additionalProperties: false
-      description: Forbidden
-    BadRequest:
-      $id: /schemas/void
-      title: BadRequest
+      description: Authentication Error
     NonNegativeInt:
       type: integer
       description: an integer
       title: int
       minimum: 0
+    BadRequest:
+      $id: /schemas/void
+      title: BadRequest
     HttpApiDecodeError:
       type: object
       required:
@@ -922,20 +913,6 @@ components:
           description: A descriptive message explaining the issue
       additionalProperties: false
       description: Represents an error encountered while parsing a value to match the schema
-    DistributorAuthenticationError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - DistributorAuthenticationError
-      additionalProperties: false
-      description: Authentication Error
     Unauthorized:
       $id: /schemas/void
       title: Unauthorized
@@ -956,6 +933,29 @@ components:
             type: string
         additionalProperties: false
         description: an object to be decoded into a globally shared symbol
+    ForbiddenError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        customErrorCode:
+          type: string
+          enum:
+          - AccountDoesNotBelongToInvestor
+          - SessionIsNot2FA
+          - InvestorDocumentLinkedToActiveBankAccount
+          - AtLeastTwoAdminUsersRequired
+          - InvestorNotPendingOnboarding
+          - ShareClassNotAvailableForDistributor
+        _tag:
+          type: string
+          enum:
+          - ForbiddenError
+      additionalProperties: false
+      description: Forbidden
   securitySchemes:
     basicAuth:
       type: http

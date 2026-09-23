@@ -1,21 +1,25 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Spiko Distributor Account transactions Bank accounts API
-  version: v0
-  description: The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.
+  title: Spiko Bank accounts API
+  version: '1.0'
+  description: 'Operations tagged Bank accounts across 2 of this provider''s published API definitions: spiko-distributor-openapi.json, spiko-investor-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://distributor-api.spiko.io
   description: Production Server
 - url: https://distributor-api.preprod.spiko.io
   description: Pre-production Server
+- url: https://investor-api.spiko.io/v1
+  description: Production Server
+- url: https://investor-api.preprod.spiko.io/v1
+  description: Pre-production Server
 security: []
 tags:
-- name: Bank accounts
+- name: Bank Accounts
 paths:
   /v0/bank-accounts:
     post:
       tags:
-      - Bank accounts
+      - Bank Accounts
       operationId: bankAccounts.addBankAccount
       parameters: []
       security:
@@ -625,7 +629,16 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
         '404':
           description: NotFound
-      description: "\n**Create a new bank account, linked to an existing investor, and for a given currency.**\n\n- Link the specified banking details to the investor's profile for future withdrawals processing.\n- EUR/GBP accounts may undergo automated verification (VoP/CoP). The bank account status will reflect the verification state.\n- Other currencies REQUIRE a proof of bank account ownership document (`proofInvestorDocumentId`).\n- Return complete bank account information.\n          "
+      description: '**Create a new bank account, linked to an existing investor, and for a given currency.**
+
+
+        - Link the specified banking details to the investor''s profile for future withdrawals processing.
+
+        - EUR/GBP accounts may undergo automated verification (VoP/CoP). The bank account status will reflect the verification state.
+
+        - Other currencies REQUIRE a proof of bank account ownership document (`proofInvestorDocumentId`).
+
+        - Return complete bank account information.'
       summary: Add bank account
       requestBody:
         content:
@@ -756,7 +769,7 @@ paths:
         required: true
     get:
       tags:
-      - Bank accounts
+      - Bank Accounts
       operationId: bankAccounts.getBankAccounts
       parameters:
       - name: investorId
@@ -1776,12 +1789,22 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
         '404':
           description: NotFound
-      description: "\n**Retrieve all bank accounts for a given investor and currency.**\n\n- Returns account details including IBAN, BIC, and validation status.\n- Excludes archived bank accounts.\n            "
+      description: '**Retrieve all bank accounts for a given investor and currency.**
+
+
+        - Returns account details including IBAN, BIC, and validation status.
+
+        - Excludes archived bank accounts.'
       summary: Get bank accounts
+    servers:
+    - url: https://distributor-api.spiko.io
+      description: Production Server
+    - url: https://distributor-api.preprod.spiko.io
+      description: Pre-production Server
   /v0/bank-accounts/{id}:
     get:
       tags:
-      - Bank accounts
+      - Bank Accounts
       operationId: bankAccounts.getBankAccount
       parameters:
       - name: id
@@ -2783,11 +2806,14 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
         '404':
           description: NotFound
-      description: "\n**Fetch a bank account by its ID.**\n\n- Return detailed bank account information, including IBAN or account number, BIC, and validation status.\n        "
+      description: '**Fetch a bank account by its ID.**
+
+
+        - Return detailed bank account information, including IBAN or account number, BIC, and validation status.'
       summary: Get bank account
     delete:
       tags:
-      - Bank accounts
+      - Bank Accounts
       operationId: bankAccounts.archiveBankAccount
       parameters:
       - name: id
@@ -3021,12 +3047,22 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
         '404':
           description: NotFound
-      description: "\n**Archive a bank account. The associated proof of ownership document (if any) is also archived.**\n\n- Once archived, a bank account is no longer available for new transactions, but remains accessible for historical reference and audit purposes.\n- Any pending withdrawal orders that were using this account will have the bank account reference removed. Orders that are already executed are not affected.\n          "
+      description: '**Archive a bank account. The associated proof of ownership document (if any) is also archived.**
+
+
+        - Once archived, a bank account is no longer available for new transactions, but remains accessible for historical reference and audit purposes.
+
+        - Any pending withdrawal orders that were using this account will have the bank account reference removed. Orders that are already executed are not affected.'
       summary: Archive bank account
+    servers:
+    - url: https://distributor-api.spiko.io
+      description: Production Server
+    - url: https://distributor-api.preprod.spiko.io
+      description: Pre-production Server
   /bank-accounts/{id}:
     patch:
       tags:
-      - Bank accounts
+      - Bank Accounts
       operationId: bankAccounts.uploadBankAccountProofDocument
       parameters:
       - name: id
@@ -3261,7 +3297,14 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
         '404':
           description: NotFound
-      description: "\n**Upload a proof of bank account ownership document for a bank account that was invalidated after VoP verification failure.**\n\n- Only allowed on bank accounts with status `invalidated`.\n- Transitions the bank account to `pending-validation` for manual review by Spiko's operations team.\n- The `proofInvestorDocumentId` must reference a previously uploaded investor document.\n          "
+      description: '**Upload a proof of bank account ownership document for a bank account that was invalidated after VoP verification failure.**
+
+
+        - Only allowed on bank accounts with status `invalidated`.
+
+        - Transitions the bank account to `pending-validation` for manual review by Spiko''s operations team.
+
+        - The `proofInvestorDocumentId` must reference a previously uploaded investor document.'
       summary: Upload proof document for invalidated bank account
       requestBody:
         content:
@@ -3277,10 +3320,15 @@ paths:
                   format: uuid
               additionalProperties: false
         required: true
+    servers:
+    - url: https://distributor-api.spiko.io
+      description: Production Server
+    - url: https://distributor-api.preprod.spiko.io
+      description: Pre-production Server
   /bank-accounts/{bankAccountId}:
     get:
       tags:
-      - Bank accounts
+      - Bank Accounts
       operationId: bankAccounts.getBankAccountById
       parameters:
       - name: bankAccountId
@@ -3451,10 +3499,15 @@ paths:
           description: NotFound
       description: Get info of a bank account (currency / IBAN / BIC)
       summary: Get bank account
+    servers:
+    - url: https://investor-api.spiko.io/v1
+      description: Production Server
+    - url: https://investor-api.preprod.spiko.io/v1
+      description: Pre-production Server
   /bank-accounts/:
     get:
       tags:
-      - Bank accounts
+      - Bank Accounts
       operationId: bankAccounts.getBankAccounts
       parameters:
       - name: investorId
@@ -3617,9 +3670,14 @@ paths:
           description: Forbidden
       description: Get list of bank account's info of an investor (IBAN / BIC)
       summary: Get bank accounts of an investor
+    servers:
+    - url: https://investor-api.spiko.io/v1
+      description: Production Server
+    - url: https://investor-api.preprod.spiko.io/v1
+      description: Pre-production Server
 components:
   schemas:
-    BadRequestError:
+    DistributorAuthenticationError:
       type: object
       required:
       - reason
@@ -3630,40 +3688,31 @@ components:
         _tag:
           type: string
           enum:
-          - BadRequestError
-      additionalProperties: false
-      description: Bad Request
-    BankAccountProofUploadNotAllowedError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - BankAccountProofUploadNotAllowedError
-      additionalProperties: false
-      description: The bank account is not in invalidated status. Proof document upload is only allowed on invalidated bank accounts.
-    InvestorAuthenticationError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - InvestorAuthenticationError
+          - DistributorAuthenticationError
       additionalProperties: false
       description: Authentication Error
     BadRequest:
       $id: /schemas/void
       title: BadRequest
+    HttpApiDecodeError:
+      type: object
+      required:
+      - issues
+      - message
+      - _tag
+      properties:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+        message:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - HttpApiDecodeError
+      additionalProperties: false
+      description: The request did not match the expected schema
     ForbiddenError:
       type: object
       required:
@@ -3687,7 +3736,7 @@ components:
           - ForbiddenError
       additionalProperties: false
       description: Forbidden
-    InvalidProofDocumentError:
+    BankAccountProofUploadNotAllowedError:
       type: object
       required:
       - reason
@@ -3698,47 +3747,9 @@ components:
         _tag:
           type: string
           enum:
-          - InvalidProofDocumentError
+          - BankAccountProofUploadNotAllowedError
       additionalProperties: false
-      description: The proof document is invalid. Make sure it was previously uploaded.
-    ProofDocumentRequiredError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - ProofDocumentRequiredError
-      additionalProperties: false
-      description: A proof of bank account ownership document is required. Automated verification (VoP/CoP) is not available for this currency.
-    NonEmptyString:
-      type: string
-      description: a non empty string
-      title: nonEmptyString
-      minLength: 1
-    HttpApiDecodeError:
-      type: object
-      required:
-      - issues
-      - message
-      - _tag
-      properties:
-        issues:
-          type: array
-          items:
-            $ref: '#/components/schemas/Issue'
-        message:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - HttpApiDecodeError
-      additionalProperties: false
-      description: The request did not match the expected schema
+      description: The bank account is not in invalidated status. Proof document upload is only allowed on invalidated bank accounts.
     CountryCodeAlpha2:
       type: string
       enum:
@@ -3999,6 +4010,37 @@ components:
       - DE
       identifier: CountryCodeAlpha2
       documentation: ISO 3166-1 alpha-2 country code, 'FR' for France, 'BE' for Belgium, 'DE' for Germany etc.
+    ProofDocumentRequiredError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - ProofDocumentRequiredError
+      additionalProperties: false
+      description: A proof of bank account ownership document is required. Automated verification (VoP/CoP) is not available for this currency.
+    PropertyKey:
+      anyOf:
+      - type: string
+      - type: number
+      - type: object
+        required:
+        - _tag
+        - key
+        properties:
+          _tag:
+            type: string
+            enum:
+            - symbol
+          key:
+            type: string
+        additionalProperties: false
+        description: an object to be decoded into a globally shared symbol
     Issue:
       type: object
       required:
@@ -4028,7 +4070,10 @@ components:
           description: A descriptive message explaining the issue
       additionalProperties: false
       description: Represents an error encountered while parsing a value to match the schema
-    DistributorAuthenticationError:
+    Unauthorized:
+      $id: /schemas/void
+      title: Unauthorized
+    InvalidProofDocumentError:
       type: object
       required:
       - reason
@@ -4039,31 +4084,55 @@ components:
         _tag:
           type: string
           enum:
-          - DistributorAuthenticationError
+          - InvalidProofDocumentError
+      additionalProperties: false
+      description: The proof document is invalid. Make sure it was previously uploaded.
+    NonEmptyString:
+      type: string
+      description: a non empty string
+      title: nonEmptyString
+      minLength: 1
+    BadRequestError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - BadRequestError
+      additionalProperties: false
+      description: Bad Request
+    InvestorAuthenticationError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - InvestorAuthenticationError
       additionalProperties: false
       description: Authentication Error
-    Unauthorized:
-      $id: /schemas/void
-      title: Unauthorized
-    PropertyKey:
-      anyOf:
-      - type: string
-      - type: number
-      - type: object
-        required:
-        - _tag
-        - key
-        properties:
-          _tag:
-            type: string
-            enum:
-            - symbol
-          key:
-            type: string
-        additionalProperties: false
-        description: an object to be decoded into a globally shared symbol
   securitySchemes:
     basicAuth:
       type: http
       scheme: basic
       description: Use your API client_id as username and client_secret as password.
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://investor-auth.spiko.io/oauth2/auth
+          tokenUrl: https://investor-auth.spiko.io/oauth2/token
+          scopes:
+            offline: Required for obtaining a refresh token
+x-refined-from:
+- spiko-distributor-openapi.json
+- spiko-investor-openapi.json

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Spiko Distributor Account transactions Distributor investor contracts API
+  title: Spiko Distributor Distributor investor contracts API
   version: v0
   description: The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.
 servers:
@@ -432,11 +432,40 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
         '404':
           description: NotFound
-      description: "\n**Retrieve the fees paid for the given distributor investor contract.**\n\n- Returns an array of paid fees both in amount and in number of shares, sorted by day.\n- `from` and `to` query parameters are optional and used to filter the results by day range.\n          "
+      description: '**Retrieve the fees paid for the given distributor investor contract.**
+
+
+        - Returns an array of paid fees both in amount and in number of shares, sorted by day.
+
+        - `from` and `to` query parameters are optional and used to filter the results by day range.'
       summary: Get the fees paid for the given distributor investor contract
 components:
   schemas:
-    ForbiddenError:
+    NonNegativeAmount:
+      type: object
+      required:
+      - value
+      - currency
+      properties:
+        value:
+          type: string
+          title: non-negative decimal number as a string
+          description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
+        currency:
+          type: string
+          enum:
+          - EUR
+          - USD
+          - GBP
+          - CHF
+          - JPY
+          - SGD
+          title: Currency code
+          identifier: CurrencyCode
+          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+      additionalProperties: false
+      title: Non-Negative Amount
+    DistributorAuthenticationError:
       type: object
       required:
       - reason
@@ -444,21 +473,31 @@ components:
       properties:
         reason:
           type: string
-        customErrorCode:
-          type: string
-          enum:
-          - AccountDoesNotBelongToInvestor
-          - SessionIsNot2FA
-          - InvestorDocumentLinkedToActiveBankAccount
-          - AtLeastTwoAdminUsersRequired
-          - InvestorNotPendingOnboarding
-          - ShareClassNotAvailableForDistributor
         _tag:
           type: string
           enum:
-          - ForbiddenError
+          - DistributorAuthenticationError
       additionalProperties: false
-      description: Forbidden
+      description: Authentication Error
+    HttpApiDecodeError:
+      type: object
+      required:
+      - issues
+      - message
+      - _tag
+      properties:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+        message:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - HttpApiDecodeError
+      additionalProperties: false
+      description: The request did not match the expected schema
     Issue:
       type: object
       required:
@@ -488,63 +527,6 @@ components:
           description: A descriptive message explaining the issue
       additionalProperties: false
       description: Represents an error encountered while parsing a value to match the schema
-    HttpApiDecodeError:
-      type: object
-      required:
-      - issues
-      - message
-      - _tag
-      properties:
-        issues:
-          type: array
-          items:
-            $ref: '#/components/schemas/Issue'
-        message:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - HttpApiDecodeError
-      additionalProperties: false
-      description: The request did not match the expected schema
-    DistributorAuthenticationError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - DistributorAuthenticationError
-      additionalProperties: false
-      description: Authentication Error
-    NonNegativeAmount:
-      type: object
-      required:
-      - value
-      - currency
-      properties:
-        value:
-          type: string
-          title: non-negative decimal number as a string
-          description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
-        currency:
-          type: string
-          enum:
-          - EUR
-          - USD
-          - GBP
-          - CHF
-          - JPY
-          - SGD
-          title: Currency code
-          identifier: CurrencyCode
-          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
-      additionalProperties: false
-      title: Non-Negative Amount
     Unauthorized:
       $id: /schemas/void
       title: Unauthorized
@@ -565,6 +547,29 @@ components:
             type: string
         additionalProperties: false
         description: an object to be decoded into a globally shared symbol
+    ForbiddenError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        customErrorCode:
+          type: string
+          enum:
+          - AccountDoesNotBelongToInvestor
+          - SessionIsNot2FA
+          - InvestorDocumentLinkedToActiveBankAccount
+          - AtLeastTwoAdminUsersRequired
+          - InvestorNotPendingOnboarding
+          - ShareClassNotAvailableForDistributor
+        _tag:
+          type: string
+          enum:
+          - ForbiddenError
+      additionalProperties: false
+      description: Forbidden
   securitySchemes:
     basicAuth:
       type: http

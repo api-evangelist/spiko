@@ -14,7 +14,7 @@ paths:
     get:
       tags:
       - Funds
-      operationId: Get Fund
+      operationId: GetFund
       parameters:
       - name: fundId
         in: path
@@ -79,11 +79,13 @@ paths:
           description: NotFound
       summary: Get fund
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Fund
   /funds/:
     get:
       tags:
       - Funds
-      operationId: Get all Funds
+      operationId: GetAllFunds
       parameters: []
       security: []
       responses:
@@ -140,27 +142,10 @@ paths:
                 $ref: '#/components/schemas/HttpApiDecodeError'
       summary: Get all funds
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get all Funds
 components:
   schemas:
-    HttpApiDecodeError:
-      type: object
-      required:
-      - issues
-      - message
-      - _tag
-      properties:
-        issues:
-          type: array
-          items:
-            $ref: '#/components/schemas/Issue'
-        message:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - HttpApiDecodeError
-      additionalProperties: false
-      description: The request did not match the expected schema
     PropertyKey:
       anyOf:
       - type: string
@@ -207,6 +192,25 @@ components:
           description: A descriptive message explaining the issue
       additionalProperties: false
       description: Represents an error encountered while parsing a value to match the schema
+    HttpApiDecodeError:
+      type: object
+      required:
+      - issues
+      - message
+      - _tag
+      properties:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+        message:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - HttpApiDecodeError
+      additionalProperties: false
+      description: The request did not match the expected schema
     FundSlug:
       type: string
       enum:

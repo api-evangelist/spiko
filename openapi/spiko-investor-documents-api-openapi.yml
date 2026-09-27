@@ -360,6 +360,23 @@ paths:
       summary: Download investor document
 components:
   schemas:
+    PropertyKey:
+      anyOf:
+      - type: string
+      - type: number
+      - type: object
+        required:
+        - _tag
+        - key
+        properties:
+          _tag:
+            type: string
+            enum:
+            - symbol
+          key:
+            type: string
+        additionalProperties: false
+        description: an object to be decoded into a globally shared symbol
     DistributorAuthenticationError:
       type: object
       required:
@@ -374,28 +391,9 @@ components:
           - DistributorAuthenticationError
       additionalProperties: false
       description: Authentication Error
-    BadRequest:
+    Unauthorized:
       $id: /schemas/void
-      title: BadRequest
-    HttpApiDecodeError:
-      type: object
-      required:
-      - issues
-      - message
-      - _tag
-      properties:
-        issues:
-          type: array
-          items:
-            $ref: '#/components/schemas/Issue'
-        message:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - HttpApiDecodeError
-      additionalProperties: false
-      description: The request did not match the expected schema
+      title: Unauthorized
     Issue:
       type: object
       required:
@@ -425,9 +423,24 @@ components:
           description: A descriptive message explaining the issue
       additionalProperties: false
       description: Represents an error encountered while parsing a value to match the schema
-    Unauthorized:
+    BadRequest:
       $id: /schemas/void
-      title: Unauthorized
+      title: BadRequest
+    UploadableInvestorDocumentType:
+      type: string
+      enum:
+      - proof-of-bank-account-ownership
+      - certificate-of-incorporation
+      - articles-of-association
+      - certificate-of-good-standing
+      - official-id
+      - proof-of-address
+      - proof-of-funds
+      - extract-of-ubo-register
+      - screening-report
+      - power-of-attorney
+      - other-document
+      - unknown
     ApplicationError:
       type: object
       required:
@@ -461,23 +474,6 @@ components:
           - ApplicationError
       additionalProperties: false
       description: Application Error
-    PropertyKey:
-      anyOf:
-      - type: string
-      - type: number
-      - type: object
-        required:
-        - _tag
-        - key
-        properties:
-          _tag:
-            type: string
-            enum:
-            - symbol
-          key:
-            type: string
-        additionalProperties: false
-        description: an object to be decoded into a globally shared symbol
     ForbiddenError:
       type: object
       required:
@@ -501,21 +497,25 @@ components:
           - ForbiddenError
       additionalProperties: false
       description: Forbidden
-    UploadableInvestorDocumentType:
-      type: string
-      enum:
-      - proof-of-bank-account-ownership
-      - certificate-of-incorporation
-      - articles-of-association
-      - certificate-of-good-standing
-      - official-id
-      - proof-of-address
-      - proof-of-funds
-      - extract-of-ubo-register
-      - screening-report
-      - power-of-attorney
-      - other-document
-      - unknown
+    HttpApiDecodeError:
+      type: object
+      required:
+      - issues
+      - message
+      - _tag
+      properties:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+        message:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - HttpApiDecodeError
+      additionalProperties: false
+      description: The request did not match the expected schema
     PersistedFile:
       type: string
       format: binary

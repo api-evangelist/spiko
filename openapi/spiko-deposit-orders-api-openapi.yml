@@ -1786,7 +1786,7 @@ paths:
     post:
       tags:
       - Deposit orders
-      operationId: depositOrders.createDepositOrder
+      operationId: postDepositOrders
       parameters: []
       security:
       - basicAuth: []
@@ -1910,10 +1910,12 @@ paths:
                   $ref: '#/components/schemas/NonNegativeAmount'
               additionalProperties: false
         required: true
+      x-operation-id-source: normalized
+      x-operation-id-original: depositOrders.createDepositOrder
     get:
       tags:
       - Deposit orders
-      operationId: depositOrders.getDepositOrders
+      operationId: getDepositOrders
       parameters:
       - name: investorId
         in: query
@@ -2022,6 +2024,8 @@ paths:
 
         > ⚠️ **For displaying an account''s activity, prefer the account transaction history endpoint.** It returns deposits, withdrawals, transfers and yield accruals as a single time-ordered stream, with cursor pagination, so you don''t need to call multiple per-order-type endpoints and reconcile their results.'
       summary: Get list of an investor's deposit orders
+      x-operation-id-source: normalized
+      x-operation-id-original: depositOrders.getDepositOrders
     servers:
     - url: https://investor-api.spiko.io/v1
       description: Production Server
@@ -2031,7 +2035,7 @@ paths:
     post:
       tags:
       - Deposit orders
-      operationId: depositOrders.cancelDepositOrder
+      operationId: postDepositOrdersByDepositOrderIdCancel
       parameters:
       - name: depositOrderId
         in: path
@@ -2136,6 +2140,8 @@ paths:
                 $ref: '#/components/schemas/CollectionNotCancelableError'
       description: Cancel a pending deposit order. Only orders in pending status can be canceled. If funds have already been received, cancelling the deposit order will fail.
       summary: Cancel a deposit order
+      x-operation-id-source: normalized
+      x-operation-id-original: depositOrders.cancelDepositOrder
     servers:
     - url: https://investor-api.spiko.io/v1
       description: Production Server
@@ -2145,7 +2151,7 @@ paths:
     get:
       tags:
       - Deposit orders
-      operationId: depositOrders.getDepositOrder
+      operationId: getDepositOrdersByDepositOrderId
       parameters:
       - name: depositOrderId
         in: path
@@ -2242,6 +2248,8 @@ paths:
           description: NotFound
       description: Get info of a specific deposit order by its ID
       summary: Get deposit order
+      x-operation-id-source: normalized
+      x-operation-id-original: depositOrders.getDepositOrder
     servers:
     - url: https://investor-api.spiko.io/v1
       description: Production Server
@@ -2359,6 +2367,23 @@ paths:
       description: Pre-production Server
 components:
   schemas:
+    PropertyKey:
+      anyOf:
+      - type: string
+      - type: number
+      - type: object
+        required:
+        - _tag
+        - key
+        properties:
+          _tag:
+            type: string
+            enum:
+            - symbol
+          key:
+            type: string
+        additionalProperties: false
+        description: an object to be decoded into a globally shared symbol
     DistributorAuthenticationError:
       type: object
       required:
@@ -2373,120 +2398,15 @@ components:
           - DistributorAuthenticationError
       additionalProperties: false
       description: Authentication Error
-    NonNegativeAmount:
-      type: object
-      required:
-      - value
-      - currency
-      properties:
-        value:
-          type: string
-          title: non-negative decimal number as a string
-          description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
-        currency:
-          type: string
-          enum:
-          - EUR
-          - USD
-          - GBP
-          - CHF
-          - JPY
-          - SGD
-          title: Currency code
-          identifier: CurrencyCode
-          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
-      additionalProperties: false
-      title: Non-Negative Amount
-    BadRequestError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - BadRequestError
-      additionalProperties: false
-      description: Bad Request
-    HttpApiDecodeError:
-      type: object
-      required:
-      - issues
-      - message
-      - _tag
-      properties:
-        issues:
-          type: array
-          items:
-            $ref: '#/components/schemas/Issue'
-        message:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - HttpApiDecodeError
-      additionalProperties: false
-      description: The request did not match the expected schema
-    BigDecimal:
+    Unauthorized:
+      $id: /schemas/void
+      title: Unauthorized
+    Date:
       type: string
-      description: a string to be decoded into a BigDecimal
-    ForbiddenError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        customErrorCode:
-          type: string
-          enum:
-          - AccountDoesNotBelongToInvestor
-          - SessionIsNot2FA
-          - InvestorDocumentLinkedToActiveBankAccount
-          - AtLeastTwoAdminUsersRequired
-          - InvestorNotPendingOnboarding
-          - ShareClassNotAvailableForDistributor
-        _tag:
-          type: string
-          enum:
-          - ForbiddenError
-      additionalProperties: false
-      description: Forbidden
-    DuplicateInvestorTokenError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - DuplicateInvestorTokenError
-      additionalProperties: false
-      description: Investor token has already been used
+      description: a string to be decoded into a Date
     Forbidden:
       $id: /schemas/void
       title: Forbidden
-    InvestorNotReadyError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - InvestorNotReadyError
-      additionalProperties: false
-      description: Investor is not ready for order creation yet
     Issue:
       type: object
       required:
@@ -2516,9 +2436,47 @@ components:
           description: A descriptive message explaining the issue
       additionalProperties: false
       description: Represents an error encountered while parsing a value to match the schema
-    Unauthorized:
-      $id: /schemas/void
-      title: Unauthorized
+    NonNegativeAmount:
+      type: object
+      required:
+      - value
+      - currency
+      properties:
+        value:
+          type: string
+          title: non-negative decimal number as a string
+          description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
+        currency:
+          type: string
+          enum:
+          - EUR
+          - USD
+          - GBP
+          - CHF
+          - JPY
+          - SGD
+          title: Currency code
+          identifier: CurrencyCode
+          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+      additionalProperties: false
+      title: Non-Negative Amount
+    BigDecimal:
+      type: string
+      description: a string to be decoded into a BigDecimal
+    InvestorNotReadyError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - InvestorNotReadyError
+      additionalProperties: false
+      description: Investor is not ready for order creation yet
     ApplicationError:
       type: object
       required:
@@ -2552,23 +2510,6 @@ components:
           - ApplicationError
       additionalProperties: false
       description: Application Error
-    PropertyKey:
-      anyOf:
-      - type: string
-      - type: number
-      - type: object
-        required:
-        - _tag
-        - key
-        properties:
-          _tag:
-            type: string
-            enum:
-            - symbol
-          key:
-            type: string
-        additionalProperties: false
-        description: an object to be decoded into a globally shared symbol
     LocaleLanguage:
       type: string
       enum:
@@ -2579,9 +2520,76 @@ components:
       - de
       description: The language of the user
       title: LocaleLanguage
-    Date:
-      type: string
-      description: a string to be decoded into a Date
+    ForbiddenError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        customErrorCode:
+          type: string
+          enum:
+          - AccountDoesNotBelongToInvestor
+          - SessionIsNot2FA
+          - InvestorDocumentLinkedToActiveBankAccount
+          - AtLeastTwoAdminUsersRequired
+          - InvestorNotPendingOnboarding
+          - ShareClassNotAvailableForDistributor
+        _tag:
+          type: string
+          enum:
+          - ForbiddenError
+      additionalProperties: false
+      description: Forbidden
+    HttpApiDecodeError:
+      type: object
+      required:
+      - issues
+      - message
+      - _tag
+      properties:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+        message:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - HttpApiDecodeError
+      additionalProperties: false
+      description: The request did not match the expected schema
+    BadRequestError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - BadRequestError
+      additionalProperties: false
+      description: Bad Request
+    DuplicateInvestorTokenError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - DuplicateInvestorTokenError
+      additionalProperties: false
+      description: Investor token has already been used
     DepositNotAllowedError:
       type: object
       required:
@@ -2601,20 +2609,6 @@ components:
           - DepositNotAllowedError
       additionalProperties: false
       description: Deposit orders cannot be created by API for this share class. Perform a wire transfer directly instead.
-    InvestorAuthenticationError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - InvestorAuthenticationError
-      additionalProperties: false
-      description: Authentication Error
     CollectionNotCancelableError:
       type: object
       required:
@@ -2629,6 +2623,20 @@ components:
           - CollectionNotCancelableError
       additionalProperties: false
       description: Collection is no longer cancelable
+    InvestorAuthenticationError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - InvestorAuthenticationError
+      additionalProperties: false
+      description: Authentication Error
   securitySchemes:
     basicAuth:
       type: http

@@ -843,6 +843,23 @@ paths:
       summary: Rotate the signing secret
 components:
   schemas:
+    PropertyKey:
+      anyOf:
+      - type: string
+      - type: number
+      - type: object
+        required:
+        - _tag
+        - key
+        properties:
+          _tag:
+            type: string
+            enum:
+            - symbol
+          key:
+            type: string
+        additionalProperties: false
+        description: an object to be decoded into a globally shared symbol
     DistributorAuthenticationError:
       type: object
       required:
@@ -857,33 +874,9 @@ components:
           - DistributorAuthenticationError
       additionalProperties: false
       description: Authentication Error
-    NonNegativeInt:
-      type: integer
-      description: an integer
-      title: int
-      minimum: 0
-    BadRequest:
+    Unauthorized:
       $id: /schemas/void
-      title: BadRequest
-    HttpApiDecodeError:
-      type: object
-      required:
-      - issues
-      - message
-      - _tag
-      properties:
-        issues:
-          type: array
-          items:
-            $ref: '#/components/schemas/Issue'
-        message:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - HttpApiDecodeError
-      additionalProperties: false
-      description: The request did not match the expected schema
+      title: Unauthorized
     Issue:
       type: object
       required:
@@ -913,26 +906,9 @@ components:
           description: A descriptive message explaining the issue
       additionalProperties: false
       description: Represents an error encountered while parsing a value to match the schema
-    Unauthorized:
+    BadRequest:
       $id: /schemas/void
-      title: Unauthorized
-    PropertyKey:
-      anyOf:
-      - type: string
-      - type: number
-      - type: object
-        required:
-        - _tag
-        - key
-        properties:
-          _tag:
-            type: string
-            enum:
-            - symbol
-          key:
-            type: string
-        additionalProperties: false
-        description: an object to be decoded into a globally shared symbol
+      title: BadRequest
     ForbiddenError:
       type: object
       required:
@@ -956,6 +932,30 @@ components:
           - ForbiddenError
       additionalProperties: false
       description: Forbidden
+    HttpApiDecodeError:
+      type: object
+      required:
+      - issues
+      - message
+      - _tag
+      properties:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+        message:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - HttpApiDecodeError
+      additionalProperties: false
+      description: The request did not match the expected schema
+    NonNegativeInt:
+      type: integer
+      description: an integer
+      title: int
+      minimum: 0
   securitySchemes:
     basicAuth:
       type: http

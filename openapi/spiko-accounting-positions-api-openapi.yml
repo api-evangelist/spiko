@@ -497,7 +497,7 @@ paths:
     get:
       tags:
       - Accounting positions
-      operationId: accountingPositions.getAccountingPositionsHistory
+      operationId: getAccountingPositionsAccountHistory
       parameters:
       - name: accountId
         in: query
@@ -697,6 +697,8 @@ paths:
           description: NotFound
       description: Get all accounting positions (midnight to midnight UTC) for a given account and share class between two dates
       summary: Get accounting positions (midnight to midnight UTC) of an account
+      x-operation-id-source: normalized
+      x-operation-id-original: accountingPositions.getAccountingPositionsHistory
     servers:
     - url: https://investor-api.spiko.io/v1
       description: Production Server
@@ -706,7 +708,7 @@ paths:
     get:
       tags:
       - Accounting positions
-      operationId: accountingPositions.downloadAccountStatement
+      operationId: getAccountingPositionsAccountStatement
       parameters:
       - name: investorId
         in: query
@@ -793,6 +795,8 @@ paths:
 
         - If no accountId is provided, the account statement will be for the sum of all archived and active accounts of the investor.'
       summary: Download account statement
+      x-operation-id-source: normalized
+      x-operation-id-original: accountingPositions.downloadAccountStatement
     servers:
     - url: https://investor-api.spiko.io/v1
       description: Production Server
@@ -800,6 +804,23 @@ paths:
       description: Pre-production Server
 components:
   schemas:
+    PropertyKey:
+      anyOf:
+      - type: string
+      - type: number
+      - type: object
+        required:
+        - _tag
+        - key
+        properties:
+          _tag:
+            type: string
+            enum:
+            - symbol
+          key:
+            type: string
+        additionalProperties: false
+        description: an object to be decoded into a globally shared symbol
     DistributorAuthenticationError:
       type: object
       required:
@@ -814,75 +835,9 @@ components:
           - DistributorAuthenticationError
       additionalProperties: false
       description: Authentication Error
-    NonNegativeAmount:
-      type: object
-      required:
-      - value
-      - currency
-      properties:
-        value:
-          type: string
-          title: non-negative decimal number as a string
-          description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
-        currency:
-          type: string
-          enum:
-          - EUR
-          - USD
-          - GBP
-          - CHF
-          - JPY
-          - SGD
-          title: Currency code
-          identifier: CurrencyCode
-          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
-      additionalProperties: false
-      title: Non-Negative Amount
-    BadRequest:
+    Unauthorized:
       $id: /schemas/void
-      title: BadRequest
-    HttpApiDecodeError:
-      type: object
-      required:
-      - issues
-      - message
-      - _tag
-      properties:
-        issues:
-          type: array
-          items:
-            $ref: '#/components/schemas/Issue'
-        message:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - HttpApiDecodeError
-      additionalProperties: false
-      description: The request did not match the expected schema
-    ForbiddenError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        customErrorCode:
-          type: string
-          enum:
-          - AccountDoesNotBelongToInvestor
-          - SessionIsNot2FA
-          - InvestorDocumentLinkedToActiveBankAccount
-          - AtLeastTwoAdminUsersRequired
-          - InvestorNotPendingOnboarding
-          - ShareClassNotAvailableForDistributor
-        _tag:
-          type: string
-          enum:
-          - ForbiddenError
-      additionalProperties: false
-      description: Forbidden
+      title: Unauthorized
     Amount:
       type: object
       required:
@@ -935,26 +890,36 @@ components:
           description: A descriptive message explaining the issue
       additionalProperties: false
       description: Represents an error encountered while parsing a value to match the schema
-    Unauthorized:
+    NonNegativeAmount:
+      type: object
+      required:
+      - value
+      - currency
+      properties:
+        value:
+          type: string
+          title: non-negative decimal number as a string
+          description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
+        currency:
+          type: string
+          enum:
+          - EUR
+          - USD
+          - GBP
+          - CHF
+          - JPY
+          - SGD
+          title: Currency code
+          identifier: CurrencyCode
+          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+      additionalProperties: false
+      title: Non-Negative Amount
+    NonNegativeBigint:
+      type: string
+      description: a string to be decoded into a bigint
+    BadRequest:
       $id: /schemas/void
-      title: Unauthorized
-    PropertyKey:
-      anyOf:
-      - type: string
-      - type: number
-      - type: object
-        required:
-        - _tag
-        - key
-        properties:
-          _tag:
-            type: string
-            enum:
-            - symbol
-          key:
-            type: string
-        additionalProperties: false
-        description: an object to be decoded into a globally shared symbol
+      title: BadRequest
     LocaleLanguage:
       type: string
       enum:
@@ -965,15 +930,48 @@ components:
       - de
       description: The language of the user
       title: LocaleLanguage
-    NonNegativeBigint:
-      type: string
-      description: a string to be decoded into a bigint
-    BooleanFromString:
-      type: string
-      enum:
-      - 'true'
-      - 'false'
-      description: a string to be decoded into a boolean
+    ForbiddenError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        customErrorCode:
+          type: string
+          enum:
+          - AccountDoesNotBelongToInvestor
+          - SessionIsNot2FA
+          - InvestorDocumentLinkedToActiveBankAccount
+          - AtLeastTwoAdminUsersRequired
+          - InvestorNotPendingOnboarding
+          - ShareClassNotAvailableForDistributor
+        _tag:
+          type: string
+          enum:
+          - ForbiddenError
+      additionalProperties: false
+      description: Forbidden
+    HttpApiDecodeError:
+      type: object
+      required:
+      - issues
+      - message
+      - _tag
+      properties:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+        message:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - HttpApiDecodeError
+      additionalProperties: false
+      description: The request did not match the expected schema
     ShareClassSymbol:
       type: string
       enum:
@@ -991,6 +989,12 @@ components:
       - gbpSAFO
       - chfSAFO
       title: ShareClassSymbol
+    BooleanFromString:
+      type: string
+      enum:
+      - 'true'
+      - 'false'
+      description: a string to be decoded into a boolean
     InvestorAuthenticationError:
       type: object
       required:

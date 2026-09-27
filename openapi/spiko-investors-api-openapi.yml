@@ -4615,7 +4615,7 @@ paths:
     get:
       tags:
       - Investors
-      operationId: investors.getInvestor
+      operationId: getInvestorsMe
       parameters: []
       security:
       - basicAuth: []
@@ -4748,6 +4748,8 @@ paths:
           description: Forbidden
       description: Get info about the authenticated investor
       summary: Get investor info
+      x-operation-id-source: normalized
+      x-operation-id-original: investors.getInvestor
     servers:
     - url: https://investor-api.spiko.io/v1
       description: Production Server
@@ -4943,65 +4945,6 @@ components:
           description: A descriptive message explaining the issue
       additionalProperties: false
       description: Represents an error encountered while parsing a value to match the schema
-    MissingRequiredPersonFieldsError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - MissingRequiredPersonFieldsError
-      additionalProperties: false
-      description: Related persons must provide date of birth, nationality, and country of residence for screening
-    MissingFiscalIdentificationNumberError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - MissingFiscalIdentificationNumberError
-      additionalProperties: false
-      description: Non-FR UBOs of passive NFE investors must provide a fiscal identification number
-    MissingInvestorEmailError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - MissingInvestorEmailError
-      additionalProperties: false
-      description: Distributors using the Spiko License model must provide an investorEmail for every investor
-    DistributorAuthenticationError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - DistributorAuthenticationError
-      additionalProperties: false
-      description: Authentication Error
-    Unauthorized:
-      $id: /schemas/void
-      title: Unauthorized
     ApplicationError:
       type: object
       required:
@@ -5035,62 +4978,9 @@ components:
           - ApplicationError
       additionalProperties: false
       description: Application Error
-    NonEmptyString:
-      type: string
-      description: a non empty string
-      title: nonEmptyString
-      minLength: 1
-    BadRequestError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - BadRequestError
-      additionalProperties: false
-      description: Bad Request
-    BlockedResidenceCountryError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - BlockedResidenceCountryError
-      additionalProperties: false
-      description: Investors residing or registered in a country blocked for compliance reasons cannot be onboarded
-    BadRequest:
+    Unauthorized:
       $id: /schemas/void
-      title: BadRequest
-    Lowercase:
-      type: string
-      description: a string that will be converted to lowercase
-    PropertyKey:
-      anyOf:
-      - type: string
-      - type: number
-      - type: object
-        required:
-        - _tag
-        - key
-        properties:
-          _tag:
-            type: string
-            enum:
-            - symbol
-          key:
-            type: string
-        additionalProperties: false
-        description: an object to be decoded into a globally shared symbol
+      title: Unauthorized
     TaxIdentificationNumberByCountry:
       type: array
       minItems: 1
@@ -5923,25 +5813,141 @@ components:
               - type: 'null'
           additionalProperties: false
       description: Country(ies) of tax residence and optional tax identification number(s)
-    HttpApiDecodeError:
+    PropertyKey:
+      anyOf:
+      - type: string
+      - type: number
+      - type: object
+        required:
+        - _tag
+        - key
+        properties:
+          _tag:
+            type: string
+            enum:
+            - symbol
+          key:
+            type: string
+        additionalProperties: false
+        description: an object to be decoded into a globally shared symbol
+    DistributorAuthenticationError:
       type: object
       required:
-      - issues
-      - message
+      - reason
       - _tag
       properties:
-        issues:
-          type: array
-          items:
-            $ref: '#/components/schemas/Issue'
-        message:
+        reason:
           type: string
         _tag:
           type: string
           enum:
-          - HttpApiDecodeError
+          - DistributorAuthenticationError
       additionalProperties: false
-      description: The request did not match the expected schema
+      description: Authentication Error
+    Lowercase:
+      type: string
+      description: a string that will be converted to lowercase
+    BlockedResidenceCountryError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - BlockedResidenceCountryError
+      additionalProperties: false
+      description: Investors residing or registered in a country blocked for compliance reasons cannot be onboarded
+    BadRequest:
+      $id: /schemas/void
+      title: BadRequest
+    NonEmptyString:
+      type: string
+      description: a non empty string
+      title: nonEmptyString
+      minLength: 1
+    MissingFiscalIdentificationNumberError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - MissingFiscalIdentificationNumberError
+      additionalProperties: false
+      description: Non-FR UBOs of passive NFE investors must provide a fiscal identification number
+    ForbiddenError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        customErrorCode:
+          type: string
+          enum:
+          - AccountDoesNotBelongToInvestor
+          - SessionIsNot2FA
+          - InvestorDocumentLinkedToActiveBankAccount
+          - AtLeastTwoAdminUsersRequired
+          - InvestorNotPendingOnboarding
+          - ShareClassNotAvailableForDistributor
+        _tag:
+          type: string
+          enum:
+          - ForbiddenError
+      additionalProperties: false
+      description: Forbidden
+    BadRequestError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - BadRequestError
+      additionalProperties: false
+      description: Bad Request
+    MissingRelatedPersonsError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - MissingRelatedPersonsError
+      additionalProperties: false
+      description: Organization investors must provide all their UBOs and directors. FR organizations are exempt unless the distributor operates under a KYC reliance agreement with Spiko.
+    MissingRequiredPersonFieldsError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - MissingRequiredPersonFieldsError
+      additionalProperties: false
+      description: Related persons must provide date of birth, nationality, and country of residence for screening
     CountryCodeAlpha2:
       type: string
       enum:
@@ -6202,30 +6208,7 @@ components:
       - DE
       identifier: CountryCodeAlpha2
       documentation: ISO 3166-1 alpha-2 country code, 'FR' for France, 'BE' for Belgium, 'DE' for Germany etc.
-    ForbiddenError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        customErrorCode:
-          type: string
-          enum:
-          - AccountDoesNotBelongToInvestor
-          - SessionIsNot2FA
-          - InvestorDocumentLinkedToActiveBankAccount
-          - AtLeastTwoAdminUsersRequired
-          - InvestorNotPendingOnboarding
-          - ShareClassNotAvailableForDistributor
-        _tag:
-          type: string
-          enum:
-          - ForbiddenError
-      additionalProperties: false
-      description: Forbidden
-    MissingRelatedPersonsError:
+    MissingInvestorEmailError:
       type: object
       required:
       - reason
@@ -6236,9 +6219,28 @@ components:
         _tag:
           type: string
           enum:
-          - MissingRelatedPersonsError
+          - MissingInvestorEmailError
       additionalProperties: false
-      description: Organization investors must provide all their UBOs and directors. FR organizations are exempt unless the distributor operates under a KYC reliance agreement with Spiko.
+      description: Distributors using the Spiko License model must provide an investorEmail for every investor
+    HttpApiDecodeError:
+      type: object
+      required:
+      - issues
+      - message
+      - _tag
+      properties:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+        message:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - HttpApiDecodeError
+      additionalProperties: false
+      description: The request did not match the expected schema
     InvestorAuthenticationError:
       type: object
       required:

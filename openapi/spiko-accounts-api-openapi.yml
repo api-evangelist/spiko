@@ -828,7 +828,7 @@ paths:
     post:
       tags:
       - Accounts
-      operationId: accounts.createAccount
+      operationId: postAccounts
       parameters: []
       security:
       - basicAuth: []
@@ -1046,10 +1046,12 @@ paths:
                   $ref: '#/components/schemas/NonEmptyTrimmedString'
               additionalProperties: false
         required: true
+      x-operation-id-source: normalized
+      x-operation-id-original: accounts.createAccount
     get:
       tags:
       - Accounts
-      operationId: accounts.getAccounts
+      operationId: getAccounts
       parameters:
       - name: investorId
         in: query
@@ -1245,6 +1247,8 @@ paths:
           description: Forbidden
       description: Get list of an investor's accounts
       summary: Get accounts
+      x-operation-id-source: normalized
+      x-operation-id-original: accounts.getAccounts
     servers:
     - url: https://investor-api.spiko.io/v1
       description: Production Server
@@ -1254,7 +1258,7 @@ paths:
     get:
       tags:
       - Accounts
-      operationId: accounts.getAccount
+      operationId: getAccountsByAccountId
       parameters:
       - name: accountId
         in: path
@@ -1450,6 +1454,8 @@ paths:
           description: NotFound
       description: Get a specific account
       summary: Get account
+      x-operation-id-source: normalized
+      x-operation-id-original: accounts.getAccount
     servers:
     - url: https://investor-api.spiko.io/v1
       description: Production Server
@@ -1459,7 +1465,7 @@ paths:
     get:
       tags:
       - Accounts
-      operationId: accounts.getDepositInstructions
+      operationId: getAccountsByAccountIdDepositInstructions
       parameters:
       - name: accountId
         in: path
@@ -1612,6 +1618,8 @@ paths:
 
         - `SWIFT` - international wire'
       summary: Get deposit instructions
+      x-operation-id-source: normalized
+      x-operation-id-original: accounts.getDepositInstructions
     servers:
     - url: https://investor-api.spiko.io/v1
       description: Production Server
@@ -1619,42 +1627,6 @@ paths:
       description: Pre-production Server
 components:
   schemas:
-    DistributorAuthenticationError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - DistributorAuthenticationError
-      additionalProperties: false
-      description: Authentication Error
-    BadRequest:
-      $id: /schemas/void
-      title: BadRequest
-    HttpApiDecodeError:
-      type: object
-      required:
-      - issues
-      - message
-      - _tag
-      properties:
-        issues:
-          type: array
-          items:
-            $ref: '#/components/schemas/Issue'
-        message:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - HttpApiDecodeError
-      additionalProperties: false
-      description: The request did not match the expected schema
     PropertyKey:
       anyOf:
       - type: string
@@ -1672,15 +1644,26 @@ components:
             type: string
         additionalProperties: false
         description: an object to be decoded into a globally shared symbol
-    Forbidden:
+    DistributorAuthenticationError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - DistributorAuthenticationError
+      additionalProperties: false
+      description: Authentication Error
+    Unauthorized:
       $id: /schemas/void
-      title: Forbidden
-    NonEmptyTrimmedString:
+      title: Unauthorized
+    Date:
       type: string
-      description: a non empty string
-      title: nonEmptyString
-      pattern: ^\S[\s\S]*\S$|^\S$|^$
-      minLength: 1
+      description: a string to be decoded into a Date
     Issue:
       type: object
       required:
@@ -1710,9 +1693,15 @@ components:
           description: A descriptive message explaining the issue
       additionalProperties: false
       description: Represents an error encountered while parsing a value to match the schema
-    Unauthorized:
+    NonEmptyTrimmedString:
+      type: string
+      description: a non empty string
+      title: nonEmptyString
+      pattern: ^\S[\s\S]*\S$|^\S$|^$
+      minLength: 1
+    BadRequest:
       $id: /schemas/void
-      title: Unauthorized
+      title: BadRequest
     NonEmptyString:
       type: string
       description: a non empty string
@@ -1741,24 +1730,28 @@ components:
           - ForbiddenError
       additionalProperties: false
       description: Forbidden
-    Date:
-      type: string
-      description: a string to be decoded into a Date
-    EVMNetwork:
-      type: string
-      enum:
-      - Sepolia
-      - PolygonAmoy
-      - BaseSepolia
-      - ArbitrumSepolia
-      - EtherlinkTestnet
-      - Ethereum
-      - Polygon
-      - Base
-      - Arbitrum
-      - Etherlink
-      description: an EVM blockchain network e.g. "Ethereum", "Polygon", "Arbitrum"
-      title: EVM Network
+    HttpApiDecodeError:
+      type: object
+      required:
+      - issues
+      - message
+      - _tag
+      properties:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+        message:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - HttpApiDecodeError
+      additionalProperties: false
+      description: The request did not match the expected schema
+    Forbidden:
+      $id: /schemas/void
+      title: Forbidden
     Network:
       type: string
       enum:
@@ -1780,6 +1773,21 @@ components:
       - SolanaDevnet
       description: a blockchain network e.g. "Ethereum", "Polygon", "Arbitrum", "Starknet"
       title: Network
+    EVMNetwork:
+      type: string
+      enum:
+      - Sepolia
+      - PolygonAmoy
+      - BaseSepolia
+      - ArbitrumSepolia
+      - EtherlinkTestnet
+      - Ethereum
+      - Polygon
+      - Base
+      - Arbitrum
+      - Etherlink
+      description: an EVM blockchain network e.g. "Ethereum", "Polygon", "Arbitrum"
+      title: EVM Network
     InvestorAuthenticationError:
       type: object
       required:

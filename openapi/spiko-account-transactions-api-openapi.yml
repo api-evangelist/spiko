@@ -3217,43 +3217,12 @@ paths:
       description: Pre-production Server
 components:
   schemas:
-    PropertyKey:
-      anyOf:
-      - type: string
-      - type: number
-      - type: object
-        required:
-        - _tag
-        - key
-        properties:
-          _tag:
-            type: string
-            enum:
-            - symbol
-          key:
-            type: string
-        additionalProperties: false
-        description: an object to be decoded into a globally shared symbol
-    DistributorAuthenticationError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - DistributorAuthenticationError
-      additionalProperties: false
-      description: Authentication Error
-    StringFromBase64Url:
+    Date:
       type: string
-      description: A string that is interpreted as being Base64Url-encoded and will be decoded into a UTF-8 string
-    Unauthorized:
-      $id: /schemas/void
-      title: Unauthorized
+      description: a string to be decoded into a Date
+    BigDecimal:
+      type: string
+      description: a string to be decoded into a BigDecimal
     Amount:
       type: object
       required:
@@ -3277,9 +3246,110 @@ components:
           identifier: CurrencyCode
           description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
       additionalProperties: false
-    Date:
+    HttpApiDecodeError:
+      type: object
+      required:
+      - issues
+      - message
+      - _tag
+      properties:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+        message:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - HttpApiDecodeError
+      additionalProperties: false
+      description: The request did not match the expected schema
+    StringFromBase64Url:
       type: string
-      description: a string to be decoded into a Date
+      description: A string that is interpreted as being Base64Url-encoded and will be decoded into a UTF-8 string
+    NonNegativeAmount:
+      type: object
+      required:
+      - value
+      - currency
+      properties:
+        value:
+          type: string
+          title: non-negative decimal number as a string
+          description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
+        currency:
+          type: string
+          enum:
+          - EUR
+          - USD
+          - GBP
+          - CHF
+          - JPY
+          - SGD
+          title: Currency code
+          identifier: CurrencyCode
+          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+      additionalProperties: false
+      title: Non-Negative Amount
+    Int:
+      type: integer
+      description: an integer
+      title: int
+    DistributorAuthenticationError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - DistributorAuthenticationError
+      additionalProperties: false
+      description: Authentication Error
+    ShareClassSymbol:
+      type: string
+      enum:
+      - EUTBL
+      - USTBL
+      - eurUSTBL
+      - SPKCC
+      - eurSPKCC
+      - UKTBL
+      - eurUKTBL
+      - SAFO
+      - SAFOd
+      - eurSAFO
+      - eurSAFOd
+      - gbpSAFO
+      - chfSAFO
+      title: ShareClassSymbol
+    ForbiddenError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        customErrorCode:
+          type: string
+          enum:
+          - AccountDoesNotBelongToInvestor
+          - SessionIsNot2FA
+          - InvestorDocumentLinkedToActiveBankAccount
+          - AtLeastTwoAdminUsersRequired
+          - InvestorNotPendingOnboarding
+          - ShareClassNotAvailableForDistributor
+        _tag:
+          type: string
+          enum:
+          - ForbiddenError
+      additionalProperties: false
+      description: Forbidden
     Issue:
       type: object
       required:
@@ -3309,52 +3379,30 @@ components:
           description: A descriptive message explaining the issue
       additionalProperties: false
       description: Represents an error encountered while parsing a value to match the schema
-    NonNegativeAmount:
-      type: object
-      required:
-      - value
-      - currency
-      properties:
-        value:
-          type: string
-          title: non-negative decimal number as a string
-          description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
-        currency:
-          type: string
-          enum:
-          - EUR
-          - USD
-          - GBP
-          - CHF
-          - JPY
-          - SGD
-          title: Currency code
-          identifier: CurrencyCode
-          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
-      additionalProperties: false
-      title: Non-Negative Amount
-    ShareClassSymbol:
+    PropertyKey:
+      anyOf:
+      - type: string
+      - type: number
+      - type: object
+        required:
+        - _tag
+        - key
+        properties:
+          _tag:
+            type: string
+            enum:
+            - symbol
+          key:
+            type: string
+        additionalProperties: false
+        description: an object to be decoded into a globally shared symbol
+    Unauthorized:
+      $id: /schemas/void
+      title: Unauthorized
+    Lowercase:
       type: string
-      enum:
-      - EUTBL
-      - USTBL
-      - eurUSTBL
-      - SPKCC
-      - eurSPKCC
-      - UKTBL
-      - eurUKTBL
-      - SAFO
-      - SAFOd
-      - eurSAFO
-      - eurSAFOd
-      - gbpSAFO
-      - chfSAFO
-      title: ShareClassSymbol
-    Int:
-      type: integer
-      description: an integer
-      title: int
-    ForbiddenError:
+      description: a string that will be converted to lowercase
+    InvestorAuthenticationError:
       type: object
       required:
       - reason
@@ -3362,43 +3410,12 @@ components:
       properties:
         reason:
           type: string
-        customErrorCode:
-          type: string
-          enum:
-          - AccountDoesNotBelongToInvestor
-          - SessionIsNot2FA
-          - InvestorDocumentLinkedToActiveBankAccount
-          - AtLeastTwoAdminUsersRequired
-          - InvestorNotPendingOnboarding
-          - ShareClassNotAvailableForDistributor
         _tag:
           type: string
           enum:
-          - ForbiddenError
+          - InvestorAuthenticationError
       additionalProperties: false
-      description: Forbidden
-    HttpApiDecodeError:
-      type: object
-      required:
-      - issues
-      - message
-      - _tag
-      properties:
-        issues:
-          type: array
-          items:
-            $ref: '#/components/schemas/Issue'
-        message:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - HttpApiDecodeError
-      additionalProperties: false
-      description: The request did not match the expected schema
-    BigDecimal:
-      type: string
-      description: a string to be decoded into a BigDecimal
+      description: Authentication Error
     Network:
       type: string
       enum:
@@ -3420,23 +3437,6 @@ components:
       - SolanaDevnet
       description: a blockchain network e.g. "Ethereum", "Polygon", "Arbitrum", "Starknet"
       title: Network
-    Lowercase:
-      type: string
-      description: a string that will be converted to lowercase
-    InvestorAuthenticationError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - InvestorAuthenticationError
-      additionalProperties: false
-      description: Authentication Error
   securitySchemes:
     basicAuth:
       type: http

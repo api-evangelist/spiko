@@ -1374,23 +1374,12 @@ paths:
       x-operation-id-original: Get Share Class Totals From Day
 components:
   schemas:
-    PropertyKey:
-      anyOf:
-      - type: string
-      - type: number
-      - type: object
-        required:
-        - _tag
-        - key
-        properties:
-          _tag:
-            type: string
-            enum:
-            - symbol
-          key:
-            type: string
-        additionalProperties: false
-        description: an object to be decoded into a globally shared symbol
+    Date:
+      type: string
+      description: a string to be decoded into a Date
+    BigDecimal:
+      type: string
+      description: a string to be decoded into a BigDecimal
     Amount:
       type: object
       required:
@@ -1414,38 +1403,25 @@ components:
           identifier: CurrencyCode
           description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
       additionalProperties: false
-    Date:
-      type: string
-      description: a string to be decoded into a Date
-    Issue:
+    HttpApiDecodeError:
       type: object
       required:
-      - _tag
-      - path
+      - issues
       - message
+      - _tag
       properties:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+        message:
+          type: string
         _tag:
           type: string
           enum:
-          - Pointer
-          - Unexpected
-          - Missing
-          - Composite
-          - Refinement
-          - Transformation
-          - Type
-          - Forbidden
-          description: The tag identifying the type of parse issue
-        path:
-          type: array
-          items:
-            $ref: '#/components/schemas/PropertyKey'
-          description: The path to the property where the issue occurred
-        message:
-          type: string
-          description: A descriptive message explaining the issue
+          - HttpApiDecodeError
       additionalProperties: false
-      description: Represents an error encountered while parsing a value to match the schema
+      description: The request did not match the expected schema
     NonNegativeAmount:
       type: object
       required:
@@ -1490,6 +1466,52 @@ components:
       description: a non empty string
       title: nonEmptyString
       minLength: 1
+    Issue:
+      type: object
+      required:
+      - _tag
+      - path
+      - message
+      properties:
+        _tag:
+          type: string
+          enum:
+          - Pointer
+          - Unexpected
+          - Missing
+          - Composite
+          - Refinement
+          - Transformation
+          - Type
+          - Forbidden
+          description: The tag identifying the type of parse issue
+        path:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyKey'
+          description: The path to the property where the issue occurred
+        message:
+          type: string
+          description: A descriptive message explaining the issue
+      additionalProperties: false
+      description: Represents an error encountered while parsing a value to match the schema
+    PropertyKey:
+      anyOf:
+      - type: string
+      - type: number
+      - type: object
+        required:
+        - _tag
+        - key
+        properties:
+          _tag:
+            type: string
+            enum:
+            - symbol
+          key:
+            type: string
+        additionalProperties: false
+        description: an object to be decoded into a globally shared symbol
     ShareClassSymbol:
       type: string
       enum:
@@ -1507,25 +1529,3 @@ components:
       - gbpSAFO
       - chfSAFO
       title: ShareClassSymbol
-    HttpApiDecodeError:
-      type: object
-      required:
-      - issues
-      - message
-      - _tag
-      properties:
-        issues:
-          type: array
-          items:
-            $ref: '#/components/schemas/Issue'
-        message:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - HttpApiDecodeError
-      additionalProperties: false
-      description: The request did not match the expected schema
-    BigDecimal:
-      type: string
-      description: a string to be decoded into a BigDecimal

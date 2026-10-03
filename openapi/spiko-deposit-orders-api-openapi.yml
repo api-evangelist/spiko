@@ -2367,116 +2367,9 @@ paths:
       description: Pre-production Server
 components:
   schemas:
-    PropertyKey:
-      anyOf:
-      - type: string
-      - type: number
-      - type: object
-        required:
-        - _tag
-        - key
-        properties:
-          _tag:
-            type: string
-            enum:
-            - symbol
-          key:
-            type: string
-        additionalProperties: false
-        description: an object to be decoded into a globally shared symbol
-    DistributorAuthenticationError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - DistributorAuthenticationError
-      additionalProperties: false
-      description: Authentication Error
-    Unauthorized:
-      $id: /schemas/void
-      title: Unauthorized
-    Date:
-      type: string
-      description: a string to be decoded into a Date
-    Forbidden:
-      $id: /schemas/void
-      title: Forbidden
-    Issue:
-      type: object
-      required:
-      - _tag
-      - path
-      - message
-      properties:
-        _tag:
-          type: string
-          enum:
-          - Pointer
-          - Unexpected
-          - Missing
-          - Composite
-          - Refinement
-          - Transformation
-          - Type
-          - Forbidden
-          description: The tag identifying the type of parse issue
-        path:
-          type: array
-          items:
-            $ref: '#/components/schemas/PropertyKey'
-          description: The path to the property where the issue occurred
-        message:
-          type: string
-          description: A descriptive message explaining the issue
-      additionalProperties: false
-      description: Represents an error encountered while parsing a value to match the schema
-    NonNegativeAmount:
-      type: object
-      required:
-      - value
-      - currency
-      properties:
-        value:
-          type: string
-          title: non-negative decimal number as a string
-          description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
-        currency:
-          type: string
-          enum:
-          - EUR
-          - USD
-          - GBP
-          - CHF
-          - JPY
-          - SGD
-          title: Currency code
-          identifier: CurrencyCode
-          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
-      additionalProperties: false
-      title: Non-Negative Amount
     BigDecimal:
       type: string
       description: a string to be decoded into a BigDecimal
-    InvestorNotReadyError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - InvestorNotReadyError
-      additionalProperties: false
-      description: Investor is not ready for order creation yet
     ApplicationError:
       type: object
       required:
@@ -2510,39 +2403,9 @@ components:
           - ApplicationError
       additionalProperties: false
       description: Application Error
-    LocaleLanguage:
+    Date:
       type: string
-      enum:
-      - en
-      - es
-      - fr
-      - it
-      - de
-      description: The language of the user
-      title: LocaleLanguage
-    ForbiddenError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        customErrorCode:
-          type: string
-          enum:
-          - AccountDoesNotBelongToInvestor
-          - SessionIsNot2FA
-          - InvestorDocumentLinkedToActiveBankAccount
-          - AtLeastTwoAdminUsersRequired
-          - InvestorNotPendingOnboarding
-          - ShareClassNotAvailableForDistributor
-        _tag:
-          type: string
-          enum:
-          - ForbiddenError
-      additionalProperties: false
-      description: Forbidden
+      description: a string to be decoded into a Date
     HttpApiDecodeError:
       type: object
       required:
@@ -2590,25 +2453,143 @@ components:
           - DuplicateInvestorTokenError
       additionalProperties: false
       description: Investor token has already been used
-    DepositNotAllowedError:
+    InvestorNotReadyError:
       type: object
       required:
-      - shareClassId
-      - shareClassSymbol
+      - reason
       - _tag
       properties:
-        shareClassId:
-          type: string
-          description: a Universally Unique Identifier
-          format: uuid
-        shareClassSymbol:
+        reason:
           type: string
         _tag:
           type: string
           enum:
-          - DepositNotAllowedError
+          - InvestorNotReadyError
       additionalProperties: false
-      description: Deposit orders cannot be created by API for this share class. Perform a wire transfer directly instead.
+      description: Investor is not ready for order creation yet
+    NonNegativeAmount:
+      type: object
+      required:
+      - value
+      - currency
+      properties:
+        value:
+          type: string
+          title: non-negative decimal number as a string
+          description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
+        currency:
+          type: string
+          enum:
+          - EUR
+          - USD
+          - GBP
+          - CHF
+          - JPY
+          - SGD
+          title: Currency code
+          identifier: CurrencyCode
+          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+      additionalProperties: false
+      title: Non-Negative Amount
+    Forbidden:
+      $id: /schemas/void
+      title: Forbidden
+    LocaleLanguage:
+      type: string
+      enum:
+      - en
+      - es
+      - fr
+      - it
+      - de
+      description: The language of the user
+      title: LocaleLanguage
+    DistributorAuthenticationError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - DistributorAuthenticationError
+      additionalProperties: false
+      description: Authentication Error
+    ForbiddenError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        customErrorCode:
+          type: string
+          enum:
+          - AccountDoesNotBelongToInvestor
+          - SessionIsNot2FA
+          - InvestorDocumentLinkedToActiveBankAccount
+          - AtLeastTwoAdminUsersRequired
+          - InvestorNotPendingOnboarding
+          - ShareClassNotAvailableForDistributor
+        _tag:
+          type: string
+          enum:
+          - ForbiddenError
+      additionalProperties: false
+      description: Forbidden
+    Issue:
+      type: object
+      required:
+      - _tag
+      - path
+      - message
+      properties:
+        _tag:
+          type: string
+          enum:
+          - Pointer
+          - Unexpected
+          - Missing
+          - Composite
+          - Refinement
+          - Transformation
+          - Type
+          - Forbidden
+          description: The tag identifying the type of parse issue
+        path:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyKey'
+          description: The path to the property where the issue occurred
+        message:
+          type: string
+          description: A descriptive message explaining the issue
+      additionalProperties: false
+      description: Represents an error encountered while parsing a value to match the schema
+    PropertyKey:
+      anyOf:
+      - type: string
+      - type: number
+      - type: object
+        required:
+        - _tag
+        - key
+        properties:
+          _tag:
+            type: string
+            enum:
+            - symbol
+          key:
+            type: string
+        additionalProperties: false
+        description: an object to be decoded into a globally shared symbol
+    Unauthorized:
+      $id: /schemas/void
+      title: Unauthorized
     CollectionNotCancelableError:
       type: object
       required:
@@ -2637,6 +2618,25 @@ components:
           - InvestorAuthenticationError
       additionalProperties: false
       description: Authentication Error
+    DepositNotAllowedError:
+      type: object
+      required:
+      - shareClassId
+      - shareClassSymbol
+      - _tag
+      properties:
+        shareClassId:
+          type: string
+          description: a Universally Unique Identifier
+          format: uuid
+        shareClassSymbol:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - DepositNotAllowedError
+      additionalProperties: false
+      description: Deposit orders cannot be created by API for this share class. Perform a wire transfer directly instead.
   securitySchemes:
     basicAuth:
       type: http

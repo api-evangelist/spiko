@@ -1627,23 +1627,39 @@ paths:
       description: Pre-production Server
 components:
   schemas:
-    PropertyKey:
-      anyOf:
-      - type: string
-      - type: number
-      - type: object
-        required:
-        - _tag
-        - key
-        properties:
-          _tag:
-            type: string
-            enum:
-            - symbol
-          key:
-            type: string
-        additionalProperties: false
-        description: an object to be decoded into a globally shared symbol
+    BadRequest:
+      $id: /schemas/void
+      title: BadRequest
+    Date:
+      type: string
+      description: a string to be decoded into a Date
+    NonEmptyString:
+      type: string
+      description: a non empty string
+      title: nonEmptyString
+      minLength: 1
+    HttpApiDecodeError:
+      type: object
+      required:
+      - issues
+      - message
+      - _tag
+      properties:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+        message:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - HttpApiDecodeError
+      additionalProperties: false
+      description: The request did not match the expected schema
+    Forbidden:
+      $id: /schemas/void
+      title: Forbidden
     DistributorAuthenticationError:
       type: object
       required:
@@ -1658,12 +1674,29 @@ components:
           - DistributorAuthenticationError
       additionalProperties: false
       description: Authentication Error
-    Unauthorized:
-      $id: /schemas/void
-      title: Unauthorized
-    Date:
-      type: string
-      description: a string to be decoded into a Date
+    ForbiddenError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        customErrorCode:
+          type: string
+          enum:
+          - AccountDoesNotBelongToInvestor
+          - SessionIsNot2FA
+          - InvestorDocumentLinkedToActiveBankAccount
+          - AtLeastTwoAdminUsersRequired
+          - InvestorNotPendingOnboarding
+          - ShareClassNotAvailableForDistributor
+        _tag:
+          type: string
+          enum:
+          - ForbiddenError
+      additionalProperties: false
+      description: Forbidden
     Issue:
       type: object
       required:
@@ -1693,86 +1726,32 @@ components:
           description: A descriptive message explaining the issue
       additionalProperties: false
       description: Represents an error encountered while parsing a value to match the schema
+    PropertyKey:
+      anyOf:
+      - type: string
+      - type: number
+      - type: object
+        required:
+        - _tag
+        - key
+        properties:
+          _tag:
+            type: string
+            enum:
+            - symbol
+          key:
+            type: string
+        additionalProperties: false
+        description: an object to be decoded into a globally shared symbol
+    Unauthorized:
+      $id: /schemas/void
+      title: Unauthorized
     NonEmptyTrimmedString:
       type: string
       description: a non empty string
       title: nonEmptyString
       pattern: ^\S[\s\S]*\S$|^\S$|^$
       minLength: 1
-    BadRequest:
-      $id: /schemas/void
-      title: BadRequest
-    NonEmptyString:
-      type: string
-      description: a non empty string
-      title: nonEmptyString
-      minLength: 1
-    ForbiddenError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        customErrorCode:
-          type: string
-          enum:
-          - AccountDoesNotBelongToInvestor
-          - SessionIsNot2FA
-          - InvestorDocumentLinkedToActiveBankAccount
-          - AtLeastTwoAdminUsersRequired
-          - InvestorNotPendingOnboarding
-          - ShareClassNotAvailableForDistributor
-        _tag:
-          type: string
-          enum:
-          - ForbiddenError
-      additionalProperties: false
-      description: Forbidden
-    HttpApiDecodeError:
-      type: object
-      required:
-      - issues
-      - message
-      - _tag
-      properties:
-        issues:
-          type: array
-          items:
-            $ref: '#/components/schemas/Issue'
-        message:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - HttpApiDecodeError
-      additionalProperties: false
-      description: The request did not match the expected schema
-    Forbidden:
-      $id: /schemas/void
-      title: Forbidden
-    Network:
-      type: string
-      enum:
-      - Sepolia
-      - PolygonAmoy
-      - BaseSepolia
-      - ArbitrumSepolia
-      - EtherlinkTestnet
-      - Ethereum
-      - Polygon
-      - Base
-      - Arbitrum
-      - Etherlink
-      - Starknet
-      - StarknetSepolia
-      - Stellar
-      - StellarTestnet
-      - Solana
-      - SolanaDevnet
-      description: a blockchain network e.g. "Ethereum", "Polygon", "Arbitrum", "Starknet"
-      title: Network
     EVMNetwork:
       type: string
       enum:
@@ -1802,6 +1781,27 @@ components:
           - InvestorAuthenticationError
       additionalProperties: false
       description: Authentication Error
+    Network:
+      type: string
+      enum:
+      - Sepolia
+      - PolygonAmoy
+      - BaseSepolia
+      - ArbitrumSepolia
+      - EtherlinkTestnet
+      - Ethereum
+      - Polygon
+      - Base
+      - Arbitrum
+      - Etherlink
+      - Starknet
+      - StarknetSepolia
+      - Stellar
+      - StellarTestnet
+      - Solana
+      - SolanaDevnet
+      description: a blockchain network e.g. "Ethereum", "Polygon", "Arbitrum", "Starknet"
+      title: Network
   securitySchemes:
     basicAuth:
       type: http

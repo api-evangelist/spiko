@@ -3679,100 +3679,47 @@ paths:
       description: Pre-production Server
 components:
   schemas:
-    PropertyKey:
-      anyOf:
-      - type: string
-      - type: number
-      - type: object
-        required:
-        - _tag
-        - key
-        properties:
-          _tag:
-            type: string
-            enum:
-            - symbol
-          key:
-            type: string
-        additionalProperties: false
-        description: an object to be decoded into a globally shared symbol
-    DistributorAuthenticationError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - DistributorAuthenticationError
-      additionalProperties: false
-      description: Authentication Error
-    Unauthorized:
-      $id: /schemas/void
-      title: Unauthorized
-    InvalidProofDocumentError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - InvalidProofDocumentError
-      additionalProperties: false
-      description: The proof document is invalid. Make sure it was previously uploaded.
-    BankAccountProofUploadNotAllowedError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - BankAccountProofUploadNotAllowedError
-      additionalProperties: false
-      description: The bank account is not in invalidated status. Proof document upload is only allowed on invalidated bank accounts.
-    Issue:
-      type: object
-      required:
-      - _tag
-      - path
-      - message
-      properties:
-        _tag:
-          type: string
-          enum:
-          - Pointer
-          - Unexpected
-          - Missing
-          - Composite
-          - Refinement
-          - Transformation
-          - Type
-          - Forbidden
-          description: The tag identifying the type of parse issue
-        path:
-          type: array
-          items:
-            $ref: '#/components/schemas/PropertyKey'
-          description: The path to the property where the issue occurred
-        message:
-          type: string
-          description: A descriptive message explaining the issue
-      additionalProperties: false
-      description: Represents an error encountered while parsing a value to match the schema
     BadRequest:
       $id: /schemas/void
       title: BadRequest
+    NonEmptyString:
+      type: string
+      description: a non empty string
+      title: nonEmptyString
+      minLength: 1
+    HttpApiDecodeError:
+      type: object
+      required:
+      - issues
+      - message
+      - _tag
+      properties:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+        message:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - HttpApiDecodeError
+      additionalProperties: false
+      description: The request did not match the expected schema
+    ProofDocumentRequiredError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - ProofDocumentRequiredError
+      additionalProperties: false
+      description: A proof of bank account ownership document is required. Automated verification (VoP/CoP) is not available for this currency.
     CountryCodeAlpha2:
       type: string
       enum:
@@ -4033,11 +3980,48 @@ components:
       - DE
       identifier: CountryCodeAlpha2
       documentation: ISO 3166-1 alpha-2 country code, 'FR' for France, 'BE' for Belgium, 'DE' for Germany etc.
-    NonEmptyString:
-      type: string
-      description: a non empty string
-      title: nonEmptyString
-      minLength: 1
+    BadRequestError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - BadRequestError
+      additionalProperties: false
+      description: Bad Request
+    BankAccountProofUploadNotAllowedError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - BankAccountProofUploadNotAllowedError
+      additionalProperties: false
+      description: The bank account is not in invalidated status. Proof document upload is only allowed on invalidated bank accounts.
+    DistributorAuthenticationError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - DistributorAuthenticationError
+      additionalProperties: false
+      description: Authentication Error
     ForbiddenError:
       type: object
       required:
@@ -4061,7 +4045,7 @@ components:
           - ForbiddenError
       additionalProperties: false
       description: Forbidden
-    ProofDocumentRequiredError:
+    InvalidProofDocumentError:
       type: object
       required:
       - reason
@@ -4072,42 +4056,58 @@ components:
         _tag:
           type: string
           enum:
-          - ProofDocumentRequiredError
+          - InvalidProofDocumentError
       additionalProperties: false
-      description: A proof of bank account ownership document is required. Automated verification (VoP/CoP) is not available for this currency.
-    HttpApiDecodeError:
+      description: The proof document is invalid. Make sure it was previously uploaded.
+    Issue:
       type: object
       required:
-      - issues
-      - message
       - _tag
+      - path
+      - message
       properties:
-        issues:
+        _tag:
+          type: string
+          enum:
+          - Pointer
+          - Unexpected
+          - Missing
+          - Composite
+          - Refinement
+          - Transformation
+          - Type
+          - Forbidden
+          description: The tag identifying the type of parse issue
+        path:
           type: array
           items:
-            $ref: '#/components/schemas/Issue'
+            $ref: '#/components/schemas/PropertyKey'
+          description: The path to the property where the issue occurred
         message:
           type: string
-        _tag:
-          type: string
-          enum:
-          - HttpApiDecodeError
+          description: A descriptive message explaining the issue
       additionalProperties: false
-      description: The request did not match the expected schema
-    BadRequestError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - BadRequestError
-      additionalProperties: false
-      description: Bad Request
+      description: Represents an error encountered while parsing a value to match the schema
+    PropertyKey:
+      anyOf:
+      - type: string
+      - type: number
+      - type: object
+        required:
+        - _tag
+        - key
+        properties:
+          _tag:
+            type: string
+            enum:
+            - symbol
+          key:
+            type: string
+        additionalProperties: false
+        description: an object to be decoded into a globally shared symbol
+    Unauthorized:
+      $id: /schemas/void
+      title: Unauthorized
     InvestorAuthenticationError:
       type: object
       required:

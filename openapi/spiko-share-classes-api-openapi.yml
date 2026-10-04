@@ -1374,12 +1374,23 @@ paths:
       x-operation-id-original: Get Share Class Totals From Day
 components:
   schemas:
-    Date:
-      type: string
-      description: a string to be decoded into a Date
-    BigDecimal:
-      type: string
-      description: a string to be decoded into a BigDecimal
+    PropertyKey:
+      anyOf:
+      - type: string
+      - type: number
+      - type: object
+        required:
+        - _tag
+        - key
+        properties:
+          _tag:
+            type: string
+            enum:
+            - symbol
+          key:
+            type: string
+        additionalProperties: false
+        description: an object to be decoded into a globally shared symbol
     Amount:
       type: object
       required:
@@ -1422,50 +1433,9 @@ components:
           - HttpApiDecodeError
       additionalProperties: false
       description: The request did not match the expected schema
-    NonNegativeAmount:
-      type: object
-      required:
-      - value
-      - currency
-      properties:
-        value:
-          type: string
-          title: non-negative decimal number as a string
-          description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
-        currency:
-          type: string
-          enum:
-          - EUR
-          - USD
-          - GBP
-          - CHF
-          - JPY
-          - SGD
-          title: Currency code
-          identifier: CurrencyCode
-          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
-      additionalProperties: false
-      title: Non-Negative Amount
-    EVMNetwork:
+    BigDecimal:
       type: string
-      enum:
-      - Sepolia
-      - PolygonAmoy
-      - BaseSepolia
-      - ArbitrumSepolia
-      - EtherlinkTestnet
-      - Ethereum
-      - Polygon
-      - Base
-      - Arbitrum
-      - Etherlink
-      description: an EVM blockchain network e.g. "Ethereum", "Polygon", "Arbitrum"
-      title: EVM Network
-    NonEmptyString:
-      type: string
-      description: a non empty string
-      title: nonEmptyString
-      minLength: 1
+      description: a string to be decoded into a BigDecimal
     Issue:
       type: object
       required:
@@ -1495,23 +1465,21 @@ components:
           description: A descriptive message explaining the issue
       additionalProperties: false
       description: Represents an error encountered while parsing a value to match the schema
-    PropertyKey:
-      anyOf:
-      - type: string
-      - type: number
-      - type: object
-        required:
-        - _tag
-        - key
-        properties:
-          _tag:
-            type: string
-            enum:
-            - symbol
-          key:
-            type: string
-        additionalProperties: false
-        description: an object to be decoded into a globally shared symbol
+    EVMNetwork:
+      type: string
+      enum:
+      - Sepolia
+      - PolygonAmoy
+      - BaseSepolia
+      - ArbitrumSepolia
+      - EtherlinkTestnet
+      - Ethereum
+      - Polygon
+      - Base
+      - Arbitrum
+      - Etherlink
+      description: an EVM blockchain network e.g. "Ethereum", "Polygon", "Arbitrum"
+      title: EVM Network
     ShareClassSymbol:
       type: string
       enum:
@@ -1529,3 +1497,35 @@ components:
       - gbpSAFO
       - chfSAFO
       title: ShareClassSymbol
+    Date:
+      type: string
+      description: a string to be decoded into a Date
+    NonNegativeAmount:
+      type: object
+      required:
+      - value
+      - currency
+      properties:
+        value:
+          type: string
+          title: non-negative decimal number as a string
+          description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
+        currency:
+          type: string
+          enum:
+          - EUR
+          - USD
+          - GBP
+          - CHF
+          - JPY
+          - SGD
+          title: Currency code
+          identifier: CurrencyCode
+          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+      additionalProperties: false
+      title: Non-Negative Amount
+    NonEmptyString:
+      type: string
+      description: a non empty string
+      title: nonEmptyString
+      minLength: 1

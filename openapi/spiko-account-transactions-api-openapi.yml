@@ -3217,12 +3217,23 @@ paths:
       description: Pre-production Server
 components:
   schemas:
-    Date:
-      type: string
-      description: a string to be decoded into a Date
-    BigDecimal:
-      type: string
-      description: a string to be decoded into a BigDecimal
+    PropertyKey:
+      anyOf:
+      - type: string
+      - type: number
+      - type: object
+        required:
+        - _tag
+        - key
+        properties:
+          _tag:
+            type: string
+            enum:
+            - symbol
+          key:
+            type: string
+        additionalProperties: false
+        description: an object to be decoded into a globally shared symbol
     Amount:
       type: object
       required:
@@ -3265,37 +3276,38 @@ components:
           - HttpApiDecodeError
       additionalProperties: false
       description: The request did not match the expected schema
-    StringFromBase64Url:
+    BigDecimal:
       type: string
-      description: A string that is interpreted as being Base64Url-encoded and will be decoded into a UTF-8 string
-    NonNegativeAmount:
+      description: a string to be decoded into a BigDecimal
+    Issue:
       type: object
       required:
-      - value
-      - currency
+      - _tag
+      - path
+      - message
       properties:
-        value:
-          type: string
-          title: non-negative decimal number as a string
-          description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
-        currency:
+        _tag:
           type: string
           enum:
-          - EUR
-          - USD
-          - GBP
-          - CHF
-          - JPY
-          - SGD
-          title: Currency code
-          identifier: CurrencyCode
-          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+          - Pointer
+          - Unexpected
+          - Missing
+          - Composite
+          - Refinement
+          - Transformation
+          - Type
+          - Forbidden
+          description: The tag identifying the type of parse issue
+        path:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyKey'
+          description: The path to the property where the issue occurred
+        message:
+          type: string
+          description: A descriptive message explaining the issue
       additionalProperties: false
-      title: Non-Negative Amount
-    Int:
-      type: integer
-      description: an integer
-      title: int
+      description: Represents an error encountered while parsing a value to match the schema
     DistributorAuthenticationError:
       type: object
       required:
@@ -3310,6 +3322,9 @@ components:
           - DistributorAuthenticationError
       additionalProperties: false
       description: Authentication Error
+    StringFromBase64Url:
+      type: string
+      description: A string that is interpreted as being Base64Url-encoded and will be decoded into a UTF-8 string
     ShareClassSymbol:
       type: string
       enum:
@@ -3350,58 +3365,40 @@ components:
           - ForbiddenError
       additionalProperties: false
       description: Forbidden
-    Issue:
+    Date:
+      type: string
+      description: a string to be decoded into a Date
+    NonNegativeAmount:
       type: object
       required:
-      - _tag
-      - path
-      - message
+      - value
+      - currency
       properties:
-        _tag:
+        value:
+          type: string
+          title: non-negative decimal number as a string
+          description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
+        currency:
           type: string
           enum:
-          - Pointer
-          - Unexpected
-          - Missing
-          - Composite
-          - Refinement
-          - Transformation
-          - Type
-          - Forbidden
-          description: The tag identifying the type of parse issue
-        path:
-          type: array
-          items:
-            $ref: '#/components/schemas/PropertyKey'
-          description: The path to the property where the issue occurred
-        message:
-          type: string
-          description: A descriptive message explaining the issue
+          - EUR
+          - USD
+          - GBP
+          - CHF
+          - JPY
+          - SGD
+          title: Currency code
+          identifier: CurrencyCode
+          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
       additionalProperties: false
-      description: Represents an error encountered while parsing a value to match the schema
-    PropertyKey:
-      anyOf:
-      - type: string
-      - type: number
-      - type: object
-        required:
-        - _tag
-        - key
-        properties:
-          _tag:
-            type: string
-            enum:
-            - symbol
-          key:
-            type: string
-        additionalProperties: false
-        description: an object to be decoded into a globally shared symbol
+      title: Non-Negative Amount
     Unauthorized:
       $id: /schemas/void
       title: Unauthorized
-    Lowercase:
-      type: string
-      description: a string that will be converted to lowercase
+    Int:
+      type: integer
+      description: an integer
+      title: int
     InvestorAuthenticationError:
       type: object
       required:
@@ -3437,6 +3434,9 @@ components:
       - SolanaDevnet
       description: a blockchain network e.g. "Ethereum", "Polygon", "Arbitrum", "Starknet"
       title: Network
+    Lowercase:
+      type: string
+      description: a string that will be converted to lowercase
   securitySchemes:
     basicAuth:
       type: http

@@ -146,35 +146,6 @@ paths:
       x-operation-id-original: Get all Funds
 components:
   schemas:
-    Issue:
-      type: object
-      required:
-      - _tag
-      - path
-      - message
-      properties:
-        _tag:
-          type: string
-          enum:
-          - Pointer
-          - Unexpected
-          - Missing
-          - Composite
-          - Refinement
-          - Transformation
-          - Type
-          - Forbidden
-          description: The tag identifying the type of parse issue
-        path:
-          type: array
-          items:
-            $ref: '#/components/schemas/PropertyKey'
-          description: The path to the property where the issue occurred
-        message:
-          type: string
-          description: A descriptive message explaining the issue
-      additionalProperties: false
-      description: Represents an error encountered while parsing a value to match the schema
     PropertyKey:
       anyOf:
       - type: string
@@ -219,3 +190,32 @@ components:
           - HttpApiDecodeError
       additionalProperties: false
       description: The request did not match the expected schema
+    Issue:
+      type: object
+      required:
+      - _tag
+      - path
+      - message
+      properties:
+        _tag:
+          type: string
+          enum:
+          - Pointer
+          - Unexpected
+          - Missing
+          - Composite
+          - Refinement
+          - Transformation
+          - Type
+          - Forbidden
+          description: The tag identifying the type of parse issue
+        path:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyKey'
+          description: The path to the property where the issue occurred
+        message:
+          type: string
+          description: A descriptive message explaining the issue
+      additionalProperties: false
+      description: Represents an error encountered while parsing a value to match the schema

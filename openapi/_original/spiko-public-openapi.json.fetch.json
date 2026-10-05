@@ -1,0 +1,12 @@
+{
+ "url": "https://public-api.spiko.io/docs/openapi.json",
+ "requested_url": "https://public-api.spiko.io/docs/openapi.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 58573,
+ "sha256": "b697afe82da4c8d960c9385209b9c6515021b10a0c5d55eeb96d163f29f291f2",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 0.938), but the bytes differ, so the archive is an earlier or reformatted copy."
+}

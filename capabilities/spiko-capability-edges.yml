@@ -1,0 +1,24 @@
+slug: spiko
+provider: Spiko
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Webhook Configurations
+  spec_file: spiko-webhook-configurations-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.78
+  evidence: POST /v0/webhook-configurations 'Create a webhook configuration'; 'Rotate the signing secret'
+  reason: Operations manage the lifecycle of outbound webhook subscriptions (create, enable/disable, secret
+    rotation) exposed to third-party integrators of the Distributor API.

@@ -2,7 +2,7 @@
 name: Onboard an investor and place a deposit (Distributor API)
 description: Create an investor, open an account, and submit a deposit order on their behalf as a Spiko distributor.
 api: openapi/spiko-distributor-openapi.json
-operations: [investors.createInvestorV1, accounts.createAccount, accounts.getDepositInstructions, depositOrders.createDepositOrder, depositOrders.getDepositOrder]
+operations: [investors.createInvestorV1, postAccounts, getAccountsByAccountIdDepositInstructions, postDepositOrders, getDepositOrdersByDepositOrderId]
 ---
 
 # Onboard an investor and place a deposit (Distributor API)

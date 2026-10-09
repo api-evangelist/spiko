@@ -2,7 +2,7 @@
 name: Deposit and check portfolio (Investor API)
 description: As a direct Spiko investor, list accounts, place a deposit order, and read your portfolio and yields.
 api: openapi/spiko-investor-openapi.json
-operations: [investors.getInvestor, accounts.getAccounts, accounts.getDepositInstructions, depositOrders.createDepositOrder, portfolio.getPortfolio, yields.getYieldHistory]
+operations: [getInvestorsMe, getAccounts, getAccountsByAccountIdDepositInstructions, postDepositOrders, portfolio.getPortfolio, getYieldsHistory]
 ---
 
 # Deposit and check portfolio (Investor API)

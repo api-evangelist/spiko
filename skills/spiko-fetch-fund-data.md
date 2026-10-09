@@ -2,7 +2,7 @@
 name: Fetch Spiko fund market data
 description: Retrieve fund, share class, yield, NAV, and exchange-rate data from the open Spiko Public API.
 api: openapi/spiko-public-openapi.json
-operations: [Get all Funds, Get Share Class, Get Share Class Yield, Get Latest Net Asset Value, Get Latest Exchange Rate]
+operations: [GetAllFunds, GetShareClass, GetShareClassYield, GetLatestNetAssetValue, GetLatestExchangeRate]
 ---
 
 # Fetch Spiko fund market data

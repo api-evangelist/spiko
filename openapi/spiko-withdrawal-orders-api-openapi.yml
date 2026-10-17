@@ -2008,102 +2008,9 @@ paths:
       description: Pre-production Server
 components:
   schemas:
-    PropertyKey:
-      anyOf:
-      - type: string
-      - type: number
-      - type: object
-        required:
-        - _tag
-        - key
-        properties:
-          _tag:
-            type: string
-            enum:
-            - symbol
-          key:
-            type: string
-        additionalProperties: false
-        description: an object to be decoded into a globally shared symbol
-    HttpApiDecodeError:
-      type: object
-      required:
-      - issues
-      - message
-      - _tag
-      properties:
-        issues:
-          type: array
-          items:
-            $ref: '#/components/schemas/Issue'
-        message:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - HttpApiDecodeError
-      additionalProperties: false
-      description: The request did not match the expected schema
     BigDecimal:
       type: string
       description: a string to be decoded into a BigDecimal
-    InvestorNotReadyError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - InvestorNotReadyError
-      additionalProperties: false
-      description: Investor is not ready for order creation yet
-    Issue:
-      type: object
-      required:
-      - _tag
-      - path
-      - message
-      properties:
-        _tag:
-          type: string
-          enum:
-          - Pointer
-          - Unexpected
-          - Missing
-          - Composite
-          - Refinement
-          - Transformation
-          - Type
-          - Forbidden
-          description: The tag identifying the type of parse issue
-        path:
-          type: array
-          items:
-            $ref: '#/components/schemas/PropertyKey'
-          description: The path to the property where the issue occurred
-        message:
-          type: string
-          description: A descriptive message explaining the issue
-      additionalProperties: false
-      description: Represents an error encountered while parsing a value to match the schema
-    DistributorAuthenticationError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - DistributorAuthenticationError
-      additionalProperties: false
-      description: Authentication Error
     BadRequestError:
       type: object
       required:
@@ -2118,30 +2025,7 @@ components:
           - BadRequestError
       additionalProperties: false
       description: Bad Request
-    ForbiddenError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        customErrorCode:
-          type: string
-          enum:
-          - AccountDoesNotBelongToInvestor
-          - SessionIsNot2FA
-          - InvestorDocumentLinkedToActiveBankAccount
-          - AtLeastTwoAdminUsersRequired
-          - InvestorNotPendingOnboarding
-          - ShareClassNotAvailableForDistributor
-        _tag:
-          type: string
-          enum:
-          - ForbiddenError
-      additionalProperties: false
-      description: Forbidden
-    DuplicateInvestorTokenError:
+    DistributorAuthenticationError:
       type: object
       required:
       - reason
@@ -2152,9 +2036,9 @@ components:
         _tag:
           type: string
           enum:
-          - DuplicateInvestorTokenError
+          - DistributorAuthenticationError
       additionalProperties: false
-      description: Investor token has already been used
+      description: Authentication Error
     InsufficientBalanceError:
       type: object
       required:
@@ -2208,36 +2092,125 @@ components:
           - InsufficientBalanceError
       additionalProperties: false
       description: Insufficient balance in account to process requested operation
-    Date:
-      type: string
-      description: a string to be decoded into a Date
-    NonNegativeAmount:
+    HttpApiDecodeError:
       type: object
       required:
-      - value
-      - currency
+      - issues
+      - message
+      - _tag
       properties:
-        value:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+        message:
           type: string
-          title: non-negative decimal number as a string
-          description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
-        currency:
+        _tag:
           type: string
           enum:
-          - EUR
-          - USD
-          - GBP
-          - CHF
-          - JPY
-          - SGD
-          title: Currency code
-          identifier: CurrencyCode
-          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+          - HttpApiDecodeError
       additionalProperties: false
-      title: Non-Negative Amount
+      description: The request did not match the expected schema
+    PropertyKey:
+      anyOf:
+      - type: string
+      - type: number
+      - type: object
+        required:
+        - _tag
+        - key
+        properties:
+          _tag:
+            type: string
+            enum:
+            - symbol
+          key:
+            type: string
+        additionalProperties: false
+        description: an object to be decoded into a globally shared symbol
+    DuplicateInvestorTokenError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - DuplicateInvestorTokenError
+      additionalProperties: false
+      description: Investor token has already been used
     Unauthorized:
       $id: /schemas/void
       title: Unauthorized
+    InvestorNotReadyError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - InvestorNotReadyError
+      additionalProperties: false
+      description: Investor is not ready for order creation yet
+    Issue:
+      type: object
+      required:
+      - _tag
+      - path
+      - message
+      properties:
+        _tag:
+          type: string
+          enum:
+          - Pointer
+          - Unexpected
+          - Missing
+          - Composite
+          - Refinement
+          - Transformation
+          - Type
+          - Forbidden
+          description: The tag identifying the type of parse issue
+        path:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyKey'
+          description: The path to the property where the issue occurred
+        message:
+          type: string
+          description: A descriptive message explaining the issue
+      additionalProperties: false
+      description: Represents an error encountered while parsing a value to match the schema
+    ForbiddenError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        customErrorCode:
+          type: string
+          enum:
+          - AccountDoesNotBelongToInvestor
+          - SessionIsNot2FA
+          - InvestorDocumentLinkedToActiveBankAccount
+          - AtLeastTwoAdminUsersRequired
+          - InvestorNotPendingOnboarding
+          - ShareClassNotAvailableForDistributor
+        _tag:
+          type: string
+          enum:
+          - ForbiddenError
+      additionalProperties: false
+      description: Forbidden
     ApplicationError:
       type: object
       required:
@@ -2271,6 +2244,36 @@ components:
           - ApplicationError
       additionalProperties: false
       description: Application Error
+    NonNegativeAmount:
+      type: object
+      required:
+      - value
+      - currency
+      properties:
+        value:
+          type: string
+          title: non-negative decimal number as a string
+          description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
+        currency:
+          type: string
+          enum:
+          - EUR
+          - USD
+          - GBP
+          - CHF
+          - JPY
+          - SGD
+          title: Currency code
+          identifier: CurrencyCode
+          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
+      additionalProperties: false
+      title: Non-Negative Amount
+    Date:
+      type: string
+      description: a string to be decoded into a Date
+    BadRequest:
+      $id: /schemas/void
+      title: BadRequest
     InvestorAuthenticationError:
       type: object
       required:
@@ -2299,9 +2302,6 @@ components:
           - ServiceUnavailableError
       additionalProperties: false
       description: Service Unavailable
-    BadRequest:
-      $id: /schemas/void
-      title: BadRequest
   securitySchemes:
     basicAuth:
       type: http

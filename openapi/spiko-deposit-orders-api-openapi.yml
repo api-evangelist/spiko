@@ -2367,23 +2367,40 @@ paths:
       description: Pre-production Server
 components:
   schemas:
-    PropertyKey:
-      anyOf:
-      - type: string
-      - type: number
-      - type: object
-        required:
-        - _tag
-        - key
-        properties:
-          _tag:
-            type: string
-            enum:
-            - symbol
-          key:
-            type: string
-        additionalProperties: false
-        description: an object to be decoded into a globally shared symbol
+    BadRequestError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - BadRequestError
+      additionalProperties: false
+      description: Bad Request
+    BigDecimal:
+      type: string
+      description: a string to be decoded into a BigDecimal
+    DistributorAuthenticationError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - DistributorAuthenticationError
+      additionalProperties: false
+      description: Authentication Error
+    Forbidden:
+      $id: /schemas/void
+      title: Forbidden
     HttpApiDecodeError:
       type: object
       required:
@@ -2403,9 +2420,50 @@ components:
           - HttpApiDecodeError
       additionalProperties: false
       description: The request did not match the expected schema
-    BigDecimal:
+    PropertyKey:
+      anyOf:
+      - type: string
+      - type: number
+      - type: object
+        required:
+        - _tag
+        - key
+        properties:
+          _tag:
+            type: string
+            enum:
+            - symbol
+          key:
+            type: string
+        additionalProperties: false
+        description: an object to be decoded into a globally shared symbol
+    LocaleLanguage:
       type: string
-      description: a string to be decoded into a BigDecimal
+      enum:
+      - en
+      - es
+      - fr
+      - it
+      - de
+      description: The language of the user
+      title: LocaleLanguage
+    Unauthorized:
+      $id: /schemas/void
+      title: Unauthorized
+    DuplicateInvestorTokenError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - DuplicateInvestorTokenError
+      additionalProperties: false
+      description: Investor token has already been used
     InvestorNotReadyError:
       type: object
       required:
@@ -2449,34 +2507,6 @@ components:
           description: A descriptive message explaining the issue
       additionalProperties: false
       description: Represents an error encountered while parsing a value to match the schema
-    DistributorAuthenticationError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - DistributorAuthenticationError
-      additionalProperties: false
-      description: Authentication Error
-    BadRequestError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - BadRequestError
-      additionalProperties: false
-      description: Bad Request
     ForbiddenError:
       type: object
       required:
@@ -2500,63 +2530,6 @@ components:
           - ForbiddenError
       additionalProperties: false
       description: Forbidden
-    DuplicateInvestorTokenError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - DuplicateInvestorTokenError
-      additionalProperties: false
-      description: Investor token has already been used
-    Date:
-      type: string
-      description: a string to be decoded into a Date
-    NonNegativeAmount:
-      type: object
-      required:
-      - value
-      - currency
-      properties:
-        value:
-          type: string
-          title: non-negative decimal number as a string
-          description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
-        currency:
-          type: string
-          enum:
-          - EUR
-          - USD
-          - GBP
-          - CHF
-          - JPY
-          - SGD
-          title: Currency code
-          identifier: CurrencyCode
-          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
-      additionalProperties: false
-      title: Non-Negative Amount
-    LocaleLanguage:
-      type: string
-      enum:
-      - en
-      - es
-      - fr
-      - it
-      - de
-      description: The language of the user
-      title: LocaleLanguage
-    Unauthorized:
-      $id: /schemas/void
-      title: Unauthorized
-    Forbidden:
-      $id: /schemas/void
-      title: Forbidden
     ApplicationError:
       type: object
       required:
@@ -2590,34 +2563,33 @@ components:
           - ApplicationError
       additionalProperties: false
       description: Application Error
-    CollectionNotCancelableError:
+    NonNegativeAmount:
       type: object
       required:
-      - message
-      - _tag
+      - value
+      - currency
       properties:
-        message:
+        value:
           type: string
-        _tag:
+          title: non-negative decimal number as a string
+          description: a string representation of a non-negative decimal number e.g. "10000", "0.00" or "3420.92"
+        currency:
           type: string
           enum:
-          - CollectionNotCancelableError
+          - EUR
+          - USD
+          - GBP
+          - CHF
+          - JPY
+          - SGD
+          title: Currency code
+          identifier: CurrencyCode
+          description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
       additionalProperties: false
-      description: Collection is no longer cancelable
-    InvestorAuthenticationError:
-      type: object
-      required:
-      - reason
-      - _tag
-      properties:
-        reason:
-          type: string
-        _tag:
-          type: string
-          enum:
-          - InvestorAuthenticationError
-      additionalProperties: false
-      description: Authentication Error
+      title: Non-Negative Amount
+    Date:
+      type: string
+      description: a string to be decoded into a Date
     DepositNotAllowedError:
       type: object
       required:
@@ -2637,6 +2609,34 @@ components:
           - DepositNotAllowedError
       additionalProperties: false
       description: Deposit orders cannot be created by API for this share class. Perform a wire transfer directly instead.
+    InvestorAuthenticationError:
+      type: object
+      required:
+      - reason
+      - _tag
+      properties:
+        reason:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - InvestorAuthenticationError
+      additionalProperties: false
+      description: Authentication Error
+    CollectionNotCancelableError:
+      type: object
+      required:
+      - message
+      - _tag
+      properties:
+        message:
+          type: string
+        _tag:
+          type: string
+          enum:
+          - CollectionNotCancelableError
+      additionalProperties: false
+      description: Collection is no longer cancelable
   securitySchemes:
     basicAuth:
       type: http

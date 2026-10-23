@@ -307,3 +307,9 @@ components:
           description: a currency code among "EUR", "USD", "GBP", "CHF", "JPY", "SGD"
       additionalProperties: false
       title: Non-Negative Amount
+x-provenance:
+  method: harvested
+  publisher: Spiko
+  source: https://public-api.spiko.io/docs/openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)

@@ -219,3 +219,9 @@ components:
           description: A descriptive message explaining the issue
       additionalProperties: false
       description: Represents an error encountered while parsing a value to match the schema
+x-provenance:
+  method: harvested
+  publisher: Spiko
+  source: https://public-api.spiko.io/docs/openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)

@@ -632,6 +632,8 @@ apis:
   - type: Webhooks
     url: asyncapi/spiko-distributor-webhooks.yml
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/spiko/overview
 - url: https://www.spiko.io/blog
   type: Blog
 - type: CapabilityMap

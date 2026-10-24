@@ -1,325 +1,332 @@
 {
+  "info": {
+    "_postman_id": "b4924cb8-06d2-41df-a919-d791ccf4b23a",
+    "name": "Spiko Distributor Webhook Events API",
+    "description": "The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:09:42.000Z",
+    "updatedAt": "2026-10-22T01:09:43.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b4924cb8-06d2-41df-a919-d791ccf4b23a"
+  },
   "item": [
     {
-      "id": "27e988b1-e12b-45a4-af10-c61987c1f431",
-      "name": "Webhook Events",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "v0",
       "item": [
         {
-          "id": "1f66023e-3a68-4962-a077-41d2262e533d",
-          "name": "Poll webhook events",
-          "request": {
-            "name": "Poll webhook events",
-            "description": {
-              "content": "Retrieve webhook events using cursor-based pagination. Pass the last `sequenceNumber` as `after` to get the next page.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v0",
-                "webhook-events"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "after",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "eventType",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "<string>",
-                  "description": "a string to be decoded into a number"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "basic",
-              "basic": [
-                {
-                  "key": "username",
-                  "value": "{{basicAuthUsername}}"
-                },
-                {
-                  "key": "password",
-                  "value": "{{basicAuthPassword}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "webhook-events",
+          "item": [
             {
-              "id": "030e766f-3275-4940-89be-2484c20c958c",
-              "name": "Success",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "webhook-events"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "Poll webhook events",
+              "id": "91e64ae5-46aa-4157-b8dd-398d79467bb7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
                     {
-                      "key": "after",
-                      "value": "string"
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
                     },
                     {
-                      "key": "eventType",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "<string>"
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"id\": \"fe15a1d5-31f8-9ded-bb99-3847627c3d9d\",\n    \"sequenceNumber\": 9543.753441831564,\n    \"webhookConfigurationId\": \"1e261ee2-ab3c-629b-dade-eb6844c9bd82\",\n    \"distributorId\": \"df20ceb4-1c1e-674b-7985-2c8854fdda40\",\n    \"eventType\": \"account.internal.created\",\n    \"payload\": {},\n    \"retryCount\": 8422,\n    \"createdAt\": \"string\",\n    \"status\": \"pending\",\n    \"httpStatusCode\": 405,\n    \"lastAttemptAt\": \"string\",\n    \"deliveredAt\": \"string\"\n  },\n  {\n    \"id\": \"5ee38172-aa7a-fa48-05c8-6f08218c6e76\",\n    \"sequenceNumber\": 2416.133851404352,\n    \"webhookConfigurationId\": \"1b1c159b-0061-0626-b3c4-e67358f24ee4\",\n    \"distributorId\": \"b483ad42-1612-f394-3703-69a28c796aa4\",\n    \"eventType\": \"deposit-order.canceled\",\n    \"payload\": {},\n    \"retryCount\": 3191,\n    \"createdAt\": \"string\",\n    \"status\": \"pending\",\n    \"httpStatusCode\": 533,\n    \"lastAttemptAt\": \"string\",\n    \"deliveredAt\": \"string\"\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "97734b9f-d36f-44a0-a8ec-60cc9ccea353",
-              "name": "The request did not match the expected schema",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/v0/webhook-events?after=<string>&eventType=investor.activated&limit=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "v0",
                     "webhook-events"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
                       "key": "after",
-                      "value": "string"
+                      "value": "<string>"
                     },
                     {
                       "key": "eventType",
-                      "value": "<string>"
+                      "value": "investor.activated"
                     },
                     {
+                      "description": "a string to be decoded into a number",
                       "key": "limit",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Retrieve webhook events using cursor-based pagination. Pass the last `sequenceNumber` as `after` to get the next page."
               },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Composite\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Composite\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5efc03f9-337e-4120-8bf3-0a3c57e74b18",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "webhook-events"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "f5e51140-490a-44bf-8ec8-29adb49722ac",
+                  "name": "Success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/webhook-events?after=<string>&eventType=investor.activated&limit=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "webhook-events"
+                      ],
+                      "query": [
+                        {
+                          "key": "after",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "eventType",
+                          "value": "investor.activated"
+                        },
+                        {
+                          "description": "a string to be decoded into a number",
+                          "key": "limit",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "after",
-                      "value": "string"
-                    },
-                    {
-                      "key": "eventType",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "<string>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"id\": \"<uuid>\",\n    \"sequenceNumber\": \"<number>\",\n    \"webhookConfigurationId\": \"<uuid>\",\n    \"distributorId\": \"<uuid>\",\n    \"eventType\": \"investor.updated\",\n    \"payload\": {\n      \"$id\": \"/schemas/unknown\",\n      \"title\": \"unknown\"\n    },\n    \"retryCount\": \"<integer>\",\n    \"createdAt\": \"<string>\",\n    \"status\": \"pending\",\n    \"httpStatusCode\": \"<integer>\",\n    \"lastAttemptAt\": \"<string>\",\n    \"deliveredAt\": \"<string>\"\n  },\n  {\n    \"id\": \"<uuid>\",\n    \"sequenceNumber\": \"<number>\",\n    \"webhookConfigurationId\": \"<uuid>\",\n    \"distributorId\": \"<uuid>\",\n    \"eventType\": \"deposit-order.created\",\n    \"payload\": {\n      \"$id\": \"/schemas/unknown\",\n      \"title\": \"unknown\"\n    },\n    \"retryCount\": \"<integer>\",\n    \"createdAt\": \"<string>\",\n    \"status\": \"pending\",\n    \"httpStatusCode\": \"<integer>\",\n    \"lastAttemptAt\": \"<string>\",\n    \"deliveredAt\": \"<string>\"\n  }\n]",
+                  "createdAt": "2026-10-22T01:09:43.000Z",
+                  "updatedAt": "2026-10-22T01:09:43.000Z",
+                  "uid": "35240-f5e51140-490a-44bf-8ec8-29adb49722ac"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a48d0aa0-854b-40d3-85fd-9df1184d253a",
-              "name": "Forbidden",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "webhook-events"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "2549759d-396e-42d5-9856-f8421c512643",
+                  "name": "The request did not match the expected schema",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/webhook-events?after=<string>&eventType=investor.activated&limit=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "webhook-events"
+                      ],
+                      "query": [
+                        {
+                          "key": "after",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "eventType",
+                          "value": "investor.activated"
+                        },
+                        {
+                          "description": "a string to be decoded into a number",
+                          "key": "limit",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "after",
-                      "value": "string"
-                    },
-                    {
-                      "key": "eventType",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "<string>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Composite\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Unexpected\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+                  "createdAt": "2026-10-22T01:09:43.000Z",
+                  "updatedAt": "2026-10-22T01:09:43.000Z",
+                  "uid": "35240-2549759d-396e-42d5-9856-f8421c512643"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "72bc96d9-bff4-4de3-8e99-2326af984d66",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/webhook-events?after=<string>&eventType=investor.activated&limit=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "webhook-events"
+                      ],
+                      "query": [
+                        {
+                          "key": "after",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "eventType",
+                          "value": "investor.activated"
+                        },
+                        {
+                          "description": "a string to be decoded into a number",
+                          "key": "limit",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"$id\": \"/schemas/void\",\n  \"title\": \"Unauthorized\"\n}",
+                  "createdAt": "2026-10-22T01:09:43.000Z",
+                  "updatedAt": "2026-10-22T01:09:43.000Z",
+                  "uid": "35240-72bc96d9-bff4-4de3-8e99-2326af984d66"
+                },
+                {
+                  "id": "5c4ae4ee-4ca0-440f-a2cb-deee2e0bf4ee",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/webhook-events?after=<string>&eventType=investor.activated&limit=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "webhook-events"
+                      ],
+                      "query": [
+                        {
+                          "key": "after",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "eventType",
+                          "value": "investor.activated"
+                        },
+                        {
+                          "description": "a string to be decoded into a number",
+                          "key": "limit",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"reason\": \"<string>\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"SessionIsNot2FA\"\n}",
+                  "createdAt": "2026-10-22T01:09:43.000Z",
+                  "updatedAt": "2026-10-22T01:09:43.000Z",
+                  "uid": "35240-5c4ae4ee-4ca0-440f-a2cb-deee2e0bf4ee"
                 }
               ],
-              "body": "{\n  \"reason\": \"string\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"InvestorNotPendingOnboarding\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-91e64ae5-46aa-4157-b8dd-398d79467bb7"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "487cb847-05e5-4e2e-9f03-a0857dc9d883",
+          "createdAt": "2026-10-22T01:09:43.000Z",
+          "updatedAt": "2026-10-22T01:09:43.000Z",
+          "uid": "35240-487cb847-05e5-4e2e-9f03-a0857dc9d883"
         }
       ],
-      "event": []
+      "id": "51abcd3a-394e-4d0e-a6a5-d7f347e830bf",
+      "createdAt": "2026-10-22T01:09:43.000Z",
+      "updatedAt": "2026-10-22T01:09:43.000Z",
+      "uid": "35240-51abcd3a-394e-4d0e-a6a5-d7f347e830bf"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://distributor-api.spiko.io",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://distributor-api.spiko.io"
     }
-  ],
-  "info": {
-    "_postman_id": "27c4acc3-287b-4bb0-9204-133619c88f99",
-    "name": "Spiko Distributor Account transactions Webhook Events API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

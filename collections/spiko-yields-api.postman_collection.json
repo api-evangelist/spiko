@@ -1,1192 +1,1234 @@
 {
+  "info": {
+    "_postman_id": "b0b522d9-7944-45cf-9f49-1cc857a70e9b",
+    "name": "Spiko Yields API",
+    "description": "Operations tagged Yields across 2 of this provider's published API definitions: spiko-distributor-openapi.json, spiko-investor-openapi.json. Each path carries the servers of the definition it was published in.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:09:53.000Z",
+    "updatedAt": "2026-10-22T01:09:54.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b0b522d9-7944-45cf-9f49-1cc857a70e9b"
+  },
   "item": [
     {
-      "id": "5d09e321-b76e-4e8c-94f2-62efba48a6ad",
-      "name": "Yields",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "v0",
       "item": [
         {
-          "id": "2b2c7abb-d1ac-4224-b182-3bb4153adbf4",
-          "name": "Get yields",
-          "request": {
-            "name": "Get yields",
-            "description": {
-              "content": "\n**Return a chronological list of daily yields for an investor in a specific share class.**\n\n> ⚠️ **For displaying an account's activity, prefer the [account transaction history endpoint](#tag/Account-transactions/operation/accountTransactions.getAccountTransactions).** It returns deposits, withdrawals, transfers and yield accruals as a single time-ordered stream, with cursor pagination, so you don't need to call multiple per-order-type endpoints and reconcile their results.\n\n- `from` and `to` parameters are optional\n          ",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v0",
-                "yields",
-                "history"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "investorId",
-                  "value": "<uuid>",
-                  "description": "(Required) a Universally Unique Identifier"
-                },
-                {
-                  "disabled": false,
-                  "key": "accountId",
-                  "value": "<uuid>",
-                  "description": "a Universally Unique Identifier"
-                },
-                {
-                  "disabled": false,
-                  "key": "shareClassId",
-                  "value": "<uuid>",
-                  "description": "(Required) a Universally Unique Identifier"
-                },
-                {
-                  "disabled": false,
-                  "key": "from",
-                  "value": "<string>",
-                  "description": "a day formatted as \"yyyy-MM-dd\""
-                },
-                {
-                  "disabled": false,
-                  "key": "to",
-                  "value": "<string>",
-                  "description": "a day formatted as \"yyyy-MM-dd\""
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "basic",
-              "basic": [
-                {
-                  "key": "username",
-                  "value": "{{basicAuthUsername}}"
-                },
-                {
-                  "key": "password",
-                  "value": "{{basicAuthPassword}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "yields",
+          "item": [
             {
-              "id": "2e8e1913-c933-4fda-acd1-0e8d18d826ed",
-              "name": "Success",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "yields",
-                    "history"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "investorId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "accountId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "shareClassId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "from",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "to",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+              "name": "history",
+              "item": [
+                {
+                  "name": "Get yields",
+                  "id": "ff69198a-aa60-43aa-9e09-d41e9d0d130e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"day\": \"string\",\n    \"shareClassId\": \"f002fee5-b82b-42f2-2898-404c23063a00\",\n    \"investorId\": \"5cd61235-baff-a18c-bd76-40fa382a2640\",\n    \"accountId\": \"b232b7ce-c71e-850c-97c0-47c8137b8b75\",\n    \"yield\": {\n      \"value\": \"string\",\n      \"currency\": \"CHF\"\n    },\n    \"navId\": \"6ad7b4ec-5377-fac1-bcfe-37f61d5c2d2b\",\n    \"navUpdateDate\": \"string\"\n  },\n  {\n    \"day\": \"string\",\n    \"shareClassId\": \"ce3ae736-cab9-9c34-76ff-fdcfd309275a\",\n    \"investorId\": \"e271f505-1542-0d69-a49f-80560080a61c\",\n    \"accountId\": \"ea92fc63-f548-4a92-423d-ec52c1d4218a\",\n    \"yield\": {\n      \"value\": \"string\",\n      \"currency\": \"SGD\"\n    },\n    \"navId\": \"078825f8-f3e1-3f72-a411-02e54aaf569d\",\n    \"navUpdateDate\": \"string\"\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "8e6834ff-a3eb-4d4e-98f9-97285eacdc0d",
-              "name": "The request did not match the expected schema",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "yields",
-                    "history"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "investorId",
-                      "value": "<uuid>"
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
                     },
-                    {
-                      "key": "accountId",
-                      "value": "<uuid>"
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/yields/history?investorId=<uuid>&accountId=<uuid>&shareClassId=<uuid>&from=<string>&to=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "yields",
+                        "history"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) a Universally Unique Identifier",
+                          "key": "investorId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "a Universally Unique Identifier",
+                          "key": "accountId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "(Required) a Universally Unique Identifier",
+                          "key": "shareClassId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "a day formatted as \"yyyy-MM-dd\"",
+                          "key": "from",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "a day formatted as \"yyyy-MM-dd\"",
+                          "key": "to",
+                          "value": "<string>"
+                        }
+                      ]
                     },
-                    {
-                      "key": "shareClassId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "from",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "to",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                    "description": "**Return a chronological list of daily yields for an investor in a specific share class.**\n\n> \u26a0\ufe0f **For displaying an account's activity, prefer the account transaction history endpoint.** It returns deposits, withdrawals, transfers and yield accruals as a single time-ordered stream, with cursor pagination, so you don't need to call multiple per-order-type endpoints and reconcile their results.\n\n- `from` and `to` parameters are optional"
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Pointer\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d98d0d6b-ed88-41c2-b498-c608a537f2d9",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "yields",
-                    "history"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "response": [
                     {
-                      "key": "investorId",
-                      "value": "<uuid>"
+                      "id": "5269f4f9-541a-4cf1-a696-a267e905fd70",
+                      "name": "Success",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/yields/history?investorId=<uuid>&accountId=<uuid>&shareClassId=<uuid>&from=<string>&to=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "yields",
+                            "history"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) a Universally Unique Identifier",
+                              "key": "investorId",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "description": "a Universally Unique Identifier",
+                              "key": "accountId",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "description": "(Required) a Universally Unique Identifier",
+                              "key": "shareClassId",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "description": "a day formatted as \"yyyy-MM-dd\"",
+                              "key": "from",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "a day formatted as \"yyyy-MM-dd\"",
+                              "key": "to",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"day\": \"<string>\",\n    \"shareClassId\": \"<uuid>\",\n    \"investorId\": \"<uuid>\",\n    \"accountId\": \"<uuid>\",\n    \"yield\": {\n      \"value\": \"<string>\",\n      \"currency\": \"EUR\"\n    },\n    \"navId\": \"<uuid>\",\n    \"navUpdateDate\": \"<string>\"\n  },\n  {\n    \"day\": \"<string>\",\n    \"shareClassId\": \"<uuid>\",\n    \"investorId\": \"<uuid>\",\n    \"accountId\": \"<uuid>\",\n    \"yield\": {\n      \"value\": \"<string>\",\n      \"currency\": \"EUR\"\n    },\n    \"navId\": \"<uuid>\",\n    \"navUpdateDate\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-10-22T01:09:54.000Z",
+                      "updatedAt": "2026-10-22T01:09:54.000Z",
+                      "uid": "35240-5269f4f9-541a-4cf1-a696-a267e905fd70"
                     },
                     {
-                      "key": "accountId",
-                      "value": "<uuid>"
+                      "id": "c23edd38-85bc-4c31-83cd-f27b0cfa6f7e",
+                      "name": "The request did not match the expected schema",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/yields/history?investorId=<uuid>&accountId=<uuid>&shareClassId=<uuid>&from=<string>&to=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "yields",
+                            "history"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) a Universally Unique Identifier",
+                              "key": "investorId",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "description": "a Universally Unique Identifier",
+                              "key": "accountId",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "description": "(Required) a Universally Unique Identifier",
+                              "key": "shareClassId",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "description": "a day formatted as \"yyyy-MM-dd\"",
+                              "key": "from",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "a day formatted as \"yyyy-MM-dd\"",
+                              "key": "to",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Composite\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+                      "createdAt": "2026-10-22T01:09:54.000Z",
+                      "updatedAt": "2026-10-22T01:09:54.000Z",
+                      "uid": "35240-c23edd38-85bc-4c31-83cd-f27b0cfa6f7e"
                     },
                     {
-                      "key": "shareClassId",
-                      "value": "<uuid>"
+                      "id": "f14c378a-0d40-4417-a4a1-7c72016346cb",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/yields/history?investorId=<uuid>&accountId=<uuid>&shareClassId=<uuid>&from=<string>&to=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "yields",
+                            "history"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) a Universally Unique Identifier",
+                              "key": "investorId",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "description": "a Universally Unique Identifier",
+                              "key": "accountId",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "description": "(Required) a Universally Unique Identifier",
+                              "key": "shareClassId",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "description": "a day formatted as \"yyyy-MM-dd\"",
+                              "key": "from",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "a day formatted as \"yyyy-MM-dd\"",
+                              "key": "to",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"$id\": \"/schemas/void\",\n  \"title\": \"Unauthorized\"\n}",
+                      "createdAt": "2026-10-22T01:09:54.000Z",
+                      "updatedAt": "2026-10-22T01:09:54.000Z",
+                      "uid": "35240-f14c378a-0d40-4417-a4a1-7c72016346cb"
                     },
                     {
-                      "key": "from",
-                      "value": "<string>"
+                      "id": "07110787-7c4c-4f65-af85-6ee2382c0e7d",
+                      "name": "Forbidden",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/yields/history?investorId=<uuid>&accountId=<uuid>&shareClassId=<uuid>&from=<string>&to=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "yields",
+                            "history"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) a Universally Unique Identifier",
+                              "key": "investorId",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "description": "a Universally Unique Identifier",
+                              "key": "accountId",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "description": "(Required) a Universally Unique Identifier",
+                              "key": "shareClassId",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "description": "a day formatted as \"yyyy-MM-dd\"",
+                              "key": "from",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "a day formatted as \"yyyy-MM-dd\"",
+                              "key": "to",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"reason\": \"<string>\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"ShareClassNotAvailableForDistributor\"\n}",
+                      "createdAt": "2026-10-22T01:09:54.000Z",
+                      "updatedAt": "2026-10-22T01:09:54.000Z",
+                      "uid": "35240-07110787-7c4c-4f65-af85-6ee2382c0e7d"
                     },
                     {
-                      "key": "to",
-                      "value": "<string>"
+                      "id": "ad5b8374-f5d2-4dc3-85f8-a9275f1cc1d2",
+                      "name": "NotFound",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/yields/history?investorId=<uuid>&accountId=<uuid>&shareClassId=<uuid>&from=<string>&to=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "yields",
+                            "history"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) a Universally Unique Identifier",
+                              "key": "investorId",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "description": "a Universally Unique Identifier",
+                              "key": "accountId",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "description": "(Required) a Universally Unique Identifier",
+                              "key": "shareClassId",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "description": "a day formatted as \"yyyy-MM-dd\"",
+                              "key": "from",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "a day formatted as \"yyyy-MM-dd\"",
+                              "key": "to",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:54.000Z",
+                      "updatedAt": "2026-10-22T01:09:54.000Z",
+                      "uid": "35240-ad5b8374-f5d2-4dc3-85f8-a9275f1cc1d2"
+                    },
+                    {
+                      "id": "5d3acc8a-b3c6-46b0-9ff5-c4e4bfa3a964",
+                      "name": "Investor is not ready for order creation yet",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/yields/history?investorId=<uuid>&accountId=<uuid>&shareClassId=<uuid>&from=<string>&to=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "yields",
+                            "history"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) a Universally Unique Identifier",
+                              "key": "investorId",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "description": "a Universally Unique Identifier",
+                              "key": "accountId",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "description": "(Required) a Universally Unique Identifier",
+                              "key": "shareClassId",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "description": "a day formatted as \"yyyy-MM-dd\"",
+                              "key": "from",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "a day formatted as \"yyyy-MM-dd\"",
+                              "key": "to",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"reason\": \"<string>\",\n  \"_tag\": \"InvestorNotReadyError\"\n}",
+                      "createdAt": "2026-10-22T01:09:54.000Z",
+                      "updatedAt": "2026-10-22T01:09:54.000Z",
+                      "uid": "35240-5d3acc8a-b3c6-46b0-9ff5-c4e4bfa3a964"
                     }
                   ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                  "createdAt": "2026-10-22T01:09:54.000Z",
+                  "updatedAt": "2026-10-22T01:09:54.000Z",
+                  "uid": "35240-ff69198a-aa60-43aa-9e09-d41e9d0d130e"
+                }
+              ],
+              "id": "962f26c1-251c-48b8-b82f-479b31beeb7a",
+              "createdAt": "2026-10-22T01:09:54.000Z",
+              "updatedAt": "2026-10-22T01:09:54.000Z",
+              "uid": "35240-962f26c1-251c-48b8-b82f-479b31beeb7a"
+            },
+            {
+              "name": "{accountingPositionId}",
+              "item": [
+                {
+                  "name": "Get a yield",
+                  "id": "76c447ec-cffe-456f-87b5-c8b44bf5feee",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "2114d6ab-8da9-4b70-9b30-ac3e1b15fc2a",
-              "name": "Forbidden",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "yields",
-                    "history"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "investorId",
-                      "value": "<uuid>"
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
                     },
-                    {
-                      "key": "accountId",
-                      "value": "<uuid>"
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/yields/:accountingPositionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "yields",
+                        ":accountingPositionId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "6368fc52-b090-45d4-8de2-f80e67c4bb6c",
+                          "key": "accountingPositionId",
+                          "value": "<uuid>",
+                          "description": "(Required) a Universally Unique Identifier"
+                        }
+                      ]
                     },
-                    {
-                      "key": "shareClassId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "from",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "to",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                    "description": "**Return a single daily yield by its identifier.**\n\nThe identifier is the `id` delivered in the `yield.credited` webhook payload."
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"reason\": \"string\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"ShareClassNotAvailableForDistributor\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "23aa4fb3-1509-413f-92ef-54480b7535f3",
-              "name": "NotFound",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "yields",
-                    "history"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "response": [
                     {
-                      "key": "investorId",
-                      "value": "<uuid>"
+                      "id": "d073cdb2-22aa-4ab7-abbf-10cbea0cd7ab",
+                      "name": "Success",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/yields/:accountingPositionId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "yields",
+                            ":accountingPositionId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountingPositionId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"day\": \"<string>\",\n  \"shareClassId\": \"<uuid>\",\n  \"investorId\": \"<uuid>\",\n  \"accountId\": \"<uuid>\",\n  \"yield\": {\n    \"value\": \"<string>\",\n    \"currency\": \"USD\"\n  },\n  \"navId\": \"<uuid>\",\n  \"navUpdateDate\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:09:54.000Z",
+                      "updatedAt": "2026-10-22T01:09:54.000Z",
+                      "uid": "35240-d073cdb2-22aa-4ab7-abbf-10cbea0cd7ab"
                     },
                     {
-                      "key": "accountId",
-                      "value": "<uuid>"
+                      "id": "c88c4d76-4e1d-4de7-b64b-e2f66ec2c6c0",
+                      "name": "The request did not match the expected schema",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/yields/:accountingPositionId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "yields",
+                            ":accountingPositionId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountingPositionId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Composite\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+                      "createdAt": "2026-10-22T01:09:54.000Z",
+                      "updatedAt": "2026-10-22T01:09:54.000Z",
+                      "uid": "35240-c88c4d76-4e1d-4de7-b64b-e2f66ec2c6c0"
                     },
                     {
-                      "key": "shareClassId",
-                      "value": "<uuid>"
+                      "id": "ab0f1dd2-cb4d-451c-a81f-36bf618fe672",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/yields/:accountingPositionId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "yields",
+                            ":accountingPositionId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountingPositionId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"$id\": \"/schemas/void\",\n  \"title\": \"Unauthorized\"\n}",
+                      "createdAt": "2026-10-22T01:09:54.000Z",
+                      "updatedAt": "2026-10-22T01:09:54.000Z",
+                      "uid": "35240-ab0f1dd2-cb4d-451c-a81f-36bf618fe672"
                     },
                     {
-                      "key": "from",
-                      "value": "<string>"
+                      "id": "c6b4ab4b-3720-4645-b1ea-af9ab0b7fb9d",
+                      "name": "Forbidden",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/yields/:accountingPositionId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "yields",
+                            ":accountingPositionId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountingPositionId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"reason\": \"<string>\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"ShareClassNotAvailableForDistributor\"\n}",
+                      "createdAt": "2026-10-22T01:09:54.000Z",
+                      "updatedAt": "2026-10-22T01:09:54.000Z",
+                      "uid": "35240-c6b4ab4b-3720-4645-b1ea-af9ab0b7fb9d"
                     },
                     {
-                      "key": "to",
-                      "value": "<string>"
+                      "id": "9ade3e7f-cd66-4e7f-8064-017ada731733",
+                      "name": "NotFound",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/yields/:accountingPositionId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "yields",
+                            ":accountingPositionId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountingPositionId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:54.000Z",
+                      "updatedAt": "2026-10-22T01:09:54.000Z",
+                      "uid": "35240-9ade3e7f-cd66-4e7f-8064-017ada731733"
                     }
                   ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "createdAt": "2026-10-22T01:09:54.000Z",
+                  "updatedAt": "2026-10-22T01:09:54.000Z",
+                  "uid": "35240-76c447ec-cffe-456f-87b5-c8b44bf5feee"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "40280674-d51c-483c-9680-113d24258bc8",
-              "name": "Investor is not ready for order creation yet",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "yields",
-                    "history"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "investorId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "accountId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "shareClassId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "from",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "to",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"reason\": \"string\",\n  \"_tag\": \"InvestorNotReadyError\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "62c887a5-a455-48d7-9337-f5112855ad84",
-          "name": "Get a yield",
-          "request": {
-            "name": "Get a yield",
-            "description": {
-              "content": "\n**Return a single daily yield by its identifier.**\n\nThe identifier is the `id` delivered in the `yield.credited` webhook payload.\n          ",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v0",
-                "yields",
-                ":accountingPositionId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "accountingPositionId",
-                  "description": "(Required) a Universally Unique Identifier"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "basic",
-              "basic": [
-                {
-                  "key": "username",
-                  "value": "{{basicAuthUsername}}"
-                },
-                {
-                  "key": "password",
-                  "value": "{{basicAuthPassword}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "f55dc1a4-11b4-42d7-a856-2083c6dad6d7",
-              "name": "Success",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "yields",
-                    ":accountingPositionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "accountingPositionId",
-                      "description": "(Required) a Universally Unique Identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"day\": \"string\",\n  \"shareClassId\": \"2059c4a4-a529-7adf-8612-be257f70c33e\",\n  \"investorId\": \"bb2890c6-55ce-273d-5c6f-3024aafc49cc\",\n  \"accountId\": \"7e3f3c8f-4253-30a4-8706-5f7e3900e3bd\",\n  \"yield\": {\n    \"value\": \"string\",\n    \"currency\": \"SGD\"\n  },\n  \"navId\": \"62dbc5c3-01ef-7754-72aa-60d6436ac272\",\n  \"navUpdateDate\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a4435b17-83fa-4f89-a7c2-0c0a2399cce0",
-              "name": "The request did not match the expected schema",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "yields",
-                    ":accountingPositionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "accountingPositionId",
-                      "description": "(Required) a Universally Unique Identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Pointer\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "af93ea0a-8ea6-4808-9419-1c5de6b2ca43",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "yields",
-                    ":accountingPositionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "accountingPositionId",
-                      "description": "(Required) a Universally Unique Identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "919b4e4b-ae99-4572-8f67-cc3e76208696",
-              "name": "Forbidden",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "yields",
-                    ":accountingPositionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "accountingPositionId",
-                      "description": "(Required) a Universally Unique Identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"reason\": \"string\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"ShareClassNotAvailableForDistributor\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c11a0415-f7af-4b51-8308-472cd4a429f7",
-              "name": "NotFound",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "yields",
-                    ":accountingPositionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "accountingPositionId",
-                      "description": "(Required) a Universally Unique Identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "b5a11251-685f-489a-8c3c-93d615337d2f",
-          "name": "Get daily yields of an account",
-          "request": {
-            "name": "Get daily yields of an account",
-            "description": {
-              "content": "Get all daily yields for a given account and share class between two dates",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "yields",
-                "history"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "shareClassId",
-                  "value": "<uuid>",
-                  "description": "(Required) a Universally Unique Identifier"
-                },
-                {
-                  "disabled": false,
-                  "key": "accountId",
-                  "value": "<uuid>",
-                  "description": "(Required) a Universally Unique Identifier"
-                },
-                {
-                  "disabled": false,
-                  "key": "from",
-                  "value": "<string>",
-                  "description": "(Required) a day in ISO format \"YYYY-MM-DD\""
-                },
-                {
-                  "disabled": false,
-                  "key": "to",
-                  "value": "<string>",
-                  "description": "(Required) a day in ISO format \"YYYY-MM-DD\""
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "basic",
-              "basic": [
-                {
-                  "key": "username",
-                  "value": "{{basicAuthUsername}}"
-                },
-                {
-                  "key": "password",
-                  "value": "{{basicAuthPassword}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "abafae3d-8251-46a5-9f14-ecc10a8fa2d1",
-              "name": "Success",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "yields",
-                    "history"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "shareClassId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "accountId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "from",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "to",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"day\": \"string\",\n    \"shareClassId\": \"f002fee5-b82b-42f2-2898-404c23063a00\",\n    \"investorId\": \"5cd61235-baff-a18c-bd76-40fa382a2640\",\n    \"accountId\": \"b232b7ce-c71e-850c-97c0-47c8137b8b75\",\n    \"yield\": {\n      \"value\": \"string\",\n      \"currency\": \"CHF\"\n    },\n    \"navId\": \"6ad7b4ec-5377-fac1-bcfe-37f61d5c2d2b\",\n    \"navUpdateDate\": \"string\"\n  },\n  {\n    \"day\": \"string\",\n    \"shareClassId\": \"ce3ae736-cab9-9c34-76ff-fdcfd309275a\",\n    \"investorId\": \"e271f505-1542-0d69-a49f-80560080a61c\",\n    \"accountId\": \"ea92fc63-f548-4a92-423d-ec52c1d4218a\",\n    \"yield\": {\n      \"value\": \"string\",\n      \"currency\": \"SGD\"\n    },\n    \"navId\": \"078825f8-f3e1-3f72-a411-02e54aaf569d\",\n    \"navUpdateDate\": \"string\"\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "460977a4-1eb0-478b-9abc-452a02325d8a",
-              "name": "The request did not match the expected schema",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "yields",
-                    "history"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "shareClassId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "accountId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "from",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "to",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Pointer\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5bf98f99-7d0d-4708-a99a-f269d422b127",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "yields",
-                    "history"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "shareClassId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "accountId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "from",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "to",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "2c598c12-d6d3-4eab-a903-03040db8b5ee",
-              "name": "Forbidden",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "yields",
-                    "history"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "shareClassId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "accountId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "from",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "to",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "f9989947-5abc-4ffa-8d4a-c5844c3261cd",
-              "name": "NotFound",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "yields",
-                    "history"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "shareClassId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "accountId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "from",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "to",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "0b461fcb-bdb7-4dbf-b31c-a6c6b3a9438c",
+              "createdAt": "2026-10-22T01:09:54.000Z",
+              "updatedAt": "2026-10-22T01:09:54.000Z",
+              "uid": "35240-0b461fcb-bdb7-4dbf-b31c-a6c6b3a9438c"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "0f4b4bf2-e1c2-4166-832e-e8f2775186f1",
+          "createdAt": "2026-10-22T01:09:54.000Z",
+          "updatedAt": "2026-10-22T01:09:54.000Z",
+          "uid": "35240-0f4b4bf2-e1c2-4166-832e-e8f2775186f1"
         }
       ],
-      "event": []
+      "id": "cdc5d1bc-0122-4849-855e-8f8a71c6f432",
+      "createdAt": "2026-10-22T01:09:54.000Z",
+      "updatedAt": "2026-10-22T01:09:54.000Z",
+      "uid": "35240-cdc5d1bc-0122-4849-855e-8f8a71c6f432"
+    },
+    {
+      "name": "yields",
+      "item": [
+        {
+          "name": "history",
+          "item": [
+            {
+              "name": "Get daily yields of an account",
+              "id": "b1d20480-4105-4678-ae06-fbd41b4e6351",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/yields/history?shareClassId=<uuid>&accountId=<uuid>&from=<string>&to=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "yields",
+                    "history"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) a Universally Unique Identifier",
+                      "key": "shareClassId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "description": "(Required) a Universally Unique Identifier",
+                      "key": "accountId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "description": "(Required) a day in ISO format \"YYYY-MM-DD\"",
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) a day in ISO format \"YYYY-MM-DD\"",
+                      "key": "to",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Get all daily yields for a given account and share class between two dates"
+              },
+              "response": [
+                {
+                  "id": "084fa4a1-e42b-4eb1-b4ca-93f97e8c4839",
+                  "name": "Success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/yields/history?shareClassId=<uuid>&accountId=<uuid>&from=<string>&to=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "yields",
+                        "history"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) a Universally Unique Identifier",
+                          "key": "shareClassId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "(Required) a Universally Unique Identifier",
+                          "key": "accountId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "(Required) a day in ISO format \"YYYY-MM-DD\"",
+                          "key": "from",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) a day in ISO format \"YYYY-MM-DD\"",
+                          "key": "to",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"day\": \"<string>\",\n    \"shareClassId\": \"<uuid>\",\n    \"investorId\": \"<uuid>\",\n    \"accountId\": \"<uuid>\",\n    \"yield\": {\n      \"value\": \"<string>\",\n      \"currency\": \"EUR\"\n    },\n    \"navId\": \"<uuid>\",\n    \"navUpdateDate\": \"<string>\"\n  },\n  {\n    \"day\": \"<string>\",\n    \"shareClassId\": \"<uuid>\",\n    \"investorId\": \"<uuid>\",\n    \"accountId\": \"<uuid>\",\n    \"yield\": {\n      \"value\": \"<string>\",\n      \"currency\": \"EUR\"\n    },\n    \"navId\": \"<uuid>\",\n    \"navUpdateDate\": \"<string>\"\n  }\n]",
+                  "createdAt": "2026-10-22T01:09:54.000Z",
+                  "updatedAt": "2026-10-22T01:09:54.000Z",
+                  "uid": "35240-084fa4a1-e42b-4eb1-b4ca-93f97e8c4839"
+                },
+                {
+                  "id": "942e1156-d975-4cbb-81e5-29f4174a10fd",
+                  "name": "The request did not match the expected schema",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/yields/history?shareClassId=<uuid>&accountId=<uuid>&from=<string>&to=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "yields",
+                        "history"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) a Universally Unique Identifier",
+                          "key": "shareClassId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "(Required) a Universally Unique Identifier",
+                          "key": "accountId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "(Required) a day in ISO format \"YYYY-MM-DD\"",
+                          "key": "from",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) a day in ISO format \"YYYY-MM-DD\"",
+                          "key": "to",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Composite\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+                  "createdAt": "2026-10-22T01:09:54.000Z",
+                  "updatedAt": "2026-10-22T01:09:54.000Z",
+                  "uid": "35240-942e1156-d975-4cbb-81e5-29f4174a10fd"
+                },
+                {
+                  "id": "b4313bb2-973f-40e2-974c-f12136e9dcb7",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/yields/history?shareClassId=<uuid>&accountId=<uuid>&from=<string>&to=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "yields",
+                        "history"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) a Universally Unique Identifier",
+                          "key": "shareClassId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "(Required) a Universally Unique Identifier",
+                          "key": "accountId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "(Required) a day in ISO format \"YYYY-MM-DD\"",
+                          "key": "from",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) a day in ISO format \"YYYY-MM-DD\"",
+                          "key": "to",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"$id\": \"/schemas/void\",\n  \"title\": \"Unauthorized\"\n}",
+                  "createdAt": "2026-10-22T01:09:54.000Z",
+                  "updatedAt": "2026-10-22T01:09:54.000Z",
+                  "uid": "35240-b4313bb2-973f-40e2-974c-f12136e9dcb7"
+                },
+                {
+                  "id": "da547d0c-7d5d-4b97-b9a9-c32bf7ac1707",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/yields/history?shareClassId=<uuid>&accountId=<uuid>&from=<string>&to=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "yields",
+                        "history"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) a Universally Unique Identifier",
+                          "key": "shareClassId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "(Required) a Universally Unique Identifier",
+                          "key": "accountId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "(Required) a day in ISO format \"YYYY-MM-DD\"",
+                          "key": "from",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) a day in ISO format \"YYYY-MM-DD\"",
+                          "key": "to",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:09:54.000Z",
+                  "updatedAt": "2026-10-22T01:09:54.000Z",
+                  "uid": "35240-da547d0c-7d5d-4b97-b9a9-c32bf7ac1707"
+                },
+                {
+                  "id": "cd57b8be-e91c-442d-b89f-bda6eabfbf44",
+                  "name": "NotFound",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/yields/history?shareClassId=<uuid>&accountId=<uuid>&from=<string>&to=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "yields",
+                        "history"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) a Universally Unique Identifier",
+                          "key": "shareClassId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "(Required) a Universally Unique Identifier",
+                          "key": "accountId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "(Required) a day in ISO format \"YYYY-MM-DD\"",
+                          "key": "from",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) a day in ISO format \"YYYY-MM-DD\"",
+                          "key": "to",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:09:54.000Z",
+                  "updatedAt": "2026-10-22T01:09:54.000Z",
+                  "uid": "35240-cd57b8be-e91c-442d-b89f-bda6eabfbf44"
+                }
+              ],
+              "createdAt": "2026-10-22T01:09:54.000Z",
+              "updatedAt": "2026-10-22T01:09:54.000Z",
+              "uid": "35240-b1d20480-4105-4678-ae06-fbd41b4e6351"
+            }
+          ],
+          "id": "9e535b27-f0e9-4124-8025-3062613e5afe",
+          "createdAt": "2026-10-22T01:09:54.000Z",
+          "updatedAt": "2026-10-22T01:09:54.000Z",
+          "uid": "35240-9e535b27-f0e9-4124-8025-3062613e5afe"
+        }
+      ],
+      "id": "306f52d7-add8-4a7f-aeb5-d8130a41411f",
+      "createdAt": "2026-10-22T01:09:54.000Z",
+      "updatedAt": "2026-10-22T01:09:54.000Z",
+      "uid": "35240-306f52d7-add8-4a7f-aeb5-d8130a41411f"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://distributor-api.spiko.io",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://distributor-api.spiko.io"
     }
-  ],
-  "info": {
-    "_postman_id": "40323381-2742-4ead-b131-989be05101a3",
-    "name": "Spiko Distributor Account transactions Yields API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

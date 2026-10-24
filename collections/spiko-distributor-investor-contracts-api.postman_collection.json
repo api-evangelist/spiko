@@ -1,1742 +1,1789 @@
 {
+  "info": {
+    "_postman_id": "9e90f94c-b65b-4516-b757-5d1e59fbee6f",
+    "name": "Spiko Distributor Distributor investor contracts API",
+    "description": "The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:07:11.000Z",
+    "updatedAt": "2026-10-22T01:07:11.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9e90f94c-b65b-4516-b757-5d1e59fbee6f"
+  },
   "item": [
     {
-      "id": "687c615f-f928-4f1d-8296-11e2f6d8e11b",
-      "name": "Distributor investor contracts",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "v0",
       "item": [
         {
-          "id": "9427657a-ad43-4dfc-ad7d-805c0be70ac1",
-          "name": "Get distributor investor contract",
-          "request": {
-            "name": "Get distributor investor contract",
-            "description": {
-              "content": "Retrieve information about a distributor investor contract (investor, share class, annual fee).",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v0",
-                "distributor-investor-contracts",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "id",
-                  "description": "(Required) a Universally Unique Identifier"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "basic",
-              "basic": [
-                {
-                  "key": "username",
-                  "value": "{{basicAuthUsername}}"
-                },
-                {
-                  "key": "password",
-                  "value": "{{basicAuthPassword}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "distributor-investor-contracts",
+          "item": [
             {
-              "id": "514baf9e-a661-4f33-8bb7-7a943493a897",
-              "name": "Success",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+              "name": "{id}",
+              "item": [
+                {
+                  "name": "Get distributor investor contract",
+                  "id": "58b42152-b639-4cb5-b475-52c69bd0fed7",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/distributor-investor-contracts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "distributor-investor-contracts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "e1f9c2f7-dda7-4b23-bfed-9e301663cc09",
+                          "key": "id",
+                          "value": "<uuid>",
+                          "description": "(Required) a Universally Unique Identifier"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve information about a distributor investor contract (investor, share class, annual fee)."
+                  },
+                  "response": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) a Universally Unique Identifier"
+                      "id": "80d6e3b3-80b5-4c81-bbfd-6a504646ed30",
+                      "name": "Success",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/distributor-investor-contracts/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "distributor-investor-contracts",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<uuid>\",\n  \"distributorId\": \"<uuid>\",\n  \"investorId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:07:11.000Z",
+                      "updatedAt": "2026-10-22T01:07:11.000Z",
+                      "uid": "35240-80d6e3b3-80b5-4c81-bbfd-6a504646ed30"
+                    },
+                    {
+                      "id": "ba6e9dc7-a0ed-4737-a24d-c1be67d64b7d",
+                      "name": "The request did not match the expected schema",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/distributor-investor-contracts/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "distributor-investor-contracts",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Pointer\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+                      "createdAt": "2026-10-22T01:07:11.000Z",
+                      "updatedAt": "2026-10-22T01:07:11.000Z",
+                      "uid": "35240-ba6e9dc7-a0ed-4737-a24d-c1be67d64b7d"
+                    },
+                    {
+                      "id": "62985ca0-9be2-4075-81ff-8bbc3cbd1934",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/distributor-investor-contracts/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "distributor-investor-contracts",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"$id\": \"/schemas/void\",\n  \"title\": \"Unauthorized\"\n}",
+                      "createdAt": "2026-10-22T01:07:11.000Z",
+                      "updatedAt": "2026-10-22T01:07:11.000Z",
+                      "uid": "35240-62985ca0-9be2-4075-81ff-8bbc3cbd1934"
+                    },
+                    {
+                      "id": "07c62c79-ba24-4665-adcc-759518bdae7e",
+                      "name": "Forbidden",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/distributor-investor-contracts/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "distributor-investor-contracts",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"reason\": \"<string>\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"AtLeastTwoAdminUsersRequired\"\n}",
+                      "createdAt": "2026-10-22T01:07:11.000Z",
+                      "updatedAt": "2026-10-22T01:07:11.000Z",
+                      "uid": "35240-07c62c79-ba24-4665-adcc-759518bdae7e"
+                    },
+                    {
+                      "id": "4d78c1e1-5b73-4bd6-aa4b-77868599101d",
+                      "name": "NotFound",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/distributor-investor-contracts/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "distributor-investor-contracts",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:07:11.000Z",
+                      "updatedAt": "2026-10-22T01:07:11.000Z",
+                      "uid": "35240-4d78c1e1-5b73-4bd6-aa4b-77868599101d"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:07:11.000Z",
+                  "updatedAt": "2026-10-22T01:07:11.000Z",
+                  "uid": "35240-58b42152-b639-4cb5-b475-52c69bd0fed7"
+                }
+              ],
+              "id": "8124fea6-0537-4b5d-bc15-840cd27ee2fd",
+              "createdAt": "2026-10-22T01:07:11.000Z",
+              "updatedAt": "2026-10-22T01:07:11.000Z",
+              "uid": "35240-8124fea6-0537-4b5d-bc15-840cd27ee2fd"
+            },
+            {
+              "name": "investor",
+              "item": [
+                {
+                  "name": "Get distributor investor contract of investor",
+                  "id": "12b2c04b-a8f9-4588-b5c9-e36cc9220c1c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/distributor-investor-contracts/investor?investorId=<uuid>&shareClassId=<uuid>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "distributor-investor-contracts",
+                        "investor"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) a Universally Unique Identifier",
+                          "key": "investorId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "(Required) a Universally Unique Identifier",
+                          "key": "shareClassId",
+                          "value": "<uuid>"
+                        }
+                      ]
+                    },
+                    "description": "Get a distributor investor contract informations of the given investor."
+                  },
+                  "response": [
+                    {
+                      "id": "f6ecb268-849b-4d8c-afc2-6aab45338b13",
+                      "name": "Success",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/distributor-investor-contracts/investor?investorId=<uuid>&shareClassId=<uuid>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "distributor-investor-contracts",
+                            "investor"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) a Universally Unique Identifier",
+                              "key": "investorId",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "description": "(Required) a Universally Unique Identifier",
+                              "key": "shareClassId",
+                              "value": "<uuid>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<uuid>\",\n  \"distributorId\": \"<uuid>\",\n  \"investorId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:07:11.000Z",
+                      "updatedAt": "2026-10-22T01:07:11.000Z",
+                      "uid": "35240-f6ecb268-849b-4d8c-afc2-6aab45338b13"
+                    },
+                    {
+                      "id": "87ab3a8f-ff75-431a-9242-4afe5d2987aa",
+                      "name": "The request did not match the expected schema",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/distributor-investor-contracts/investor?investorId=<uuid>&shareClassId=<uuid>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "distributor-investor-contracts",
+                            "investor"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) a Universally Unique Identifier",
+                              "key": "investorId",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "description": "(Required) a Universally Unique Identifier",
+                              "key": "shareClassId",
+                              "value": "<uuid>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Pointer\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+                      "createdAt": "2026-10-22T01:07:11.000Z",
+                      "updatedAt": "2026-10-22T01:07:11.000Z",
+                      "uid": "35240-87ab3a8f-ff75-431a-9242-4afe5d2987aa"
+                    },
+                    {
+                      "id": "81282089-4542-4b23-903f-d53404db7cdf",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/distributor-investor-contracts/investor?investorId=<uuid>&shareClassId=<uuid>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "distributor-investor-contracts",
+                            "investor"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) a Universally Unique Identifier",
+                              "key": "investorId",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "description": "(Required) a Universally Unique Identifier",
+                              "key": "shareClassId",
+                              "value": "<uuid>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"$id\": \"/schemas/void\",\n  \"title\": \"Unauthorized\"\n}",
+                      "createdAt": "2026-10-22T01:07:11.000Z",
+                      "updatedAt": "2026-10-22T01:07:11.000Z",
+                      "uid": "35240-81282089-4542-4b23-903f-d53404db7cdf"
+                    },
+                    {
+                      "id": "36488013-bee9-422d-bb30-371cd10b68a2",
+                      "name": "Forbidden",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/distributor-investor-contracts/investor?investorId=<uuid>&shareClassId=<uuid>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "distributor-investor-contracts",
+                            "investor"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) a Universally Unique Identifier",
+                              "key": "investorId",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "description": "(Required) a Universally Unique Identifier",
+                              "key": "shareClassId",
+                              "value": "<uuid>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"reason\": \"<string>\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"AtLeastTwoAdminUsersRequired\"\n}",
+                      "createdAt": "2026-10-22T01:07:11.000Z",
+                      "updatedAt": "2026-10-22T01:07:11.000Z",
+                      "uid": "35240-36488013-bee9-422d-bb30-371cd10b68a2"
+                    },
+                    {
+                      "id": "237eba0e-1ee5-45ca-9719-c86ce3f20a00",
+                      "name": "NotFound",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/distributor-investor-contracts/investor?investorId=<uuid>&shareClassId=<uuid>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "distributor-investor-contracts",
+                            "investor"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) a Universally Unique Identifier",
+                              "key": "investorId",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "description": "(Required) a Universally Unique Identifier",
+                              "key": "shareClassId",
+                              "value": "<uuid>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:07:11.000Z",
+                      "updatedAt": "2026-10-22T01:07:11.000Z",
+                      "uid": "35240-237eba0e-1ee5-45ca-9719-c86ce3f20a00"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:07:11.000Z",
+                  "updatedAt": "2026-10-22T01:07:11.000Z",
+                  "uid": "35240-12b2c04b-a8f9-4588-b5c9-e36cc9220c1c"
+                }
+              ],
+              "id": "b1a22e19-82be-44b4-ba33-45d005793fa7",
+              "createdAt": "2026-10-22T01:07:11.000Z",
+              "updatedAt": "2026-10-22T01:07:11.000Z",
+              "uid": "35240-b1a22e19-82be-44b4-ba33-45d005793fa7"
+            },
+            {
+              "name": "{distributorInvestorContractId}",
+              "item": [
+                {
+                  "name": "paid-fees",
+                  "item": [
+                    {
+                      "name": "Get the fees paid for the given distributor investor contract",
+                      "id": "129df70d-319a-4820-923b-939d726bcdc5",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "basic",
+                          "basic": [
+                            {
+                              "key": "username",
+                              "value": "{{basicAuthUsername}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "password",
+                              "value": "{{basicAuthPassword}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/distributor-investor-contracts/:distributorInvestorContractId/paid-fees?from=<string>&to=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "distributor-investor-contracts",
+                            ":distributorInvestorContractId",
+                            "paid-fees"
+                          ],
+                          "query": [
+                            {
+                              "description": "a day formatted as \"yyyy-MM-dd\"",
+                              "key": "from",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "a day formatted as \"yyyy-MM-dd\"",
+                              "key": "to",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "bead212c-646f-44c7-ac09-23b908172c5b",
+                              "key": "distributorInvestorContractId",
+                              "value": "<uuid>",
+                              "description": "(Required) a Universally Unique Identifier"
+                            }
+                          ]
+                        },
+                        "description": "**Retrieve the fees paid for the given distributor investor contract.**\n\n- Returns an array of paid fees both in amount and in number of shares, sorted by day.\n- `from` and `to` query parameters are optional and used to filter the results by day range."
+                      },
+                      "response": [
+                        {
+                          "id": "fe9958a0-88e6-467b-9637-dd78c88f0480",
+                          "name": "Success",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v0/distributor-investor-contracts/:distributorInvestorContractId/paid-fees?from=<string>&to=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v0",
+                                "distributor-investor-contracts",
+                                ":distributorInvestorContractId",
+                                "paid-fees"
+                              ],
+                              "query": [
+                                {
+                                  "description": "a day formatted as \"yyyy-MM-dd\"",
+                                  "key": "from",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "a day formatted as \"yyyy-MM-dd\"",
+                                  "key": "to",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "distributorInvestorContractId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"distributorInvestorContractId\": \"<uuid>\",\n    \"day\": \"<string>\",\n    \"paidFee\": {\n      \"value\": \"<string>\",\n      \"currency\": \"JPY\"\n    },\n    \"paidFeeInShares\": \"<string>\"\n  },\n  {\n    \"distributorInvestorContractId\": \"<uuid>\",\n    \"day\": \"<string>\",\n    \"paidFee\": {\n      \"value\": \"<string>\",\n      \"currency\": \"EUR\"\n    },\n    \"paidFeeInShares\": \"<string>\"\n  }\n]",
+                          "createdAt": "2026-10-22T01:07:11.000Z",
+                          "updatedAt": "2026-10-22T01:07:11.000Z",
+                          "uid": "35240-fe9958a0-88e6-467b-9637-dd78c88f0480"
+                        },
+                        {
+                          "id": "171d0d2d-249a-4e78-be85-cf2664d43699",
+                          "name": "The request did not match the expected schema",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v0/distributor-investor-contracts/:distributorInvestorContractId/paid-fees?from=<string>&to=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v0",
+                                "distributor-investor-contracts",
+                                ":distributorInvestorContractId",
+                                "paid-fees"
+                              ],
+                              "query": [
+                                {
+                                  "description": "a day formatted as \"yyyy-MM-dd\"",
+                                  "key": "from",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "a day formatted as \"yyyy-MM-dd\"",
+                                  "key": "to",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "distributorInvestorContractId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Pointer\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+                          "createdAt": "2026-10-22T01:07:11.000Z",
+                          "updatedAt": "2026-10-22T01:07:11.000Z",
+                          "uid": "35240-171d0d2d-249a-4e78-be85-cf2664d43699"
+                        },
+                        {
+                          "id": "cc4bcd0f-f8fa-4c23-81ba-9bf284385439",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v0/distributor-investor-contracts/:distributorInvestorContractId/paid-fees?from=<string>&to=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v0",
+                                "distributor-investor-contracts",
+                                ":distributorInvestorContractId",
+                                "paid-fees"
+                              ],
+                              "query": [
+                                {
+                                  "description": "a day formatted as \"yyyy-MM-dd\"",
+                                  "key": "from",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "a day formatted as \"yyyy-MM-dd\"",
+                                  "key": "to",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "distributorInvestorContractId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"$id\": \"/schemas/void\",\n  \"title\": \"Unauthorized\"\n}",
+                          "createdAt": "2026-10-22T01:07:11.000Z",
+                          "updatedAt": "2026-10-22T01:07:11.000Z",
+                          "uid": "35240-cc4bcd0f-f8fa-4c23-81ba-9bf284385439"
+                        },
+                        {
+                          "id": "8e49c004-3235-4721-b2a9-4bf38e316555",
+                          "name": "Forbidden",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v0/distributor-investor-contracts/:distributorInvestorContractId/paid-fees?from=<string>&to=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v0",
+                                "distributor-investor-contracts",
+                                ":distributorInvestorContractId",
+                                "paid-fees"
+                              ],
+                              "query": [
+                                {
+                                  "description": "a day formatted as \"yyyy-MM-dd\"",
+                                  "key": "from",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "a day formatted as \"yyyy-MM-dd\"",
+                                  "key": "to",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "distributorInvestorContractId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"reason\": \"<string>\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"AtLeastTwoAdminUsersRequired\"\n}",
+                          "createdAt": "2026-10-22T01:07:11.000Z",
+                          "updatedAt": "2026-10-22T01:07:11.000Z",
+                          "uid": "35240-8e49c004-3235-4721-b2a9-4bf38e316555"
+                        },
+                        {
+                          "id": "bcbc2266-4842-45ee-a668-8ae1fc01b4ca",
+                          "name": "NotFound",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v0/distributor-investor-contracts/:distributorInvestorContractId/paid-fees?from=<string>&to=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v0",
+                                "distributor-investor-contracts",
+                                ":distributorInvestorContractId",
+                                "paid-fees"
+                              ],
+                              "query": [
+                                {
+                                  "description": "a day formatted as \"yyyy-MM-dd\"",
+                                  "key": "from",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "a day formatted as \"yyyy-MM-dd\"",
+                                  "key": "to",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "distributorInvestorContractId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:07:11.000Z",
+                          "updatedAt": "2026-10-22T01:07:11.000Z",
+                          "uid": "35240-bcbc2266-4842-45ee-a668-8ae1fc01b4ca"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:07:11.000Z",
+                      "updatedAt": "2026-10-22T01:07:11.000Z",
+                      "uid": "35240-129df70d-319a-4820-923b-939d726bcdc5"
+                    }
+                  ],
+                  "id": "260d57fd-e180-4ee2-b63e-f228616bd1ce",
+                  "createdAt": "2026-10-22T01:07:11.000Z",
+                  "updatedAt": "2026-10-22T01:07:11.000Z",
+                  "uid": "35240-260d57fd-e180-4ee2-b63e-f228616bd1ce"
+                }
+              ],
+              "id": "f17d9379-9943-425d-9da2-5d40208e6fd1",
+              "createdAt": "2026-10-22T01:07:11.000Z",
+              "updatedAt": "2026-10-22T01:07:11.000Z",
+              "uid": "35240-f17d9379-9943-425d-9da2-5d40208e6fd1"
+            },
+            {
+              "name": "Create a contract",
+              "id": "3db5a198-0404-4598-8666-4022e7a14573",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
                     }
                   ]
                 },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"bd7261fb-26e4-dfbf-248e-1da44b4ca5dc\",\n  \"distributorId\": \"b8b395c8-82c4-d84b-0ba8-167ed004a719\",\n  \"investorId\": \"306a11d0-0eee-8088-d248-40f326be2b92\",\n  \"shareClassId\": \"db5d375d-db34-1232-cf0d-604a53ede081\",\n  \"annualFee\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7b1c5d5b-2a02-4d63-9fb2-17682ac947bf",
-              "name": "The request did not match the expected schema",
-              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts",
-                    ":id"
-                  ],
+                  "raw": "{{baseUrl}}/v0/distributor-investor-contracts",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": [
+                  "path": [
+                    "v0",
+                    "distributor-investor-contracts"
+                  ]
+                },
+                "description": "Create a new contract that defines the annual fee paid by the investor to the distributor for a share class."
+              },
+              "response": [
+                {
+                  "id": "587720d7-9a40-4ce5-bc3c-0e841c4c4fd0",
+                  "name": "Success",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/distributor-investor-contracts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "distributor-investor-contracts"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) a Universally Unique Identifier"
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<uuid>\",\n  \"distributorId\": \"<uuid>\",\n  \"investorId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:07:11.000Z",
+                  "updatedAt": "2026-10-22T01:07:11.000Z",
+                  "uid": "35240-587720d7-9a40-4ce5-bc3c-0e841c4c4fd0"
+                },
+                {
+                  "id": "f5f8d450-1872-48bc-b0f9-83195cc69815",
+                  "name": "The request did not match the expected schema",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/distributor-investor-contracts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "distributor-investor-contracts"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Pointer\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+                  "createdAt": "2026-10-22T01:07:11.000Z",
+                  "updatedAt": "2026-10-22T01:07:11.000Z",
+                  "uid": "35240-f5f8d450-1872-48bc-b0f9-83195cc69815"
+                },
+                {
+                  "id": "c4f6b6e6-5e60-4aeb-af74-a9f25ac233cf",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/distributor-investor-contracts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "distributor-investor-contracts"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"$id\": \"/schemas/void\",\n  \"title\": \"Unauthorized\"\n}",
+                  "createdAt": "2026-10-22T01:07:11.000Z",
+                  "updatedAt": "2026-10-22T01:07:11.000Z",
+                  "uid": "35240-c4f6b6e6-5e60-4aeb-af74-a9f25ac233cf"
+                },
+                {
+                  "id": "955a00bd-6449-43dd-9902-224e7eecac98",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/distributor-investor-contracts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "distributor-investor-contracts"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"reason\": \"<string>\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"AtLeastTwoAdminUsersRequired\"\n}",
+                  "createdAt": "2026-10-22T01:07:11.000Z",
+                  "updatedAt": "2026-10-22T01:07:11.000Z",
+                  "uid": "35240-955a00bd-6449-43dd-9902-224e7eecac98"
+                },
+                {
+                  "id": "973e68c1-ab00-43d9-bda6-a271efd77b89",
+                  "name": "NotFound",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/distributor-investor-contracts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "distributor-investor-contracts"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:07:11.000Z",
+                  "updatedAt": "2026-10-22T01:07:11.000Z",
+                  "uid": "35240-973e68c1-ab00-43d9-bda6-a271efd77b89"
+                },
+                {
+                  "id": "e07662cc-5381-4cf9-8faa-ba1e84cbc011",
+                  "name": "MethodNotAllowed",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/distributor-investor-contracts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "distributor-investor-contracts"
+                      ]
+                    }
+                  },
+                  "status": "Method Not Allowed",
+                  "code": 405,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:07:11.000Z",
+                  "updatedAt": "2026-10-22T01:07:11.000Z",
+                  "uid": "35240-e07662cc-5381-4cf9-8faa-ba1e84cbc011"
+                }
+              ],
+              "createdAt": "2026-10-22T01:07:11.000Z",
+              "updatedAt": "2026-10-22T01:07:11.000Z",
+              "uid": "35240-3db5a198-0404-4598-8666-4022e7a14573"
+            },
+            {
+              "name": "Update a distributor investor contract",
+              "id": "bc5aeaa4-95a3-436a-b835-81ef697ce8eb",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
                     }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Refinement\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5b43fe30-e2cb-4118-b272-840b074147b3",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) a Universally Unique Identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "386e1ab1-99b7-4b3e-befe-81984e1f6332",
-              "name": "Forbidden",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) a Universally Unique Identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"reason\": \"string\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"SessionIsNot2FA\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ba749ad1-3584-4e0f-b6a6-53bcf5da418a",
-              "name": "NotFound",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) a Universally Unique Identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "99fb6e43-dfc8-4473-b8cd-f18c921044c5",
-          "name": "Get distributor investor contract of investor",
-          "request": {
-            "name": "Get distributor investor contract of investor",
-            "description": {
-              "content": "Get a distributor investor contract informations of the given investor.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v0",
-                "distributor-investor-contracts",
-                "investor"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "investorId",
-                  "value": "<uuid>",
-                  "description": "(Required) a Universally Unique Identifier"
-                },
-                {
-                  "disabled": false,
-                  "key": "shareClassId",
-                  "value": "<uuid>",
-                  "description": "(Required) a Universally Unique Identifier"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "basic",
-              "basic": [
-                {
-                  "key": "username",
-                  "value": "{{basicAuthUsername}}"
-                },
-                {
-                  "key": "password",
-                  "value": "{{basicAuthPassword}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "678811a2-1208-4aea-829e-cda242fce61c",
-              "name": "Success",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts",
-                    "investor"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "investorId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "shareClassId",
-                      "value": "<uuid>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"bd7261fb-26e4-dfbf-248e-1da44b4ca5dc\",\n  \"distributorId\": \"b8b395c8-82c4-d84b-0ba8-167ed004a719\",\n  \"investorId\": \"306a11d0-0eee-8088-d248-40f326be2b92\",\n  \"shareClassId\": \"db5d375d-db34-1232-cf0d-604a53ede081\",\n  \"annualFee\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "356bb0c3-49e0-44b3-8adc-345a86427e2b",
-              "name": "The request did not match the expected schema",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts",
-                    "investor"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "investorId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "shareClassId",
-                      "value": "<uuid>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Refinement\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "bb1223ff-bffd-44c8-b296-07ef0f7640b3",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts",
-                    "investor"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "investorId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "shareClassId",
-                      "value": "<uuid>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "6926308b-5669-481b-bbf9-15693e07c5c3",
-              "name": "Forbidden",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts",
-                    "investor"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "investorId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "shareClassId",
-                      "value": "<uuid>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"reason\": \"string\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"SessionIsNot2FA\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7bb8df4d-bced-4b86-a0a1-34f9acb0e83c",
-              "name": "NotFound",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts",
-                    "investor"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "investorId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "shareClassId",
-                      "value": "<uuid>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "a8a04cae-06a2-461a-a188-d41cc4299a4c",
-          "name": "Create a contract",
-          "request": {
-            "name": "Create a contract",
-            "description": {
-              "content": "Create a new contract that defines the annual fee paid by the investor to the distributor for a share class.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v0",
-                "distributor-investor-contracts"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "basic",
-              "basic": [
-                {
-                  "key": "username",
-                  "value": "{{basicAuthUsername}}"
-                },
-                {
-                  "key": "password",
-                  "value": "{{basicAuthPassword}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "ed825cce-9f7b-433e-94cc-92b073defd0b",
-              "name": "Success",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"bd7261fb-26e4-dfbf-248e-1da44b4ca5dc\",\n  \"distributorId\": \"b8b395c8-82c4-d84b-0ba8-167ed004a719\",\n  \"investorId\": \"306a11d0-0eee-8088-d248-40f326be2b92\",\n  \"shareClassId\": \"db5d375d-db34-1232-cf0d-604a53ede081\",\n  \"annualFee\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5b544f30-6ae8-41e4-84b0-e44fb621302a",
-              "name": "The request did not match the expected schema",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Refinement\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "8e2bbefc-7f6c-4285-bfb6-d546f5f16c2d",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "77fcab8f-d6db-4724-b93b-5c86b7186813",
-              "name": "Forbidden",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"reason\": \"string\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"SessionIsNot2FA\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "1ca31288-356e-49d9-a21c-bba6527aa1eb",
-              "name": "NotFound",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "055d4b71-cef4-4dd5-941c-4229a0305785",
-              "name": "MethodNotAllowed",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Method Not Allowed",
-              "code": 405,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "14dca2d7-337c-40e6-b7dd-fb2a03fda4d9",
-          "name": "Update a distributor investor contract",
-          "request": {
-            "name": "Update a distributor investor contract",
-            "description": {
-              "content": "Update the annual fee of an existing distributor investor contract.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v0",
-                "distributor-investor-contracts"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": {
-              "type": "basic",
-              "basic": [
-                {
-                  "key": "username",
-                  "value": "{{basicAuthUsername}}"
-                },
-                {
-                  "key": "password",
-                  "value": "{{basicAuthPassword}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"id\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "63a8b53a-7582-4b6e-a0ac-ac6591fde24c",
-              "name": "Success",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
                 "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"id\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"bd7261fb-26e4-dfbf-248e-1da44b4ca5dc\",\n  \"distributorId\": \"b8b395c8-82c4-d84b-0ba8-167ed004a719\",\n  \"investorId\": \"306a11d0-0eee-8088-d248-40f326be2b92\",\n  \"shareClassId\": \"db5d375d-db34-1232-cf0d-604a53ede081\",\n  \"annualFee\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b796541a-0566-46f3-b356-0952ac5cbf11",
-              "name": "The request did not match the expected schema",
-              "originalRequest": {
+                },
                 "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts"
-                  ],
+                  "raw": "{{baseUrl}}/v0/distributor-investor-contracts",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": []
+                  "path": [
+                    "v0",
+                    "distributor-investor-contracts"
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
+                "description": "Update the annual fee of an existing distributor investor contract."
+              },
+              "response": [
+                {
+                  "id": "a3fb446f-c3f4-42a9-b8a3-ffeed05f82c6",
+                  "name": "Success",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/distributor-investor-contracts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "distributor-investor-contracts"
+                      ]
+                    }
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"id\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Refinement\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "aafb1880-d69c-413e-ba52-d592198af6a2",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<uuid>\",\n  \"distributorId\": \"<uuid>\",\n  \"investorId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:07:11.000Z",
+                  "updatedAt": "2026-10-22T01:07:11.000Z",
+                  "uid": "35240-a3fb446f-c3f4-42a9-b8a3-ffeed05f82c6"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
+                {
+                  "id": "b85868ec-5a6e-40ad-ac05-f77224eda7cc",
+                  "name": "The request did not match the expected schema",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/distributor-investor-contracts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "distributor-investor-contracts"
+                      ]
+                    }
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"id\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "eed90f40-d035-44cb-946e-7c47e8df4365",
-              "name": "Forbidden",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Pointer\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+                  "createdAt": "2026-10-22T01:07:11.000Z",
+                  "updatedAt": "2026-10-22T01:07:11.000Z",
+                  "uid": "35240-b85868ec-5a6e-40ad-ac05-f77224eda7cc"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
+                {
+                  "id": "c4babd8a-3dca-4215-8f93-6d4d16cdf8ed",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/distributor-investor-contracts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "distributor-investor-contracts"
+                      ]
+                    }
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"id\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
-                  }
-                }
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"reason\": \"string\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"SessionIsNot2FA\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "140f8bdb-15b5-4f33-b0e1-4fd6014d5410",
-              "name": "NotFound",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"$id\": \"/schemas/void\",\n  \"title\": \"Unauthorized\"\n}",
+                  "createdAt": "2026-10-22T01:07:11.000Z",
+                  "updatedAt": "2026-10-22T01:07:11.000Z",
+                  "uid": "35240-c4babd8a-3dca-4215-8f93-6d4d16cdf8ed"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"id\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "id": "589caa37-644f-431b-8976-ed08d355444a",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/distributor-investor-contracts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "distributor-investor-contracts"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"reason\": \"<string>\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"AtLeastTwoAdminUsersRequired\"\n}",
+                  "createdAt": "2026-10-22T01:07:11.000Z",
+                  "updatedAt": "2026-10-22T01:07:11.000Z",
+                  "uid": "35240-589caa37-644f-431b-8976-ed08d355444a"
+                },
+                {
+                  "id": "ff663ad6-55e3-4752-ae8d-8d66938df22b",
+                  "name": "NotFound",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<uuid>\",\n  \"annualFee\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/distributor-investor-contracts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "distributor-investor-contracts"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:07:11.000Z",
+                  "updatedAt": "2026-10-22T01:07:11.000Z",
+                  "uid": "35240-ff663ad6-55e3-4752-ae8d-8d66938df22b"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "createdAt": "2026-10-22T01:07:11.000Z",
+              "updatedAt": "2026-10-22T01:07:11.000Z",
+              "uid": "35240-bc5aeaa4-95a3-436a-b835-81ef697ce8eb"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "0058e399-5baa-41a4-a40f-f76d32b8007a",
-          "name": "Get the fees paid for the given distributor investor contract",
-          "request": {
-            "name": "Get the fees paid for the given distributor investor contract",
-            "description": {
-              "content": "\n**Retrieve the fees paid for the given distributor investor contract.**\n\n- Returns an array of paid fees both in amount and in number of shares, sorted by day.\n- `from` and `to` query parameters are optional and used to filter the results by day range.\n          ",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v0",
-                "distributor-investor-contracts",
-                ":distributorInvestorContractId",
-                "paid-fees"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "from",
-                  "value": "<string>",
-                  "description": "a day formatted as \"yyyy-MM-dd\""
-                },
-                {
-                  "disabled": false,
-                  "key": "to",
-                  "value": "<string>",
-                  "description": "a day formatted as \"yyyy-MM-dd\""
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "distributorInvestorContractId",
-                  "description": "(Required) a Universally Unique Identifier"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "basic",
-              "basic": [
-                {
-                  "key": "username",
-                  "value": "{{basicAuthUsername}}"
-                },
-                {
-                  "key": "password",
-                  "value": "{{basicAuthPassword}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "6e5a3798-c4ca-4cfc-964c-aefdd787d3d4",
-              "name": "Success",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts",
-                    ":distributorInvestorContractId",
-                    "paid-fees"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "from",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "to",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "distributorInvestorContractId",
-                      "description": "(Required) a Universally Unique Identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"distributorInvestorContractId\": \"7cf11ac6-cc1d-c447-b106-58c0ab3954b4\",\n    \"day\": \"string\",\n    \"paidFee\": {\n      \"value\": \"string\",\n      \"currency\": \"USD\"\n    },\n    \"paidFeeInShares\": \"string\"\n  },\n  {\n    \"distributorInvestorContractId\": \"ce0a94ff-bd70-f76d-c2c0-fc4bf4b24a0e\",\n    \"day\": \"string\",\n    \"paidFee\": {\n      \"value\": \"string\",\n      \"currency\": \"CHF\"\n    },\n    \"paidFeeInShares\": \"string\"\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3d0cac9a-d013-40c6-8397-223078a196d5",
-              "name": "The request did not match the expected schema",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts",
-                    ":distributorInvestorContractId",
-                    "paid-fees"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "from",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "to",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "distributorInvestorContractId",
-                      "description": "(Required) a Universally Unique Identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Refinement\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a95a3bcd-d785-4051-a149-2dc612d54795",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts",
-                    ":distributorInvestorContractId",
-                    "paid-fees"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "from",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "to",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "distributorInvestorContractId",
-                      "description": "(Required) a Universally Unique Identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "f616ab51-3542-484f-8cfc-9fc5ad7768e6",
-              "name": "Forbidden",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts",
-                    ":distributorInvestorContractId",
-                    "paid-fees"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "from",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "to",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "distributorInvestorContractId",
-                      "description": "(Required) a Universally Unique Identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"reason\": \"string\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"SessionIsNot2FA\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c08ee9ea-f9eb-42d5-8376-3b2378a20d99",
-              "name": "NotFound",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributor-investor-contracts",
-                    ":distributorInvestorContractId",
-                    "paid-fees"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "from",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "to",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "distributorInvestorContractId",
-                      "description": "(Required) a Universally Unique Identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "d48c6db5-a9dc-48c0-b3b5-0efe3ba655a9",
+          "createdAt": "2026-10-22T01:07:11.000Z",
+          "updatedAt": "2026-10-22T01:07:11.000Z",
+          "uid": "35240-d48c6db5-a9dc-48c0-b3b5-0efe3ba655a9"
         }
       ],
-      "event": []
+      "id": "e2905a43-dfb7-4565-b1d9-7c8ac29ce0f4",
+      "createdAt": "2026-10-22T01:07:11.000Z",
+      "updatedAt": "2026-10-22T01:07:11.000Z",
+      "uid": "35240-e2905a43-dfb7-4565-b1d9-7c8ac29ce0f4"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://distributor-api.spiko.io",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://distributor-api.spiko.io"
     }
-  ],
-  "info": {
-    "_postman_id": "5d7a8c95-f9db-49fe-ac45-8b23143e9c4a",
-    "name": "Spiko Distributor Account transactions Distributor investor contracts API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

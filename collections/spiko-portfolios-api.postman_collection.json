@@ -1,334 +1,339 @@
 {
+  "info": {
+    "_postman_id": "bb93a37b-d495-4d8d-bfb4-229992a2dda0",
+    "name": "Spiko Distributor Portfolios API",
+    "description": "The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:08:39.000Z",
+    "updatedAt": "2026-10-22T01:08:39.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-bb93a37b-d495-4d8d-bfb4-229992a2dda0"
+  },
   "item": [
     {
-      "id": "5ca85aa7-ab5e-4d2b-b744-65fe3eda71c6",
-      "name": "Portfolios",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "v0",
       "item": [
         {
-          "id": "56b56da4-9a64-4df1-a0a7-2b2145aabc51",
-          "name": "Get portfolio",
-          "request": {
-            "name": "Get portfolio",
-            "description": {
-              "content": "Retrieve a view of an investor's investment portfolio, including current asset values, asset allocation, and performance metrics.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v0",
-                "portfolios",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "investorId",
-                  "value": "<uuid>",
-                  "description": "(Required) a Universally Unique Identifier"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "basic",
-              "basic": [
-                {
-                  "key": "username",
-                  "value": "{{basicAuthUsername}}"
-                },
-                {
-                  "key": "password",
-                  "value": "{{basicAuthPassword}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "portfolios",
+          "item": [
             {
-              "id": "b49bb44b-8266-4591-8a3b-6a34a6b670f3",
-              "name": "Success",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "portfolios",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "Get portfolio",
+              "id": "4ca852f8-9b0c-4c7e-824b-4eebd2d082e1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
                     {
-                      "key": "investorId",
-                      "value": "<uuid>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
                     },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"items\": [\n    {\n      \"investorId\": \"b0b592e5-f09c-e193-6352-2986020d2350\",\n      \"accountId\": \"73f0aa68-64e9-cea6-f9f1-d5171c2cf9a1\",\n      \"shareClassId\": \"de079434-17d7-fcf8-0b73-ebb16e7d4b76\",\n      \"network\": \"Polygon\",\n      \"walletAddress\": \"string\",\n      \"totalNumberOfShares\": \"string\",\n      \"currentValue\": {\n        \"value\": \"string\",\n        \"currency\": \"EUR\"\n      },\n      \"isCustodialWallet\": false,\n      \"pending\": {\n        \"credit\": {\n          \"numberOfSubscriptions\": 9953,\n          \"amount\": {\n            \"value\": \"string\",\n            \"currency\": \"SGD\"\n          },\n          \"approximated\": false\n        },\n        \"debit\": {\n          \"numberOfRedemptions\": 7052,\n          \"approximated\": true,\n          \"amount\": {\n            \"value\": \"string\",\n            \"currency\": \"EUR\"\n          }\n        }\n      },\n      \"projectedBalance\": {\n        \"value\": \"string\",\n        \"currency\": \"CHF\"\n      },\n      \"projectedBalanceInShares\": \"string\",\n      \"withdrawableBalance\": {\n        \"value\": \"string\",\n        \"currency\": \"USD\"\n      },\n      \"withdrawableBalanceInShares\": \"string\",\n      \"virtualIban\": \"string\",\n      \"bic\": \"string\",\n      \"depositIbanLines\": [\n        {\n          \"label\": \"string\",\n          \"value\": \"string\",\n          \"tooltip\": \"string\"\n        },\n        {\n          \"label\": \"string\",\n          \"value\": \"string\",\n          \"tooltip\": \"string\"\n        }\n      ],\n      \"cashCollectionBankAccountBeneficiaryName\": \"string\"\n    },\n    {\n      \"investorId\": \"fb9476ca-6102-f9f1-d96a-3dd62f9bc8cf\",\n      \"accountId\": \"04ac8c06-fa91-85d4-adde-8d214480ba0f\",\n      \"shareClassId\": \"e0fdf4b4-ae47-0c73-1a74-b9bc9ee886de\",\n      \"network\": \"Sepolia\",\n      \"walletAddress\": \"string\",\n      \"totalNumberOfShares\": \"string\",\n      \"currentValue\": {\n        \"value\": \"string\",\n        \"currency\": \"CHF\"\n      },\n      \"isCustodialWallet\": false,\n      \"pending\": {\n        \"credit\": {\n          \"numberOfSubscriptions\": 4174,\n          \"amount\": {\n            \"value\": \"string\",\n            \"currency\": \"GBP\"\n          },\n          \"approximated\": true\n        },\n        \"debit\": {\n          \"numberOfRedemptions\": 625,\n          \"approximated\": true,\n          \"amount\": {\n            \"value\": \"string\",\n            \"currency\": \"GBP\"\n          }\n        }\n      },\n      \"projectedBalance\": {\n        \"value\": \"string\",\n        \"currency\": \"USD\"\n      },\n      \"projectedBalanceInShares\": \"string\",\n      \"withdrawableBalance\": {\n        \"value\": \"string\",\n        \"currency\": \"USD\"\n      },\n      \"withdrawableBalanceInShares\": \"string\",\n      \"virtualIban\": \"string\",\n      \"bic\": \"string\",\n      \"depositIbanLines\": [\n        {\n          \"label\": \"string\",\n          \"value\": \"string\",\n          \"tooltip\": \"string\"\n        },\n        {\n          \"label\": \"string\",\n          \"value\": \"string\",\n          \"tooltip\": \"string\"\n        }\n      ],\n      \"cashCollectionBankAccountBeneficiaryName\": \"string\"\n    }\n  ],\n  \"totalGainSinceStart\": [\n    {\n      \"investorId\": \"e243bd94-7db8-d546-c5bf-bc3383c3462a\",\n      \"accountId\": \"fe1f7e52-7f53-d835-6b63-c97bcb5501dc\",\n      \"shareClassId\": \"2b297474-1465-83e1-9776-f3c58575c3b5\",\n      \"totalGainAmount\": {\n        \"value\": \"string\",\n        \"currency\": \"EUR\"\n      }\n    },\n    {\n      \"investorId\": \"b7b0ea50-17bc-fabb-c0e6-af9d63eef222\",\n      \"accountId\": \"cc0aaaf3-707c-db4a-fd2a-fd66fe4476d8\",\n      \"shareClassId\": \"f38e5016-f54f-4da1-cedf-3f16bfee5f3a\",\n      \"totalGainAmount\": {\n        \"value\": \"string\",\n        \"currency\": \"GBP\"\n      }\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "da145a9f-4490-414c-bdd9-4bf6a903d6de",
-              "name": "The request did not match the expected schema",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/v0/portfolios/?investorId=<uuid>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "v0",
                     "portfolios",
                     ""
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "(Required) a Universally Unique Identifier",
                       "key": "investorId",
                       "value": "<uuid>"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                "description": "Retrieve a view of an investor's investment portfolio, including current asset values, asset allocation, and performance metrics."
+              },
+              "response": [
+                {
+                  "id": "b97f0a6a-fd2d-4b27-ba11-fcb5331ac8c9",
+                  "name": "Success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/portfolios/?investorId=<uuid>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "portfolios",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) a Universally Unique Identifier",
+                          "key": "investorId",
+                          "value": "<uuid>"
+                        }
+                      ]
+                    }
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Composite\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "924310c9-3736-42e4-b1cc-217aec176e40",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "portfolios",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "investorId",
-                      "value": "<uuid>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"investorId\": \"<uuid>\",\n      \"accountId\": \"<uuid>\",\n      \"shareClassId\": \"<uuid>\",\n      \"network\": \"Sepolia\",\n      \"walletAddress\": \"<string>\",\n      \"totalNumberOfShares\": \"<string>\",\n      \"currentValue\": {\n        \"value\": \"<string>\",\n        \"currency\": \"EUR\"\n      },\n      \"isCustodialWallet\": \"<boolean>\",\n      \"pending\": {\n        \"credit\": {\n          \"numberOfSubscriptions\": \"<integer>\",\n          \"amount\": {\n            \"value\": \"<string>\",\n            \"currency\": \"GBP\"\n          },\n          \"approximated\": \"<boolean>\"\n        },\n        \"debit\": {\n          \"numberOfRedemptions\": \"<integer>\",\n          \"approximated\": \"<boolean>\",\n          \"amount\": {\n            \"value\": \"<string>\",\n            \"currency\": \"CHF\"\n          }\n        }\n      },\n      \"projectedBalance\": {\n        \"value\": \"<string>\",\n        \"currency\": \"USD\"\n      },\n      \"projectedBalanceInShares\": \"<string>\",\n      \"withdrawableBalance\": {\n        \"value\": \"<string>\",\n        \"currency\": \"USD\"\n      },\n      \"withdrawableBalanceInShares\": \"<string>\",\n      \"virtualIban\": \"<string>\",\n      \"bic\": \"<string>\",\n      \"depositIbanLines\": [\n        {\n          \"label\": \"<string>\",\n          \"value\": \"<string>\",\n          \"tooltip\": \"<string>\"\n        },\n        {\n          \"label\": \"<string>\",\n          \"value\": \"<string>\",\n          \"tooltip\": \"<string>\"\n        }\n      ],\n      \"cashCollectionBankAccountBeneficiaryName\": \"<string>\"\n    },\n    {\n      \"investorId\": \"<uuid>\",\n      \"accountId\": \"<uuid>\",\n      \"shareClassId\": \"<uuid>\",\n      \"network\": \"Starknet\",\n      \"walletAddress\": \"<string>\",\n      \"totalNumberOfShares\": \"<string>\",\n      \"currentValue\": {\n        \"value\": \"<string>\",\n        \"currency\": \"EUR\"\n      },\n      \"isCustodialWallet\": \"<boolean>\",\n      \"pending\": {\n        \"credit\": {\n          \"numberOfSubscriptions\": \"<integer>\",\n          \"amount\": {\n            \"value\": \"<string>\",\n            \"currency\": \"JPY\"\n          },\n          \"approximated\": \"<boolean>\"\n        },\n        \"debit\": {\n          \"numberOfRedemptions\": \"<integer>\",\n          \"approximated\": \"<boolean>\",\n          \"amount\": {\n            \"value\": \"<string>\",\n            \"currency\": \"SGD\"\n          }\n        }\n      },\n      \"projectedBalance\": {\n        \"value\": \"<string>\",\n        \"currency\": \"USD\"\n      },\n      \"projectedBalanceInShares\": \"<string>\",\n      \"withdrawableBalance\": {\n        \"value\": \"<string>\",\n        \"currency\": \"EUR\"\n      },\n      \"withdrawableBalanceInShares\": \"<string>\",\n      \"virtualIban\": \"<string>\",\n      \"bic\": \"<string>\",\n      \"depositIbanLines\": [\n        {\n          \"label\": \"<string>\",\n          \"value\": \"<string>\",\n          \"tooltip\": \"<string>\"\n        },\n        {\n          \"label\": \"<string>\",\n          \"value\": \"<string>\",\n          \"tooltip\": \"<string>\"\n        }\n      ],\n      \"cashCollectionBankAccountBeneficiaryName\": \"<string>\"\n    }\n  ],\n  \"totalGainSinceStart\": [\n    {\n      \"investorId\": \"<uuid>\",\n      \"accountId\": \"<uuid>\",\n      \"shareClassId\": \"<uuid>\",\n      \"totalGainAmount\": {\n        \"value\": \"<string>\",\n        \"currency\": \"CHF\"\n      }\n    },\n    {\n      \"investorId\": \"<uuid>\",\n      \"accountId\": \"<uuid>\",\n      \"shareClassId\": \"<uuid>\",\n      \"totalGainAmount\": {\n        \"value\": \"<string>\",\n        \"currency\": \"USD\"\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:08:39.000Z",
+                  "updatedAt": "2026-10-22T01:08:39.000Z",
+                  "uid": "35240-b97f0a6a-fd2d-4b27-ba11-fcb5331ac8c9"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                {
+                  "id": "247c70a1-5540-4489-8b59-283e7d1726ed",
+                  "name": "The request did not match the expected schema",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/portfolios/?investorId=<uuid>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "portfolios",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) a Universally Unique Identifier",
+                          "key": "investorId",
+                          "value": "<uuid>"
+                        }
+                      ]
+                    }
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "2a904300-0f86-4c11-89c2-4dbf784899a6",
-              "name": "Forbidden",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "portfolios",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "investorId",
-                      "value": "<uuid>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Pointer\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Refinement\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+                  "createdAt": "2026-10-22T01:08:39.000Z",
+                  "updatedAt": "2026-10-22T01:08:39.000Z",
+                  "uid": "35240-247c70a1-5540-4489-8b59-283e7d1726ed"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                {
+                  "id": "d6faab41-728c-4218-8f96-68403280eecd",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/portfolios/?investorId=<uuid>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "portfolios",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) a Universally Unique Identifier",
+                          "key": "investorId",
+                          "value": "<uuid>"
+                        }
+                      ]
+                    }
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"reason\": \"string\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"AtLeastTwoAdminUsersRequired\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "38032eaa-a7a0-4b88-9aa0-79ada3e68681",
-              "name": "NotFound",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "portfolios",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "investorId",
-                      "value": "<uuid>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"$id\": \"/schemas/void\",\n  \"title\": \"Unauthorized\"\n}",
+                  "createdAt": "2026-10-22T01:08:39.000Z",
+                  "updatedAt": "2026-10-22T01:08:39.000Z",
+                  "uid": "35240-d6faab41-728c-4218-8f96-68403280eecd"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "id": "63523735-49b5-41dc-8443-a65201530b07",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/portfolios/?investorId=<uuid>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "portfolios",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) a Universally Unique Identifier",
+                          "key": "investorId",
+                          "value": "<uuid>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"reason\": \"<string>\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"InvestorNotPendingOnboarding\"\n}",
+                  "createdAt": "2026-10-22T01:08:39.000Z",
+                  "updatedAt": "2026-10-22T01:08:39.000Z",
+                  "uid": "35240-63523735-49b5-41dc-8443-a65201530b07"
+                },
+                {
+                  "id": "def710a5-a42c-4d1b-9423-ec859d53d07f",
+                  "name": "NotFound",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/portfolios/?investorId=<uuid>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "portfolios",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) a Universally Unique Identifier",
+                          "key": "investorId",
+                          "value": "<uuid>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:08:39.000Z",
+                  "updatedAt": "2026-10-22T01:08:39.000Z",
+                  "uid": "35240-def710a5-a42c-4d1b-9423-ec859d53d07f"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "createdAt": "2026-10-22T01:08:39.000Z",
+              "updatedAt": "2026-10-22T01:08:39.000Z",
+              "uid": "35240-4ca852f8-9b0c-4c7e-824b-4eebd2d082e1"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "33ed458c-bcdd-4ee9-84f6-26bf3e868e31",
+          "createdAt": "2026-10-22T01:08:39.000Z",
+          "updatedAt": "2026-10-22T01:08:39.000Z",
+          "uid": "35240-33ed458c-bcdd-4ee9-84f6-26bf3e868e31"
         }
       ],
-      "event": []
+      "id": "a8069324-365e-47c6-b287-695d3f3e321b",
+      "createdAt": "2026-10-22T01:08:39.000Z",
+      "updatedAt": "2026-10-22T01:08:39.000Z",
+      "uid": "35240-a8069324-365e-47c6-b287-695d3f3e321b"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://distributor-api.spiko.io",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://distributor-api.spiko.io"
     }
-  ],
-  "info": {
-    "_postman_id": "a05496cc-d25a-406f-8ecb-7e4a778fc17f",
-    "name": "Spiko Distributor Account transactions Portfolios API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

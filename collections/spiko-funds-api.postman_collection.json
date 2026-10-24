@@ -1,304 +1,303 @@
 {
+  "info": {
+    "_postman_id": "e7037e37-b327-416c-a21b-64ef5e13be03",
+    "name": "Spiko Public Funds API",
+    "description": "The Public API provides access to public financial data about the Spiko Funds. You can retrieve detailed information about our Funds, their portfolio, their yield or their share classes.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:07:47.000Z",
+    "updatedAt": "2026-10-22T01:07:47.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e7037e37-b327-416c-a21b-64ef5e13be03"
+  },
   "item": [
     {
-      "id": "37df5def-5285-446e-97b2-c5a0b6ebec57",
-      "name": "Funds",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "funds",
       "item": [
         {
-          "id": "115347ad-ebd2-4f2f-95c0-2d722884a9cf",
-          "name": "Get Fund",
-          "request": {
-            "name": "Get Fund",
-            "description": {},
-            "url": {
-              "path": [
-                "funds",
-                ":fundId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "fundId",
-                  "description": "(Required) a Universally Unique Identifier"
+          "name": "{fundId}",
+          "item": [
+            {
+              "name": "Get fund",
+              "id": "43821593-d85d-4a65-a66d-717e17901016",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/funds/:fundId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "funds",
+                    ":fundId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "df2471a7-0d6a-4094-aa91-741c05cab1be",
+                      "key": "fundId",
+                      "value": "<uuid>",
+                      "description": "(Required) a Universally Unique Identifier"
+                    }
+                  ]
                 }
-              ]
-            },
+              },
+              "response": [
+                {
+                  "id": "51ef2efb-ebf5-4692-aef6-2f3715056042",
+                  "name": "Success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/funds/:fundId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "funds",
+                        ":fundId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "fundId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<uuid>\",\n  \"slug\": \"EUTBL\",\n  \"timezone\": \"Europe/London\",\n  \"executionMethod\": \"knownNAVs\",\n  \"nonOperatingDays\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"launchDay\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:07:47.000Z",
+                  "updatedAt": "2026-10-22T01:07:47.000Z",
+                  "uid": "35240-51ef2efb-ebf5-4692-aef6-2f3715056042"
+                },
+                {
+                  "id": "1b4d8163-e1f0-44da-b450-24fe324a8970",
+                  "name": "The request did not match the expected schema",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/funds/:fundId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "funds",
+                        ":fundId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "fundId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Pointer\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+                  "createdAt": "2026-10-22T01:07:47.000Z",
+                  "updatedAt": "2026-10-22T01:07:47.000Z",
+                  "uid": "35240-1b4d8163-e1f0-44da-b450-24fe324a8970"
+                },
+                {
+                  "id": "ad34d03d-e4ef-4828-9e67-1b7534dd5b84",
+                  "name": "NotFound",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/funds/:fundId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "funds",
+                        ":fundId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "fundId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:07:47.000Z",
+                  "updatedAt": "2026-10-22T01:07:47.000Z",
+                  "uid": "35240-ad34d03d-e4ef-4828-9e67-1b7534dd5b84"
+                }
+              ],
+              "createdAt": "2026-10-22T01:07:47.000Z",
+              "updatedAt": "2026-10-22T01:07:47.000Z",
+              "uid": "35240-43821593-d85d-4a65-a66d-717e17901016"
+            }
+          ],
+          "id": "16a1df9a-765d-4a08-89c8-6430d62c2e88",
+          "createdAt": "2026-10-22T01:07:47.000Z",
+          "updatedAt": "2026-10-22T01:07:47.000Z",
+          "uid": "35240-16a1df9a-765d-4a08-89c8-6430d62c2e88"
+        },
+        {
+          "name": "Get all funds",
+          "id": "4f4c0aa1-366a-4a06-930a-47f3d5149ccb",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "028f1296-e6e4-4519-9fd8-c9bdf3503d09",
-              "name": "Success",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "funds",
-                    ":fundId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "fundId",
-                      "description": "(Required) a Universally Unique Identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"4dcf0b91-edd7-a23c-39ac-3e7d7679ea75\",\n  \"slug\": \"UKTBL\",\n  \"timezone\": \"Europe/Luxembourg\",\n  \"executionMethod\": \"knownNAVs\",\n  \"nonOperatingDays\": [\n    \"string\",\n    \"string\"\n  ],\n  \"launchDay\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ebd0c9b9-7fb3-40dd-9428-465482b9d0ce",
-              "name": "The request did not match the expected schema",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "funds",
-                    ":fundId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "fundId",
-                      "description": "(Required) a Universally Unique Identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Unexpected\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Unexpected\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d1863c55-280d-4f1c-ac64-3545e4a2fbf5",
-              "name": "NotFound",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "funds",
-                    ":fundId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "fundId",
-                      "description": "(Required) a Universally Unique Identifier"
-                    }
-                  ]
-                },
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "e74a4e54-3de4-4882-bfb7-69c3fc12b1bf",
-          "name": "Get all Funds",
-          "request": {
-            "name": "Get all Funds",
-            "description": {},
             "url": {
+              "raw": "{{baseUrl}}/funds/",
+              "host": [
+                "{{baseUrl}}"
+              ],
               "path": [
                 "funds",
                 ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
+              ]
+            }
           },
           "response": [
             {
-              "id": "396f48eb-b078-42b7-bbb4-45fa3c147c0f",
+              "id": "936a9277-b8e2-462a-967e-1427687c4a46",
               "name": "Success",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "funds",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/funds/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "funds",
+                    ""
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "[\n  {\n    \"id\": \"493697d7-e4dd-6fa2-1262-42b91d8a1f88\",\n    \"slug\": \"UKTBL\",\n    \"timezone\": \"Europe/London\",\n    \"executionMethod\": \"knownNAVs\",\n    \"nonOperatingDays\": [\n      \"string\",\n      \"string\"\n    ],\n    \"launchDay\": \"string\"\n  },\n  {\n    \"id\": \"3d083515-9289-bd5f-707d-5a7e7f11d000\",\n    \"slug\": \"EUTBL\",\n    \"timezone\": \"Europe/Dublin\",\n    \"executionMethod\": \"unknownNAVs\",\n    \"nonOperatingDays\": [\n      \"string\",\n      \"string\"\n    ],\n    \"launchDay\": \"string\"\n  }\n]",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "[\n  {\n    \"id\": \"<uuid>\",\n    \"slug\": \"EUTBL\",\n    \"timezone\": \"Europe/Paris\",\n    \"executionMethod\": \"unknownNAVs\",\n    \"nonOperatingDays\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"launchDay\": \"<string>\"\n  },\n  {\n    \"id\": \"<uuid>\",\n    \"slug\": \"USTBL\",\n    \"timezone\": \"Europe/Luxembourg\",\n    \"executionMethod\": \"unknownNAVs\",\n    \"nonOperatingDays\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"launchDay\": \"<string>\"\n  }\n]",
+              "createdAt": "2026-10-22T01:07:47.000Z",
+              "updatedAt": "2026-10-22T01:07:47.000Z",
+              "uid": "35240-936a9277-b8e2-462a-967e-1427687c4a46"
             },
             {
-              "id": "570ab80b-0a46-430d-bd23-414be6b0f195",
+              "id": "0528387b-6171-42d8-a0ef-76a66bf537df",
               "name": "The request did not match the expected schema",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "funds",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/funds/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "funds",
+                    ""
+                  ]
+                }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Unexpected\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Unexpected\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Pointer\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+              "createdAt": "2026-10-22T01:07:47.000Z",
+              "updatedAt": "2026-10-22T01:07:47.000Z",
+              "uid": "35240-0528387b-6171-42d8-a0ef-76a66bf537df"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:07:47.000Z",
+          "updatedAt": "2026-10-22T01:07:47.000Z",
+          "uid": "35240-4f4c0aa1-366a-4a06-930a-47f3d5149ccb"
         }
       ],
-      "event": []
+      "id": "05a9a24f-a0e1-4eee-8546-a1bf764b081a",
+      "createdAt": "2026-10-22T01:07:47.000Z",
+      "updatedAt": "2026-10-22T01:07:47.000Z",
+      "uid": "35240-05a9a24f-a0e1-4eee-8546-a1bf764b081a"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://distributor-api.spiko.io",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://public-api.spiko.io/v0"
     }
-  ],
-  "info": {
-    "_postman_id": "663f606b-beb4-465a-81ee-fe110c9ce322",
-    "name": "Spiko Distributor Account transactions Funds API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

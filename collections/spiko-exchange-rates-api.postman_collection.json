@@ -1,426 +1,440 @@
 {
+  "info": {
+    "_postman_id": "34501a15-a82f-400b-9ad4-9a63fd0aaacc",
+    "name": "Spiko Public Exchange Rates API",
+    "description": "The Public API provides access to public financial data about the Spiko Funds. You can retrieve detailed information about our Funds, their portfolio, their yield or their share classes.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:07:35.000Z",
+    "updatedAt": "2026-10-22T01:07:35.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-34501a15-a82f-400b-9ad4-9a63fd0aaacc"
+  },
   "item": [
     {
-      "id": "3ba48828-72fb-4eab-859e-97a163a48da6",
-      "name": "Exchange Rates",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "exchange-rates",
       "item": [
         {
-          "id": "b774b3cf-f285-4421-92e8-6f6f26adddfb",
-          "name": "Get Exchange Rate by ID",
-          "request": {
-            "name": "Get Exchange Rate by ID",
-            "description": {},
-            "url": {
-              "path": [
-                "exchange-rates",
-                ":exchangeRateId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "exchangeRateId",
-                  "description": "(Required) a Universally Unique Identifier"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{exchangeRateId}",
+          "item": [
             {
-              "id": "cd7aaa48-2bfe-457f-a196-2e0fb8bb9456",
-              "name": "Success",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "exchange-rates",
-                    ":exchangeRateId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "exchangeRateId",
-                      "description": "(Required) a Universally Unique Identifier"
-                    }
-                  ]
-                },
+              "name": "Get exchange rate by ID",
+              "id": "7d438657-1351-4f6c-8978-3c0c7e9b7fd5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"c64557bf-9ed5-144c-1200-f9f9819deebc\",\n  \"fundId\": \"1e3550e1-f9e0-11d1-86ae-4b6836ce24a6\",\n  \"day\": \"string\",\n  \"baseCurrency\": \"EUR\",\n  \"quoteCurrency\": \"USD\",\n  \"fxRate\": \"string\",\n  \"updatedAt\": \"string\",\n  \"kind\": \"execution\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "91133fbc-ace2-475d-8f05-1833b1c19953",
-              "name": "The request did not match the expected schema",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/exchange-rates/:exchangeRateId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "exchange-rates",
                     ":exchangeRateId"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
+                      "id": "ce238ec3-3d75-4d64-91a4-185e291c795c",
                       "key": "exchangeRateId",
+                      "value": "<uuid>",
                       "description": "(Required) a Universally Unique Identifier"
                     }
                   ]
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
                 }
-              ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7f5f72b6-085c-47d0-9b12-320f9f15cb82",
-              "name": "NotFound",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "exchange-rates",
-                    ":exchangeRateId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "exchangeRateId",
-                      "description": "(Required) a Universally Unique Identifier"
+              },
+              "response": [
+                {
+                  "id": "8f5dfddf-a452-4aa2-80d2-cbd190d2f058",
+                  "name": "Success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/exchange-rates/:exchangeRateId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "exchange-rates",
+                        ":exchangeRateId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "exchangeRateId"
+                        }
+                      ]
                     }
-                  ]
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<uuid>\",\n  \"fundId\": \"<uuid>\",\n  \"day\": \"<string>\",\n  \"baseCurrency\": \"EUR\",\n  \"quoteCurrency\": \"JPY\",\n  \"fxRate\": \"<string>\",\n  \"updatedAt\": \"<string>\",\n  \"kind\": \"indicative\"\n}",
+                  "createdAt": "2026-10-22T01:07:35.000Z",
+                  "updatedAt": "2026-10-22T01:07:35.000Z",
+                  "uid": "35240-8f5dfddf-a452-4aa2-80d2-cbd190d2f058"
                 },
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "id": "410d9415-805a-4c76-92f9-bd5b556450a0",
+                  "name": "The request did not match the expected schema",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/exchange-rates/:exchangeRateId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "exchange-rates",
+                        ":exchangeRateId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "exchangeRateId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Forbidden\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+                  "createdAt": "2026-10-22T01:07:35.000Z",
+                  "updatedAt": "2026-10-22T01:07:35.000Z",
+                  "uid": "35240-410d9415-805a-4c76-92f9-bd5b556450a0"
+                },
+                {
+                  "id": "9f867104-798b-4107-9521-e506c92874d3",
+                  "name": "NotFound",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/exchange-rates/:exchangeRateId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "exchange-rates",
+                        ":exchangeRateId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "exchangeRateId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:07:35.000Z",
+                  "updatedAt": "2026-10-22T01:07:35.000Z",
+                  "uid": "35240-9f867104-798b-4107-9521-e506c92874d3"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "createdAt": "2026-10-22T01:07:35.000Z",
+              "updatedAt": "2026-10-22T01:07:35.000Z",
+              "uid": "35240-7d438657-1351-4f6c-8978-3c0c7e9b7fd5"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "6e194ae6-de9e-49b3-b0ba-1641243cdb5c",
+          "createdAt": "2026-10-22T01:07:35.000Z",
+          "updatedAt": "2026-10-22T01:07:35.000Z",
+          "uid": "35240-6e194ae6-de9e-49b3-b0ba-1641243cdb5c"
         },
         {
-          "id": "6b39ab21-bfa4-4ed4-8146-07aa03f8a6af",
-          "name": "Get Latest Exchange Rate",
-          "request": {
-            "name": "Get Latest Exchange Rate",
-            "description": {},
-            "url": {
-              "path": [
-                "exchange-rates",
-                "latest"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "fundId",
-                  "value": "<uuid>",
-                  "description": "(Required) a Universally Unique Identifier"
-                },
-                {
-                  "disabled": false,
-                  "key": "quoteCurrency",
-                  "value": "<string>",
-                  "description": "(Required) a currency code among \"EUR\", \"USD\", \"GBP\", \"CHF\", \"JPY\", \"SGD\""
-                },
-                {
-                  "disabled": false,
-                  "key": "baseCurrency",
-                  "value": "<string>",
-                  "description": "(Required) a currency code among \"EUR\", \"USD\", \"GBP\", \"CHF\", \"JPY\", \"SGD\""
-                },
-                {
-                  "disabled": false,
-                  "key": "latestUpdateDate",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "fallbackToAnyOtherFund",
-                  "value": "<string>"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "latest",
+          "item": [
             {
-              "id": "af868788-ff6e-4ba4-856e-9fc4a675895d",
-              "name": "Success",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "exchange-rates",
-                    "latest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "fundId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "quoteCurrency",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "baseCurrency",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "latestUpdateDate",
-                      "value": "string"
-                    },
-                    {
-                      "key": "fallbackToAnyOtherFund",
-                      "value": "false"
-                    }
-                  ],
-                  "variable": []
-                },
+              "name": "Get latest exchange rate",
+              "id": "f06bff23-a85d-4a96-9cbb-4ed7bcb95e8c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"c64557bf-9ed5-144c-1200-f9f9819deebc\",\n  \"fundId\": \"1e3550e1-f9e0-11d1-86ae-4b6836ce24a6\",\n  \"day\": \"string\",\n  \"baseCurrency\": \"EUR\",\n  \"quoteCurrency\": \"USD\",\n  \"fxRate\": \"string\",\n  \"updatedAt\": \"string\",\n  \"kind\": \"execution\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5dbc1332-e643-4931-a8a2-2a992cd75b5f",
-              "name": "The request did not match the expected schema",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/exchange-rates/latest?fundId=<uuid>&quoteCurrency=EUR&baseCurrency=EUR&latestUpdateDate=<string>&fallbackToAnyOtherFund=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "exchange-rates",
                     "latest"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "(Required) a Universally Unique Identifier",
                       "key": "fundId",
                       "value": "<uuid>"
                     },
                     {
+                      "description": "(Required) a currency code among \"EUR\", \"USD\", \"GBP\", \"CHF\", \"JPY\", \"SGD\"",
                       "key": "quoteCurrency",
-                      "value": "<string>"
+                      "value": "EUR"
                     },
                     {
+                      "description": "(Required) a currency code among \"EUR\", \"USD\", \"GBP\", \"CHF\", \"JPY\", \"SGD\"",
                       "key": "baseCurrency",
-                      "value": "<string>"
+                      "value": "EUR"
                     },
                     {
                       "key": "latestUpdateDate",
-                      "value": "string"
-                    },
-                    {
-                      "key": "fallbackToAnyOtherFund",
-                      "value": "false"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0c9890c0-b663-4d84-a5f3-92d6ffad786e",
-              "name": "NotFound",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "exchange-rates",
-                    "latest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "fundId",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "quoteCurrency",
                       "value": "<string>"
                     },
                     {
-                      "key": "baseCurrency",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "latestUpdateDate",
-                      "value": "string"
-                    },
-                    {
                       "key": "fallbackToAnyOtherFund",
-                      "value": "false"
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "8b670654-b846-4f6a-a75c-be3d0bcb785d",
+                  "name": "Success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/exchange-rates/latest?fundId=<uuid>&quoteCurrency=EUR&baseCurrency=EUR&latestUpdateDate=<string>&fallbackToAnyOtherFund=true",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "exchange-rates",
+                        "latest"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) a Universally Unique Identifier",
+                          "key": "fundId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "(Required) a currency code among \"EUR\", \"USD\", \"GBP\", \"CHF\", \"JPY\", \"SGD\"",
+                          "key": "quoteCurrency",
+                          "value": "EUR"
+                        },
+                        {
+                          "description": "(Required) a currency code among \"EUR\", \"USD\", \"GBP\", \"CHF\", \"JPY\", \"SGD\"",
+                          "key": "baseCurrency",
+                          "value": "EUR"
+                        },
+                        {
+                          "key": "latestUpdateDate",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "fallbackToAnyOtherFund",
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<uuid>\",\n  \"fundId\": \"<uuid>\",\n  \"day\": \"<string>\",\n  \"baseCurrency\": \"EUR\",\n  \"quoteCurrency\": \"JPY\",\n  \"fxRate\": \"<string>\",\n  \"updatedAt\": \"<string>\",\n  \"kind\": \"indicative\"\n}",
+                  "createdAt": "2026-10-22T01:07:35.000Z",
+                  "updatedAt": "2026-10-22T01:07:35.000Z",
+                  "uid": "35240-8b670654-b846-4f6a-a75c-be3d0bcb785d"
                 },
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "id": "dd6bd90b-fb2e-4ebe-a82d-0d78ee2acd8e",
+                  "name": "The request did not match the expected schema",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/exchange-rates/latest?fundId=<uuid>&quoteCurrency=EUR&baseCurrency=EUR&latestUpdateDate=<string>&fallbackToAnyOtherFund=true",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "exchange-rates",
+                        "latest"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) a Universally Unique Identifier",
+                          "key": "fundId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "(Required) a currency code among \"EUR\", \"USD\", \"GBP\", \"CHF\", \"JPY\", \"SGD\"",
+                          "key": "quoteCurrency",
+                          "value": "EUR"
+                        },
+                        {
+                          "description": "(Required) a currency code among \"EUR\", \"USD\", \"GBP\", \"CHF\", \"JPY\", \"SGD\"",
+                          "key": "baseCurrency",
+                          "value": "EUR"
+                        },
+                        {
+                          "key": "latestUpdateDate",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "fallbackToAnyOtherFund",
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Forbidden\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+                  "createdAt": "2026-10-22T01:07:35.000Z",
+                  "updatedAt": "2026-10-22T01:07:35.000Z",
+                  "uid": "35240-dd6bd90b-fb2e-4ebe-a82d-0d78ee2acd8e"
+                },
+                {
+                  "id": "b4d017bc-a86a-4c1c-b095-f1bae33afbd0",
+                  "name": "NotFound",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/exchange-rates/latest?fundId=<uuid>&quoteCurrency=EUR&baseCurrency=EUR&latestUpdateDate=<string>&fallbackToAnyOtherFund=true",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "exchange-rates",
+                        "latest"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) a Universally Unique Identifier",
+                          "key": "fundId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "(Required) a currency code among \"EUR\", \"USD\", \"GBP\", \"CHF\", \"JPY\", \"SGD\"",
+                          "key": "quoteCurrency",
+                          "value": "EUR"
+                        },
+                        {
+                          "description": "(Required) a currency code among \"EUR\", \"USD\", \"GBP\", \"CHF\", \"JPY\", \"SGD\"",
+                          "key": "baseCurrency",
+                          "value": "EUR"
+                        },
+                        {
+                          "key": "latestUpdateDate",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "fallbackToAnyOtherFund",
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:07:35.000Z",
+                  "updatedAt": "2026-10-22T01:07:35.000Z",
+                  "uid": "35240-b4d017bc-a86a-4c1c-b095-f1bae33afbd0"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "createdAt": "2026-10-22T01:07:35.000Z",
+              "updatedAt": "2026-10-22T01:07:35.000Z",
+              "uid": "35240-f06bff23-a85d-4a96-9cbb-4ed7bcb95e8c"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "439e0d4c-f17b-4223-b4b0-ac7eb710057d",
+          "createdAt": "2026-10-22T01:07:35.000Z",
+          "updatedAt": "2026-10-22T01:07:35.000Z",
+          "uid": "35240-439e0d4c-f17b-4223-b4b0-ac7eb710057d"
         }
       ],
-      "event": []
+      "id": "4e65b1a1-23b4-4add-bb9b-43b4d2ba8057",
+      "createdAt": "2026-10-22T01:07:35.000Z",
+      "updatedAt": "2026-10-22T01:07:35.000Z",
+      "uid": "35240-4e65b1a1-23b4-4add-bb9b-43b4d2ba8057"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://distributor-api.spiko.io",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://public-api.spiko.io/v0"
     }
-  ],
-  "info": {
-    "_postman_id": "7697ba6b-f2ba-4747-91be-835a04cfc715",
-    "name": "Spiko Distributor Account transactions Exchange Rates API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

@@ -1,485 +1,499 @@
 {
+  "info": {
+    "_postman_id": "be1d97cd-55bd-4167-b47c-420a1080dd7f",
+    "name": "Spiko Distributor Distributors API",
+    "description": "The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:07:25.000Z",
+    "updatedAt": "2026-10-22T01:07:25.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-be1d97cd-55bd-4167-b47c-420a1080dd7f"
+  },
   "item": [
     {
-      "id": "c80e4b2a-bc30-4f9b-8d4f-8cb244c76a31",
-      "name": "Distributors",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "v0",
       "item": [
         {
-          "id": "f0f7e688-d740-40ee-99c4-ae25e0671795",
-          "name": "Get distributor info",
-          "request": {
-            "name": "Get distributor info",
-            "description": {
-              "content": "Retrieve information about the distributor linked to the client credentials.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v0",
-                "distributors",
-                "me"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "basic",
-              "basic": [
-                {
-                  "key": "username",
-                  "value": "{{basicAuthUsername}}"
-                },
-                {
-                  "key": "password",
-                  "value": "{{basicAuthPassword}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "distributors",
+          "item": [
             {
-              "id": "95b64ed0-8bf4-42eb-99f2-3c312690f958",
-              "name": "Success",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributors",
-                    "me"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "me",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "Get distributor info",
+                  "id": "856d88f6-c909-4b77-8aeb-8556ba464d26",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/distributors/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "distributors",
+                        "me"
+                      ]
+                    },
+                    "description": "Retrieve information about the distributor linked to the client credentials."
+                  },
+                  "response": [
+                    {
+                      "id": "4f8d916e-f8ff-45fa-9bc6-1a76ac4e4620",
+                      "name": "Success",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/distributors/me",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "distributors",
+                            "me"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"distributionModel\": \"spiko-license\"\n}",
+                      "createdAt": "2026-10-22T01:07:26.000Z",
+                      "updatedAt": "2026-10-22T01:07:26.000Z",
+                      "uid": "35240-4f8d916e-f8ff-45fa-9bc6-1a76ac4e4620"
+                    },
+                    {
+                      "id": "2f97fe08-9c1e-468b-b446-9501af4d993b",
+                      "name": "The request did not match the expected schema",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/distributors/me",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "distributors",
+                            "me"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Refinement\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+                      "createdAt": "2026-10-22T01:07:26.000Z",
+                      "updatedAt": "2026-10-22T01:07:26.000Z",
+                      "uid": "35240-2f97fe08-9c1e-468b-b446-9501af4d993b"
+                    },
+                    {
+                      "id": "3c710b5e-b8b4-4093-98c7-b193df16a5a6",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/distributors/me",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "distributors",
+                            "me"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"$id\": \"/schemas/void\",\n  \"title\": \"Unauthorized\"\n}",
+                      "createdAt": "2026-10-22T01:07:26.000Z",
+                      "updatedAt": "2026-10-22T01:07:26.000Z",
+                      "uid": "35240-3c710b5e-b8b4-4093-98c7-b193df16a5a6"
+                    },
+                    {
+                      "id": "f0e5c2af-6060-4eaf-9d4c-995722514ba5",
+                      "name": "Forbidden",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/distributors/me",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "distributors",
+                            "me"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"reason\": \"<string>\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"ShareClassNotAvailableForDistributor\"\n}",
+                      "createdAt": "2026-10-22T01:07:26.000Z",
+                      "updatedAt": "2026-10-22T01:07:26.000Z",
+                      "uid": "35240-f0e5c2af-6060-4eaf-9d4c-995722514ba5"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:07:26.000Z",
+                  "updatedAt": "2026-10-22T01:07:26.000Z",
+                  "uid": "35240-856d88f6-c909-4b77-8aeb-8556ba464d26"
                 }
               ],
-              "body": "{\n  \"id\": \"743b1aa1-97e3-12c7-6459-54c9322ffe26\",\n  \"name\": \"string\",\n  \"email\": \"string\",\n  \"distributionModel\": \"named-accounts\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "30f078e0-eae2-4da3-bb27-1557475ac3e6",
-              "name": "The request did not match the expected schema",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributors",
-                    "me"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Forbidden\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "f5b9e7bc-0a1c-42f2-89d9-89426969a98a",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributors",
-                    "me"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7d6cdb75-471d-489d-9cbc-502a36847e01",
-              "name": "Forbidden",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "distributors",
-                    "me"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"reason\": \"string\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"AccountDoesNotBelongToInvestor\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "2f67d2fe-7da8-455c-89e2-d237b4f6069f",
+              "createdAt": "2026-10-22T01:07:26.000Z",
+              "updatedAt": "2026-10-22T01:07:26.000Z",
+              "uid": "35240-2f67d2fe-7da8-455c-89e2-d237b4f6069f"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "16a098c4-b603-41be-9716-49a4f86d3c5a",
+          "createdAt": "2026-10-22T01:07:26.000Z",
+          "updatedAt": "2026-10-22T01:07:26.000Z",
+          "uid": "35240-16a098c4-b603-41be-9716-49a4f86d3c5a"
         },
         {
-          "id": "326e4443-ddb3-439b-aa09-ab7ded46650c",
-          "name": "List share classes",
-          "request": {
-            "name": "List share classes",
-            "description": {
-              "content": "List share classes accessible to the authenticated distributor.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v0",
-                "share-classes"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "basic",
-              "basic": [
-                {
-                  "key": "username",
-                  "value": "{{basicAuthUsername}}"
-                },
-                {
-                  "key": "password",
-                  "value": "{{basicAuthPassword}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "share-classes",
+          "item": [
             {
-              "id": "1024f123-4319-4498-9846-f3f2de530ff5",
-              "name": "Success",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "share-classes"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
+              "name": "List share classes",
+              "id": "3d06b6e4-e978-454b-b3f2-2a7755255d33",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
                     },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "null",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5100bd9a-6b51-406b-a13e-1788f37a52a2",
-              "name": "The request did not match the expected schema",
-              "originalRequest": {
                 "url": {
-                  "path": [
-                    "v0",
-                    "share-classes"
-                  ],
+                  "raw": "{{baseUrl}}/v0/share-classes",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Transformation\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Forbidden\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b2aa0d76-3a3b-49eb-b4a5-0544b6ca103c",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
                   "path": [
                     "v0",
                     "share-classes"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "List share classes accessible to the authenticated distributor."
               },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "42c0cfce-7fb5-4376-8443-6de8141a18d1",
+                  "name": "Success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/share-classes",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "share-classes"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"id\": \"<uuid>\",\n    \"symbol\": \"eurUSTBL\",\n    \"fundId\": \"<uuid>\",\n    \"isin\": \"<string>\",\n    \"navDecimals\": \"<integer>\",\n    \"shareDecimals\": \"<integer>\",\n    \"currency\": \"USD\",\n    \"tokens\": [\n      {\n        \"network\": \"Ethereum\",\n        \"address\": \"<string>\"\n      },\n      {\n        \"network\": \"Polygon\",\n        \"address\": \"<string>\"\n      }\n    ],\n    \"useOfIncome\": \"distributing\",\n    \"minimumInitialSubscription\": \"<string>\",\n    \"minimumSubsequentSubscription\": \"<string>\",\n    \"minimumRedemption\": \"<string>\",\n    \"subscriptionFees\": \"<string>\",\n    \"redemptionFees\": \"<string>\",\n    \"managementFees\": \"<string>\",\n    \"bankAccountNumber\": \"<string>\",\n    \"bankAccountIntermediaryBic\": \"<string>\",\n    \"bankAccountBic\": \"<string>\",\n    \"intermediaryShareClasses\": [\n      \"<array>\",\n      \"<array>\"\n    ],\n    \"cashCollectionBankAccount\": {\n      \"bank\": \"MemoBank\",\n      \"id\": \"<uuid>\",\n      \"details\": {\n        \"beneficiaryName\": \"<string>\",\n        \"bic\": \"<string>\",\n        \"currency\": \"SGD\",\n        \"accountNumber\": \"<string>\",\n        \"intermediaryBic\": \"<string>\"\n      }\n    }\n  },\n  {\n    \"id\": \"<uuid>\",\n    \"symbol\": \"eurSPKCC\",\n    \"fundId\": \"<uuid>\",\n    \"isin\": \"<string>\",\n    \"navDecimals\": \"<integer>\",\n    \"shareDecimals\": \"<integer>\",\n    \"currency\": \"SGD\",\n    \"tokens\": [\n      {\n        \"network\": \"EtherlinkTestnet\",\n        \"address\": \"<string>\"\n      },\n      {\n        \"network\": \"Polygon\",\n        \"address\": \"<string>\"\n      }\n    ],\n    \"useOfIncome\": \"distributing\",\n    \"minimumInitialSubscription\": \"<string>\",\n    \"minimumSubsequentSubscription\": \"<string>\",\n    \"minimumRedemption\": \"<string>\",\n    \"subscriptionFees\": \"<string>\",\n    \"redemptionFees\": \"<string>\",\n    \"managementFees\": \"<string>\",\n    \"bankAccountNumber\": \"<string>\",\n    \"bankAccountIntermediaryBic\": \"<string>\",\n    \"bankAccountBic\": \"<string>\",\n    \"intermediaryShareClasses\": [\n      \"<array>\",\n      \"<array>\"\n    ],\n    \"cashCollectionBankAccount\": {\n      \"bank\": \"MemoBank\",\n      \"id\": \"<uuid>\",\n      \"details\": {\n        \"beneficiaryName\": \"<string>\",\n        \"bic\": \"<string>\",\n        \"currency\": \"EUR\",\n        \"accountNumber\": \"<string>\",\n        \"intermediaryBic\": \"<string>\"\n      }\n    }\n  }\n]",
+                  "createdAt": "2026-10-22T01:07:26.000Z",
+                  "updatedAt": "2026-10-22T01:07:26.000Z",
+                  "uid": "35240-42c0cfce-7fb5-4376-8443-6de8141a18d1"
+                },
+                {
+                  "id": "407b052d-1d41-4cdf-a0ae-c10fe9ec5cc9",
+                  "name": "The request did not match the expected schema",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/share-classes",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "share-classes"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Refinement\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+                  "createdAt": "2026-10-22T01:07:26.000Z",
+                  "updatedAt": "2026-10-22T01:07:26.000Z",
+                  "uid": "35240-407b052d-1d41-4cdf-a0ae-c10fe9ec5cc9"
+                },
+                {
+                  "id": "1174067c-a230-4363-8dbf-d0581726045e",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/share-classes",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "share-classes"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"$id\": \"/schemas/void\",\n  \"title\": \"Unauthorized\"\n}",
+                  "createdAt": "2026-10-22T01:07:26.000Z",
+                  "updatedAt": "2026-10-22T01:07:26.000Z",
+                  "uid": "35240-1174067c-a230-4363-8dbf-d0581726045e"
+                },
+                {
+                  "id": "b12714b0-0497-4e31-96a8-5df0ef7e6a57",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/share-classes",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "share-classes"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"reason\": \"<string>\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"ShareClassNotAvailableForDistributor\"\n}",
+                  "createdAt": "2026-10-22T01:07:26.000Z",
+                  "updatedAt": "2026-10-22T01:07:26.000Z",
+                  "uid": "35240-b12714b0-0497-4e31-96a8-5df0ef7e6a57"
                 }
               ],
-              "body": "{}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d84666df-0770-49f1-94f5-d0a99811e581",
-              "name": "Forbidden",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "share-classes"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"reason\": \"string\",\n  \"_tag\": \"ForbiddenError\",\n  \"customErrorCode\": \"AccountDoesNotBelongToInvestor\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T01:07:26.000Z",
+              "updatedAt": "2026-10-22T01:07:26.000Z",
+              "uid": "35240-3d06b6e4-e978-454b-b3f2-2a7755255d33"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "7f9f6329-2659-4360-ad84-eb308bfd2987",
+          "createdAt": "2026-10-22T01:07:26.000Z",
+          "updatedAt": "2026-10-22T01:07:26.000Z",
+          "uid": "35240-7f9f6329-2659-4360-ad84-eb308bfd2987"
         }
       ],
-      "event": []
+      "id": "692c325f-b9c4-4de2-93b2-1e5b4b38b1d7",
+      "createdAt": "2026-10-22T01:07:26.000Z",
+      "updatedAt": "2026-10-22T01:07:26.000Z",
+      "uid": "35240-692c325f-b9c4-4de2-93b2-1e5b4b38b1d7"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://distributor-api.spiko.io",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://distributor-api.spiko.io"
     }
-  ],
-  "info": {
-    "_postman_id": "7475d62e-7ea7-4dd3-8cf6-0fd4a23a8abe",
-    "name": "Spiko Distributor Account transactions Distributors API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

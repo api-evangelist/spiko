@@ -1,843 +1,848 @@
 {
+  "info": {
+    "_postman_id": "98e4eed4-a15c-4053-a9d9-9903b78c2dc8",
+    "name": "Spiko Public Share Classes API",
+    "description": "The Public API provides access to public financial data about the Spiko Funds. You can retrieve detailed information about our Funds, their portfolio, their yield or their share classes.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:08:50.000Z",
+    "updatedAt": "2026-10-22T01:08:51.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-98e4eed4-a15c-4053-a9d9-9903b78c2dc8"
+  },
   "item": [
     {
-      "id": "7ffffb80-9d81-4997-9368-4cc46710d4dc",
-      "name": "Share Classes",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "share-classes",
       "item": [
         {
-          "id": "34f85958-425b-47d5-853e-6ea4df4ce014",
-          "name": "Get all Share Classes",
+          "name": "{shareClassSymbol}",
+          "item": [
+            {
+              "name": "yield",
+              "item": [
+                {
+                  "name": "Get share class yield",
+                  "id": "cbd44632-6b3b-483f-bbb2-8be07ed952a0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/share-classes/:shareClassSymbol/yield",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "share-classes",
+                        ":shareClassSymbol",
+                        "yield"
+                      ],
+                      "variable": [
+                        {
+                          "id": "5537625a-5b9a-4053-ba8c-34b5a2c9b5db",
+                          "key": "shareClassSymbol",
+                          "value": "SPKCC",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "8a6e8f1c-3660-4ca4-beb0-882627d7211b",
+                      "name": "Success",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/share-classes/:shareClassSymbol/yield",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "share-classes",
+                            ":shareClassSymbol",
+                            "yield"
+                          ],
+                          "variable": [
+                            {
+                              "key": "shareClassSymbol"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"shareClassId\": \"<uuid>\",\n  \"dailyYield\": \"<string>\",\n  \"weeklyYield\": \"<string>\",\n  \"monthlyYield\": \"<string>\",\n  \"updatedAt\": \"<string>\",\n  \"nextYieldTimestamp\": \"<string>\",\n  \"previousYieldTimestamp\": {\n    \"_tag\": \"None\"\n  }\n}",
+                      "createdAt": "2026-10-22T01:08:51.000Z",
+                      "updatedAt": "2026-10-22T01:08:51.000Z",
+                      "uid": "35240-8a6e8f1c-3660-4ca4-beb0-882627d7211b"
+                    },
+                    {
+                      "id": "830dcc24-3be7-4894-991d-3feec3747740",
+                      "name": "The request did not match the expected schema",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/share-classes/:shareClassSymbol/yield",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "share-classes",
+                            ":shareClassSymbol",
+                            "yield"
+                          ],
+                          "variable": [
+                            {
+                              "key": "shareClassSymbol"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Refinement\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+                      "createdAt": "2026-10-22T01:08:51.000Z",
+                      "updatedAt": "2026-10-22T01:08:51.000Z",
+                      "uid": "35240-830dcc24-3be7-4894-991d-3feec3747740"
+                    },
+                    {
+                      "id": "d971d0b5-fa38-4ee7-ac9e-c9137e511061",
+                      "name": "NotFound",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/share-classes/:shareClassSymbol/yield",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "share-classes",
+                            ":shareClassSymbol",
+                            "yield"
+                          ],
+                          "variable": [
+                            {
+                              "key": "shareClassSymbol"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:08:51.000Z",
+                      "updatedAt": "2026-10-22T01:08:51.000Z",
+                      "uid": "35240-d971d0b5-fa38-4ee7-ac9e-c9137e511061"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:08:51.000Z",
+                  "updatedAt": "2026-10-22T01:08:51.000Z",
+                  "uid": "35240-cbd44632-6b3b-483f-bbb2-8be07ed952a0"
+                }
+              ],
+              "id": "3ddb1902-390e-42fe-9c84-05d6bacdf443",
+              "createdAt": "2026-10-22T01:08:51.000Z",
+              "updatedAt": "2026-10-22T01:08:51.000Z",
+              "uid": "35240-3ddb1902-390e-42fe-9c84-05d6bacdf443"
+            },
+            {
+              "name": "totals",
+              "item": [
+                {
+                  "name": "from-day",
+                  "item": [
+                    {
+                      "name": "Get share class totals from day",
+                      "id": "cfb4646f-718b-4d28-80b7-317301977c8a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/share-classes/:shareClassSymbol/totals/from-day?startDay=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "share-classes",
+                            ":shareClassSymbol",
+                            "totals",
+                            "from-day"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) a day formatted as \"yyyy-MM-dd\"",
+                              "key": "startDay",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "93f61d18-8ceb-4fca-9c7e-b1d2f3997add",
+                              "key": "shareClassSymbol",
+                              "value": "SPKCC",
+                              "description": "(Required) "
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "3668e428-76a5-4192-8903-fefc09dea3db",
+                          "name": "Success",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/share-classes/:shareClassSymbol/totals/from-day?startDay=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "share-classes",
+                                ":shareClassSymbol",
+                                "totals",
+                                "from-day"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) a day formatted as \"yyyy-MM-dd\"",
+                                  "key": "startDay",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "shareClassSymbol"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"totalShares\": \"<string>\",\n    \"totalAssets\": {\n      \"value\": \"<string>\",\n      \"currency\": \"CHF\"\n    },\n    \"numberOfHolders\": \"<number>\",\n    \"netAssetValue\": {\n      \"id\": \"<uuid>\",\n      \"shareClassId\": \"<uuid>\",\n      \"day\": \"<string>\",\n      \"amount\": {\n        \"value\": \"<string>\",\n        \"currency\": \"EUR\"\n      },\n      \"updatedAt\": \"<string>\"\n    },\n    \"totalYield\": {\n      \"value\": \"<string>\",\n      \"currency\": \"GBP\"\n    },\n    \"totalOrders\": {\n      \"value\": \"<string>\",\n      \"currency\": \"USD\"\n    }\n  },\n  {\n    \"totalShares\": \"<string>\",\n    \"totalAssets\": {\n      \"value\": \"<string>\",\n      \"currency\": \"SGD\"\n    },\n    \"numberOfHolders\": \"<number>\",\n    \"netAssetValue\": {\n      \"id\": \"<uuid>\",\n      \"shareClassId\": \"<uuid>\",\n      \"day\": \"<string>\",\n      \"amount\": {\n        \"value\": \"<string>\",\n        \"currency\": \"CHF\"\n      },\n      \"updatedAt\": \"<string>\"\n    },\n    \"totalYield\": {\n      \"value\": \"<string>\",\n      \"currency\": \"EUR\"\n    },\n    \"totalOrders\": {\n      \"value\": \"<string>\",\n      \"currency\": \"EUR\"\n    }\n  }\n]",
+                          "createdAt": "2026-10-22T01:08:51.000Z",
+                          "updatedAt": "2026-10-22T01:08:51.000Z",
+                          "uid": "35240-3668e428-76a5-4192-8903-fefc09dea3db"
+                        },
+                        {
+                          "id": "574d44e9-b644-4778-81ef-f02bf5e39a4b",
+                          "name": "The request did not match the expected schema",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/share-classes/:shareClassSymbol/totals/from-day?startDay=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "share-classes",
+                                ":shareClassSymbol",
+                                "totals",
+                                "from-day"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) a day formatted as \"yyyy-MM-dd\"",
+                                  "key": "startDay",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "shareClassSymbol"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Refinement\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+                          "createdAt": "2026-10-22T01:08:51.000Z",
+                          "updatedAt": "2026-10-22T01:08:51.000Z",
+                          "uid": "35240-574d44e9-b644-4778-81ef-f02bf5e39a4b"
+                        },
+                        {
+                          "id": "05947519-6707-4bde-bce6-a91aa30cd670",
+                          "name": "NotFound",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/share-classes/:shareClassSymbol/totals/from-day?startDay=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "share-classes",
+                                ":shareClassSymbol",
+                                "totals",
+                                "from-day"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) a day formatted as \"yyyy-MM-dd\"",
+                                  "key": "startDay",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "shareClassSymbol"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:08:51.000Z",
+                          "updatedAt": "2026-10-22T01:08:51.000Z",
+                          "uid": "35240-05947519-6707-4bde-bce6-a91aa30cd670"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:08:51.000Z",
+                      "updatedAt": "2026-10-22T01:08:51.000Z",
+                      "uid": "35240-cfb4646f-718b-4d28-80b7-317301977c8a"
+                    }
+                  ],
+                  "id": "e8991771-5338-4584-9e18-9aedcb5d2820",
+                  "createdAt": "2026-10-22T01:08:51.000Z",
+                  "updatedAt": "2026-10-22T01:08:51.000Z",
+                  "uid": "35240-e8991771-5338-4584-9e18-9aedcb5d2820"
+                },
+                {
+                  "name": "Get share class totals",
+                  "id": "fc6e0932-2e72-4376-b19f-e23ff73d9d6f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/share-classes/:shareClassSymbol/totals",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "share-classes",
+                        ":shareClassSymbol",
+                        "totals"
+                      ],
+                      "variable": [
+                        {
+                          "id": "4dcad418-92f1-48a2-b5d4-6857d6bc6d05",
+                          "key": "shareClassSymbol",
+                          "value": "SPKCC",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "a3ad9d05-09af-4c53-8da3-5e1f2b972565",
+                      "name": "Success",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/share-classes/:shareClassSymbol/totals",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "share-classes",
+                            ":shareClassSymbol",
+                            "totals"
+                          ],
+                          "variable": [
+                            {
+                              "key": "shareClassSymbol"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"totalShares\": \"<string>\",\n  \"totalAssets\": {\n    \"value\": \"<string>\",\n    \"currency\": \"EUR\"\n  },\n  \"numberOfHolders\": \"<number>\",\n  \"netAssetValue\": {\n    \"id\": \"<uuid>\",\n    \"shareClassId\": \"<uuid>\",\n    \"day\": \"<string>\",\n    \"amount\": {\n      \"value\": \"<string>\",\n      \"currency\": \"SGD\"\n    },\n    \"updatedAt\": \"<string>\"\n  },\n  \"totalYield\": {\n    \"value\": \"<string>\",\n    \"currency\": \"USD\"\n  },\n  \"totalOrders\": {\n    \"value\": \"<string>\",\n    \"currency\": \"CHF\"\n  }\n}",
+                      "createdAt": "2026-10-22T01:08:51.000Z",
+                      "updatedAt": "2026-10-22T01:08:51.000Z",
+                      "uid": "35240-a3ad9d05-09af-4c53-8da3-5e1f2b972565"
+                    },
+                    {
+                      "id": "38c74621-80c5-41b1-9fb0-1d311a96298e",
+                      "name": "The request did not match the expected schema",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/share-classes/:shareClassSymbol/totals",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "share-classes",
+                            ":shareClassSymbol",
+                            "totals"
+                          ],
+                          "variable": [
+                            {
+                              "key": "shareClassSymbol"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Refinement\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+                      "createdAt": "2026-10-22T01:08:51.000Z",
+                      "updatedAt": "2026-10-22T01:08:51.000Z",
+                      "uid": "35240-38c74621-80c5-41b1-9fb0-1d311a96298e"
+                    },
+                    {
+                      "id": "3b2226bd-aa83-4ba5-b56e-2d41a7d3237e",
+                      "name": "NotFound",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/share-classes/:shareClassSymbol/totals",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "share-classes",
+                            ":shareClassSymbol",
+                            "totals"
+                          ],
+                          "variable": [
+                            {
+                              "key": "shareClassSymbol"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:08:51.000Z",
+                      "updatedAt": "2026-10-22T01:08:51.000Z",
+                      "uid": "35240-3b2226bd-aa83-4ba5-b56e-2d41a7d3237e"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:08:51.000Z",
+                  "updatedAt": "2026-10-22T01:08:51.000Z",
+                  "uid": "35240-fc6e0932-2e72-4376-b19f-e23ff73d9d6f"
+                }
+              ],
+              "id": "f95066fa-8aa7-487f-95b7-53c0a76ef9a8",
+              "createdAt": "2026-10-22T01:08:51.000Z",
+              "updatedAt": "2026-10-22T01:08:51.000Z",
+              "uid": "35240-f95066fa-8aa7-487f-95b7-53c0a76ef9a8"
+            },
+            {
+              "name": "Get share class",
+              "id": "c557c0ac-24b0-48a6-9d6f-94660fc2bcf1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/share-classes/:shareClassSymbol",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "share-classes",
+                    ":shareClassSymbol"
+                  ],
+                  "variable": [
+                    {
+                      "id": "dc3292eb-9c84-4a58-bd72-8cf678c5299e",
+                      "key": "shareClassSymbol",
+                      "value": "SPKCC",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "570092cc-5812-4b0a-94e4-892128aa0250",
+                  "name": "Success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/share-classes/:shareClassSymbol",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "share-classes",
+                        ":shareClassSymbol"
+                      ],
+                      "variable": [
+                        {
+                          "key": "shareClassSymbol"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<uuid>\",\n  \"fundId\": \"<uuid>\",\n  \"isin\": \"<string>\",\n  \"navDecimals\": \"<integer>\",\n  \"shareDecimals\": \"<integer>\",\n  \"currency\": \"JPY\",\n  \"tokens\": [\n    {\n      \"network\": \"Ethereum\",\n      \"address\": \"<string>\"\n    },\n    {\n      \"network\": \"EtherlinkTestnet\",\n      \"address\": \"<string>\"\n    }\n  ],\n  \"useOfIncome\": \"distributing\",\n  \"minimumInitialSubscription\": \"<string>\",\n  \"minimumSubsequentSubscription\": \"<string>\",\n  \"minimumRedemption\": \"<string>\",\n  \"subscriptionFees\": \"<string>\",\n  \"redemptionFees\": \"<string>\",\n  \"managementFees\": \"<string>\",\n  \"intermediaryShareClasses\": [\n    \"<array>\",\n    \"<array>\"\n  ],\n  \"data\": {\n    \"en\": {\n      \"name\": \"<string>\",\n      \"amfClassification\": \"<string>\",\n      \"referenceIndex\": \"<string>\"\n    },\n    \"es\": {\n      \"name\": \"<string>\",\n      \"amfClassification\": \"<string>\",\n      \"referenceIndex\": \"<string>\"\n    },\n    \"fr\": {\n      \"name\": \"<string>\",\n      \"amfClassification\": \"<string>\",\n      \"referenceIndex\": \"<string>\"\n    },\n    \"it\": {\n      \"name\": \"<string>\",\n      \"amfClassification\": \"<string>\",\n      \"referenceIndex\": \"<string>\"\n    },\n    \"de\": {\n      \"name\": \"<string>\",\n      \"amfClassification\": \"<string>\",\n      \"referenceIndex\": \"<string>\"\n    }\n  },\n  \"symbol\": \"eurUKTBL\"\n}",
+                  "createdAt": "2026-10-22T01:08:51.000Z",
+                  "updatedAt": "2026-10-22T01:08:51.000Z",
+                  "uid": "35240-570092cc-5812-4b0a-94e4-892128aa0250"
+                },
+                {
+                  "id": "f7a1f481-0e06-4f39-8845-dbe3e7c6c324",
+                  "name": "The request did not match the expected schema",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/share-classes/:shareClassSymbol",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "share-classes",
+                        ":shareClassSymbol"
+                      ],
+                      "variable": [
+                        {
+                          "key": "shareClassSymbol"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Refinement\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+                  "createdAt": "2026-10-22T01:08:51.000Z",
+                  "updatedAt": "2026-10-22T01:08:51.000Z",
+                  "uid": "35240-f7a1f481-0e06-4f39-8845-dbe3e7c6c324"
+                },
+                {
+                  "id": "e82c2466-bb01-40aa-9383-71531cf427c6",
+                  "name": "NotFound",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/share-classes/:shareClassSymbol",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "share-classes",
+                        ":shareClassSymbol"
+                      ],
+                      "variable": [
+                        {
+                          "key": "shareClassSymbol"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:08:51.000Z",
+                  "updatedAt": "2026-10-22T01:08:51.000Z",
+                  "uid": "35240-e82c2466-bb01-40aa-9383-71531cf427c6"
+                }
+              ],
+              "createdAt": "2026-10-22T01:08:51.000Z",
+              "updatedAt": "2026-10-22T01:08:51.000Z",
+              "uid": "35240-c557c0ac-24b0-48a6-9d6f-94660fc2bcf1"
+            }
+          ],
+          "id": "bd03996d-41cb-45aa-a62d-b38b035dfa65",
+          "createdAt": "2026-10-22T01:08:51.000Z",
+          "updatedAt": "2026-10-22T01:08:51.000Z",
+          "uid": "35240-bd03996d-41cb-45aa-a62d-b38b035dfa65"
+        },
+        {
+          "name": "Get all share classes",
+          "id": "ca522b47-e837-4111-9fcf-154ea7fa6aea",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Get all Share Classes",
-            "description": {},
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
+              "raw": "{{baseUrl}}/share-classes/",
+              "host": [
+                "{{baseUrl}}"
+              ],
               "path": [
                 "share-classes",
                 ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
+              ]
+            }
           },
           "response": [
             {
-              "id": "cf8dc129-e598-4968-8376-1a09e1e525e0",
+              "id": "818cd6c3-71c7-45e4-aa14-b365b1c369ed",
               "name": "Success",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/share-classes/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "share-classes",
                     ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "null",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "[\n  {\n    \"id\": \"<uuid>\",\n    \"fundId\": \"<uuid>\",\n    \"isin\": \"<string>\",\n    \"navDecimals\": \"<integer>\",\n    \"shareDecimals\": \"<integer>\",\n    \"currency\": \"GBP\",\n    \"tokens\": [\n      {\n        \"network\": \"ArbitrumSepolia\",\n        \"address\": \"<string>\"\n      },\n      {\n        \"network\": \"Polygon\",\n        \"address\": \"<string>\"\n      }\n    ],\n    \"useOfIncome\": \"distributing\",\n    \"minimumInitialSubscription\": \"<string>\",\n    \"minimumSubsequentSubscription\": \"<string>\",\n    \"minimumRedemption\": \"<string>\",\n    \"subscriptionFees\": \"<string>\",\n    \"redemptionFees\": \"<string>\",\n    \"managementFees\": \"<string>\",\n    \"intermediaryShareClasses\": [\n      \"<array>\",\n      \"<array>\"\n    ],\n    \"data\": {\n      \"en\": {\n        \"name\": \"<string>\",\n        \"amfClassification\": \"<string>\",\n        \"referenceIndex\": \"<string>\"\n      },\n      \"es\": {\n        \"name\": \"<string>\",\n        \"amfClassification\": \"<string>\",\n        \"referenceIndex\": \"<string>\"\n      },\n      \"fr\": {\n        \"name\": \"<string>\",\n        \"amfClassification\": \"<string>\",\n        \"referenceIndex\": \"<string>\"\n      },\n      \"it\": {\n        \"name\": \"<string>\",\n        \"amfClassification\": \"<string>\",\n        \"referenceIndex\": \"<string>\"\n      },\n      \"de\": {\n        \"name\": \"<string>\",\n        \"amfClassification\": \"<string>\",\n        \"referenceIndex\": \"<string>\"\n      }\n    },\n    \"symbol\": \"UKTBL\"\n  },\n  {\n    \"id\": \"<uuid>\",\n    \"fundId\": \"<uuid>\",\n    \"isin\": \"<string>\",\n    \"navDecimals\": \"<integer>\",\n    \"shareDecimals\": \"<integer>\",\n    \"currency\": \"CHF\",\n    \"tokens\": [\n      {\n        \"network\": \"Base\",\n        \"address\": \"<string>\"\n      },\n      {\n        \"network\": \"PolygonAmoy\",\n        \"address\": \"<string>\"\n      }\n    ],\n    \"useOfIncome\": \"accumulating\",\n    \"minimumInitialSubscription\": \"<string>\",\n    \"minimumSubsequentSubscription\": \"<string>\",\n    \"minimumRedemption\": \"<string>\",\n    \"subscriptionFees\": \"<string>\",\n    \"redemptionFees\": \"<string>\",\n    \"managementFees\": \"<string>\",\n    \"intermediaryShareClasses\": [\n      \"<array>\",\n      \"<array>\"\n    ],\n    \"data\": {\n      \"en\": {\n        \"name\": \"<string>\",\n        \"amfClassification\": \"<string>\",\n        \"referenceIndex\": \"<string>\"\n      },\n      \"es\": {\n        \"name\": \"<string>\",\n        \"amfClassification\": \"<string>\",\n        \"referenceIndex\": \"<string>\"\n      },\n      \"fr\": {\n        \"name\": \"<string>\",\n        \"amfClassification\": \"<string>\",\n        \"referenceIndex\": \"<string>\"\n      },\n      \"it\": {\n        \"name\": \"<string>\",\n        \"amfClassification\": \"<string>\",\n        \"referenceIndex\": \"<string>\"\n      },\n      \"de\": {\n        \"name\": \"<string>\",\n        \"amfClassification\": \"<string>\",\n        \"referenceIndex\": \"<string>\"\n      }\n    },\n    \"symbol\": \"USTBL\"\n  }\n]",
+              "createdAt": "2026-10-22T01:08:51.000Z",
+              "updatedAt": "2026-10-22T01:08:51.000Z",
+              "uid": "35240-818cd6c3-71c7-45e4-aa14-b365b1c369ed"
             },
             {
-              "id": "2737ef52-e214-4401-8bc7-5359fc69e005",
+              "id": "3b1cede0-34ac-4562-b884-b5ebcb49b9ea",
               "name": "The request did not match the expected schema",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/share-classes/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "share-classes",
                     ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Unexpected\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Refinement\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+              "createdAt": "2026-10-22T01:08:51.000Z",
+              "updatedAt": "2026-10-22T01:08:51.000Z",
+              "uid": "35240-3b1cede0-34ac-4562-b884-b5ebcb49b9ea"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "386e13af-54a9-4ed6-96d9-b9f5f431d0d2",
-          "name": "Get Share Class",
-          "request": {
-            "name": "Get Share Class",
-            "description": {},
-            "url": {
-              "path": [
-                "share-classes",
-                ":shareClassSymbol"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "shareClassSymbol",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "db9e297f-a0ee-442f-bd55-653d20a77229",
-              "name": "Success",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "share-classes",
-                    ":shareClassSymbol"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "shareClassSymbol",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "null",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0431d6ae-e0e3-49b3-aae6-4d75fa7950ae",
-              "name": "The request did not match the expected schema",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "share-classes",
-                    ":shareClassSymbol"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "shareClassSymbol",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Unexpected\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "2cab7779-33bf-4332-b72f-ce1a6837a7ca",
-              "name": "NotFound",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "share-classes",
-                    ":shareClassSymbol"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "shareClassSymbol",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "d061fe01-e858-4e91-84c9-5be3b290cacf",
-          "name": "Get Share Class Yield",
-          "request": {
-            "name": "Get Share Class Yield",
-            "description": {},
-            "url": {
-              "path": [
-                "share-classes",
-                ":shareClassSymbol",
-                "yield"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "shareClassSymbol",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "f23e4673-60f9-4fa1-b1e5-5b023ad1bab6",
-              "name": "Success",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "share-classes",
-                    ":shareClassSymbol",
-                    "yield"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "shareClassSymbol",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"shareClassId\": \"f3395a5b-830f-1276-4985-b9de9c82df75\",\n  \"dailyYield\": \"string\",\n  \"weeklyYield\": \"string\",\n  \"monthlyYield\": \"string\",\n  \"updatedAt\": \"string\",\n  \"nextYieldTimestamp\": \"string\",\n  \"previousYieldTimestamp\": {\n    \"_tag\": \"None\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "644797b4-b12c-42e6-a931-22ed4d1b690e",
-              "name": "The request did not match the expected schema",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "share-classes",
-                    ":shareClassSymbol",
-                    "yield"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "shareClassSymbol",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Unexpected\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "2417433c-3922-42fa-a530-d04dd84e9fb2",
-              "name": "NotFound",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "share-classes",
-                    ":shareClassSymbol",
-                    "yield"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "shareClassSymbol",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "6cfddde7-62fd-4501-a534-d4bb800877b4",
-          "name": "Get Share Class Totals",
-          "request": {
-            "name": "Get Share Class Totals",
-            "description": {},
-            "url": {
-              "path": [
-                "share-classes",
-                ":shareClassSymbol",
-                "totals"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "shareClassSymbol",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "ceafcb01-2089-4ad2-8455-f94af68d1ddc",
-              "name": "Success",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "share-classes",
-                    ":shareClassSymbol",
-                    "totals"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "shareClassSymbol",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"totalShares\": \"string\",\n  \"totalAssets\": {\n    \"value\": \"string\",\n    \"currency\": \"CHF\"\n  },\n  \"numberOfHolders\": 8083.059518493849,\n  \"netAssetValue\": {\n    \"id\": \"bf07ca37-29ae-45ee-791c-d761916cfa13\",\n    \"shareClassId\": \"3e323350-5673-f4b3-7a4a-6320e7cd5471\",\n    \"day\": \"string\",\n    \"amount\": {\n      \"value\": \"string\",\n      \"currency\": \"SGD\"\n    },\n    \"updatedAt\": \"string\"\n  },\n  \"totalYield\": {\n    \"value\": \"string\",\n    \"currency\": \"JPY\"\n  },\n  \"totalOrders\": {\n    \"value\": \"string\",\n    \"currency\": \"JPY\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "00b5f1b8-d2aa-4006-9238-cc6fa968ea02",
-              "name": "The request did not match the expected schema",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "share-classes",
-                    ":shareClassSymbol",
-                    "totals"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "shareClassSymbol",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Unexpected\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "2f096e8e-3d8f-4ba1-b1ea-d69d9856c8b1",
-              "name": "NotFound",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "share-classes",
-                    ":shareClassSymbol",
-                    "totals"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "shareClassSymbol",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "511510ac-eefd-46aa-9244-6aa2abe3f812",
-          "name": "Get Share Class Totals From Day",
-          "request": {
-            "name": "Get Share Class Totals From Day",
-            "description": {},
-            "url": {
-              "path": [
-                "share-classes",
-                ":shareClassSymbol",
-                "totals",
-                "from-day"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "startDay",
-                  "value": "<string>",
-                  "description": "(Required) a day formatted as \"yyyy-MM-dd\""
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "shareClassSymbol",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "97c6df95-a70b-4aef-b5b3-e7c331fa41cc",
-              "name": "Success",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "share-classes",
-                    ":shareClassSymbol",
-                    "totals",
-                    "from-day"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "startDay",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "shareClassSymbol",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"totalShares\": \"string\",\n    \"totalAssets\": {\n      \"value\": \"string\",\n      \"currency\": \"JPY\"\n    },\n    \"numberOfHolders\": 9218.94685250304,\n    \"netAssetValue\": {\n      \"id\": \"bbbb48c9-8da9-cdae-aafd-c6421d1c3e7a\",\n      \"shareClassId\": \"e288bc10-eb73-c5f8-05bd-34a4609f6822\",\n      \"day\": \"string\",\n      \"amount\": {\n        \"value\": \"string\",\n        \"currency\": \"USD\"\n      },\n      \"updatedAt\": \"string\"\n    },\n    \"totalYield\": {\n      \"value\": \"string\",\n      \"currency\": \"GBP\"\n    },\n    \"totalOrders\": {\n      \"value\": \"string\",\n      \"currency\": \"GBP\"\n    }\n  },\n  {\n    \"totalShares\": \"string\",\n    \"totalAssets\": {\n      \"value\": \"string\",\n      \"currency\": \"SGD\"\n    },\n    \"numberOfHolders\": 7877.608463702159,\n    \"netAssetValue\": {\n      \"id\": \"d87a1223-22cf-3729-5d5c-17096442b19d\",\n      \"shareClassId\": \"3866dc5d-98e4-8a6d-6c8a-6b5c494e42ad\",\n      \"day\": \"string\",\n      \"amount\": {\n        \"value\": \"string\",\n        \"currency\": \"EUR\"\n      },\n      \"updatedAt\": \"string\"\n    },\n    \"totalYield\": {\n      \"value\": \"string\",\n      \"currency\": \"GBP\"\n    },\n    \"totalOrders\": {\n      \"value\": \"string\",\n      \"currency\": \"CHF\"\n    }\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "122e7f98-86bd-4a14-a526-b30b15d4941b",
-              "name": "The request did not match the expected schema",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "share-classes",
-                    ":shareClassSymbol",
-                    "totals",
-                    "from-day"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "startDay",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "shareClassSymbol",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Unexpected\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a72873fa-4410-4bf0-9a0f-cfa88fd15e90",
-              "name": "NotFound",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "share-classes",
-                    ":shareClassSymbol",
-                    "totals",
-                    "from-day"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "startDay",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "shareClassSymbol",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:08:51.000Z",
+          "updatedAt": "2026-10-22T01:08:51.000Z",
+          "uid": "35240-ca522b47-e837-4111-9fcf-154ea7fa6aea"
         }
       ],
-      "event": []
+      "id": "e96434cd-e2ba-4073-a5ec-fa6b75ce742d",
+      "createdAt": "2026-10-22T01:08:51.000Z",
+      "updatedAt": "2026-10-22T01:08:51.000Z",
+      "uid": "35240-e96434cd-e2ba-4073-a5ec-fa6b75ce742d"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://distributor-api.spiko.io",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://public-api.spiko.io/v0"
     }
-  ],
-  "info": {
-    "_postman_id": "459fba27-bc67-4531-ae18-2f6a12f45a73",
-    "name": "Spiko Distributor Account transactions Share Classes API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

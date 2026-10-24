@@ -1,33 +1,327 @@
 {
+  "info": {
+    "_postman_id": "fffe2922-f5e6-4f01-948c-17b4cb670d51",
+    "name": "Spiko Investor Transfer Orders API",
+    "description": "The Investor API allows investors to manage their accounts, view their portfolios, and perform transactions such as subscriptions and redemptions.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:09:06.000Z",
+    "updatedAt": "2026-10-22T01:09:07.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-fffe2922-f5e6-4f01-948c-17b4cb670d51"
+  },
   "item": [
     {
-      "id": "ca04586a-a81f-4e9c-b5f3-3f351c63b68e",
-      "name": "Transfer Orders",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "transfer-orders",
       "item": [
         {
-          "id": "f4114447-7655-42e8-bb6c-47730024a4aa",
+          "name": "{transferOrderId}",
+          "item": [
+            {
+              "name": "Get transfer order",
+              "id": "6b878cd3-df39-499a-9a4e-2e1a91100fcb",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/transfer-orders/:transferOrderId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transfer-orders",
+                    ":transferOrderId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "2761f7bc-6d45-4cbb-bddc-cfe99d70689b",
+                      "key": "transferOrderId",
+                      "value": "<uuid>",
+                      "description": "(Required) a Universally Unique Identifier"
+                    }
+                  ]
+                },
+                "description": "Get info of a specific transfer order by its ID"
+              },
+              "response": [
+                {
+                  "id": "c3ce9d3d-6c95-4240-a9f2-ba7e8bcbe964",
+                  "name": "Success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transfer-orders/:transferOrderId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transfer-orders",
+                        ":transferOrderId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "transferOrderId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<uuid>\",\n  \"fromInvestorId\": \"<uuid>\",\n  \"fromAccountId\": \"<uuid>\",\n  \"toInvestorId\": \"<uuid>\",\n  \"toAccountId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"amount\": {\n    \"value\": \"<string>\",\n    \"currency\": \"GBP\"\n  },\n  \"sharesAmount\": \"<string>\",\n  \"status\": \"failed\",\n  \"createdAt\": \"<string>\",\n  \"executedAt\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:09:07.000Z",
+                  "updatedAt": "2026-10-22T01:09:07.000Z",
+                  "uid": "35240-c3ce9d3d-6c95-4240-a9f2-ba7e8bcbe964"
+                },
+                {
+                  "id": "22ed2932-de5e-415d-84bd-99007400e47d",
+                  "name": "The request did not match the expected schema",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transfer-orders/:transferOrderId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transfer-orders",
+                        ":transferOrderId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "transferOrderId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Missing\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+                  "createdAt": "2026-10-22T01:09:07.000Z",
+                  "updatedAt": "2026-10-22T01:09:07.000Z",
+                  "uid": "35240-22ed2932-de5e-415d-84bd-99007400e47d"
+                },
+                {
+                  "id": "1e225bff-6eab-4131-914a-a7e139af4f7d",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transfer-orders/:transferOrderId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transfer-orders",
+                        ":transferOrderId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "transferOrderId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"$id\": \"/schemas/void\",\n  \"title\": \"Unauthorized\"\n}",
+                  "createdAt": "2026-10-22T01:09:07.000Z",
+                  "updatedAt": "2026-10-22T01:09:07.000Z",
+                  "uid": "35240-1e225bff-6eab-4131-914a-a7e139af4f7d"
+                },
+                {
+                  "id": "42b1de46-454e-4f70-9314-fe5b84d7bd60",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transfer-orders/:transferOrderId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transfer-orders",
+                        ":transferOrderId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "transferOrderId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:09:07.000Z",
+                  "updatedAt": "2026-10-22T01:09:07.000Z",
+                  "uid": "35240-42b1de46-454e-4f70-9314-fe5b84d7bd60"
+                },
+                {
+                  "id": "3b02abd4-73e6-436c-bd03-5fd67d065ffd",
+                  "name": "NotFound",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transfer-orders/:transferOrderId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transfer-orders",
+                        ":transferOrderId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "transferOrderId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:09:07.000Z",
+                  "updatedAt": "2026-10-22T01:09:07.000Z",
+                  "uid": "35240-3b02abd4-73e6-436c-bd03-5fd67d065ffd"
+                }
+              ],
+              "createdAt": "2026-10-22T01:09:07.000Z",
+              "updatedAt": "2026-10-22T01:09:07.000Z",
+              "uid": "35240-6b878cd3-df39-499a-9a4e-2e1a91100fcb"
+            }
+          ],
+          "id": "fd202651-c70a-4712-9b36-3f56daedf4e4",
+          "createdAt": "2026-10-22T01:09:07.000Z",
+          "updatedAt": "2026-10-22T01:09:07.000Z",
+          "uid": "35240-fd202651-c70a-4712-9b36-3f56daedf4e4"
+        },
+        {
           "name": "Create a new transfer order",
+          "id": "e4a510aa-b6f7-43e9-b70a-75ee30821720",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Create a new transfer order",
-            "description": {
-              "content": "Create a transfer order between two accounts owned by the investor",
-              "type": "text/plain"
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}",
+                  "type": "string"
+                }
+              ]
             },
-            "url": {
-              "path": [
-                "transfer-orders",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -38,958 +332,626 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": {
-              "type": "basic",
-              "basic": [
-                {
-                  "key": "username",
-                  "value": "{{basicAuthUsername}}"
-                },
-                {
-                  "key": "password",
-                  "value": "{{basicAuthPassword}}"
-                }
-              ]
-            },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"fromAccountId\": \"<uuid>\",\n  \"toAccountId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"transferAmount\": {\n    \"type\": \"<string>\"\n  }\n}",
+              "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"fromAccountId\": \"<uuid>\",\n  \"toAccountId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"transferAmount\": {\n    \"type\": \"total\"\n  }\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/transfer-orders/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "transfer-orders",
+                ""
+              ]
+            },
+            "description": "Create a transfer order between two accounts owned by the investor"
           },
           "response": [
             {
-              "id": "e474ae4a-44a4-49b8-90cb-ae559eca3087",
+              "id": "56efd423-79a8-420b-821c-00064a55ad08",
               "name": "Success",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "transfer-orders",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"fromAccountId\": \"<uuid>\",\n  \"toAccountId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"transferAmount\": {\n    \"type\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"fromAccountId\": \"<uuid>\",\n  \"toAccountId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"transferAmount\": {\n    \"type\": \"total\"\n  }\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/transfer-orders/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transfer-orders",
+                    ""
+                  ]
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"235d4e56-cb66-493f-a3e3-16a612a56839\",\n  \"fromInvestorId\": \"13d61efd-63e3-240d-bc6f-9919ed70c12f\",\n  \"fromAccountId\": \"e98a58a2-bbf9-6ee9-5f16-16b28fe75184\",\n  \"toInvestorId\": \"00d9a247-199f-0afd-7f52-54af7a31cf5c\",\n  \"toAccountId\": \"856fc1c2-074a-1374-37c0-da006aae59e9\",\n  \"shareClassId\": \"ed3a3df3-0b87-4aea-fc6f-61d6b8d7cd3e\",\n  \"amount\": {\n    \"value\": \"string\",\n    \"currency\": \"JPY\"\n  },\n  \"sharesAmount\": \"string\",\n  \"status\": \"canceled\",\n  \"createdAt\": \"string\",\n  \"executedAt\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<uuid>\",\n  \"fromInvestorId\": \"<uuid>\",\n  \"fromAccountId\": \"<uuid>\",\n  \"toInvestorId\": \"<uuid>\",\n  \"toAccountId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"amount\": {\n    \"value\": \"<string>\",\n    \"currency\": \"GBP\"\n  },\n  \"sharesAmount\": \"<string>\",\n  \"status\": \"failed\",\n  \"createdAt\": \"<string>\",\n  \"executedAt\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:09:07.000Z",
+              "updatedAt": "2026-10-22T01:09:07.000Z",
+              "uid": "35240-56efd423-79a8-420b-821c-00064a55ad08"
             },
             {
-              "id": "a331f9f2-ed77-498d-bede-b70651da5fba",
+              "id": "99cc55d3-7624-4267-9861-b1ce8fdb0aa8",
               "name": "The request did not match the expected schema",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "transfer-orders",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"fromAccountId\": \"<uuid>\",\n  \"toAccountId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"transferAmount\": {\n    \"type\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"fromAccountId\": \"<uuid>\",\n  \"toAccountId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"transferAmount\": {\n    \"type\": \"total\"\n  }\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/transfer-orders/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transfer-orders",
+                    ""
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Refinement\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Pointer\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Missing\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+              "createdAt": "2026-10-22T01:09:07.000Z",
+              "updatedAt": "2026-10-22T01:09:07.000Z",
+              "uid": "35240-99cc55d3-7624-4267-9861-b1ce8fdb0aa8"
             },
             {
-              "id": "ea0845a9-e1b6-4dc2-b48e-9a3905d3e1ce",
+              "id": "8ab8b803-ba04-4bd8-95e8-d882464558ae",
               "name": "Unauthorized",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "transfer-orders",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"fromAccountId\": \"<uuid>\",\n  \"toAccountId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"transferAmount\": {\n    \"type\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"fromAccountId\": \"<uuid>\",\n  \"toAccountId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"transferAmount\": {\n    \"type\": \"total\"\n  }\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/transfer-orders/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transfer-orders",
+                    ""
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"$id\": \"/schemas/void\",\n  \"title\": \"Unauthorized\"\n}",
+              "createdAt": "2026-10-22T01:09:07.000Z",
+              "updatedAt": "2026-10-22T01:09:07.000Z",
+              "uid": "35240-8ab8b803-ba04-4bd8-95e8-d882464558ae"
             },
             {
-              "id": "53e586f3-fa03-4ac0-adb0-8a101df6ebb8",
+              "id": "359fde6f-a578-4e25-9895-41a495317030",
               "name": "Forbidden",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "transfer-orders",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
                     "key": "Authorization",
                     "value": "Basic <credentials>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"fromAccountId\": \"<uuid>\",\n  \"toAccountId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"transferAmount\": {\n    \"type\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"fromAccountId\": \"<uuid>\",\n  \"toAccountId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"transferAmount\": {\n    \"type\": \"total\"\n  }\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/transfer-orders/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transfer-orders",
+                    ""
+                  ]
                 }
               },
               "status": "Forbidden",
               "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:07.000Z",
+              "updatedAt": "2026-10-22T01:09:07.000Z",
+              "uid": "35240-359fde6f-a578-4e25-9895-41a495317030"
             },
             {
-              "id": "1e02c0f7-313e-48e1-bb14-f9e66cc493ca",
+              "id": "15683156-0cc6-4f7f-8b6b-bb78669cb323",
               "name": "Conflict",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "transfer-orders",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
                     "key": "Authorization",
                     "value": "Basic <credentials>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"fromAccountId\": \"<uuid>\",\n  \"toAccountId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"transferAmount\": {\n    \"type\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"investorId\": \"<uuid>\",\n  \"fromAccountId\": \"<uuid>\",\n  \"toAccountId\": \"<uuid>\",\n  \"shareClassId\": \"<uuid>\",\n  \"transferAmount\": {\n    \"type\": \"total\"\n  }\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/transfer-orders/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transfer-orders",
+                    ""
+                  ]
                 }
               },
               "status": "Conflict",
               "code": 409,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:07.000Z",
+              "updatedAt": "2026-10-22T01:09:07.000Z",
+              "uid": "35240-15683156-0cc6-4f7f-8b6b-bb78669cb323"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:09:07.000Z",
+          "updatedAt": "2026-10-22T01:09:07.000Z",
+          "uid": "35240-e4a510aa-b6f7-43e9-b70a-75ee30821720"
         },
         {
-          "id": "aa33aacd-b312-4424-9af4-ff0ab4627a46",
           "name": "Get list of an investor's transfer orders",
+          "id": "d2200f24-1049-4c23-86d3-7f3e819e679a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Get list of an investor's transfer orders",
-            "description": {
-              "content": "\nGet all transfer orders for a given investor with optional status filter.\n\n> ⚠️ **For displaying an account's activity, prefer the [account transaction history endpoint](#tag/Account-Transactions/operation/accountTransactions.getAccountTransactions).** It returns deposits, withdrawals, transfers and yield accruals as a single time-ordered stream, with cursor pagination, so you don't need to call multiple per-order-type endpoints and reconcile their results.\n",
-              "type": "text/plain"
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}",
+                  "type": "string"
+                }
+              ]
             },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
+              "raw": "{{baseUrl}}/transfer-orders/?investorId=<uuid>&status=executed&status=failed",
+              "host": [
+                "{{baseUrl}}"
+              ],
               "path": [
                 "transfer-orders",
                 ""
               ],
-              "host": [
-                "{{baseUrl}}"
-              ],
               "query": [
                 {
-                  "disabled": false,
+                  "description": "(Required) a Universally Unique Identifier",
                   "key": "investorId",
-                  "value": "<uuid>",
-                  "description": "(Required) a Universally Unique Identifier"
+                  "value": "<uuid>"
                 },
                 {
-                  "disabled": false,
                   "key": "status",
-                  "value": "<string>"
+                  "value": "executed"
                 },
                 {
-                  "disabled": false,
                   "key": "status",
-                  "value": "<string>"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "basic",
-              "basic": [
-                {
-                  "key": "username",
-                  "value": "{{basicAuthUsername}}"
-                },
-                {
-                  "key": "password",
-                  "value": "{{basicAuthPassword}}"
+                  "value": "failed"
                 }
               ]
-            }
+            },
+            "description": "Get all transfer orders for a given investor with optional status filter.\n\n> \u26a0\ufe0f **For displaying an account's activity, prefer the account transaction history endpoint.** It returns deposits, withdrawals, transfers and yield accruals as a single time-ordered stream, with cursor pagination, so you don't need to call multiple per-order-type endpoints and reconcile their results."
           },
           "response": [
             {
-              "id": "095c1ca9-bb5d-4dd8-a08f-fbed5b1bc525",
+              "id": "b928dea1-f37b-4713-a756-c2d98597c79c",
               "name": "Success",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/transfer-orders/?investorId=<uuid>&status=failed",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "transfer-orders",
                     ""
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "(Required) a Universally Unique Identifier",
                       "key": "investorId",
                       "value": "<uuid>"
                     },
                     {
                       "key": "status",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "status",
-                      "value": "<string>"
+                      "value": "failed"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "[\n  {\n    \"id\": \"01f00584-b4b9-0ec3-7337-c2cf4550a881\",\n    \"fromInvestorId\": \"7949c984-d389-7bda-11c3-445bf2a033d4\",\n    \"fromAccountId\": \"ab67c66f-5f6b-b9e5-7a58-cba4500b7c41\",\n    \"toInvestorId\": \"7956091a-1609-754e-059b-f8a0f905ea01\",\n    \"toAccountId\": \"220cb601-3caa-d017-9bac-6dc8b740ba58\",\n    \"shareClassId\": \"117f66b3-bd26-de9c-6282-03999dc21ba5\",\n    \"amount\": {\n      \"value\": \"string\",\n      \"currency\": \"CHF\"\n    },\n    \"sharesAmount\": \"string\",\n    \"status\": \"failed\",\n    \"createdAt\": \"string\",\n    \"executedAt\": \"string\"\n  },\n  {\n    \"id\": \"08011eb2-2bb0-4228-11e0-85cfab270495\",\n    \"fromInvestorId\": \"50238cb4-1b13-5c53-722e-be69e05e3a59\",\n    \"fromAccountId\": \"0f9c76e7-9afe-98af-ae83-06dd0b7672a0\",\n    \"toInvestorId\": \"d1092692-2e5d-ecd8-93d2-cef5a2ef1225\",\n    \"toAccountId\": \"c52a68ff-9880-cf73-03a0-ccf5b470937f\",\n    \"shareClassId\": \"5e43e1d0-a52c-da7e-f1b6-2e608efb35cd\",\n    \"amount\": {\n      \"value\": \"string\",\n      \"currency\": \"USD\"\n    },\n    \"sharesAmount\": \"string\",\n    \"status\": \"executed\",\n    \"createdAt\": \"string\",\n    \"executedAt\": \"string\"\n  }\n]",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "[\n  {\n    \"id\": \"<uuid>\",\n    \"fromInvestorId\": \"<uuid>\",\n    \"fromAccountId\": \"<uuid>\",\n    \"toInvestorId\": \"<uuid>\",\n    \"toAccountId\": \"<uuid>\",\n    \"shareClassId\": \"<uuid>\",\n    \"amount\": {\n      \"value\": \"<string>\",\n      \"currency\": \"SGD\"\n    },\n    \"sharesAmount\": \"<string>\",\n    \"status\": \"failed\",\n    \"createdAt\": \"<string>\",\n    \"executedAt\": \"<string>\"\n  },\n  {\n    \"id\": \"<uuid>\",\n    \"fromInvestorId\": \"<uuid>\",\n    \"fromAccountId\": \"<uuid>\",\n    \"toInvestorId\": \"<uuid>\",\n    \"toAccountId\": \"<uuid>\",\n    \"shareClassId\": \"<uuid>\",\n    \"amount\": {\n      \"value\": \"<string>\",\n      \"currency\": \"EUR\"\n    },\n    \"sharesAmount\": \"<string>\",\n    \"status\": \"executed\",\n    \"createdAt\": \"<string>\",\n    \"executedAt\": \"<string>\"\n  }\n]",
+              "createdAt": "2026-10-22T01:09:07.000Z",
+              "updatedAt": "2026-10-22T01:09:07.000Z",
+              "uid": "35240-b928dea1-f37b-4713-a756-c2d98597c79c"
             },
             {
-              "id": "a73a33ac-1794-4c35-9e13-b21eb6e63456",
+              "id": "d050047a-947c-4470-b87f-a66205adb95c",
               "name": "The request did not match the expected schema",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/transfer-orders/?investorId=<uuid>&status=failed",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "transfer-orders",
                     ""
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "(Required) a Universally Unique Identifier",
                       "key": "investorId",
                       "value": "<uuid>"
                     },
                     {
                       "key": "status",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "status",
-                      "value": "<string>"
+                      "value": "failed"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Refinement\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Pointer\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Type\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    },\n    {\n      \"_tag\": \"Missing\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"message\": \"<string>\"\n    }\n  ],\n  \"message\": \"<string>\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
+              "createdAt": "2026-10-22T01:09:07.000Z",
+              "updatedAt": "2026-10-22T01:09:07.000Z",
+              "uid": "35240-d050047a-947c-4470-b87f-a66205adb95c"
             },
             {
-              "id": "0dc50b85-1baf-4315-8ece-d41220a66f08",
+              "id": "e5e65034-49ff-44b3-bd5c-89fd46346f2b",
               "name": "Unauthorized",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/transfer-orders/?investorId=<uuid>&status=failed",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "transfer-orders",
                     ""
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "(Required) a Universally Unique Identifier",
                       "key": "investorId",
                       "value": "<uuid>"
                     },
                     {
                       "key": "status",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "status",
-                      "value": "<string>"
+                      "value": "failed"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"$id\": \"/schemas/void\",\n  \"title\": \"Unauthorized\"\n}",
+              "createdAt": "2026-10-22T01:09:07.000Z",
+              "updatedAt": "2026-10-22T01:09:07.000Z",
+              "uid": "35240-e5e65034-49ff-44b3-bd5c-89fd46346f2b"
             },
             {
-              "id": "57212ee2-1b52-44d8-bef6-27ac7168431c",
+              "id": "6f4d1532-f528-4722-8f0d-116aa89d53c2",
               "name": "Forbidden",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/transfer-orders/?investorId=<uuid>&status=failed",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "transfer-orders",
                     ""
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "(Required) a Universally Unique Identifier",
                       "key": "investorId",
                       "value": "<uuid>"
                     },
                     {
                       "key": "status",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "status",
-                      "value": "<string>"
+                      "value": "failed"
                     }
-                  ],
-                  "variable": []
-                },
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:07.000Z",
+              "updatedAt": "2026-10-22T01:09:07.000Z",
+              "uid": "35240-6f4d1532-f528-4722-8f0d-116aa89d53c2"
+            },
+            {
+              "id": "6b063952-55b6-450c-877c-165e2dcfbc2f",
+              "name": "NotFound",
+              "originalRequest": {
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: basic",
                     "key": "Authorization",
                     "value": "Basic <credentials>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "d4935680-fd40-4319-829a-f2f1661f65bc",
-              "name": "NotFound",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/transfer-orders/?investorId=<uuid>&status=failed",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "transfer-orders",
                     ""
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "(Required) a Universally Unique Identifier",
                       "key": "investorId",
                       "value": "<uuid>"
                     },
                     {
                       "key": "status",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "status",
-                      "value": "<string>"
+                      "value": "failed"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "Not Found",
               "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:07.000Z",
+              "updatedAt": "2026-10-22T01:09:07.000Z",
+              "uid": "35240-6b063952-55b6-450c-877c-165e2dcfbc2f"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "9c312420-ca39-4811-bd1e-c211a00de456",
-          "name": "Get transfer order",
-          "request": {
-            "name": "Get transfer order",
-            "description": {
-              "content": "Get info of a specific transfer order by its ID",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "transfer-orders",
-                ":transferOrderId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "transferOrderId",
-                  "description": "(Required) a Universally Unique Identifier"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "basic",
-              "basic": [
-                {
-                  "key": "username",
-                  "value": "{{basicAuthUsername}}"
-                },
-                {
-                  "key": "password",
-                  "value": "{{basicAuthPassword}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "3df6154e-a13d-4938-b734-3cad6a54ce15",
-              "name": "Success",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "transfer-orders",
-                    ":transferOrderId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "transferOrderId",
-                      "description": "(Required) a Universally Unique Identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"235d4e56-cb66-493f-a3e3-16a612a56839\",\n  \"fromInvestorId\": \"13d61efd-63e3-240d-bc6f-9919ed70c12f\",\n  \"fromAccountId\": \"e98a58a2-bbf9-6ee9-5f16-16b28fe75184\",\n  \"toInvestorId\": \"00d9a247-199f-0afd-7f52-54af7a31cf5c\",\n  \"toAccountId\": \"856fc1c2-074a-1374-37c0-da006aae59e9\",\n  \"shareClassId\": \"ed3a3df3-0b87-4aea-fc6f-61d6b8d7cd3e\",\n  \"amount\": {\n    \"value\": \"string\",\n    \"currency\": \"JPY\"\n  },\n  \"sharesAmount\": \"string\",\n  \"status\": \"canceled\",\n  \"createdAt\": \"string\",\n  \"executedAt\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "96949e98-6f16-478c-9cd2-ab0c43c48d61",
-              "name": "The request did not match the expected schema",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "transfer-orders",
-                    ":transferOrderId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "transferOrderId",
-                      "description": "(Required) a Universally Unique Identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"issues\": [\n    {\n      \"_tag\": \"Refinement\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    },\n    {\n      \"_tag\": \"Pointer\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\"\n    }\n  ],\n  \"message\": \"string\",\n  \"_tag\": \"HttpApiDecodeError\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "f470db8b-7882-4c0f-a945-8d03e081f42e",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "transfer-orders",
-                    ":transferOrderId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "transferOrderId",
-                      "description": "(Required) a Universally Unique Identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3a97477f-70c4-4697-890e-cc939a9172ba",
-              "name": "Forbidden",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "transfer-orders",
-                    ":transferOrderId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "transferOrderId",
-                      "description": "(Required) a Universally Unique Identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "10b6a275-1c42-4790-83ca-4b44f7a576c1",
-              "name": "NotFound",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "transfer-orders",
-                    ":transferOrderId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "transferOrderId",
-                      "description": "(Required) a Universally Unique Identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:09:07.000Z",
+          "updatedAt": "2026-10-22T01:09:07.000Z",
+          "uid": "35240-d2200f24-1049-4c23-86d3-7f3e819e679a"
         }
       ],
-      "event": []
+      "id": "3879e901-20ef-45c1-90e6-cc4cf1622885",
+      "createdAt": "2026-10-22T01:09:07.000Z",
+      "updatedAt": "2026-10-22T01:09:07.000Z",
+      "uid": "35240-3879e901-20ef-45c1-90e6-cc4cf1622885"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://distributor-api.spiko.io",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://investor-api.spiko.io/v1"
     }
-  ],
-  "info": {
-    "_postman_id": "834f8cd1-e2e4-433b-9873-87bd1386fa20",
-    "name": "Spiko Distributor Account transactions Transfer Orders API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Distributor API allows third parties like SaaS providers, fintechs or Web3 companies to distribute the Spiko Funds to their customers. With this API, you can programmatically manage investors, send subscription and redemption orders, and access real-time portfolio information.",
-      "type": "text/plain"
-    }
-  }
+  ]
 }
